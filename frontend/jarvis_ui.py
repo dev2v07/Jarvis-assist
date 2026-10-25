@@ -226,6 +226,7 @@ class JarvisUI(QWidget):
             # static | hover | pressed. Do not render the complete sprite.
             frame_width = sprite.width() // 3
             static_frame = sprite.copy(0, 0, frame_width, sprite.height())
+            hover_frame = sprite.copy(frame_width, 0, frame_width, sprite.height())
             pressed_frame = sprite.copy(frame_width * 2, 0, frame_width, sprite.height())
 
             button = QToolButton(parent)
@@ -235,12 +236,11 @@ class JarvisUI(QWidget):
             # states (hover/pressed) supplied by the button widget.
             icon = QIcon()
             icon.addPixmap(static_frame, QIcon.Normal, QIcon.Off)
-            # Hover is intentionally visually neutral: no highlighted tile.
-            icon.addPixmap(static_frame, QIcon.Active, QIcon.Off)
+            icon.addPixmap(hover_frame, QIcon.Active, QIcon.Off)
             icon.addPixmap(pressed_frame, QIcon.Selected, QIcon.Off)
             button.setIcon(icon)
             button.setIconSize(static_frame.size())
-            button.setToolTip("")
+            button.setToolTip(name)
             button.setCursor(Qt.PointingHandCursor)
             button.clicked.connect(lambda checked=False, key=name: self.handle_tech_action(key))
             button.show()
@@ -899,8 +899,8 @@ padding:0;
 }
 
 #techTool:hover{
-background:transparent;
-border:none;
+background:rgba(0,200,255,18);
+border:1px solid rgba(0,220,255,90);
 }
 
 QPushButton{

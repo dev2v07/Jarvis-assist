@@ -566,3 +566,29 @@ Git:
 - backend and frontend are running after the previous queue;
 - the active `Jarvis Assist` window is left open for visual confirmation.
 
+## Очередь 0015 — rollback neutral TECH-A hover
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0015-rollback-neutral-hover/`
+
+Изменения:
+
+- отменена очередь 0013 по запросу пользователя;
+- возвращён hover-кадр sprite sheet;
+- возвращены hover-рамка и tooltip с названием кнопки;
+- разбиение PNG на static/hover/pressed кадры сохранено.
+
+Проверка:
+
+- `py_compile` для UI и HUD: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит восстановленное hover-состояние.
+
+Откат:
+
+- восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0015-rollback-neutral-hover/`.
+
