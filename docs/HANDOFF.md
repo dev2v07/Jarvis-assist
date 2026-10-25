@@ -647,3 +647,30 @@ Git:
 
 - восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0017-hover-animation-no-overlay/`.
 
+## Очередь 0018 — explicit TECH-A button animation
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0018-explicit-button-animation/`
+
+Изменения:
+
+- переключение sprite-состояний переведено с автоматического `QIcon.Active` на явные события Qt;
+- `enterEvent` показывает hover-кадр;
+- `mousePressEvent` показывает pressed-кадр;
+- `leaveEvent` возвращает static-кадр;
+- прозрачный hover-background и border не изменялись.
+
+Проверка:
+
+- `py_compile` для UI и HUD: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь проверит, что hover-анимация снова работает без прозрачного окна.
+
+Откат:
+
+- восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0018-explicit-button-animation/`.
+

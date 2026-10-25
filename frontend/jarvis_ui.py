@@ -140,6 +140,37 @@ class ChatItemWidget(QWidget):
         layout.addWidget(self.menu_btn)
 
 
+# ---------------- TECH-A BUTTON ----------------
+
+class TechActionButton(QToolButton):
+    """Rainmeter-like three-state sprite button without a Qt hover overlay."""
+
+    def __init__(self, static_frame, hover_frame, pressed_frame, parent=None):
+        super().__init__(parent)
+        self.static_frame = static_frame
+        self.hover_frame = hover_frame
+        self.pressed_frame = pressed_frame
+        self.setIcon(QIcon(self.static_frame))
+        self.setIconSize(self.static_frame.size())
+        self.setMouseTracking(True)
+
+    def enterEvent(self, event):
+        self.setIcon(QIcon(self.hover_frame))
+        super().enterEvent(event)
+
+    def leaveEvent(self, event):
+        self.setIcon(QIcon(self.static_frame))
+        super().leaveEvent(event)
+
+    def mousePressEvent(self, event):
+        self.setIcon(QIcon(self.pressed_frame))
+        super().mousePressEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        super().mouseReleaseEvent(event)
+        self.setIcon(QIcon(self.hover_frame if self.underMouse() else self.static_frame))
+
+
 # ---------------- MAIN UI ----------------
 
 class JarvisUI(QWidget):
@@ -229,18 +260,9 @@ class JarvisUI(QWidget):
             hover_frame = sprite.copy(frame_width, 0, frame_width, sprite.height())
             pressed_frame = sprite.copy(frame_width * 2, 0, frame_width, sprite.height())
 
-            button = QToolButton(parent)
+            button = TechActionButton(static_frame, hover_frame, pressed_frame, parent)
             button.setObjectName("techTool")
             button.setGeometry(x, y, frame_width, sprite.height())
-            # Match Rainmeter's Meter=BUTTON: one image plus Qt interaction
-            # states (hover/pressed) supplied by the button widget.
-            icon = QIcon()
-            icon.addPixmap(static_frame, QIcon.Normal, QIcon.Off)
-            # Keep the original hover animation, without a Qt overlay frame.
-            icon.addPixmap(hover_frame, QIcon.Active, QIcon.Off)
-            icon.addPixmap(pressed_frame, QIcon.Selected, QIcon.Off)
-            button.setIcon(icon)
-            button.setIconSize(static_frame.size())
             button.setToolTip(name)
             button.setCursor(Qt.PointingHandCursor)
             button.clicked.connect(lambda checked=False, key=name: self.handle_tech_action(key))
