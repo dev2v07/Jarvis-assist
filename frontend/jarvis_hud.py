@@ -84,7 +84,9 @@ class JarvisHUD(QWidget):
 
         # реальные данные
         self.cpu = self.ram = self.gpu = self.disk = 0
-        self.temp = self.net = 0
+        self.temp = 0
+        self.net = 0.0
+        self.net_display = "0K"
         self.ram_total_gb = 0.0
         self._net_previous = psutil.net_io_counters()
         self._net_previous_at = time.monotonic()
@@ -139,7 +141,12 @@ class JarvisHUD(QWidget):
         )
         # NET is displayed as combined throughput in Mbps, capped at 100
         # so it remains compatible with the gauge's percentage arc.
-        self.net = int(max(0.0, min(100.0, transferred * 8 / elapsed / 1_000_000)))
+        net_mbps = max(0.0, transferred * 8 / elapsed / 1_000_000)
+        self.net = min(100.0, net_mbps)
+        self.net_display = (
+            f"{net_mbps * 1000:.0f}K" if net_mbps < 1.0
+            else f"{net_mbps:.1f}"
+        )
         self._net_previous = counters
         self._net_previous_at = now
 
@@ -255,12 +262,13 @@ class JarvisHUD(QWidget):
         temp_x, temp_y = 365, 53
         net_x, net_y = 365, 656
 
-        self.draw_gauge(painter, temp_x, temp_y, self.temp_anim, "TEMP")
+        temp_text = str(round(self.temp_anim)) if self.temp > 0 else "--"
+        self.draw_gauge(painter, temp_x, temp_y, self.temp_anim, "TEMP", temp_text)
         self.draw_gauge(painter, cpu_x, cpu_y, self.cpu_anim, "CPU")
         self.draw_gauge(painter, ram_x, ram_y, self.ram_anim, "RAM")
         self.draw_gauge(painter, gpu_x, gpu_y, self.gpu_anim, "GPU")
         self.draw_gauge(painter, disk_x, disk_y, self.disk_anim, "DISK")
-        self.draw_gauge(painter, net_x, net_y, self.net_anim, "NET")
+        self.draw_gauge(painter, net_x, net_y, self.net_anim, "NET", self.net_display)
         self.draw_ram_panel(painter)
 
     def draw_rotating_pixmap(self, painter, pixmap, angle, cx, cy):
@@ -286,7 +294,7 @@ class JarvisHUD(QWidget):
         painter.drawPixmap(-pixmap.width() // 2, -pixmap.height() // 2, pixmap)
         painter.restore()
 
-    def draw_gauge(self, painter, x, y, value, label):
+    def draw_gauge(self, painter, x, y, value, label, display_text=None):
 
         painter.save()
 
@@ -319,7 +327,7 @@ class JarvisHUD(QWidget):
         # процент
         painter.setPen(Qt.white)
         painter.setFont(self.font_big)
-        painter.drawText(rect, Qt.AlignCenter, f"{int(value)}")
+        painter.drawText(rect, Qt.AlignCenter, display_text or f"{int(value)}")
 
         painter.restore()
 
