@@ -9,6 +9,7 @@ from PySide6.QtGui import (
     QPen, QColor
 )
 from PySide6.QtCore import QTimer, Qt, QRectF
+from tech_a_animation import TechAAnimation
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -51,24 +52,16 @@ class JarvisHUD(QWidget):
         self.bg5 = QPixmap(os.path.join(ASSETS, "BG5.png"))
         self.bg6 = QPixmap(os.path.join(ASSETS, "BG6.png"))
 
-        self.tech_action_pixmaps = {
-            name: QPixmap(os.path.join(ASSETS, f"{name}.png"))
-            for name in TECH_ACTION_BUTTONS
-        }
-
-        self.rot1 = QPixmap(os.path.join(ROTATOR, "1x.png"))
-        self.rot2 = QPixmap(os.path.join(ROTATOR, "2x.png"))
-        self.rot3 = QPixmap(os.path.join(ROTATOR, "1xx.png"))
+        # Rainmeter keeps these in a separate rotator config.
+        self.rotator_1 = QPixmap(os.path.join(ROTATOR, "1xx.png"))
+        self.rotator_2 = QPixmap(os.path.join(ROTATOR, "2x.png"))
+        self.rotator_3 = QPixmap(os.path.join(ROTATOR, "3x.png"))
 
         self.scale = self.HUD_SIZE / self.bg6.width()
         self.setFixedSize(self.HUD_SIZE, self.HUD_SIZE)
 
-        # вращение колец
-        self.a2 = self.a3 = self.a4 = self.a5 = self.a6 = 0
-        self.r1 = self.r2 = self.r3 = 0
-
-        # вращение заднего круга
-        self.group_angle = 0
+        # Optional motion is isolated from static BG1-BG6 composition.
+        self.animation = TechAAnimation()
         self.group_scale = 0.65
 
         # реальные данные
@@ -109,19 +102,8 @@ class JarvisHUD(QWidget):
 
     def animate(self):
 
-        # вращение HUD
-        self.a6 -= 0.05
-        self.a5 += 0.03
-        self.a4 -= 0.04
-        self.a3 += 0.06
-        self.a2 -= 0.08
-
-        self.r3 += 0.20
-        self.r2 -= 0.12
-        self.r1 += 0.16
-
-        # вращение заднего круга
-        self.group_angle += 0.01
+        # BG1-BG6 remain static; this advances only the optional animation.
+        self.animation.step()
 
         # Показатели движутся по той же орбитальной оси, что и кольца TECH-A.
         # Значение a2 уже является частью существующей рабочей анимации.
@@ -155,7 +137,7 @@ class JarvisHUD(QWidget):
         self.draw(
         painter,
         self.group,
-        self.group_angle,
+        self.animation.group_angle,
         cx,
         cy,
         self.scale * self.group_scale
@@ -164,31 +146,23 @@ class JarvisHUD(QWidget):
 
         # ---------- HUD слои ----------
 
-        self.draw(painter, self.bg6, self.a6, cx, cy)
-        self.draw(painter, self.bg5, self.a5, cx, cy)
-        self.draw(painter, self.bg4, self.a4, cx, cy)
+        # Original TECH-A order: six static 710x710 image meters.
+        for pixmap in (self.bg1, self.bg2, self.bg3, self.bg4, self.bg5, self.bg6):
+            self.draw(painter, pixmap, 0, cx, cy)
 
-        self.draw(painter, self.rot3, self.r3, cx, cy)
-
-        # BG3 is a static TECH-A background layer in the original skin.
-        # Keep the image fixed; only the dedicated ring/rotator layers move.
-        self.draw(painter, self.bg3, 0, cx, cy)
-
-        self.draw(painter, self.rot2, self.r2, cx, cy)
-
-        self.draw(painter, self.bg2, self.a2, cx, cy)
-
-        self.draw(painter, self.rot1, self.r1, cx, cy)
-
-        # Static TECH-A button artwork is painted exactly once here.
-        # UI-side controls are transparent hit areas only.
-        for name, (x, y) in TECH_ACTION_BUTTONS.items():
-            pixmap = self.tech_action_pixmaps[name]
-            if not pixmap.isNull():
-                painter.drawPixmap(x, y, pixmap)
+        # Separate rotator config: 1xx.png, 2x.png and 3x.png.
+        self.draw_rotator(painter, self.rotator_1, self.animation.rotator_1, cx, cy)
+        self.draw_rotator(painter, self.rotator_2, self.animation.rotator_2, cx, cy)
+        self.draw_rotator_at(
+            painter,
+            self.rotator_3,
+            self.animation.rotator_3,
+            cx - self.ROTATOR_SIZE / 2 + 201,
+            cy - self.ROTATOR_SIZE / 2 + 151,
+        )
 
         # индикаторы (НЕ вращаются)
-        orbit = self.a2
+        orbit = self.animation.orbit_angle
         cpu_x, cpu_y = self.ring_pos(cx, cy, -90 + orbit)
         ram_x, ram_y = self.ring_pos(cx, cy, 0 + orbit)
         gpu_x, gpu_y = self.ring_pos(cx, cy, 90 + orbit)
@@ -228,6 +202,20 @@ class JarvisHUD(QWidget):
      )
 
      painter.restore()
+
+    def draw_rotator(self, painter, pixmap, angle, cx, cy):
+        if pixmap.isNull():
+            return
+        self.draw_rotator_at(painter, pixmap, angle, cx - pixmap.width() / 2, cy - pixmap.height() / 2)
+
+    def draw_rotator_at(self, painter, pixmap, angle, x, y):
+        if pixmap.isNull():
+            return
+        painter.save()
+        painter.translate(x + pixmap.width() / 2, y + pixmap.height() / 2)
+        painter.rotate(angle)
+        painter.drawPixmap(-pixmap.width() / 2, -pixmap.height() / 2, pixmap)
+        painter.restore()
 
     def draw_gauge(self, painter, x, y, value, label):
 

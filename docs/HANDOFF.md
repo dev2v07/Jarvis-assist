@@ -429,3 +429,43 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py`, `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0010-deduplicate-tech-buttons/`.
 
+## Очередь 0011 — static BG1-BG6 with detachable TECH-A animation
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0011-static-tech-a-bg-layers/`
+
+Сверка с оригиналом:
+
+- базовый `TECH-A 6 CPU.ini` имеет `Update=1000` и рисует `BG1.png`–`BG6.png` как шесть статичных 710x710 image meters в порядке `BG1 → BG6`;
+- отдельный `rotator/rotator.ini` имеет `Update=50` и содержит только `1xx.png`, `2x.png`, `3x.png`;
+- кнопки в оригинале — отдельные `Meter=BUTTON` с одним `ButtonImage` и событиями Rainmeter.
+
+Изменения:
+
+- `BG1–BG6` теперь рисуются один раз, статично и в оригинальном порядке;
+- ротаторные PNG вынесены в отдельный подключаемый модуль `frontend/tech_a_animation.py`;
+- текущая анимация сохраняется в этом модуле и может быть отключена/возвращена без изменения статичной композиции;
+- восстановлены отдельные PNG-кнопки как интерактивные Qt-кнопки, без дополнительной отрисовки в HUD;
+- используются оригинальные rotator-ресурсы `1xx.png`, `2x.png`, `3x.png`.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `frontend/jarvis_ui.py`;
+- `frontend/tech_a_animation.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для UI, HUD и animation-модуля: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит отсутствие дублей и отдельно стабильность BG-слоёв.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py`, `frontend/jarvis_ui.py`, `frontend/tech_a_animation.py` и `docs/HANDOFF.md` из `backups/handoff-0011-static-tech-a-bg-layers/`.
+
