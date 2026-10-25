@@ -129,7 +129,7 @@ class JarvisUI(QWidget):
         super().__init__()
 
         self.setWindowTitle("Jarvis Assist")
-        self.resize(1090, 600)
+        self.resize(1280, 850)
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
 
@@ -567,7 +567,7 @@ class JarvisUI(QWidget):
         assistant_layout = QVBoxLayout(assistant_page)
         assistant_layout.setContentsMargins(0,0,0,0)
         self.hud = JarvisHUD()
-        self.hud.setFixedSize(520,520)
+        self.hud.setFixedSize(JarvisHUD.HUD_SIZE, JarvisHUD.HUD_SIZE)
         self.assistant_label = QLabel("Нажмите кнопку чтобы активировать JARVIS")
         self.assistant_label.setAlignment(Qt.AlignCenter)
         self.assistant_label.setStyleSheet("color:white; font-size:16px;")
@@ -615,7 +615,7 @@ class JarvisUI(QWidget):
         assistant_layout.addStretch()
 
         hud_container = QWidget()
-        hud_container.setFixedSize(520,520)
+        hud_container.setFixedSize(JarvisHUD.HUD_SIZE, JarvisHUD.HUD_SIZE)
 
         stack = QStackedLayout(hud_container)
         stack.setStackingMode(QStackedLayout.StackAll)

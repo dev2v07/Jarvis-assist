@@ -199,3 +199,43 @@ Git:
 - Git rollback: `git revert aafffd7`, затем `git revert 75d2400` при необходимости полного возврата baseline;
 - старые каталоги на диске не затрагивались.
 
+## Очередь 0005 — TECH-A visual scale integration
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0005-pre-tech-a-front/`
+
+Исследование источника:
+
+- Rainmeter skin: `C:\Users\Данил\Documents\Rainmeter\Skins\TECH-A`;
+- 59 графических TECH-A-файлов в проекте совпадают с оригиналом по SHA-256;
+- native размер основного skin: 710x710;
+- текущая анимация колец в Jarvis сохранена как рабочая и не переписана.
+
+Изменения:
+
+- главный HUD увеличен с 520x520 до 710x710;
+- окно ассистента увеличено до 1280x850;
+- контейнер главного экрана подстроен под native HUD;
+- радиус текущих системных индикаторов увеличен пропорционально;
+- существующая анимация колец и текущий порядок рендера сохранены.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `frontend/jarvis_ui.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- после финальной записи будут запущены backend и frontend;
+- будет проверен `/health`;
+- будет проверено окно `Jarvis Assist`;
+- визуальная проверка native-scale HUD выполняется пользователем.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py`, `frontend/jarvis_ui.py` и `frontend/styles.css` из `backups/handoff-0005-pre-tech-a-front/`.
+

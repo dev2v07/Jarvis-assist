@@ -19,8 +19,10 @@ FONTS = os.path.join(BASE_DIR, "assets", "fonts")
 
 class JarvisHUD(QWidget):
 
-    HUD_SIZE = 520
-    GAUGE_RADIUS = 220
+    # TECH-A is authored as a 710x710 Rainmeter skin.
+    HUD_SIZE = 710
+    ROTATOR_SIZE = 351
+    GAUGE_RADIUS = 300
     GAUGE_BG_SIZE = 82
 
     def __init__(self):
