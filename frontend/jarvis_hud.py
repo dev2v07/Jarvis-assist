@@ -204,16 +204,22 @@ class JarvisHUD(QWidget):
         )
 
         # индикаторы (НЕ вращаются)
-        orbit = self.animation.orbit_angle
-        cpu_x, cpu_y = self.ring_pos(cx, cy, -90)
-        ram_x, ram_y = self.ring_pos(cx, cy, 0)
-        gpu_x, gpu_y = self.ring_pos(cx, cy, 90)
-        disk_x, disk_y = self.ring_pos(cx, cy, 180)
+        # Match the original TECH-A repeated cell layout.  The source skin
+        # places six cells around the ring. Four values are live; two cells
+        # remain intentionally empty as reserved module slots.
+        cpu_x, cpu_y = 80, 250
+        gpu_x, gpu_y = 80, 465
+        disk_x, disk_y = 645, 465
+        ram_x, ram_y = 645, 250
+        empty_top_x, empty_top_y = 365, 53
+        empty_bottom_x, empty_bottom_y = 365, 656
 
+        self.draw_empty_gauge(painter, empty_top_x, empty_top_y)
         self.draw_gauge(painter, cpu_x, cpu_y, self.cpu_anim, "CPU")
         self.draw_gauge(painter, ram_x, ram_y, self.ram_anim, "RAM")
         self.draw_gauge(painter, gpu_x, gpu_y, self.gpu_anim, "GPU")
         self.draw_gauge(painter, disk_x, disk_y, self.disk_anim, "DISK")
+        self.draw_empty_gauge(painter, empty_bottom_x, empty_bottom_y)
         self.draw_ram_panel(painter)
 
     def draw_rotating_pixmap(self, painter, pixmap, angle, cx, cy):
@@ -274,6 +280,19 @@ class JarvisHUD(QWidget):
         painter.setFont(self.font_big)
         painter.drawText(rect, Qt.AlignCenter, f"{int(value)}")
 
+        painter.restore()
+
+    def draw_empty_gauge(self, painter, x, y):
+        """Render an unused TECH-A cell without inventing a metric."""
+        painter.save()
+        painter.drawPixmap(
+            int(x - self.gauge_bg.width() / 2),
+            int(y - self.gauge_bg.height() / 2),
+            self.gauge_bg
+        )
+        rect = QRectF(x - 16, y - 16, 30, 30)
+        painter.setPen(QPen(QColor(120, 120, 120, 210), 2))
+        painter.drawArc(rect, 135 * 16, 270 * 16)
         painter.restore()
 
     def draw_ram_panel(self, painter):
