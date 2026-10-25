@@ -154,7 +154,9 @@ class JarvisHUD(QWidget):
 
         self.draw(painter, self.rot3, self.r3, cx, cy)
 
-        self.draw(painter, self.bg3, self.a3, cx, cy)
+        # BG3 is a static TECH-A background layer in the original skin.
+        # Keep the image fixed; only the dedicated ring/rotator layers move.
+        self.draw(painter, self.bg3, 0, cx, cy)
 
         self.draw(painter, self.rot2, self.r2, cx, cy)
 
