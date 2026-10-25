@@ -1009,3 +1009,33 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0028-freeze-cpu-ram-gpu-indicators/`.
 
+## Очередь 0029 — freeze DISK indicator
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0029-freeze-all-indicators/`
+
+Изменения:
+
+- орбитальное движение `DISK` остановлено;
+- позиция зафиксирована на исходном угле `180°`;
+- теперь CPU, RAM, GPU и DISK неподвижны, меняются только их значения.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит неподвижность всех четырёх показателей.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0029-freeze-all-indicators/`.
+

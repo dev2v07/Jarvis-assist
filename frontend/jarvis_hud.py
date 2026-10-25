@@ -208,7 +208,7 @@ class JarvisHUD(QWidget):
         cpu_x, cpu_y = self.ring_pos(cx, cy, -90)
         ram_x, ram_y = self.ring_pos(cx, cy, 0)
         gpu_x, gpu_y = self.ring_pos(cx, cy, 90)
-        disk_x, disk_y = self.ring_pos(cx, cy, 180 + orbit)
+        disk_x, disk_y = self.ring_pos(cx, cy, 180)
 
         self.draw_gauge(painter, cpu_x, cpu_y, self.cpu_anim, "CPU")
         self.draw_gauge(painter, ram_x, ram_y, self.ram_anim, "RAM")
