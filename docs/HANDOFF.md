@@ -875,3 +875,28 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0024-balanced-ram-bars/`.
 
+## Очередь 0025 — add one pixel to RAM bars
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0025-ram-bars-plus-one/`
+
+Изменения:
+
+- рабочие RAM-дуги увеличены с 3 до 4 px;
+- декоративные дуги увеличены с 2 до 3 px;
+- цвета, шрифт и значения не изменялись.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит толщину RAM-полосок.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0025-ram-bars-plus-one/`.
+
