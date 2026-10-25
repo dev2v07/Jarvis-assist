@@ -676,3 +676,39 @@ Git:
 
 - восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0018-explicit-button-animation/`.
 
+## Очередь 0019 — original Rainmeter button frame order
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0019-rainmeter-button-frame-order/`
+
+Причина:
+
+- у Rainmeter sprite sheet порядок кадров: `UP | DOWN | OVER`;
+- предыдущая реализация ошибочно использовала: `UP | OVER | DOWN`.
+
+Изменения:
+
+- первый кадр оставлен static/UP;
+- второй кадр назначен pressed/DOWN;
+- третий кадр назначен hover/OVER;
+- прозрачный Qt-overlay не добавлялся.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для UI и HUD: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь проверит CHRM/CFG: hover-кадр должен быть светящимся, как в оригинальном TECH-A.
+
+Откат:
+
+- восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0019-rainmeter-button-frame-order/`.
+

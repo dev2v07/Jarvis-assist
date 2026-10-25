@@ -257,8 +257,9 @@ class JarvisUI(QWidget):
             # static | hover | pressed. Do not render the complete sprite.
             frame_width = sprite.width() // 3
             static_frame = sprite.copy(0, 0, frame_width, sprite.height())
-            hover_frame = sprite.copy(frame_width, 0, frame_width, sprite.height())
-            pressed_frame = sprite.copy(frame_width * 2, 0, frame_width, sprite.height())
+            # Rainmeter order is UP | DOWN | OVER, not UP | OVER | DOWN.
+            pressed_frame = sprite.copy(frame_width, 0, frame_width, sprite.height())
+            hover_frame = sprite.copy(frame_width * 2, 0, frame_width, sprite.height())
 
             button = TechActionButton(static_frame, hover_frame, pressed_frame, parent)
             button.setObjectName("techTool")
