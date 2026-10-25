@@ -16,6 +16,17 @@ ASSETS = os.path.join(BASE_DIR, "assets", "TECH-A")
 ROTATOR = os.path.join(ASSETS, "rotator")
 FONTS = os.path.join(BASE_DIR, "assets", "fonts")
 
+TECH_ACTION_BUTTONS = {
+    "COMP": (137, 227),
+    "DOCS": (124, 281),
+    "CTRL": (124, 340),
+    "DESK": (127, 393),
+    "XPLR": (536, 233),
+    "CHRM": (556, 288),
+    "GAME": (560, 348),
+    "CFG": (545, 399),
+}
+
 
 class JarvisHUD(QWidget):
 
@@ -39,6 +50,11 @@ class JarvisHUD(QWidget):
         self.bg4 = QPixmap(os.path.join(ASSETS, "BG4.png"))
         self.bg5 = QPixmap(os.path.join(ASSETS, "BG5.png"))
         self.bg6 = QPixmap(os.path.join(ASSETS, "BG6.png"))
+
+        self.tech_action_pixmaps = {
+            name: QPixmap(os.path.join(ASSETS, f"{name}.png"))
+            for name in TECH_ACTION_BUTTONS
+        }
 
         self.rot1 = QPixmap(os.path.join(ROTATOR, "1x.png"))
         self.rot2 = QPixmap(os.path.join(ROTATOR, "2x.png"))
@@ -163,6 +179,13 @@ class JarvisHUD(QWidget):
         self.draw(painter, self.bg2, self.a2, cx, cy)
 
         self.draw(painter, self.rot1, self.r1, cx, cy)
+
+        # Static TECH-A button artwork is painted exactly once here.
+        # UI-side controls are transparent hit areas only.
+        for name, (x, y) in TECH_ACTION_BUTTONS.items():
+            pixmap = self.tech_action_pixmaps[name]
+            if not pixmap.isNull():
+                painter.drawPixmap(x, y, pixmap)
 
         # индикаторы (НЕ вращаются)
         orbit = self.a2

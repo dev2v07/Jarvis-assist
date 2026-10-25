@@ -392,3 +392,38 @@ Git:
 
 - восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0009-tech-buttons/`.
 
+## Очередь 0010 — устранение дублирования TECH-A кнопок
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0010-deduplicate-tech-buttons/`
+
+Проблема:
+
+- интерактивные `QToolButton` дополнительно рисовали те же PNG, которые должны быть частью единого HUD-слоя; при анимированных кольцах это выглядело как несколько копий кнопок.
+
+Изменения:
+
+- artwork восьми TECH-A-кнопок рисуется ровно один раз в `JarvisHUD.paintEvent`;
+- UI-кнопки оставлены только как прозрачные hit-area для клика, наведения и tooltip;
+- центральная START-кнопка и анимация колец не изменялись.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `frontend/jarvis_ui.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для UI и HUD: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит, что каждая TECH-A-кнопка отображается в единственном экземпляре.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py`, `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0010-deduplicate-tech-buttons/`.
+

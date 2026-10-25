@@ -225,8 +225,8 @@ class JarvisUI(QWidget):
             button = QToolButton(parent)
             button.setObjectName("techTool")
             button.setGeometry(x, y, pixmap.width(), pixmap.height())
-            button.setIcon(QIcon(pixmap))
-            button.setIconSize(pixmap.size())
+            # The artwork is painted once by JarvisHUD. This widget is only
+            # the transparent interaction surface, preventing duplicate PNGs.
             button.setToolTip(name)
             button.setCursor(Qt.PointingHandCursor)
             button.clicked.connect(lambda checked=False, key=name: self.handle_tech_action(key))
