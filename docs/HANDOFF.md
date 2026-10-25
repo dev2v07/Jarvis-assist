@@ -279,3 +279,37 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py`, `frontend/jarvis_ui.py`, `frontend/styles.css` и fonts из `backups/handoff-0006-pre-hud-fonts/`.
 
+## Очередь 0007 — opaque Aero Glass START mask
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0007-pre-start-mask/`
+
+Проблема:
+
+- белые сегменты внутренних TECH-A-колец просвечивали через полупрозрачную кнопку `START`.
+
+Изменения:
+
+- центральная кнопка увеличена с 240x240 до 300x300;
+- Aero Glass сделан визуально плотнее, с сохранением glass-gradient;
+- в обычном, hover и active-состояниях повышена непрозрачность фона;
+- анимация колец и орбитальные показатели не изменялись.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- после финальной записи будут запущены backend и frontend;
+- будет проверен `/health`;
+- пользователь визуально проверит, что кольца не заходят в зону START.
+
+Откат:
+
+- восстановить `frontend/jarvis_ui.py` и `frontend/jarvis_hud.py` из `backups/handoff-0007-pre-start-mask/`.
+

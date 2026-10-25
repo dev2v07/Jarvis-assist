@@ -616,7 +616,7 @@ class JarvisUI(QWidget):
 
         # кнопка jarvis
         self.jarvis_button = QPushButton("START")
-        self.jarvis_button.setFixedSize(240,240)
+        self.jarvis_button.setFixedSize(300,300)
         self.jarvis_button.setObjectName("jarvisStart")
         self.jarvis_button.setCursor(Qt.PointingHandCursor)
 
@@ -891,17 +891,17 @@ background:#ff2c2c;
 
 #jarvisStart{
 color:rgba(235,250,255,245);
-font-size:24px;
+font-size:26px;
 font-weight:bold;
 letter-spacing:3px;
-border-radius:120px;
+border-radius:150px;
 border:1px solid rgba(220,250,255,180);
 background:qradialgradient(
 cx:0.5, cy:0.42, radius:0.62,
-stop:0 rgba(220,250,255,110),
-stop:0.34 rgba(90,190,230,75),
-stop:0.72 rgba(25,70,100,65),
-stop:1 rgba(8,18,28,120)
+ stop:0 rgba(220,250,255,235),
+ stop:0.34 rgba(90,190,230,220),
+ stop:0.72 rgba(25,70,100,235),
+ stop:1 rgba(8,18,28,245)
 );
 }
 
@@ -909,9 +909,9 @@ stop:1 rgba(8,18,28,120)
 border:2px solid rgba(235,255,255,230);
 background:qradialgradient(
 cx:0.5, cy:0.42, radius:0.62,
-stop:0 rgba(240,255,255,150),
-stop:0.34 rgba(80,210,255,100),
-stop:1 rgba(8,18,28,140)
+ stop:0 rgba(240,255,255,245),
+ stop:0.34 rgba(80,210,255,230),
+ stop:1 rgba(8,18,28,245)
 );
 }
 
@@ -920,9 +920,9 @@ color:#bdf7ff;
 border:2px solid rgba(0,220,255,235);
 background:qradialgradient(
 cx:0.5, cy:0.42, radius:0.62,
-stop:0 rgba(235,255,255,180),
-stop:0.32 rgba(0,210,255,125),
-stop:1 rgba(5,35,55,150)
+ stop:0 rgba(235,255,255,245),
+ stop:0.32 rgba(0,210,255,235),
+ stop:1 rgba(5,35,55,248)
 );
 }
                            
