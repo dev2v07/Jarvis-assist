@@ -848,3 +848,28 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0023-thin-ram-bars/`.
 
+## Очередь 0024 — balanced TECH-A RAM bars
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0024-balanced-ram-bars/`
+
+Изменения:
+
+- рабочие RAM-дуги увеличены с 2 до 3 px;
+- декоративные дуги увеличены с 1 до 2 px;
+- цвета, шрифт и значения не изменялись.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит новый промежуточный вес полосок.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0024-balanced-ram-bars/`.
+
