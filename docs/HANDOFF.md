@@ -816,3 +816,33 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0022-fix-ram-font-target/`.
 
+## Очередь 0023 — thin TECH-A RAM bars
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0023-thin-ram-bars/`
+
+Изменения:
+
+- рабочие RAM-дуги уменьшены с 5 до 2 px;
+- декоративные дуги уменьшены с 4 до 1 px;
+- цвета, BitDust Two и расчёт значений не изменялись.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит толщину RAM-полосок.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0023-thin-ram-bars/`.
+

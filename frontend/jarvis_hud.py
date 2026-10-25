@@ -291,16 +291,16 @@ class JarvisHUD(QWidget):
         rect = QRectF(361 - 264, 355 - 264, 528, 528)
         full_span = int(21 * 16)
 
-        painter.setPen(QPen(QColor(255, 255, 255, 85), 4))
+        painter.setPen(QPen(QColor(255, 255, 255, 85), 1))
         painter.drawArc(rect, 1 * 16, full_span)
-        painter.setPen(QPen(QColor(0, 255, 255, 70), 4))
+        painter.setPen(QPen(QColor(0, 255, 255, 70), 1))
         painter.drawArc(rect, 359 * 16, -full_span)
 
         used_span = max(1, int(full_span * used / 100.0))
         free_span = max(1, int(full_span * free / 100.0))
-        painter.setPen(QPen(QColor(255, 255, 255, 220), 5))
+        painter.setPen(QPen(QColor(255, 255, 255, 220), 2))
         painter.drawArc(rect, 1 * 16, used_span)
-        painter.setPen(QPen(QColor(0, 255, 255, 220), 5))
+        painter.setPen(QPen(QColor(0, 255, 255, 220), 2))
         painter.drawArc(rect, 359 * 16, -free_span)
 
         painter.restore()
