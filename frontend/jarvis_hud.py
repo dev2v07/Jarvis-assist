@@ -52,11 +52,6 @@ class JarvisHUD(QWidget):
         self.bg5 = QPixmap(os.path.join(ASSETS, "BG5.png"))
         self.bg6 = QPixmap(os.path.join(ASSETS, "BG6.png"))
 
-        # Compose the native Rainmeter image meters once. The source assets
-        # are already 710x710, so resampling them on every repaint only softens
-        # the thin TECH-A lines.
-        self.static_bg = self.build_static_bg()
-
         # Rainmeter keeps these in a separate rotator config.
         self.rotator_1 = QPixmap(os.path.join(ROTATOR, "1xx.png"))
         self.rotator_2 = QPixmap(os.path.join(ROTATOR, "2x.png"))
@@ -64,6 +59,11 @@ class JarvisHUD(QWidget):
 
         self.scale = self.HUD_SIZE / self.bg6.width()
         self.setFixedSize(self.HUD_SIZE, self.HUD_SIZE)
+        self.render_dpr = max(1.0, float(self.devicePixelRatioF()))
+
+        # Compose the native Rainmeter image meters once at the physical
+        # screen resolution. This avoids a second Qt/DWM resample on 125% DPI.
+        self.static_bg = self.build_static_bg()
 
         # Optional motion is isolated from static BG1-BG6 composition.
         self.animation = TechAAnimation()
@@ -149,13 +149,25 @@ class JarvisHUD(QWidget):
         return x, y
 
     def build_static_bg(self):
-        canvas = QPixmap(self.HUD_SIZE, self.HUD_SIZE)
+        pixel_size = round(self.HUD_SIZE * self.render_dpr)
+        canvas = QPixmap(pixel_size, pixel_size)
+        canvas.setDevicePixelRatio(self.render_dpr)
         canvas.fill(Qt.transparent)
         composer = QPainter(canvas)
         composer.setRenderHint(QPainter.Antialiasing, False)
         for pixmap in (self.bg1, self.bg2, self.bg3, self.bg4, self.bg5, self.bg6):
             if not pixmap.isNull():
-                composer.drawPixmap(0, 0, pixmap)
+                if self.render_dpr == 1.0:
+                    layer = pixmap
+                else:
+                    layer = pixmap.scaled(
+                        pixel_size,
+                        pixel_size,
+                        Qt.IgnoreAspectRatio,
+                        Qt.SmoothTransformation,
+                    )
+                    layer.setDevicePixelRatio(self.render_dpr)
+                composer.drawPixmap(0, 0, layer)
         composer.end()
         return canvas
 

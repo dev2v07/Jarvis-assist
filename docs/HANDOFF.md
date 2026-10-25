@@ -940,3 +940,39 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0026-native-quality-render/`.
 
+## Очередь 0027 — DPI-native HUD rasterization
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0027-dpi-native-hud/`
+
+Диагностика:
+
+- Windows scale: 120%;
+- Qt `devicePixelRatio`: 1.25;
+- из-за этого 710x710 HUD дополнительно масштабировался при выводе на экран.
+
+Изменения:
+
+- статичный BG-кэш теперь создаётся сразу в физическом размере `710 * devicePixelRatio`;
+- кэш помечается правильным `devicePixelRatio`, чтобы Qt не пересэмплировал его повторно;
+- масштаб оболочки Jarvis не менялся.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь сравнит резкость BG-линий на текущем DPI с оригиналом.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0027-dpi-native-hud/`.
+
