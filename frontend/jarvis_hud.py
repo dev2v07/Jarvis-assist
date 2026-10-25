@@ -66,6 +66,7 @@ class JarvisHUD(QWidget):
 
         # реальные данные
         self.cpu = self.ram = self.gpu = self.disk = 0
+        self.ram_total_gb = 0.0
 
         # плавная анимация
         self.cpu_anim = self.ram_anim = self.gpu_anim = self.disk_anim = 0
@@ -91,6 +92,7 @@ class JarvisHUD(QWidget):
 
         self.cpu = int(psutil.cpu_percent())
         self.ram = int(psutil.virtual_memory().percent)
+        self.ram_total_gb = psutil.virtual_memory().total / (1024 ** 3)
 
         try:
             gpus = GPUtil.getGPUs()
@@ -172,6 +174,7 @@ class JarvisHUD(QWidget):
         self.draw_gauge(painter, ram_x, ram_y, self.ram_anim, "RAM")
         self.draw_gauge(painter, gpu_x, gpu_y, self.gpu_anim, "GPU")
         self.draw_gauge(painter, disk_x, disk_y, self.disk_anim, "DISK")
+        self.draw_ram_panel(painter)
 
     def draw(self, painter, pixmap, angle, cx, cy, scale_override=None):
 
@@ -258,5 +261,40 @@ class JarvisHUD(QWidget):
         painter.setPen(Qt.white)
         painter.setFont(self.font_big)
         painter.drawText(rect, Qt.AlignCenter, f"{int(value)}")
+
+        painter.restore()
+
+    def draw_ram_panel(self, painter):
+        """Render the original TECH-A RAM side readout and arc pair."""
+        used = max(0.0, min(100.0, float(self.ram_anim)))
+        free = 100.0 - used
+        total = self.ram_total_gb or (psutil.virtual_memory().total / (1024 ** 3))
+
+        painter.save()
+
+        # Original text meters: freeRAM.p2x2, UsedTOTAL, UsedRAM.p2x.
+        painter.setFont(self.font_label)
+        painter.setPen(QColor(200, 200, 200, 220))
+        painter.drawText(QRectF(625, 302, 60, 18), Qt.AlignCenter, f"{free:.2f}%")
+        painter.setPen(Qt.white)
+        painter.drawText(QRectF(625, 342, 70, 18), Qt.AlignCenter, f"{total:.2f} G")
+        painter.setPen(QColor(200, 200, 200, 220))
+        painter.drawText(QRectF(625, 382, 60, 18), Qt.AlignCenter, f"{used:.2f}%")
+
+        # Original RAMl12x/RAMl12xx values are short ROUNDLINE arcs.
+        rect = QRectF(361 - 264, 355 - 264, 528, 528)
+        full_span = int(21 * 16)
+
+        painter.setPen(QPen(QColor(0, 255, 255, 70), 4))
+        painter.drawArc(rect, 1 * 16, full_span)
+        painter.setPen(QPen(QColor(255, 255, 255, 85), 4))
+        painter.drawArc(rect, 359 * 16, -full_span)
+
+        used_span = max(1, int(full_span * used / 100.0))
+        free_span = max(1, int(full_span * free / 100.0))
+        painter.setPen(QPen(QColor(0, 255, 255, 220), 5))
+        painter.drawArc(rect, 1 * 16, used_span)
+        painter.setPen(QPen(QColor(255, 255, 255, 220), 5))
+        painter.drawArc(rect, 359 * 16, -free_span)
 
         painter.restore()

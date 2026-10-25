@@ -714,3 +714,39 @@ Git:
 
 - восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0019-rainmeter-button-frame-order/`.
 
+## Очередь 0020 — TECH-A RAM side panel
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0020-tech-a-ram-side-panel/`
+
+Сверка с оригиналом:
+
+- добавлены значения из `freeRAM.p2x2`, `UsedTOTAL`, `UsedRAM.p2x`;
+- добавлены дуги `RAMl12x`, `RAMl12xx`, `Circleram2`, `Circleram3`;
+- значения используют текущую физическую RAM Jarvis: свободная %, общий объём в `G`, занятая %.
+
+Изменения:
+
+- справа на HUD добавлен RAM readout из трёх строк;
+- добавлены cyan/white рабочие дуги и тонкие декоративные дуги;
+- данные обновляются вместе с существующей RAM-статистикой.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит правый RAM-блок с процентами и полосками.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0020-tech-a-ram-side-panel/`.
+
