@@ -1,5 +1,6 @@
 import os
 import math
+import time
 import psutil
 import GPUtil
 
@@ -83,10 +84,14 @@ class JarvisHUD(QWidget):
 
         # реальные данные
         self.cpu = self.ram = self.gpu = self.disk = 0
+        self.temp = self.net = 0
         self.ram_total_gb = 0.0
+        self._net_previous = psutil.net_io_counters()
+        self._net_previous_at = time.monotonic()
 
         # плавная анимация
         self.cpu_anim = self.ram_anim = self.gpu_anim = self.disk_anim = 0
+        self.temp_anim = self.net_anim = 0
 
         # шрифт
         font_path = os.path.join(FONTS, "GOODTIME.ttf")
@@ -124,6 +129,40 @@ class JarvisHUD(QWidget):
             self.gpu = 0
 
         self.disk = int(psutil.disk_usage('C:/').percent)
+        self.temp = self.read_max_temperature()
+
+        now = time.monotonic()
+        counters = psutil.net_io_counters()
+        elapsed = max(0.1, now - self._net_previous_at)
+        transferred = (counters.bytes_sent - self._net_previous.bytes_sent) + (
+            counters.bytes_recv - self._net_previous.bytes_recv
+        )
+        # NET is displayed as combined throughput in Mbps, capped at 100
+        # so it remains compatible with the gauge's percentage arc.
+        self.net = int(max(0.0, min(100.0, transferred * 8 / elapsed / 1_000_000)))
+        self._net_previous = counters
+        self._net_previous_at = now
+
+    @staticmethod
+    def read_max_temperature():
+        """Return the highest available CPU/GPU temperature in Celsius."""
+        temperatures = []
+        try:
+            for entries in psutil.sensors_temperatures(fahrenheit=False).values():
+                temperatures.extend(
+                    reading.current for reading in entries
+                    if reading.current is not None
+                )
+        except (AttributeError, OSError):
+            pass
+        try:
+            temperatures.extend(
+                gpu.temperature for gpu in GPUtil.getGPUs()
+                if gpu.temperature is not None
+            )
+        except (AttributeError, OSError):
+            pass
+        return int(round(max(temperatures))) if temperatures else 0
 
     def animate(self):
 
@@ -136,6 +175,8 @@ class JarvisHUD(QWidget):
         self.ram_anim += (self.ram - self.ram_anim) * 0.08
         self.gpu_anim += (self.gpu - self.gpu_anim) * 0.08
         self.disk_anim += (self.disk - self.disk_anim) * 0.08
+        self.temp_anim += (self.temp - self.temp_anim) * 0.08
+        self.net_anim += (self.net - self.net_anim) * 0.08
 
         self.update()
 
@@ -211,15 +252,15 @@ class JarvisHUD(QWidget):
         gpu_x, gpu_y = 80, 465
         disk_x, disk_y = 645, 465
         ram_x, ram_y = 645, 250
-        empty_top_x, empty_top_y = 365, 53
-        empty_bottom_x, empty_bottom_y = 365, 656
+        temp_x, temp_y = 365, 53
+        net_x, net_y = 365, 656
 
-        self.draw_empty_gauge(painter, empty_top_x, empty_top_y)
+        self.draw_gauge(painter, temp_x, temp_y, self.temp_anim, "TEMP")
         self.draw_gauge(painter, cpu_x, cpu_y, self.cpu_anim, "CPU")
         self.draw_gauge(painter, ram_x, ram_y, self.ram_anim, "RAM")
         self.draw_gauge(painter, gpu_x, gpu_y, self.gpu_anim, "GPU")
         self.draw_gauge(painter, disk_x, disk_y, self.disk_anim, "DISK")
-        self.draw_empty_gauge(painter, empty_bottom_x, empty_bottom_y)
+        self.draw_gauge(painter, net_x, net_y, self.net_anim, "NET")
         self.draw_ram_panel(painter)
 
     def draw_rotating_pixmap(self, painter, pixmap, angle, cx, cy):
@@ -280,19 +321,6 @@ class JarvisHUD(QWidget):
         painter.setFont(self.font_big)
         painter.drawText(rect, Qt.AlignCenter, f"{int(value)}")
 
-        painter.restore()
-
-    def draw_empty_gauge(self, painter, x, y):
-        """Render an unused TECH-A cell without inventing a metric."""
-        painter.save()
-        painter.drawPixmap(
-            int(x - self.gauge_bg.width() / 2),
-            int(y - self.gauge_bg.height() / 2),
-            self.gauge_bg
-        )
-        rect = QRectF(x - 16, y - 16, 30, 30)
-        painter.setPen(QPen(QColor(120, 120, 120, 210), 2))
-        painter.drawArc(rect, 135 * 16, 270 * 16)
         painter.restore()
 
     def draw_ram_panel(self, painter):
