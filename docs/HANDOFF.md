@@ -137,3 +137,62 @@
 - восстановить `backend/config.py` из `backups/handoff-0003-pre-config/backend/config.py`;
 - удалить добавленный блок `Очередь 0003` из HANDOFF.
 
+## Очередь 0004 — завершение Этапа 0
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0004-pre-stage0/`
+
+Изменения:
+
+- секреты удалены из рабочего `dev.env` и заменены на пустые локальные переменные;
+- Picovoice и OpenWeather теперь читаются только из environment;
+- добавлены `.gitignore` и `backend/.env.example`;
+- зависимости разделены на core и optional;
+- добавлены `README.md`, `docs/CANONICAL_STRUCTURE.md` и GitHub Actions syntax-check;
+- создан локальный Git baseline;
+- исторические поколения сохранены на диске, но исключены из активного Git baseline;
+- зафиксирована каноническая структура текущего Jarvis.
+
+Git:
+
+- baseline commit: `75d2400`;
+- legacy exclusion commit: `aafffd7`.
+
+Файлы:
+
+- `.gitignore`;
+- `README.md`;
+- `.github/workflows/jarvis-check.yml`;
+- `backend/dev.env`;
+- `backend/.env.example`;
+- `backend/jarvis_fast.py`;
+- `backend/requirements-core.txt`;
+- `backend/requirements-optional.txt`;
+- `frontend/jarvis_ui.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- активный source secret scan: совпадений не найдено;
+- синтаксис 42 ключевых Python-файлов: пройден;
+- импорт backend и 15 агентов: пройден;
+- импорт `config_service` и `state_store`: пройден;
+- локальный Git baseline создан;
+- backend/frontend будут перезапущены после финальной записи этой очереди.
+
+Ограничения:
+
+- старые backup до удаления секретов содержат исходные значения и не добавлены в Git;
+- старые поколения не удалялись, а только исключены из активного baseline;
+- Ollama, FFmpeg и TTS остаются внешними ограничениями окружения.
+
+Откат:
+
+- восстановить рабочие файлы из `backups/handoff-0004-pre-stage0/`;
+- Git rollback: `git revert aafffd7`, затем `git revert 75d2400` при необходимости полного возврата baseline;
+- старые каталоги на диске не затрагивались.
+

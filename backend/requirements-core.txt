@@ -7,3 +7,10 @@ psutil
 python-dotenv
 cachetools
 ollama
+pyautogui
+pytesseract
+Pillow
+matplotlib
+pandas
+PyYAML
+rapidfuzz
