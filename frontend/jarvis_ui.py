@@ -25,6 +25,17 @@ TECH_FONT_FILES = {
     "BitDust Two": "bitdust2.ttf",
 }
 
+TECH_ACTION_BUTTONS = {
+    "COMP": (137, 227),
+    "DOCS": (124, 281),
+    "CTRL": (124, 340),
+    "DESK": (127, 393),
+    "XPLR": (536, 233),
+    "CHRM": (556, 288),
+    "GAME": (560, 348),
+    "CFG": (545, 399),
+}
+
 
 # ---------------- MESSAGE BUBBLE ----------------
 
@@ -199,6 +210,40 @@ class JarvisUI(QWidget):
         self.glow.setBlurRadius(40)
 
         print("Jarvis OFF")
+
+    def create_tech_action_buttons(self, parent):
+        """Restore the eight clickable TECH-A image buttons from the Rainmeter skin."""
+        assets_dir = os.path.join(BASE_DIR, "assets", "TECH-A")
+        buttons = []
+
+        for name, (x, y) in TECH_ACTION_BUTTONS.items():
+            path = os.path.join(assets_dir, f"{name}.png")
+            pixmap = QPixmap(path)
+            if pixmap.isNull():
+                continue
+
+            button = QToolButton(parent)
+            button.setObjectName("techTool")
+            button.setGeometry(x, y, pixmap.width(), pixmap.height())
+            button.setIcon(QIcon(pixmap))
+            button.setIconSize(pixmap.size())
+            button.setToolTip(name)
+            button.setCursor(Qt.PointingHandCursor)
+            button.clicked.connect(lambda checked=False, key=name: self.handle_tech_action(key))
+            button.show()
+            button.raise_()
+            buttons.append(button)
+
+        return buttons
+
+    def handle_tech_action(self, name):
+        """Keep the restored controls usable without importing user-specific Rainmeter paths."""
+        if name == "CFG":
+            self.menu.setCurrentRow(3)
+            return
+
+        self.assistant_label.setText(f"TECH-A: {name}")
+        print(f"TECH-A action: {name}")
 
     def register_tech_fonts(self):
         families = {}
@@ -656,6 +701,10 @@ class JarvisUI(QWidget):
 
         stack.addWidget(button_layer)
 
+        # TECH-A action buttons are direct children of the HUD container so
+        # their transparent PNGs stay above the rings without covering START.
+        self.tech_action_buttons = self.create_tech_action_buttons(hud_container)
+
         assistant_layout.addWidget(hud_container, alignment=Qt.AlignCenter)
 
         assistant_layout.addSpacing(20)
@@ -828,6 +877,17 @@ border-radius:8px;
 
 ChatItemWidget:hover{
 background: rgba(255,255,255,0.05);
+}
+
+#techTool{
+background:transparent;
+border:none;
+padding:0;
+}
+
+#techTool:hover{
+background:rgba(0,200,255,18);
+border:1px solid rgba(0,220,255,90);
 }
 
 QPushButton{
