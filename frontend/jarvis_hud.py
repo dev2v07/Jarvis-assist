@@ -52,6 +52,11 @@ class JarvisHUD(QWidget):
         self.bg5 = QPixmap(os.path.join(ASSETS, "BG5.png"))
         self.bg6 = QPixmap(os.path.join(ASSETS, "BG6.png"))
 
+        # Compose the native Rainmeter image meters once. The source assets
+        # are already 710x710, so resampling them on every repaint only softens
+        # the thin TECH-A lines.
+        self.static_bg = self.build_static_bg()
+
         # Rainmeter keeps these in a separate rotator config.
         self.rotator_1 = QPixmap(os.path.join(ROTATOR, "1xx.png"))
         self.rotator_2 = QPixmap(os.path.join(ROTATOR, "2x.png"))
@@ -63,6 +68,18 @@ class JarvisHUD(QWidget):
         # Optional motion is isolated from static BG1-BG6 composition.
         self.animation = TechAAnimation()
         self.group_scale = 0.65
+        self.group_scaled = self.group.scaled(
+            int(self.group.width() * self.scale * self.group_scale),
+            int(self.group.height() * self.scale * self.group_scale),
+            Qt.KeepAspectRatio,
+            Qt.SmoothTransformation,
+        )
+        self.gauge_bg = self.bg1.scaled(
+            self.GAUGE_BG_SIZE,
+            self.GAUGE_BG_SIZE,
+            Qt.KeepAspectRatio,
+            Qt.SmoothTransformation,
+        )
 
         # реальные данные
         self.cpu = self.ram = self.gpu = self.disk = 0
@@ -131,10 +148,21 @@ class JarvisHUD(QWidget):
 
         return x, y
 
+    def build_static_bg(self):
+        canvas = QPixmap(self.HUD_SIZE, self.HUD_SIZE)
+        canvas.fill(Qt.transparent)
+        composer = QPainter(canvas)
+        composer.setRenderHint(QPainter.Antialiasing, False)
+        for pixmap in (self.bg1, self.bg2, self.bg3, self.bg4, self.bg5, self.bg6):
+            if not pixmap.isNull():
+                composer.drawPixmap(0, 0, pixmap)
+        composer.end()
+        return canvas
+
     def paintEvent(self, event):
 
         painter = QPainter(self)
-        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setRenderHint(QPainter.Antialiasing, True)
 
         cx = self.width() / 2
         cy = self.height() / 2
@@ -142,21 +170,15 @@ class JarvisHUD(QWidget):
         # ---------- ЗАДНИЙ КРУГ (Group.png) ----------
 
         painter.setOpacity(0.35)
-        self.draw(
-        painter,
-        self.group,
-        self.animation.group_angle,
-        cx,
-        cy,
-        self.scale * self.group_scale
-        )
+        self.draw_rotating_pixmap(painter, self.group_scaled, self.animation.group_angle, cx, cy)
         painter.setOpacity(1)
 
         # ---------- HUD слои ----------
 
-        # Original TECH-A order: six static 710x710 image meters.
-        for pixmap in (self.bg1, self.bg2, self.bg3, self.bg4, self.bg5, self.bg6):
-            self.draw(painter, pixmap, 0, cx, cy)
+        # Native 1:1 raster cache; no per-frame scaling or smoothing.
+        painter.setRenderHint(QPainter.Antialiasing, False)
+        painter.drawPixmap(0, 0, self.static_bg)
+        painter.setRenderHint(QPainter.Antialiasing, True)
 
         # Separate rotator config: 1xx.png, 2x.png and 3x.png.
         self.draw_rotator(painter, self.rotator_1, self.animation.rotator_1, cx, cy)
@@ -182,48 +204,27 @@ class JarvisHUD(QWidget):
         self.draw_gauge(painter, disk_x, disk_y, self.disk_anim, "DISK")
         self.draw_ram_panel(painter)
 
-    def draw(self, painter, pixmap, angle, cx, cy, scale_override=None):
-
-     if pixmap.isNull():
-        return
-
-     painter.save()
-
-     painter.translate(cx, cy)
-     painter.rotate(angle)
-
-     scale = scale_override if scale_override else self.scale
-
-     w = pixmap.width() * scale
-     h = pixmap.height() * scale
-
-     scaled = pixmap.scaled(
-        int(w),
-        int(h),
-        Qt.KeepAspectRatio,
-        Qt.SmoothTransformation
-     )
-
-     painter.drawPixmap(
-        -scaled.width() / 2,
-        -scaled.height() / 2,
-        scaled
-     )
-
-     painter.restore()
+    def draw_rotating_pixmap(self, painter, pixmap, angle, cx, cy):
+        if pixmap.isNull():
+            return
+        painter.save()
+        painter.translate(round(cx), round(cy))
+        painter.rotate(angle)
+        painter.drawPixmap(-pixmap.width() // 2, -pixmap.height() // 2, pixmap)
+        painter.restore()
 
     def draw_rotator(self, painter, pixmap, angle, cx, cy):
         if pixmap.isNull():
             return
-        self.draw_rotator_at(painter, pixmap, angle, cx - pixmap.width() / 2, cy - pixmap.height() / 2)
+        self.draw_rotating_pixmap(painter, pixmap, angle, cx, cy)
 
     def draw_rotator_at(self, painter, pixmap, angle, x, y):
         if pixmap.isNull():
             return
         painter.save()
-        painter.translate(x + pixmap.width() / 2, y + pixmap.height() / 2)
+        painter.translate(round(x + pixmap.width() / 2), round(y + pixmap.height() / 2))
         painter.rotate(angle)
-        painter.drawPixmap(-pixmap.width() / 2, -pixmap.height() / 2, pixmap)
+        painter.drawPixmap(-pixmap.width() // 2, -pixmap.height() // 2, pixmap)
         painter.restore()
 
     def draw_gauge(self, painter, x, y, value, label):
@@ -231,17 +232,10 @@ class JarvisHUD(QWidget):
         painter.save()
 
         # BG1 под индикатор
-        bg = self.bg1.scaled(
-            self.GAUGE_BG_SIZE,
-            self.GAUGE_BG_SIZE,
-            Qt.KeepAspectRatio,
-            Qt.SmoothTransformation
-        )
-
         painter.drawPixmap(
-            int(x - bg.width() / 2),
-            int(y - bg.height() / 2),
-            bg
+            int(x - self.gauge_bg.width() / 2),
+            int(y - self.gauge_bg.height() / 2),
+            self.gauge_bg
         )
 
         rect = QRectF(x - 16, y - 16, 30, 30)

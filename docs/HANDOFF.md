@@ -902,3 +902,39 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0025-ram-bars-plus-one/`.
 
+## Очередь 0026 — native-quality TECH-A raster rendering
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0026-native-quality-render/`
+
+Проблема:
+
+- статичные BG-слои каждый repaint проходили через `QPixmap.scaled()` и сглаживание, из-за чего тонкие линии становились мягче оригинала Rainmeter.
+
+Изменения:
+
+- `BG1–BG6` один раз собираются в нативный кэш 710x710;
+- статичный кэш рисуется 1:1 целочисленно, без повторного масштабирования;
+- вращаемые Group/rotator-ресурсы отделены от статичного raster-слоя;
+- постоянные gauge-background и Group предварительно масштабируются один раз;
+- сглаживание применяется только к динамическим/векторным элементам, а не к нативному BG-кэшу.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально сравнит резкость тонких BG-линий с оригиналом.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0026-native-quality-render/`.
+
