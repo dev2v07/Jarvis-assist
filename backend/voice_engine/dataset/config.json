@@ -1,0 +1,38 @@
+{
+  "output_path": "C:/projects/Jarvis/jarvis_voice",
+
+  "datasets": [
+    {
+      "formatter": "ljspeech",
+      "path": "C:/projects/Jarvis/backend/voice_engine/dataset",
+      "meta_file_train": "metadata.csv"
+    }
+  ],
+
+  "model": "vits",
+
+  "audio": {
+    "sample_rate": 22050
+  },
+
+  "batch_size": 6,
+  "eval_batch_size": 4,
+
+  "run_eval": false,
+  "eval_split_size": 0.03,
+
+  "epochs": 120,
+
+  "text_cleaner": "phoneme_cleaners",
+
+  "use_phonemes": true,
+  "phoneme_language": "ru-ru",
+
+  "phoneme_cache_path": "C:/projects/Jarvis/backend/voice_engine/dataset/phoneme_cache",
+
+  "batch_group_size": 6,
+
+  "num_loader_workers": 10,
+
+  "mixed_precision": false
+}

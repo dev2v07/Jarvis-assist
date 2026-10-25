@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Проект Хель</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">Х</div>
+        <div>
+          <div class="brand-title">Проект Хель</div>
+          <div class="brand-subtitle">локальный ассистент</div>
+        </div>
+      </div>
+      <div class="sidebar-actions">
+        <button id="openSettings" class="secondary wide">LLM / API ключ</button>
+        <button id="refreshApp" class="ghost wide">Обновить статус</button>
+      </div>
+      <div class="modes-title">Режимы</div>
+      <div id="modeList" class="mode-list"></div>
+      <div class="modes-title history-title">История</div>
+      <div id="historyList" class="history-list"></div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div>
+          <h1 id="modeTitle">Общий</h1>
+          <p id="modeDescription">Универсальный режим ассистента</p>
+        </div>
+        <div class="status-stack">
+          <div class="status-block">
+            <span class="status-dot"></span>
+            <span>API: <strong id="apiStatus">подключение...</strong></span>
+          </div>
+          <div class="provider-pill">LLM: <strong id="providerStatus">stub</strong></div>
+        </div>
+      </header>
+
+      <section id="chat" class="chat-area"></section>
+
+      <section class="composer">
+        <textarea id="input" placeholder="Введите сообщение..."></textarea>
+        <div class="composer-actions">
+          <button id="send">Отправить</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modalOverlay" class="modal-overlay hidden"></div>
+  <div id="planModal" class="modal hidden">
+    <h3>Подтверждение плана</h3>
+    <pre id="planMessage"></pre>
+    <div class="modal-actions">
+      <button id="planApprove">Выполнить</button>
+      <button id="planReject" class="secondary">Отклонить</button>
+    </div>
+  </div>
+
+  <div id="permissionModal" class="modal hidden">
+    <h3>Запрос разрешения</h3>
+    <div id="permissionMessage"></div>
+    <div class="modal-actions">
+      <button id="permissionAllow">Разрешить</button>
+      <button id="permissionDeny" class="secondary">Отказать</button>
+    </div>
+  </div>
+
+  <div id="settingsModal" class="modal hidden settings-modal">
+    <h3>Настройка LLM</h3>
+    <p class="settings-hint">При первом запуске выбери провайдера, вставь ключ и нажми «Сохранить». Хель запомнит настройки локально и будет подхватывать их автоматически.</p>
+    <div class="settings-grid">
+      <label><span>Провайдер</span><select id="providerSelect"><option value="stub">Stub</option><option value="ollama">Ollama</option><option value="openai">OpenAI-compatible</option></select></label>
+      <label><span>Ollama URL</span><input id="ollamaBaseUrl" type="text" placeholder="http://127.0.0.1:11434"></label>
+      <label><span>Ollama model</span><input id="ollamaModel" type="text" placeholder="qwen2.5:7b"></label>
+      <label><span>OpenAI-compatible URL</span><input id="openaiBaseUrl" type="text" placeholder="https://api.openai.com/v1"></label>
+      <label><span>OpenAI model</span><input id="openaiModel" type="text" placeholder="gpt-4o-mini"></label>
+      <label><span>API key</span><input id="openaiApiKey" type="password" placeholder="sk-..."></label>
+      <label><span>LLM timeout, sec</span><input id="llmTimeout" type="number" min="1" step="1"></label>
+      <label><span>LLM retries</span><input id="llmRetries" type="number" min="0" step="1"></label>
+    </div>
+    <div class="settings-status">
+      <div>Файл конфигурации: <code id="runtimeEnvPath">-</code></div>
+      <div id="settingsTestResult">Пока не проверено.</div>
+    </div>
+    <div class="modal-actions">
+      <button id="testSettings" class="secondary">Проверить подключение</button>
+      <button id="saveSettings">Сохранить</button>
+      <button id="closeSettings" class="secondary">Закрыть</button>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

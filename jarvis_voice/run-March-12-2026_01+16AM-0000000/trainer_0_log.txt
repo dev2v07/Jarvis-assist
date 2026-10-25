@@ -1,0 +1,47 @@
+ > Training Environment:
+ | > Backend: Torch
+ | > Mixed precision: False
+ | > Precision: float32
+ | > Num. of CPUs: 24
+ | > Num. of Torch Threads: 1
+ | > Torch seed: 54321
+ | > Torch CUDNN: True
+ | > Torch CUDNN deterministic: False
+ | > Torch CUDNN benchmark: False
+ | > Torch TF32 MatMul: False
+ > Start Tensorboard: tensorboard --logdir=C:/projects/Jarvis/jarvis_voice\run-March-12-2026_01+16AM-0000000
+
+ > Model has 83059180 parameters
+
+[4m[1m > EPOCH: 0/120[0m
+ --> C:/projects/Jarvis/jarvis_voice\run-March-12-2026_01+16AM-0000000
+
+[1m > TRAINING (2026-03-12 01:16:20) [0m
+
+[1m   --> TIME: 2026-03-12 01:18:25 -- STEP: 0/90 -- GLOBAL_STEP: 0[0m
+     | > loss_disc: 6.0801520347595215  (6.0801520347595215)
+     | > loss_disc_real_0: 1.0151700973510742  (1.0151700973510742)
+     | > loss_disc_real_1: 0.9983265995979309  (0.9983265995979309)
+     | > loss_disc_real_2: 1.017127275466919  (1.017127275466919)
+     | > loss_disc_real_3: 0.9888872504234314  (0.9888872504234314)
+     | > loss_disc_real_4: 1.0339161157608032  (1.0339161157608032)
+     | > loss_disc_real_5: 1.0260803699493408  (1.0260803699493408)
+     | > loss_0: 6.0801520347595215  (6.0801520347595215)
+     | > grad_norm_0: tensor(6.7294)  (tensor(6.7294))
+     | > loss_gen: 4.596948146820068  (4.596948146820068)
+     | > loss_kl: 207.3175506591797  (207.3175506591797)
+     | > loss_feat: 0.6116329431533813  (0.6116329431533813)
+     | > loss_mel: 126.20243835449219  (126.20243835449219)
+     | > loss_duration: 16.459476470947266  (16.459476470947266)
+     | > loss_1: 355.18804931640625  (355.18804931640625)
+     | > grad_norm_1: tensor(2517.2676)  (tensor(2517.2676))
+     | > current_lr_0: 0.0002 
+     | > current_lr_1: 0.0002 
+     | > step_time: 18.051  (18.050960302352905)
+     | > loader_time: 107.5846  (107.58459377288818)
+
+ > Keyboard interrupt detected.
+ > Saving model before exiting...
+
+ > CHECKPOINT : C:/projects/Jarvis/jarvis_voice\run-March-12-2026_01+16AM-0000000\checkpoint_1.pth
+ ! Run is kept in C:/projects/Jarvis/jarvis_voice\run-March-12-2026_01+16AM-0000000

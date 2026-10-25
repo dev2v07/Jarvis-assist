@@ -1,0 +1,53 @@
+{
+  "name": "project-hel-frontend",
+  "version": "1.2.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "pack:dir": "electron-builder --dir",
+    "build:win": "electron-builder --win nsis"
+  },
+  "dependencies": {
+    "axios": "^1.7.2"
+  },
+  "devDependencies": {
+    "electron": "^31.3.1",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "local.project.hel",
+    "productName": "Project Hel",
+    "files": [
+      "index.js",
+      "index.html",
+      "renderer.js",
+      "styles.css",
+      "preload.js",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../backend_dist",
+        "to": "backend_dist",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "ProjectHel-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

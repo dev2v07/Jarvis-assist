@@ -1,0 +1,37 @@
+# Secrets and local runtime state
+*.env
+!.env.example
+backend/config/.env
+backend/data/
+backend/logs/
+backend/uploads/
+backend/workspace/
+backend/backups/
+backups/
+
+# Python environments and generated files
+**/venv/
+**/jarvis_env/
+**/__pycache__/
+*.py[cod]
+*.pyo
+
+# Large models, datasets and media caches
+**/phoneme_cache/
+*.pth
+*.onnx
+*.bin
+*.wav
+*.mp3
+
+# Archives and installers
+*.zip
+*.rar
+*.7z
+*.exe
+
+# IDE / OS
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store

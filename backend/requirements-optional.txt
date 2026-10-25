@@ -1,0 +1,19 @@
+# Optional capabilities. Install only what the selected device/features need.
+PySide6
+PyAudio
+faster-whisper
+TTS
+openwakeword
+pvporcupine
+pyautogui
+pytesseract
+GPUtil
+Pillow
+opencv-python
+mediapipe
+torch
+torchaudio
+transformers
+diffusers
+flask
+flask-cors

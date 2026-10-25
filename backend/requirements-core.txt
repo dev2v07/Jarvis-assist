@@ -1,0 +1,9 @@
+# Minimum runtime for the text backend and API
+fastapi
+uvicorn
+pydantic
+requests
+psutil
+python-dotenv
+cachetools
+ollama

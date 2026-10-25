@@ -1,0 +1,84 @@
+body{
+background:url(bg.jpg);
+background-size:cover;
+font-family:Arial;
+}
+
+.window{
+width:800px;
+height:500px;
+
+display:flex;
+
+background:rgba(20,20,20,0.5);
+backdrop-filter: blur(20px);
+
+border-radius:20px;
+box-shadow:0 0 40px rgba(0,0,0,0.5);
+
+color:white;
+}
+
+.sidebar{
+width:220px;
+padding:20px;
+border-right:1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar button{
+display:block;
+width:100%;
+margin:10px 0;
+
+background:none;
+border:none;
+color:white;
+
+padding:10px;
+border-radius:10px;
+}
+
+.sidebar button.active{
+background:#3a7cff;
+}
+
+.chat{
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+.messages{
+flex:1;
+padding:20px;
+}
+
+.msg{
+padding:10px;
+margin-bottom:10px;
+border-radius:10px;
+}
+
+.user{
+background:#2a2a2a;
+}
+
+.bot{
+background:#3a7cff;
+}
+
+.input{
+display:flex;
+padding:10px;
+}
+
+.input input{
+flex:1;
+padding:10px;
+border-radius:10px;
+border:none;
+}
+
+.input button{
+margin-left:10px;
+}

@@ -1,0 +1,88 @@
+import os
+import random
+import sounddevice as sd
+import soundfile as sf
+
+
+# ------------------------------------------------
+# путь к папке sound
+# ------------------------------------------------
+
+BASE_DIR = os.path.dirname(__file__)
+VOICE_DIR = os.path.join(BASE_DIR, "sound")
+VOICE_DIR = os.path.abspath(VOICE_DIR)
+
+print("VOICE PLAYER DIR:", VOICE_DIR)
+
+
+# ------------------------------------------------
+# список wav
+# ------------------------------------------------
+
+def get_voice_files():
+
+    if not os.path.exists(VOICE_DIR):
+        print("Папка sound не найдена:", VOICE_DIR)
+        return []
+
+    return [
+        f for f in os.listdir(VOICE_DIR)
+        if f.lower().endswith(".wav")
+    ]
+
+
+# ------------------------------------------------
+# воспроизведение
+# ------------------------------------------------
+
+def play_voice(file):
+
+    try:
+
+        # если передан полный путь
+        if os.path.isabs(file):
+            path = file
+        else:
+            path = os.path.join(VOICE_DIR, file)
+
+        path = os.path.abspath(path)
+
+        print("play_voice:", path)
+
+        if not os.path.exists(path):
+            print("Файл не найден:", path)
+            return
+
+        # читаем wav
+        data, samplerate = sf.read(path, dtype="float32")
+
+        # если файл стерео → делаем mono
+        if len(data.shape) > 1:
+            data = data.mean(axis=1)
+
+        # воспроизводим
+        sd.play(data, samplerate)
+
+        # ждём окончания
+        sd.wait()
+
+    except Exception as e:
+
+        print("Ошибка воспроизведения:", e)
+
+
+# ------------------------------------------------
+# случайная фраза
+# ------------------------------------------------
+
+def random_voice():
+
+    voices = get_voice_files()
+
+    if not voices:
+        print("Нет голосовых файлов")
+        return
+
+    voice = random.choice(voices)
+
+    play_voice(voice)
