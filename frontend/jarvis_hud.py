@@ -248,7 +248,7 @@ class JarvisHUD(QWidget):
 
         # подпись
         painter.setPen(Qt.white)
-        painter.setFont(self.font_ram)
+        painter.setFont(self.font_label)
         painter.drawText(x - 14, y - 20, label)
 
         # фон дуги
@@ -279,7 +279,7 @@ class JarvisHUD(QWidget):
         painter.save()
 
         # Original text meters: freeRAM.p2x2, UsedTOTAL, UsedRAM.p2x.
-        painter.setFont(self.font_label)
+        painter.setFont(self.font_ram)
         painter.setPen(QColor(200, 200, 200, 220))
         painter.drawText(QRectF(625, 302, 60, 18), Qt.AlignCenter, f"{free:.2f}%")
         painter.setPen(Qt.white)

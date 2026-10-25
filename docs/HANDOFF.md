@@ -784,3 +784,33 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0021-ram-colors-font/`.
 
+## Очередь 0022 — apply BitDust Two to RAM readout
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0022-fix-ram-font-target/`
+
+Исправление:
+
+- предыдущая привязка шрифта попала в подписи круговых индикаторов;
+- подписи CPU/RAM/GPU/DISK возвращены на обычный HUD-шрифт;
+- три строки правого RAM-блока теперь действительно используют `BitDust Two`.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит форму цифр в правом RAM-блоке.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0022-fix-ram-font-target/`.
+
