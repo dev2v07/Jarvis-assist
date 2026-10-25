@@ -543,3 +543,26 @@ Git:
 
 - восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0013-no-button-hover-highlight/`.
 
+## Очередь 0014 — enable native TECH-A rotator animation
+
+Дата: 2026-10-26
+
+Состояние:
+
+- native-style animation is enabled in `frontend/tech_a_animation.py`;
+- static `BG1–BG6` remain fixed;
+- animation is provided by the separate rotator layer using `1xx.png`, `2x.png` and `3x.png`;
+- the current frontend restart confirms the animation module is connected to the HUD;
+- `GET /health`: HTTP 200.
+
+Файлы:
+
+- `frontend/tech_a_animation.py`;
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- backend and frontend are running after the previous queue;
+- the active `Jarvis Assist` window is left open for visual confirmation.
+
