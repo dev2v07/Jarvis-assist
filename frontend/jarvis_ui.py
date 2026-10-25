@@ -17,6 +17,14 @@ print(os.path.join(BASE_DIR, "assets", "jarvis_off.png"))
 
 API_URL = "http://127.0.0.1:8000/chat"
 
+TECH_FONT_FILES = {
+    "Good Times": "GOODTIME.ttf",
+    "Imagine font": "imagine_font.ttf",
+    "HandelGotD": "HandelGotD.ttf",
+    "Nasalization": "nasaliza.ttf",
+    "BitDust Two": "bitdust2.ttf",
+}
+
 
 # ---------------- MESSAGE BUBBLE ----------------
 
@@ -133,6 +141,14 @@ class JarvisUI(QWidget):
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
 
+        self.ui_settings = QSettings("Jarvis", "Jarvis Assist")
+        self.tech_font_families = self.register_tech_fonts()
+        self.active_font_family = self.ui_settings.value(
+            "font_family",
+            self.tech_font_families.get("Good Times", "Arial"),
+        )
+        QApplication.instance().setFont(QFont(self.active_font_family, 10))
+
         self.oldPos = None
         self.setWindowOpacity(0.96)
 
@@ -158,31 +174,53 @@ class JarvisUI(QWidget):
      self.jarvis_state = not self.jarvis_state
 
      if self.jarvis_state:
-
-        pix = QPixmap(os.path.join(BASE_DIR,"assets","jarvis_on.png"))
-        self.jarvis_button.setIcon(QIcon(pix))
+        self.jarvis_button.setText("STOP")
+        self.jarvis_button.setProperty("active", True)
+        self.jarvis_button.style().unpolish(self.jarvis_button)
+        self.jarvis_button.style().polish(self.jarvis_button)
 
         self.assistant_label.setText("JARVIS слушает...")
 
         # запускаем пульс
         self.pulse_anim.start()
-        self.breath_anim.start()
 
         print("Jarvis ON")
 
      else:
-
-        pix = QPixmap(os.path.join(BASE_DIR,"assets","jarvis_off.png"))
-        self.jarvis_button.setIcon(QIcon(pix))
+        self.jarvis_button.setText("START")
+        self.jarvis_button.setProperty("active", False)
+        self.jarvis_button.style().unpolish(self.jarvis_button)
+        self.jarvis_button.style().polish(self.jarvis_button)
 
         self.assistant_label.setText("Нажмите кнопку чтобы активировать JARVIS")
 
         # выключаем пульс
         self.pulse_anim.stop()
-        self.breath_anim.stop()
         self.glow.setBlurRadius(40)
 
         print("Jarvis OFF")
+
+    def register_tech_fonts(self):
+        families = {}
+        font_dir = os.path.join(BASE_DIR, "assets", "fonts")
+
+        for label, filename in TECH_FONT_FILES.items():
+            path = os.path.join(font_dir, filename)
+            font_id = QFontDatabase.addApplicationFont(path)
+            loaded = QFontDatabase.applicationFontFamilies(font_id)
+            if loaded:
+                families[label] = loaded[0]
+
+        return families
+
+    def apply_font_family(self, label):
+        family = self.tech_font_families.get(label)
+        if not family:
+            return
+
+        self.active_font_family = family
+        QApplication.instance().setFont(QFont(family, 10))
+        self.ui_settings.setValue("font_family", family)
 
 
     # ---------------- HOVER MENU BUTTON ----------------
@@ -577,10 +615,10 @@ class JarvisUI(QWidget):
         self.jarvis_state = False
 
         # кнопка jarvis
-        self.jarvis_button = QPushButton()
+        self.jarvis_button = QPushButton("START")
         self.jarvis_button.setFixedSize(240,240)
-        self.jarvis_button.setIconSize(QSize(200,200))
-        self.jarvis_button.setStyleSheet("background:transparent;border:none;")
+        self.jarvis_button.setObjectName("jarvisStart")
+        self.jarvis_button.setCursor(Qt.PointingHandCursor)
 
         # эффект свечения вокруг кнопки
         self.glow = QGraphicsDropShadowEffect()
@@ -596,21 +634,7 @@ class JarvisUI(QWidget):
         self.pulse_anim.setLoopCount(-1)
 
         # анимация "дыхания" кнопки
-        # дыхание кнопки через iconSize
-        self.breath_anim = QPropertyAnimation(self.jarvis_button, b"iconSize")
-
-        self.breath_anim.setStartValue(QSize(200,200))
-        self.breath_anim.setEndValue(QSize(220,220))
-
-        self.breath_anim.setDuration(1200)
-        self.breath_anim.setLoopCount(-1)
-        self.breath_anim.setEasingCurve(QEasingCurve.InOutSine)
-
         self.jarvis_button.setGraphicsEffect(self.glow)
-        pix = QPixmap(os.path.join(BASE_DIR, "assets", "jarvis_off.png"))
-
-        self.jarvis_button.setIcon(QIcon(pix))
-        self.jarvis_button.setIconSize(QSize(200,200))
 
         assistant_layout.addStretch()
 
@@ -657,7 +681,18 @@ class JarvisUI(QWidget):
         # страница настроек
         settings_page = QWidget()
         settings_layout = QVBoxLayout(settings_page)
-        settings_layout.addWidget(QLabel("ИСТОРИЯ ЧАТОВ"))
+        settings_layout.addWidget(QLabel("НАСТРОЙКИ JARVIS"))
+        settings_layout.addWidget(QLabel("Шрифт интерфейса TECH-A"))
+        self.font_combo = QComboBox()
+        self.font_combo.addItems(list(self.tech_font_families.keys()))
+        for index, family in enumerate(self.font_combo.itemText(i) for i in range(self.font_combo.count())):
+            if self.tech_font_families.get(family) == self.active_font_family:
+                self.font_combo.setCurrentIndex(index)
+                break
+        self.font_combo.currentTextChanged.connect(self.apply_font_family)
+        settings_layout.addWidget(self.font_combo)
+        settings_layout.addWidget(QLabel("Шрифты загружаются из assets/fonts, перенесённых из TECH-A/SETTINGS."))
+        settings_layout.addStretch()
         self.pages.addWidget(settings_page)
 
         # страница команд
@@ -852,6 +887,43 @@ background:#ff4d4d;
 
 #closeBtn:hover{
 background:#ff2c2c;
+}
+
+#jarvisStart{
+color:rgba(235,250,255,245);
+font-size:24px;
+font-weight:bold;
+letter-spacing:3px;
+border-radius:120px;
+border:1px solid rgba(220,250,255,180);
+background:qradialgradient(
+cx:0.5, cy:0.42, radius:0.62,
+stop:0 rgba(220,250,255,110),
+stop:0.34 rgba(90,190,230,75),
+stop:0.72 rgba(25,70,100,65),
+stop:1 rgba(8,18,28,120)
+);
+}
+
+#jarvisStart:hover{
+border:2px solid rgba(235,255,255,230);
+background:qradialgradient(
+cx:0.5, cy:0.42, radius:0.62,
+stop:0 rgba(240,255,255,150),
+stop:0.34 rgba(80,210,255,100),
+stop:1 rgba(8,18,28,140)
+);
+}
+
+#jarvisStart[active="true"]{
+color:#bdf7ff;
+border:2px solid rgba(0,220,255,235);
+background:qradialgradient(
+cx:0.5, cy:0.42, radius:0.62,
+stop:0 rgba(235,255,255,180),
+stop:0.32 rgba(0,210,255,125),
+stop:1 rgba(5,35,55,150)
+);
 }
                            
                          

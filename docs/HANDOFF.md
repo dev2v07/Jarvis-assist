@@ -240,3 +240,39 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py`, `frontend/jarvis_ui.py` и `frontend/styles.css` из `backups/handoff-0005-pre-tech-a-front/`.
 
+## Очередь 0006 — orbit indicators, Aero Glass START and TECH-A fonts
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0006-pre-hud-fonts/`
+
+Изменения:
+
+- CPU, RAM, GPU и DISK теперь двигаются по общей орбитальной оси `a2`, не ломая существующую анимацию колец;
+- центральная кнопка заменена на стеклянный круг Aero Glass;
+- иконка Play заменена на текст `START`, активное состояние показывает `STOP`;
+- добавлены glass-gradient, прозрачность, граница и cyan glow;
+- шрифты из `TECH-A/SETTINGS` перенесены в `frontend/assets/fonts`;
+- в настройки Jarvis добавлен выбор Good Times, Imagine font, HandelGotD, Nasalization и BitDust Two;
+- выбранный шрифт сохраняется через `QSettings`.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `frontend/jarvis_ui.py`;
+- `frontend/assets/fonts/*.ttf`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD и UI: пройден;
+- `git diff --check`: пройден;
+- после финальной записи будут запущены backend и frontend;
+- будет проверен `/health`, окно `Jarvis Assist`, START/STOP и экран настроек шрифтов.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py`, `frontend/jarvis_ui.py`, `frontend/styles.css` и fonts из `backups/handoff-0006-pre-hud-fonts/`.
+

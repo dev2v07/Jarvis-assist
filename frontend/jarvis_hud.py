@@ -107,7 +107,8 @@ class JarvisHUD(QWidget):
         # вращение заднего круга
         self.group_angle += 0.01
 
-        # плавная анимация нагрузки
+        # Показатели движутся по той же орбитальной оси, что и кольца TECH-A.
+        # Значение a2 уже является частью существующей рабочей анимации.
         self.cpu_anim += (self.cpu - self.cpu_anim) * 0.08
         self.ram_anim += (self.ram - self.ram_anim) * 0.08
         self.gpu_anim += (self.gpu - self.gpu_anim) * 0.08
@@ -162,10 +163,11 @@ class JarvisHUD(QWidget):
         self.draw(painter, self.rot1, self.r1, cx, cy)
 
         # индикаторы (НЕ вращаются)
-        cpu_x, cpu_y = self.ring_pos(cx, cy, -90)
-        ram_x, ram_y = self.ring_pos(cx, cy, 0)
-        gpu_x, gpu_y = self.ring_pos(cx, cy, 90)
-        disk_x, disk_y = self.ring_pos(cx, cy, 180)
+        orbit = self.a2
+        cpu_x, cpu_y = self.ring_pos(cx, cy, -90 + orbit)
+        ram_x, ram_y = self.ring_pos(cx, cy, 0 + orbit)
+        gpu_x, gpu_y = self.ring_pos(cx, cy, 90 + orbit)
+        disk_x, disk_y = self.ring_pos(cx, cy, 180 + orbit)
 
         self.draw_gauge(painter, cpu_x, cpu_y, self.cpu_anim, "CPU")
         self.draw_gauge(painter, ram_x, ram_y, self.ram_anim, "RAM")
