@@ -205,9 +205,9 @@ class JarvisHUD(QWidget):
 
         # индикаторы (НЕ вращаются)
         orbit = self.animation.orbit_angle
-        cpu_x, cpu_y = self.ring_pos(cx, cy, -90 + orbit)
-        ram_x, ram_y = self.ring_pos(cx, cy, 0 + orbit)
-        gpu_x, gpu_y = self.ring_pos(cx, cy, 90 + orbit)
+        cpu_x, cpu_y = self.ring_pos(cx, cy, -90)
+        ram_x, ram_y = self.ring_pos(cx, cy, 0)
+        gpu_x, gpu_y = self.ring_pos(cx, cy, 90)
         disk_x, disk_y = self.ring_pos(cx, cy, 180 + orbit)
 
         self.draw_gauge(painter, cpu_x, cpu_y, self.cpu_anim, "CPU")

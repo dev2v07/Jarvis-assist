@@ -978,3 +978,34 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0027-dpi-native-hud/`.
 
+## Очередь 0028 — freeze CPU/RAM/GPU indicator positions
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0028-freeze-cpu-ram-gpu-indicators/`
+
+Изменения:
+
+- орбитальное движение `CPU`, `RAM` и `GPU` остановлено;
+- позиции зафиксированы на исходных углах `-90°`, `0°` и `90°`;
+- значения загрузки продолжают обновляться плавно;
+- `DISK` оставлен на текущей орбите.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит неподвижность CPU/RAM/GPU.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0028-freeze-cpu-ram-gpu-indicators/`.
+
