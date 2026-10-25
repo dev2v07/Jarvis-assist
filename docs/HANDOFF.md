@@ -594,3 +594,28 @@ Git:
 
 - восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0015-rollback-neutral-hover/`.
 
+## Очередь 0016 — invisible TECH-A hover frame
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0016-invisible-button-hover-frame/`
+
+Изменения:
+
+- hover снова использует static-кадр без визуальной рамки и подсветки;
+- tooltip с названием кнопки сохранён;
+- pressed-кадр оставлен без изменений.
+
+Проверка:
+
+- `py_compile` для UI и HUD: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь проверит CFG: tooltip остаётся, прозрачная рамка исчезает.
+
+Откат:
+
+- восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0016-invisible-button-hover-frame/`.
+
