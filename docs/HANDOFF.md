@@ -619,3 +619,29 @@ Git:
 
 - восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0016-invisible-button-hover-frame/`.
 
+## Очередь 0017 — hover animation without Qt overlay
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0017-hover-animation-no-overlay/`
+
+Изменения:
+
+- hover снова использует второй кадр оригинального TECH-A sprite sheet;
+- Qt hover-background и border остаются полностью прозрачными;
+- pressed-кадр и tooltip сохранены;
+- отдельное выделенное окно вокруг кнопки не создаётся.
+
+Проверка:
+
+- `py_compile` для UI и HUD: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь проверит hover-анимацию CFG без прозрачной Qt-рамки.
+
+Откат:
+
+- восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0017-hover-animation-no-overlay/`.
+

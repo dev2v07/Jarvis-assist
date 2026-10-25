@@ -226,6 +226,7 @@ class JarvisUI(QWidget):
             # static | hover | pressed. Do not render the complete sprite.
             frame_width = sprite.width() // 3
             static_frame = sprite.copy(0, 0, frame_width, sprite.height())
+            hover_frame = sprite.copy(frame_width, 0, frame_width, sprite.height())
             pressed_frame = sprite.copy(frame_width * 2, 0, frame_width, sprite.height())
 
             button = QToolButton(parent)
@@ -235,8 +236,8 @@ class JarvisUI(QWidget):
             # states (hover/pressed) supplied by the button widget.
             icon = QIcon()
             icon.addPixmap(static_frame, QIcon.Normal, QIcon.Off)
-            # Keep tooltip on hover, but keep the button artwork static.
-            icon.addPixmap(static_frame, QIcon.Active, QIcon.Off)
+            # Keep the original hover animation, without a Qt overlay frame.
+            icon.addPixmap(hover_frame, QIcon.Active, QIcon.Off)
             icon.addPixmap(pressed_frame, QIcon.Selected, QIcon.Off)
             button.setIcon(icon)
             button.setIconSize(static_frame.size())
