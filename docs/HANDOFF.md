@@ -510,3 +510,34 @@ Git:
 
 - восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0012-button-sprite-states/`.
 
+## Очередь 0013 — neutral TECH-A button hover
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0013-no-button-hover-highlight/`
+
+Изменения:
+
+- hover-кнопки теперь использует тот же static-кадр, что и обычное состояние;
+- убраны hover-background и hover-border у интерактивной области;
+- tooltip с названием кнопки отключён;
+- pressed-кадр sprite sheet сохранён.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для UI и HUD: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит наведение на CFG и остальные кнопки.
+
+Откат:
+
+- восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0013-no-button-hover-highlight/`.
+
