@@ -30,6 +30,21 @@ backups/
 *.7z
 *.exe
 
+# Historical generations kept outside the canonical runtime
+/ada_v2-main/
+/JARVIS-main/
+/Jarvis-AI-using-python3--master/
+/JarvisBeta Setup/
+/project_hel_1_0/
+/project_hel_full_archive/
+/tech-a/
+/jarvis_voice/
+/espeak-ng-1.52.0/
+/Helmet Jarvis_1.0/
+/Jarvis Sound Pack от Jarvis Desktop/
+/vosk-model-small-ru-0.22/
+/VMPOWDER/
+
 # IDE / OS
 .idea/
 .vscode/
