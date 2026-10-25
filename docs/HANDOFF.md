@@ -752,3 +752,33 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0020-tech-a-ram-side-panel/`.
 
+## Очередь 0021 — RAM bar colors and original font
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0021-ram-colors-font/`
+
+Изменения:
+
+- цвета RAM-дуг переставлены местами по визуальному эталону пользователя;
+- RAM-подписи теперь используют оригинальный `BitDust Two` из `TECH-A/SETTINGS` (`Font4`);
+- остальные шрифты и слои HUD не изменялись.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит цвета полосок и шрифт RAM-блока.
+
+Откат:
+
+- восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0021-ram-colors-font/`.
+
