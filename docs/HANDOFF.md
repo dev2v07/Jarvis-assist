@@ -471,3 +471,39 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py`, `frontend/jarvis_ui.py`, `frontend/tech_a_animation.py` и `docs/HANDOFF.md` из `backups/handoff-0011-static-tech-a-bg-layers/`.
 
+## Очередь 0012 — split TECH-A button sprite states
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0012-button-sprite-states/`
+
+Проблема:
+
+- каждый оригинальный PNG кнопки является горизонтальным sprite sheet из трёх состояний, а предыдущая реализация показывала весь файл целиком; поэтому одна кнопка визуально троилась.
+
+Изменения:
+
+- каждый `COMP/DOCS/CTRL/DESK/XPLR/CHRM/GAME/CFG.png` делится на три равных кадра;
+- первый кадр используется как static;
+- второй подключён к состоянию hover;
+- третий подключён к состоянию pressed/selected;
+- размер интерактивной области соответствует одному кадру, а не всему sprite sheet.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для UI и HUD: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации журнала;
+- пользователь визуально проверит, что каждая кнопка отображается одним кадром и меняет состояние при наведении/нажатии.
+
+Откат:
+
+- восстановить `frontend/jarvis_ui.py` и `docs/HANDOFF.md` из `backups/handoff-0012-button-sprite-states/`.
+

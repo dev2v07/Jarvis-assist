@@ -218,17 +218,28 @@ class JarvisUI(QWidget):
 
         for name, (x, y) in TECH_ACTION_BUTTONS.items():
             path = os.path.join(assets_dir, f"{name}.png")
-            pixmap = QPixmap(path)
-            if pixmap.isNull():
+            sprite = QPixmap(path)
+            if sprite.isNull() or sprite.width() % 3:
                 continue
+
+            # TECH-A stores three horizontal states in one PNG:
+            # static | hover | pressed. Do not render the complete sprite.
+            frame_width = sprite.width() // 3
+            static_frame = sprite.copy(0, 0, frame_width, sprite.height())
+            hover_frame = sprite.copy(frame_width, 0, frame_width, sprite.height())
+            pressed_frame = sprite.copy(frame_width * 2, 0, frame_width, sprite.height())
 
             button = QToolButton(parent)
             button.setObjectName("techTool")
-            button.setGeometry(x, y, pixmap.width(), pixmap.height())
+            button.setGeometry(x, y, frame_width, sprite.height())
             # Match Rainmeter's Meter=BUTTON: one image plus Qt interaction
             # states (hover/pressed) supplied by the button widget.
-            button.setIcon(QIcon(pixmap))
-            button.setIconSize(pixmap.size())
+            icon = QIcon()
+            icon.addPixmap(static_frame, QIcon.Normal, QIcon.Off)
+            icon.addPixmap(hover_frame, QIcon.Active, QIcon.Off)
+            icon.addPixmap(pressed_frame, QIcon.Selected, QIcon.Off)
+            button.setIcon(icon)
+            button.setIconSize(static_frame.size())
             button.setToolTip(name)
             button.setCursor(Qt.PointingHandCursor)
             button.clicked.connect(lambda checked=False, key=name: self.handle_tech_action(key))
