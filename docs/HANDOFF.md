@@ -2157,8 +2157,11 @@ Rollback point:
 
 Проверка:
 
-- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
-  `GET /health` со статусом HTTP 200.
+- `py_compile` для HUD и UI: пройден;
+- `git diff --check`: пройден;
+- backend и frontend перезапущены;
+- `GET /health`: HTTP 200;
+- дата сдвинута вправо на `3 px` без ошибок frontend.
 
 Откат:
 
