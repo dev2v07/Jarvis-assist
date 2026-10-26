@@ -80,4 +80,4 @@ computer's local clock and calendar.
 
 The user-selected time/date placement follows the first outer `BG6` ring on
 the vertical center axis: time baseline `X=355, Y=61`, date baseline
-`X=355, Y=697`.
+`X=355, Y=660`.

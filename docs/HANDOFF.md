@@ -2040,3 +2040,33 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0060-move-time-date-to-bg6/`.
 
+## Очередь 0061 — raise date inside BG6
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0061-raise-date-in-bg6/`
+
+Изменения:
+
+- дата поднята с baseline `Y=697` до `Y=660`;
+- время не изменялось;
+- дата теперь находится внутри первого внешнего кольца `BG6`, а не на его
+  нижней границе.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0061-raise-date-in-bg6/`.
+
