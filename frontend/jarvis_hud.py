@@ -633,9 +633,17 @@ class JarvisHUD(QWidget):
         if pixmap.isNull():
             return
         painter.save()
+        # Rotate around the visible artwork center, not the transparent PNG
+        # canvas center. BG000's non-transparent bounds are offset by a few
+        # pixels, which otherwise creates an orbital / figure-eight wobble.
+        visible_center_x = pixmap.width() / 2
+        visible_center_y = pixmap.height() / 2
+        if pixmap is self.bg2:
+            visible_center_x = 362.0
+            visible_center_y = 356.0
         painter.translate(round(cx), round(cy))
         painter.rotate(angle)
-        painter.drawPixmap(-pixmap.width() // 2, -pixmap.height() // 2, pixmap)
+        painter.drawPixmap(-round(visible_center_x), -round(visible_center_y), pixmap)
         painter.restore()
 
     def draw_rotator(self, painter, pixmap, angle, cx, cy):
