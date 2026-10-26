@@ -38,8 +38,10 @@ class JarvisHUD(QWidget):
     GAUGE_RADIUS = 300
     GAUGE_BG_SIZE = 82
 
-    def __init__(self):
+    def __init__(self, accent_color=None, interface_font=None):
         super().__init__()
+
+        self.accent_color = QColor(accent_color or "#00ebf5")
 
         self.setAttribute(Qt.WA_TransparentForMouseEvents)
         self.setAttribute(Qt.WA_TranslucentBackground)
@@ -109,6 +111,8 @@ class JarvisHUD(QWidget):
         # Original BitDust readout, enlarged by 2.3 px for readability.
         self.font_ram = QFont(ram_family, 8.3)
         self.font_net = QFont(ram_family, 8.3)
+        if interface_font:
+            self.set_interface_font(interface_font)
 
         # таймеры
         self.timer = QTimer()
@@ -211,6 +215,23 @@ class JarvisHUD(QWidget):
             min(1.0, self.net_download_rate / 6144000.0) - self.net_download_progress
         ) * 0.16
 
+        self.update()
+
+    def set_accent_color(self, color):
+        """Update the active indicator color without rebuilding the HUD."""
+        parsed = QColor(color)
+        if parsed.isValid():
+            self.accent_color = parsed
+            self.update()
+
+    def set_interface_font(self, family):
+        """Apply the selected application font to every HUD text meter."""
+        if not family:
+            return
+        self.font_big = QFont(family, 10)
+        self.font_label = QFont(family, 7)
+        self.font_ram = QFont(family, 8.3)
+        self.font_net = QFont(family, 8.3)
         self.update()
 
     def ring_pos(self, cx, cy, angle):
@@ -343,11 +364,15 @@ class JarvisHUD(QWidget):
 
         # Original source: CalcNetOut has a -0.3665 radian sweep and
         # CalcNetIn has a +0.3665 radian sweep around the left side.
-        pen = QPen(QColor(0, 235, 245, 220), 2.0, Qt.SolidLine, Qt.RoundCap)
+        upload_color = QColor(self.accent_color)
+        upload_color.setAlpha(220)
+        pen = QPen(upload_color, 2.0, Qt.SolidLine, Qt.RoundCap)
         painter.setPen(pen)
         painter.drawArc(rect, 179 * 16, round(-21 * 16 * self.net_upload_progress))
 
-        pen.setColor(QColor(235, 235, 235, 210))
+        download_color = QColor(self.accent_color)
+        download_color.setAlpha(210)
+        pen.setColor(download_color)
         painter.setPen(pen)
         painter.drawArc(rect, 181 * 16, round(21 * 16 * self.net_download_progress))
         painter.restore()
@@ -399,7 +424,7 @@ class JarvisHUD(QWidget):
         painter.drawArc(rect, 135 * 16, 270 * 16)
 
         # дуга нагрузки
-        pen_val = QPen(QColor(0, 235, 245), 3)
+        pen_val = QPen(self.accent_color, 3)
         painter.setPen(pen_val)
 
         span = int(-value * 270 / 100 * 16)
@@ -435,14 +460,18 @@ class JarvisHUD(QWidget):
 
         painter.setPen(QPen(QColor(255, 255, 255, 85), 3))
         painter.drawArc(rect, 1 * 16, full_span)
-        painter.setPen(QPen(QColor(0, 255, 255, 70), 3))
+        ram_glow = QColor(self.accent_color)
+        ram_glow.setAlpha(70)
+        painter.setPen(QPen(ram_glow, 3))
         painter.drawArc(rect, 359 * 16, -full_span)
 
         used_span = max(1, int(full_span * used / 100.0))
         free_span = max(1, int(full_span * free / 100.0))
         painter.setPen(QPen(QColor(255, 255, 255, 220), 4))
         painter.drawArc(rect, 1 * 16, used_span)
-        painter.setPen(QPen(QColor(0, 255, 255, 220), 4))
+        ram_value = QColor(self.accent_color)
+        ram_value.setAlpha(220)
+        painter.setPen(QPen(ram_value, 4))
         painter.drawArc(rect, 359 * 16, -free_span)
 
         painter.restore()

@@ -43,6 +43,18 @@ value color `RGB(0, 235, 245)`. The central `TEMP` and `NET` gauge cells are
 not rendered in the current widget layout; the separate `UP/DN` network block
 remains available for traffic details.
 
+Application appearance settings belong to the `НАСТРОЙКИ` navigation page.
+The interface font and accent color are persisted with `QSettings`. The default
+accent is `#00EBF5` (`RGB 0, 235, 245`) and is applied to the primary HUD
+indicator arcs, network progress arcs, and application navigation/action
+buttons. Changing it updates the running UI and is available for the next
+launch.
+
+The selected interface font is also passed into the HUD renderer. It controls
+all code-rendered HUD text (labels, indicator values, RAM/network readouts) and
+all Qt text in the application tabs. Text baked into TECH-A PNG layers remains
+unchanged because it is raster artwork rather than a live font.
+
 - secrets are supplied through environment variables;
 - generated runtime state is ignored by Git;
 - core and optional dependencies are listed separately;

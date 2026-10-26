@@ -1676,3 +1676,65 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0049-cyan-main-gauges-remove-temp-net/`.
 
+## Очередь 0050 — move font settings and add configurable accent color
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0050-settings-accent-color/`
+
+Изменения:
+
+- добавлена отдельная страница истории, поэтому пункт `ИСТОРИЯ ЧАТОВ` больше
+  не показывает содержимое настроек;
+- выбор шрифта закреплён за настоящей страницей `НАСТРОЙКИ`;
+- добавлен выбор акцентного цвета через системный color picker;
+- значение по умолчанию — `#00EBF5` (`RGB 0, 235, 245`), оно сохраняется через
+  `QSettings`;
+- выбранный цвет применяется к дугам индикаторов HUD, сетевым полосам и
+  акцентам кнопок/навигации приложения без перезапуска.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0050-settings-accent-color/`.
+
+## Очередь 0051 — apply selected font to HUD and application tabs
+
+Дата: 2026-10-26
+
+Изменения:
+
+- выбранное семейство шрифта из настроек передаётся в `JarvisHUD`;
+- шрифт применяется ко всем отрисованным текстовым элементам HUD и к Qt-
+  интерфейсу вкладок;
+- растровые подписи внутри исходных PNG-слоёв TECH-A не заменяются.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- вернуть состояние из backup очереди 0050 и отменить изменения очереди 0051.
+

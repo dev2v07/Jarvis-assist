@@ -192,6 +192,11 @@ class JarvisUI(QWidget):
             "font_family",
             self.tech_font_families.get("Good Times", "Arial"),
         )
+        stored_accent = self.ui_settings.value("accent_color", "#00ebf5")
+        self.accent_color = QColor(stored_accent)
+        if not self.accent_color.isValid():
+            self.accent_color = QColor("#00ebf5")
+        self.accent_hex = self.accent_color.name()
         QApplication.instance().setFont(QFont(self.active_font_family, 10))
 
         self.oldPos = None
@@ -360,6 +365,22 @@ class JarvisUI(QWidget):
         self.active_font_family = family
         QApplication.instance().setFont(QFont(family, 10))
         self.ui_settings.setValue("font_family", family)
+        if hasattr(self, "hud"):
+            self.hud.set_interface_font(family)
+
+    def choose_accent_color(self):
+        color = QColorDialog.getColor(self.accent_color, self, "Выберите акцентный цвет")
+        if not color.isValid():
+            return
+
+        self.accent_color = color
+        self.accent_hex = color.name()
+        self.ui_settings.setValue("accent_color", self.accent_hex)
+        self.hud.set_accent_color(color)
+        self.accent_value_label.setText(
+            f"{self.accent_hex.upper()}  RGB {color.red()}, {color.green()}, {color.blue()}"
+        )
+        self.apply_styles()
 
 
     # ---------------- HOVER MENU BUTTON ----------------
@@ -411,7 +432,7 @@ class JarvisUI(QWidget):
 
         menu = QMenu(self)
 
-        menu.setStyleSheet("""
+        menu.setStyleSheet(f"""
         QMenu{
         background:#1c1c24;
         border:1px solid rgba(255,255,255,40);
@@ -426,7 +447,7 @@ class JarvisUI(QWidget):
         }
 
         QMenu::item:selected{
-        background:#2E89FF;
+        background:{self.accent_hex};
         }
         """)
 
@@ -743,7 +764,7 @@ class JarvisUI(QWidget):
 
         assistant_layout = QVBoxLayout(assistant_page)
         assistant_layout.setContentsMargins(0,0,0,0)
-        self.hud = JarvisHUD()
+        self.hud = JarvisHUD(self.accent_color, self.active_font_family)
         self.hud.setFixedSize(JarvisHUD.HUD_SIZE, JarvisHUD.HUD_SIZE)
         self.assistant_label = QLabel("Нажмите кнопку чтобы активировать JARVIS")
         self.assistant_label.setAlignment(Qt.AlignCenter)
@@ -821,6 +842,14 @@ class JarvisUI(QWidget):
         chat_page_layout.addWidget(chat_frame)
 
         self.pages.addWidget(chat_page)
+
+        # Keep the left navigation indices aligned with the stacked pages.
+        history_page = QWidget()
+        history_layout = QVBoxLayout(history_page)
+        history_layout.addWidget(QLabel("ИСТОРИЯ ЧАТОВ"))
+        history_layout.addStretch()
+        self.pages.addWidget(history_page)
+
         # страница настроек
         settings_page = QWidget()
         settings_layout = QVBoxLayout(settings_page)
@@ -835,6 +864,17 @@ class JarvisUI(QWidget):
         self.font_combo.currentTextChanged.connect(self.apply_font_family)
         settings_layout.addWidget(self.font_combo)
         settings_layout.addWidget(QLabel("Шрифты загружаются из assets/fonts, перенесённых из TECH-A/SETTINGS."))
+
+        settings_layout.addWidget(QLabel("Акцентный цвет интерфейса и индикаторов"))
+        self.accent_value_label = QLabel()
+        self.accent_value_label.setText(
+            f"{self.accent_hex.upper()}  RGB {self.accent_color.red()}, "
+            f"{self.accent_color.green()}, {self.accent_color.blue()}"
+        )
+        self.accent_button = QPushButton("Изменить акцентный цвет")
+        self.accent_button.clicked.connect(self.choose_accent_color)
+        settings_layout.addWidget(self.accent_value_label)
+        settings_layout.addWidget(self.accent_button)
         settings_layout.addStretch()
         self.pages.addWidget(settings_page)
 
@@ -895,6 +935,9 @@ class JarvisUI(QWidget):
     # ---------------- STYLES ----------------
 
     def apply_styles(self):
+
+        accent = self.accent_hex
+        accent_hover = self.accent_color.lighter(120).name()
 
         self.setStyleSheet("""
 
@@ -1088,7 +1131,7 @@ border-radius:11px;
 background:#444;
 }
 
-""")
+""".replace("#2E89FF", accent).replace("#4aa0ff", accent_hover))
 
 
     # ---------------- COMMAND ----------------
