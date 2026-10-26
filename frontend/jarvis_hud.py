@@ -346,8 +346,19 @@ class JarvisHUD(QWidget):
         color = QColor(self.text_color)
         color.setAlpha(225)
         painter.setPen(color)
-        painter.drawText(QRectF(315, 165, 80, 16), Qt.AlignCenter, self.clock_text)
-        painter.drawText(QRectF(300, 528, 110, 16), Qt.AlignCenter, self.date_text)
+        metrics = QFontMetricsF(self.font_net)
+
+        # Source anchors from TECH-A 6 CPU.ini are baseline coordinates:
+        # MeterTime X=350 Y=167, Meterdate X=348 Y=534,
+        # Metermounth X=379 Y=534.
+        time_width = metrics.horizontalAdvance(self.clock_text)
+        painter.drawText(QPointF(350 - time_width / 2, 167), self.clock_text)
+
+        day_part, month_part = self.date_text.split(" ", 1)
+        day_width = metrics.horizontalAdvance(day_part)
+        month_width = metrics.horizontalAdvance(month_part)
+        painter.drawText(QPointF(348 - day_width / 2, 534), day_part)
+        painter.drawText(QPointF(379 - month_width / 2, 534), month_part)
         painter.restore()
 
     def draw_big_animation(self, painter):

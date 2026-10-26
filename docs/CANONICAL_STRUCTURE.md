@@ -77,3 +77,6 @@ The HUD also renders live local PC date/time: the top center uses 24-hour
 `HH:MM`, while the bottom center uses ordinal English format such as
 `25TH OCT`. Both values are refreshed from `datetime.now()` and follow the
 computer's local clock and calendar.
+
+The time/date placement follows the original TECH-A source anchors: time at
+`X=350, Y=167`, day at `X=348, Y=534`, and month at `X=379, Y=534`.

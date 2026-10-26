@@ -1909,3 +1909,34 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0056-live-time-date/`.
 
+## Очередь 0057 — align time/date to TECH-A source anchors
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0057-align-time-date-source-anchors/`
+
+Изменения:
+
+- время и дата переведены с приблизительных прямоугольников на исходные
+  baseline-якоря TECH-A;
+- время размещается по `X=350, Y=167`;
+- день и месяц размещаются по `X=348/379, Y=534`, как в оригинале;
+- 24-часовой формат и синхронизация с локальным ПК сохранены.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0057-align-time-date-source-anchors/`.
+
