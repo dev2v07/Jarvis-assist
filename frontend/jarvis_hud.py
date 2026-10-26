@@ -425,9 +425,9 @@ class JarvisHUD(QWidget):
         for source in self.cpu_source_layers:
             self.draw_source_cpu_frame(painter, source, 5, frame_index,
                                        left, top, frame_size)
-        for source in self.cpu_source_highlights:
-            self.draw_source_cpu_frame(painter, source, 3, highlight_index,
-                                       left, top, frame_size)
+        # The source `*str` strips contain the repeated 0%/50%/100% labels.
+        # They are intentionally not painted here; Jarvis renders one clean
+        # user-positioned scale below instead.
 
         painter.setFont(self.font_net)
         scale_color = QColor(self.text_color)

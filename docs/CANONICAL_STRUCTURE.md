@@ -106,4 +106,5 @@ animation mode. Fixed `0`, `50`, and `100` labels sit on the inner reference
 ticks at the top, right, and bottom as scale marks, not as additional
 measurements; the 50 mark has the source-like slight outward offset. The
 progress points use the inner START-adjacent track at radius `150` in the
-710px HUD coordinate system.
+710px HUD coordinate system. The source `6cpucore*str.png` strips are not
+painted because they contain repeated embedded `0% / 50% / 100%` captions.
