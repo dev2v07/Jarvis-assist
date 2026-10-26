@@ -360,8 +360,9 @@ class JarvisHUD(QWidget):
         day_part, month_part = self.date_text.split(" ", 1)
         day_width = metrics.horizontalAdvance(day_part)
         month_width = metrics.horizontalAdvance(month_part)
-        painter.drawText(QPointF(355 - (day_width + month_width + 6) / 2, 660), day_part)
-        painter.drawText(QPointF(355 + (day_width + 6 - month_width) / 2, 660), month_part)
+        date_center_x = 358  # +3 px from the centered source alignment.
+        painter.drawText(QPointF(date_center_x - (day_width + month_width + 6) / 2, 660), day_part)
+        painter.drawText(QPointF(date_center_x + (day_width + 6 - month_width) / 2, 660), month_part)
         painter.restore()
 
     def draw_big_animation(self, painter):
