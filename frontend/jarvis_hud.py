@@ -82,6 +82,10 @@ class JarvisHUD(QWidget):
         self.net = 0.0
         self.net_display = "0K"
         self.net_readouts = ("0 B", "0 B", "0 B", "0 B")
+        self.net_upload_rate = 0.0
+        self.net_download_rate = 0.0
+        self.net_upload_progress = 0.0
+        self.net_download_progress = 0.0
         self.ram_total_gb = 0.0
         self._net_previous = psutil.net_io_counters()
         self._net_previous_at = time.monotonic()
@@ -133,9 +137,11 @@ class JarvisHUD(QWidget):
         now = time.monotonic()
         counters = psutil.net_io_counters()
         elapsed = max(0.1, now - self._net_previous_at)
-        transferred = (counters.bytes_sent - self._net_previous.bytes_sent) + (
-            counters.bytes_recv - self._net_previous.bytes_recv
-        )
+        sent_delta = max(0, counters.bytes_sent - self._net_previous.bytes_sent)
+        recv_delta = max(0, counters.bytes_recv - self._net_previous.bytes_recv)
+        self.net_upload_rate = sent_delta / elapsed
+        self.net_download_rate = recv_delta / elapsed
+        transferred = sent_delta + recv_delta
         # NET is displayed as combined throughput in Mbps, capped at 100
         # so it remains compatible with the gauge's percentage arc.
         net_mbps = max(0.0, transferred * 8 / elapsed / 1_000_000)
@@ -196,6 +202,14 @@ class JarvisHUD(QWidget):
         self.disk_anim += (self.disk - self.disk_anim) * 0.08
         self.temp_anim += (self.temp - self.temp_anim) * 0.08
         self.net_anim += (self.net - self.net_anim) * 0.08
+        # Match the original TECH-A CalcNet formulas:
+        # NetIn / 6144000 and NetOut / 1048576.
+        self.net_upload_progress += (
+            min(1.0, self.net_upload_rate / 1048576.0) - self.net_upload_progress
+        ) * 0.16
+        self.net_download_progress += (
+            min(1.0, self.net_download_rate / 6144000.0) - self.net_download_progress
+        ) * 0.16
 
         self.update()
 
@@ -276,6 +290,7 @@ class JarvisHUD(QWidget):
         temp_text = str(round(self.temp_anim)) if self.temp > 0 else "--"
         self.draw_gauge(painter, temp_x, temp_y, self.temp_anim, "TEMP", temp_text)
         self.draw_net_readouts(painter)
+        self.draw_net_progress(painter)
         self.draw_gauge(painter, cpu_x, cpu_y, self.cpu_anim, "CPU")
         self.draw_gauge(painter, ram_x, ram_y, self.ram_anim, "RAM")
         self.draw_gauge(painter, gpu_x, gpu_y, self.gpu_anim, "GPU")
@@ -317,6 +332,30 @@ class JarvisHUD(QWidget):
         for value, x, y, color in readouts:
             painter.setPen(color)
             painter.drawText(QRectF(x - 32, y, 64, 14), Qt.AlignCenter, value)
+        painter.restore()
+
+    def draw_net_progress(self, painter):
+        """Render the two live network progress arcs from the TECH-A NET meters."""
+        painter.save()
+        painter.setRenderHint(QPainter.Antialiasing, True)
+        center_x, center_y = self.width() / 2, self.height() / 2
+        radius = 263.0
+        rect = QRectF(
+            center_x - radius,
+            center_y - radius,
+            radius * 2,
+            radius * 2,
+        )
+
+        # Original source: CalcNetOut has a -0.3665 radian sweep and
+        # CalcNetIn has a +0.3665 radian sweep around the left side.
+        pen = QPen(QColor(0, 235, 245, 220), 2.0, Qt.SolidLine, Qt.RoundCap)
+        painter.setPen(pen)
+        painter.drawArc(rect, 179 * 16, round(-21 * 16 * self.net_upload_progress))
+
+        pen.setColor(QColor(235, 235, 235, 210))
+        painter.setPen(pen)
+        painter.drawArc(rect, 181 * 16, round(21 * 16 * self.net_download_progress))
         painter.restore()
 
     def draw_rotating_pixmap(self, painter, pixmap, angle, cx, cy):

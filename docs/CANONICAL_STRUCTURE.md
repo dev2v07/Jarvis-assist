@@ -33,6 +33,11 @@ In Jarvis, the four values remain dynamic and are formatted automatically in
 source `BG3.png` layer and are not drawn a second time by the HUD code. They are
 visual direction labels, not interactive controls.
 
+The two thin progress arcs in the NET area are live as well. Their normalized
+values follow the original TECH-A formulas: outgoing traffic is divided by
+`1,048,576` bytes/s and incoming traffic by `6,144,000` bytes/s. The arcs are
+smoothed in the HUD, so short network bursts do not cause flicker.
+
 - secrets are supplied through environment variables;
 - generated runtime state is ignored by Git;
 - core and optional dependencies are listed separately;
