@@ -1481,3 +1481,32 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0043-match-net-font/`.
 
+## Очередь 0044 — shift NET readouts right
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0044-shift-net-readouts/`
+
+Изменения:
+
+- `UPLOAD`, `UPLOAD.Total`, `DOWNLOAD.Total` и `DOWNLOAD` сдвинуты вправо на `2 px`;
+- вертикальные координаты и размер шрифта не изменялись.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации очереди;
+- пользователь визуально проверит горизонтальное смещение NET-блока.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0044-shift-net-readouts/`.
+
