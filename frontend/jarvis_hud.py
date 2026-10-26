@@ -101,7 +101,8 @@ class JarvisHUD(QWidget):
 
         self.font_big = QFont(family, 10)
         self.font_label = QFont(family, 7)
-        self.font_ram = QFont(ram_family, 6)
+        # Original BitDust readout, enlarged by 2.3 px for readability.
+        self.font_ram = QFont(ram_family, 8.3)
 
         # таймеры
         self.timer = QTimer()
