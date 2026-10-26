@@ -315,7 +315,8 @@ class JarvisHUD(QWidget):
         canvas.fill(Qt.transparent)
         composer = QPainter(canvas)
         composer.setRenderHint(QPainter.Antialiasing, False)
-        for pixmap in (self.bg1, self.bg2, self.bg3, self.bg4, self.bg5, self.bg6):
+        # BG000/BG2 is animated separately; keep it out of the static cache.
+        for pixmap in (self.bg1, self.bg3, self.bg4, self.bg5, self.bg6):
             if not pixmap.isNull():
                 if self.render_dpr == 1.0:
                     layer = pixmap
@@ -349,11 +350,11 @@ class JarvisHUD(QWidget):
         if self.animation.big_animation_enabled:
             self.draw_big_animation(painter)
 
-        # GAME MODE deactivates the Rainmeter rotator layers. The 3x layer is
-        # intentionally removed; only the first two rotators remain active.
+        # GAME MODE deactivates the rotating TECH-A layers, including BG000.
         if self.animation.rotator_visible:
             self.draw_rotator(painter, self.rotator_1, self.animation.rotator_1, cx, cy)
             self.draw_rotator(painter, self.rotator_2, self.animation.rotator_2, cx, cy)
+            self.draw_rotator(painter, self.bg2, self.animation.rotator_3, cx, cy)
 
         self.draw_datetime(painter)
         self.draw_cpu_load_indicator(painter)

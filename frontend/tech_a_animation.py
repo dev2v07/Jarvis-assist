@@ -32,7 +32,7 @@ class TechAAnimation:
                 self._rotator_1_counter = (self._rotator_1_counter + 1) % 1500
                 self._rotator_2_counter = (self._rotator_2_counter + 1) % 2500
                 self._rotator_3_counter = (self._rotator_3_counter + 1) % 10
-                # Source rotator.ini: Update=50, ValueReminder=2500/20.
+                # rotator_3 now drives the animated BG000 replacement layer.
                 self.rotator_1 = 360.0 * self._rotator_1_counter / 2500.0
                 self.rotator_2 = -360.0 * self._rotator_2_counter / 2500.0
                 self.rotator_3 = -360.0 * self._rotator_3_counter / 20.0
