@@ -367,7 +367,10 @@ class JarvisHUD(QWidget):
         total_points = 72
         active_points = int(round(total_points * value / 100.0))
         center_x, center_y = self.width() / 2, self.height() / 2
-        radius = 151.0
+        # Source-aligned radius: the TECH-A point trail sits on the dotted
+        # inner dashboard ring (the source roundline spans roughly 205..236
+        # px from the 355,355 center), not on the START button's inner ring.
+        radius = 220.0
         start_angle = -90.0
 
         inactive = QColor(self.text_color)
