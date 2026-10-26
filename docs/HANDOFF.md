@@ -2420,7 +2420,13 @@ Backup по прямой просьбе пользователя не созда
 - `docs/CANONICAL_STRUCTURE.md`;
 - `docs/HANDOFF.md`.
 
-Проверка: выполняется после перезапуска backend и frontend.
+Проверка:
+
+- `py_compile` для HUD и UI: пройден;
+- `git diff --check`: пройден;
+- backend и frontend перезапущены из командной строки;
+- `GET /health`: HTTP 200 (`cpu=10.6`, `ram_used=49.5`, `disk_used=83.75`);
+- окно Jarvis оставлено запущенным.
 
 Откат:
 
