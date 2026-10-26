@@ -167,8 +167,9 @@ class JarvisHUD(QWidget):
 
     def animate(self):
 
-        # BG1-BG6 remain static; this advances only the optional animation.
-        self.animation.step()
+        # Match Rainmeter's separate timing: rotator Update=50ms and the
+        # main skin's BigAnimation frame update=1000ms.
+        self.animation.step(16.0)
 
         # Показатели движутся по той же орбитальной оси, что и кольца TECH-A.
         # Значение a2 уже является частью существующей рабочей анимации.

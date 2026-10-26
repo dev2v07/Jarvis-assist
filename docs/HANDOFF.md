@@ -1221,3 +1221,37 @@ Git:
 
 - восстановить файлы из `backups/handoff-0034-actions-and-remove-group-glow/`.
 
+## Очередь 0035 — match original TECH-A animation speed
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0035-match-original-animation-speed/`
+
+Изменения:
+
+- скорость rotator-слоёв приведена к `Update=50` из исходного `rotator.ini`;
+- `rotator_1` повторяет `Counter % 1500` и `ValueReminder=2500`;
+- `rotator_2` повторяет `Counter % 2500` и `ValueReminder=2500`;
+- `rotator_3` повторяет `Counter % 10` и `ValueReminder=20`;
+- большая `ANI` bitmap-анимация теперь меняет кадр раз в `1000 мс`, как основной TECH-A skin;
+- кнопки `XPLR` и `GAME` сохраняют прежнюю логику включения/выключения своих режимов.
+
+Файлы:
+
+- `frontend/tech_a_animation.py`;
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD, UI и animation: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации очереди;
+- пользователь визуально сравнит скорость rotator и ANI с оригиналом.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0035-match-original-animation-speed/`.
+
