@@ -81,9 +81,16 @@ class JarvisHUD(QWidget):
         self.temp = 0
         self.net = 0.0
         self.net_display = "0K"
+        self.left_disk_readouts = [
+            ("0.0 MB", "0.0 GB"),
+            ("0.0 MB", "0.0 GB"),
+        ]
+        self.disk_io_display = "0.0 MB"
         self.ram_total_gb = 0.0
         self._net_previous = psutil.net_io_counters()
         self._net_previous_at = time.monotonic()
+        self._disk_io_previous = psutil.disk_io_counters()
+        self._disk_io_previous_at = time.monotonic()
 
         # плавная анимация
         self.cpu_anim = self.ram_anim = self.gpu_anim = self.disk_anim = 0
@@ -126,6 +133,8 @@ class JarvisHUD(QWidget):
             self.gpu = 0
 
         self.disk = int(psutil.disk_usage('C:/').percent)
+        self.update_disk_io()
+        self.update_left_disk_readouts()
         self.temp = self.read_max_temperature()
 
         now = time.monotonic()
@@ -144,6 +153,44 @@ class JarvisHUD(QWidget):
         )
         self._net_previous = counters
         self._net_previous_at = now
+
+    def update_left_disk_readouts(self):
+        partitions = []
+        try:
+            partitions = [
+                partition for partition in psutil.disk_partitions(all=False)
+                if partition.fstype
+            ]
+        except OSError:
+            pass
+        readouts = []
+        for partition in partitions[:2]:
+            try:
+                usage = psutil.disk_usage(partition.mountpoint)
+            except OSError:
+                continue
+            readouts.append((self.disk_io_display, f"{usage.total / (1024 ** 3):.1f} GB"))
+        while len(readouts) < 2:
+            usage = psutil.disk_usage('C:/')
+            readouts.append((self.disk_io_display, f"{usage.total / (1024 ** 3):.1f} GB"))
+        self.left_disk_readouts = readouts
+
+    def update_disk_io(self):
+        counters = psutil.disk_io_counters()
+        now = time.monotonic()
+        if not counters or not self._disk_io_previous:
+            self._disk_io_previous = counters
+            self._disk_io_previous_at = now
+            return
+        elapsed = max(0.1, now - self._disk_io_previous_at)
+        transferred = (
+            (counters.read_bytes - self._disk_io_previous.read_bytes)
+            + (counters.write_bytes - self._disk_io_previous.write_bytes)
+        )
+        rate_mb = max(0.0, transferred / elapsed / (1024 ** 2))
+        self.disk_io_display = f"{rate_mb:.1f} MB"
+        self._disk_io_previous = counters
+        self._disk_io_previous_at = now
 
     @staticmethod
     def read_max_temperature():
@@ -259,6 +306,7 @@ class JarvisHUD(QWidget):
 
         temp_text = str(round(self.temp_anim)) if self.temp > 0 else "--"
         self.draw_gauge(painter, temp_x, temp_y, self.temp_anim, "TEMP", temp_text)
+        self.draw_left_disk_readouts(painter)
         self.draw_gauge(painter, cpu_x, cpu_y, self.cpu_anim, "CPU")
         self.draw_gauge(painter, ram_x, ram_y, self.ram_anim, "RAM")
         self.draw_gauge(painter, gpu_x, gpu_y, self.gpu_anim, "GPU")
@@ -285,6 +333,21 @@ class JarvisHUD(QWidget):
             )
             frame.setDevicePixelRatio(self.render_dpr)
         painter.drawPixmap(0, 0, frame)
+
+    def draw_left_disk_readouts(self, painter):
+        """Render the two original left-side disk value pairs without letters."""
+        painter.save()
+        painter.setFont(self.font_ram)
+        positions = ((34, 220, 276), (34, 435, 493))
+        for (activity, total), (x, activity_y, total_y) in zip(
+            self.left_disk_readouts,
+            positions,
+        ):
+            painter.setPen(QColor(200, 200, 200, 220))
+            painter.drawText(QRectF(x - 32, activity_y, 64, 14), Qt.AlignCenter, activity)
+            painter.setPen(QColor(200, 200, 200, 190))
+            painter.drawText(QRectF(x - 32, total_y, 64, 14), Qt.AlignCenter, total)
+        painter.restore()
 
     def draw_rotating_pixmap(self, painter, pixmap, angle, cx, cy):
         if pixmap.isNull():
