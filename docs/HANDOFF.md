@@ -2575,7 +2575,15 @@ Backup по прямой просьбе пользователя не созда
 - `frontend/jarvis_hud.py`;
 - `docs/HANDOFF.md`.
 
-Проверка: выполняется после запуска обычного режима Jarvis.
+Проверка:
+
+- `py_compile` для HUD и UI: пройден;
+- `git diff --check`: пройден;
+- после исправления перегрузки `QPainter.drawPixmap` frontend запущен без
+  traceback;
+- backend и frontend перезапущены из командной строки;
+- `GET /health`: HTTP 200 (`cpu=13.3`, `ram_used=43.4`, `disk_used=82.7`);
+- обычное окно Jarvis оставлено запущенным.
 
 Откат:
 
