@@ -34,18 +34,18 @@ class TechAAnimation:
                 self._rotator_elapsed_ms -= 50.0
                 self._rotator_1_counter = (self._rotator_1_counter + 1) % 1500
                 self._rotator_2_counter = (self._rotator_2_counter + 1) % 2500
-                self._rotator_3_counter = (self._rotator_3_counter + 1) % 200
+                self._rotator_3_counter = (self._rotator_3_counter + 1) % 300
                 # rotator_3 now drives the animated BG000 replacement layer.
                 self.rotator_1 = 360.0 * self._rotator_1_counter / 2500.0
                 self.rotator_2 = -360.0 * self._rotator_2_counter / 2500.0
-                self.rotator_3 = -360.0 * self._rotator_3_counter / 200.0
+                self.rotator_3 = -360.0 * self._rotator_3_counter / 300.0
 
         if self.bg000_enabled and not self.rotator_enabled:
             self._rotator_elapsed_ms += elapsed_ms
             while self._rotator_elapsed_ms >= 50.0:
                 self._rotator_elapsed_ms -= 50.0
-                self._rotator_3_counter = (self._rotator_3_counter + 1) % 200
-                self.rotator_3 = -360.0 * self._rotator_3_counter / 200.0
+                self._rotator_3_counter = (self._rotator_3_counter + 1) % 300
+                self.rotator_3 = -360.0 * self._rotator_3_counter / 300.0
 
         if self.big_animation_enabled:
             self._big_animation_elapsed_ms += elapsed_ms
