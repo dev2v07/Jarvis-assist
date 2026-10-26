@@ -94,17 +94,10 @@ without adding a heavy text glow. Both colors follow the appearance settings.
 On hover, the text reacts with a slightly stronger contour and lifted shadow so
 it visually follows the button interaction.
 
-The source CPU point/core animation was studied, but the visible port uses one
-continuous overall-load trail instead of stacking the source's six sprite
-layers. This avoids duplicated `0/50/100` marks and the blue tinted overlays
-that do not belong to the clean dashboard presentation. The trail has 72
-points, and the active point count follows the overall CPU percentage in
-`self.cpu_anim`; inactive points remain subtle and the active segment follows
-the selected accent color. The source formulas (`CPU/12.5`, `CPU/20`,
-`CPU/50`) remain recorded as reference for a future optional source-faithful
-animation mode. Fixed `0`, `50`, and `100` labels sit on the inner reference
-ticks at the top, right, and bottom as scale marks, not as additional
-measurements; the 50 mark has the source-like slight outward offset. The
-progress points use the inner START-adjacent track at radius `150` in the
-710px HUD coordinate system. The source `6cpucore*str.png` strips are not
-painted because they contain repeated embedded `0% / 50% / 100%` captions.
+The CPU realtime indicator now uses the source `animationdotsbig.png` from
+`TECH-A 1 CPU.ini`: 40 bitmap frames, selected with `CPU/2.5`, and rendered
+from the saved calibration center/radius. The frame is tinted with the
+selected application accent color. The `6cpucore*` and `6cpucore*str` layers
+are currently disabled; the latter contain repeated embedded `0% / 50% / 100%`
+captions. Fixed `0`, `50`, and `100` labels remain as one clean user-positioned
+scale on the inner reference ticks.

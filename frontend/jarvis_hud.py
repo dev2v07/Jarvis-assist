@@ -77,16 +77,8 @@ class JarvisHUD(QWidget):
         self.rotator_2 = QPixmap(os.path.join(ROTATOR, "2x.png"))
         self.big_animation = QPixmap(os.path.join(ASSETS, "BigAnimation.png"))
 
-        # Source-faithful TECH-A 6 CPU profile: six layers, each with five
-        # normal frames and a three-frame highlight strip.
-        self.cpu_source_layers = [
-            QPixmap(os.path.join(ASSETS, f"6cpucore{index}.png"))
-            for index in range(1, 7)
-        ]
-        self.cpu_source_highlights = [
-            QPixmap(os.path.join(ASSETS, f"6cpucore{index}str.png"))
-            for index in range(1, 7)
-        ]
+        # Source realtime CPU animation from TECH-A 1 CPU.ini.
+        self.cpu_big_animation = QPixmap(os.path.join(ASSETS, "animationdotsbig.png"))
 
         self.cpu_source_center = QPointF(self.HUD_SIZE / 2 + 7.6,
                                          self.HUD_SIZE / 2 + 1.6)
@@ -416,18 +408,16 @@ class JarvisHUD(QWidget):
             center_x += self.calibration_offset.x()
             center_y += self.calibration_offset.y()
         radius = self.calibration_radius
-        frame_index = min(4, max(0, int(value / 20.0)))
-        highlight_index = min(2, max(0, int(value / 50.0)))
+        # Source formula: MeasureCPU / 2.5, BitmapFrames=40.
+        frame_index = min(39, max(0, int(value / 2.5)))
         frame_size = max(1, int(round(radius * 2.0)))
         left = center_x - radius
         top = center_y - radius
 
-        for source in self.cpu_source_layers:
-            self.draw_source_cpu_frame(painter, source, 5, frame_index,
-                                       left, top, frame_size)
-        # The source `*str` strips contain the repeated 0%/50%/100% labels.
-        # They are intentionally not painted here; Jarvis renders one clean
-        # user-positioned scale below instead.
+        self.draw_tinted_source_frame(
+            painter, self.cpu_big_animation, 40, frame_index,
+            left, top, frame_size, self.accent_color
+        )
 
         painter.setFont(self.font_net)
         scale_color = QColor(self.text_color)
@@ -454,6 +444,27 @@ class JarvisHUD(QWidget):
                             source_frame_width, source.height())
         painter.drawPixmap(
             int(round(left)), int(round(top)), frame_size, frame_size, frame
+        )
+
+    @staticmethod
+    def draw_tinted_source_frame(painter, source, frame_count, frame_index,
+                                 left, top, frame_size, color):
+        if source.isNull():
+            return
+        source_frame_width = source.width() // frame_count
+        frame = source.copy(frame_index * source_frame_width, 0,
+                            source_frame_width, source.height())
+        tinted = QPixmap(frame.size())
+        tinted.fill(Qt.transparent)
+        tint_painter = QPainter(tinted)
+        tint_painter.drawPixmap(0, 0, frame)
+        tint_painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+        tint = QColor(color)
+        tint.setAlpha(235)
+        tint_painter.fillRect(tinted.rect(), tint)
+        tint_painter.end()
+        painter.drawPixmap(
+            int(round(left)), int(round(top)), frame_size, frame_size, tinted
         )
 
     def draw_cpu_calibration_overlay(self, painter):

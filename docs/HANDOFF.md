@@ -2627,3 +2627,32 @@ Backup по прямой просьбе пользователя не созда
 
 - восстановить файлы из `backups/handoff-0078-remove-source-scale-text/`.
 
+## Очередь 0079 — realtime CPU через animationdotsbig.png
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0079-animationdotsbig-cpu/`
+
+Изменения:
+
+- отключены все `6cpucore*.png` и `6cpucore*str.png` слои;
+- подключён `animationdotsbig.png` из `TECH-A 1 CPU.ini`;
+- используется исходная схема `BitmapFrames=40` и `MeasureCPU/2.5`;
+- кадр выбирается в реальном времени по общей загрузке CPU;
+- sprite перекрашивается в выбранный акцентный цвет;
+- единая шкала `0 / 50 / 100` сохранена без встроенных повторов PNG.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка: выполняется после запуска обычного режима Jarvis.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0079-animationdotsbig-cpu/`.
+
