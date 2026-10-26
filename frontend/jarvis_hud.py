@@ -452,7 +452,9 @@ class JarvisHUD(QWidget):
         source_frame_width = source.width() // frame_count
         frame = source.copy(frame_index * source_frame_width, 0,
                             source_frame_width, source.height())
-        painter.drawPixmap(QRectF(left, top, frame_size, frame_size), frame)
+        painter.drawPixmap(
+            int(round(left)), int(round(top)), frame_size, frame_size, frame
+        )
 
     def draw_cpu_calibration_overlay(self, painter):
         """Temporary draggable calibration handles for source alignment."""
