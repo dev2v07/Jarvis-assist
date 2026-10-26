@@ -63,3 +63,6 @@ unchanged because it is raster artwork rather than a live font.
 
 All live Qt labels and controls keep a readable foreground color when a TECH-A
 font is selected; combo-box popup items use a light background for contrast.
+
+The text color is a separate persisted appearance setting. It defaults to
+`#FFFFFF` and is applied to live HUD text and the visible Qt settings UI.

@@ -197,6 +197,11 @@ class JarvisUI(QWidget):
         if not self.accent_color.isValid():
             self.accent_color = QColor("#00ebf5")
         self.accent_hex = self.accent_color.name()
+        stored_text_color = self.ui_settings.value("font_color", "#ffffff")
+        self.text_color = QColor(stored_text_color)
+        if not self.text_color.isValid():
+            self.text_color = QColor("#ffffff")
+        self.text_color_hex = self.text_color.name()
         QApplication.instance().setFont(QFont(self.active_font_family, 10))
 
         self.oldPos = None
@@ -379,6 +384,20 @@ class JarvisUI(QWidget):
         self.hud.set_accent_color(color)
         self.accent_value_label.setText(
             f"{self.accent_hex.upper()}  RGB {color.red()}, {color.green()}, {color.blue()}"
+        )
+        self.apply_styles()
+
+    def choose_text_color(self):
+        color = QColorDialog.getColor(self.text_color, self, "Выберите цвет текста")
+        if not color.isValid():
+            return
+
+        self.text_color = color
+        self.text_color_hex = color.name()
+        self.ui_settings.setValue("font_color", self.text_color_hex)
+        self.hud.set_text_color(color)
+        self.font_color_value_label.setText(
+            f"{self.text_color_hex.upper()}  RGB {color.red()}, {color.green()}, {color.blue()}"
         )
         self.apply_styles()
 
@@ -764,7 +783,11 @@ class JarvisUI(QWidget):
 
         assistant_layout = QVBoxLayout(assistant_page)
         assistant_layout.setContentsMargins(0,0,0,0)
-        self.hud = JarvisHUD(self.accent_color, self.active_font_family)
+        self.hud = JarvisHUD(
+            self.accent_color,
+            self.active_font_family,
+            self.text_color,
+        )
         self.hud.setFixedSize(JarvisHUD.HUD_SIZE, JarvisHUD.HUD_SIZE)
         self.assistant_label = QLabel("Нажмите кнопку чтобы активировать JARVIS")
         self.assistant_label.setAlignment(Qt.AlignCenter)
@@ -852,9 +875,25 @@ class JarvisUI(QWidget):
 
         # страница настроек
         settings_page = QWidget()
+        settings_page.setObjectName("settingsPage")
         settings_layout = QVBoxLayout(settings_page)
-        settings_layout.addWidget(QLabel("НАСТРОЙКИ JARVIS"))
-        settings_layout.addWidget(QLabel("Шрифт интерфейса TECH-A"))
+        settings_layout.setContentsMargins(24, 24, 24, 24)
+        settings_layout.setSpacing(14)
+
+        settings_title = QLabel("НАСТРОЙКИ JARVIS")
+        settings_title.setObjectName("settingsTitle")
+        settings_layout.addWidget(settings_title)
+        settings_subtitle = QLabel("Внешний вид интерфейса и HUD")
+        settings_subtitle.setObjectName("settingsHint")
+        settings_layout.addWidget(settings_subtitle)
+
+        typography_card = QFrame()
+        typography_card.setObjectName("settingsCard")
+        typography_layout = QVBoxLayout(typography_card)
+        typography_title = QLabel("ТИПОГРАФИКА")
+        typography_title.setObjectName("settingsCardTitle")
+        typography_layout.addWidget(typography_title)
+        typography_layout.addWidget(QLabel("Шрифт интерфейса TECH-A"))
         self.font_combo = QComboBox()
         self.font_combo.addItems(list(self.tech_font_families.keys()))
         for index, family in enumerate(self.font_combo.itemText(i) for i in range(self.font_combo.count())):
@@ -862,10 +901,19 @@ class JarvisUI(QWidget):
                 self.font_combo.setCurrentIndex(index)
                 break
         self.font_combo.currentTextChanged.connect(self.apply_font_family)
-        settings_layout.addWidget(self.font_combo)
-        settings_layout.addWidget(QLabel("Шрифты загружаются из assets/fonts, перенесённых из TECH-A/SETTINGS."))
+        typography_layout.addWidget(self.font_combo)
+        font_hint = QLabel("Шрифт применяется к вкладкам и живому тексту HUD.")
+        font_hint.setObjectName("settingsHint")
+        typography_layout.addWidget(font_hint)
+        settings_layout.addWidget(typography_card)
 
-        settings_layout.addWidget(QLabel("Акцентный цвет интерфейса и индикаторов"))
+        colors_card = QFrame()
+        colors_card.setObjectName("settingsCard")
+        colors_layout = QVBoxLayout(colors_card)
+        colors_title = QLabel("ЦВЕТА")
+        colors_title.setObjectName("settingsCardTitle")
+        colors_layout.addWidget(colors_title)
+        colors_layout.addWidget(QLabel("Акцентный цвет интерфейса и индикаторов"))
         self.accent_value_label = QLabel()
         self.accent_value_label.setText(
             f"{self.accent_hex.upper()}  RGB {self.accent_color.red()}, "
@@ -873,8 +921,19 @@ class JarvisUI(QWidget):
         )
         self.accent_button = QPushButton("Изменить акцентный цвет")
         self.accent_button.clicked.connect(self.choose_accent_color)
-        settings_layout.addWidget(self.accent_value_label)
-        settings_layout.addWidget(self.accent_button)
+        colors_layout.addWidget(self.accent_value_label)
+        colors_layout.addWidget(self.accent_button)
+        colors_layout.addWidget(QLabel("Цвет текста интерфейса и показателей HUD"))
+        self.font_color_value_label = QLabel()
+        self.font_color_value_label.setText(
+            f"{self.text_color_hex.upper()}  RGB {self.text_color.red()}, "
+            f"{self.text_color.green()}, {self.text_color.blue()}"
+        )
+        self.font_color_button = QPushButton("Изменить цвет текста")
+        self.font_color_button.clicked.connect(self.choose_text_color)
+        colors_layout.addWidget(self.font_color_value_label)
+        colors_layout.addWidget(self.font_color_button)
+        settings_layout.addWidget(colors_card)
         settings_layout.addStretch()
         self.pages.addWidget(settings_page)
 
@@ -1046,7 +1105,7 @@ background:#2E89FF;
 }       
 
 QLabel{
-color:white;
+color:#FFFFFF;
 }
 
 QComboBox{
@@ -1057,6 +1116,30 @@ background:rgba(255,255,255,220);
 QComboBox QAbstractItemView{
 color:#111;
 background:white;
+}
+
+#settingsTitle{
+font-size:22px;
+font-weight:bold;
+color:#FFFFFF;
+}
+
+#settingsCard{
+border:1px solid rgba(255,255,255,45);
+border-radius:14px;
+background:rgba(255,255,255,0.07);
+}
+
+#settingsCardTitle{
+font-size:12px;
+font-weight:bold;
+letter-spacing:2px;
+color:#FFFFFF;
+}
+
+#settingsHint{
+color:rgba(255,255,255,165);
+font-size:12px;
 }
                                                
 #chatFrame{
@@ -1145,7 +1228,9 @@ border-radius:11px;
 background:#444;
 }
 
-""".replace("#2E89FF", accent).replace("#4aa0ff", accent_hover))
+""".replace("#2E89FF", accent)
+        .replace("#4aa0ff", accent_hover)
+        .replace("#FFFFFF", self.text_color_hex))
 
 
     # ---------------- COMMAND ----------------

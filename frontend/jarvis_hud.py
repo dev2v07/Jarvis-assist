@@ -38,10 +38,11 @@ class JarvisHUD(QWidget):
     GAUGE_RADIUS = 300
     GAUGE_BG_SIZE = 82
 
-    def __init__(self, accent_color=None, interface_font=None):
+    def __init__(self, accent_color=None, interface_font=None, text_color=None):
         super().__init__()
 
         self.accent_color = QColor(accent_color or "#00ebf5")
+        self.text_color = QColor(text_color or "#ffffff")
 
         self.setAttribute(Qt.WA_TransparentForMouseEvents)
         self.setAttribute(Qt.WA_TranslucentBackground)
@@ -234,6 +235,13 @@ class JarvisHUD(QWidget):
         self.font_net = QFont(family, 8.3)
         self.update()
 
+    def set_text_color(self, color):
+        """Update the color of all live text drawn by the HUD."""
+        parsed = QColor(color)
+        if parsed.isValid():
+            self.text_color = parsed
+            self.update()
+
     def ring_pos(self, cx, cy, angle):
 
         r = self.GAUGE_RADIUS
@@ -338,11 +346,15 @@ class JarvisHUD(QWidget):
         painter.save()
         painter.setFont(self.font_net)
         # The source BG layer already contains the UP/DN labels; draw values only.
+        primary = QColor(self.text_color)
+        primary.setAlpha(220)
+        secondary = QColor(self.text_color)
+        secondary.setAlpha(190)
         readouts = (
-            (self.net_readouts[0], 60, 315, QColor(255, 255, 255, 220)),
-            (self.net_readouts[1], 60, 335, QColor(200, 200, 200, 190)),
-            (self.net_readouts[2], 60, 365, QColor(200, 200, 200, 190)),
-            (self.net_readouts[3], 60, 385, QColor(255, 255, 255, 220)),
+            (self.net_readouts[0], 60, 315, primary),
+            (self.net_readouts[1], 60, 335, secondary),
+            (self.net_readouts[2], 60, 365, secondary),
+            (self.net_readouts[3], 60, 385, primary),
         )
         for value, x, y, color in readouts:
             painter.setPen(color)
@@ -414,7 +426,7 @@ class JarvisHUD(QWidget):
         rect = QRectF(x - 16, y - 16, 30, 30)
 
         # подпись
-        painter.setPen(Qt.white)
+        painter.setPen(self.text_color)
         painter.setFont(self.font_label)
         painter.drawText(x - 14, y - 20, label)
 
@@ -431,7 +443,7 @@ class JarvisHUD(QWidget):
         painter.drawArc(rect, 135 * 16, span)
 
         # процент
-        painter.setPen(Qt.white)
+        painter.setPen(self.text_color)
         painter.setFont(self.font_big)
         painter.drawText(rect, Qt.AlignCenter, display_text or f"{int(value)}")
 
@@ -447,11 +459,13 @@ class JarvisHUD(QWidget):
 
         # Original text meters: freeRAM.p2x2, UsedTOTAL, UsedRAM.p2x.
         painter.setFont(self.font_ram)
-        painter.setPen(QColor(200, 200, 200, 220))
+        secondary = QColor(self.text_color)
+        secondary.setAlpha(220)
+        painter.setPen(secondary)
         painter.drawText(QRectF(625, 302, 60, 18), Qt.AlignCenter, f"{free:.2f}%")
-        painter.setPen(Qt.white)
+        painter.setPen(self.text_color)
         painter.drawText(QRectF(625, 342, 70, 18), Qt.AlignCenter, f"{total:.2f} G")
-        painter.setPen(QColor(200, 200, 200, 220))
+        painter.setPen(secondary)
         painter.drawText(QRectF(625, 382, 60, 18), Qt.AlignCenter, f"{used:.2f}%")
 
         # Original RAMl12x/RAMl12xx values are short ROUNDLINE arcs.

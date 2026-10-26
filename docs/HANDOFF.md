@@ -1774,3 +1774,35 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0052-fix-settings-text-contrast/`.
 
+## Очередь 0053 — font color setting and settings UI cards
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0053-font-color-settings-ui/`
+
+Изменения:
+
+- добавлена отдельная настройка цвета текста, по умолчанию `#FFFFFF`;
+- цвет текста сохраняется через `QSettings` и применяется к живому тексту HUD
+  и интерфейса настроек;
+- страница настроек оформлена карточками «ТИПОГРАФИКА» и «ЦВЕТА»;
+- добавлены RGB/HEX-превью текущих цветов и отдельные кнопки выбора.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0053-font-color-settings-ui/`.
+
