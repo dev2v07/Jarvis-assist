@@ -2688,7 +2688,13 @@ Backup по прямой просьбе пользователя не созда
 - `frontend/jarvis_hud.py`;
 - `docs/HANDOFF.md`.
 
-Проверка: выполняется после перезапуска backend и frontend.
+Проверка:
+
+- `py_compile` для HUD и UI: пройден;
+- `git diff --check`: пройден;
+- backend и frontend перезапущены из командной строки;
+- `GET /health`: HTTP 200 (`cpu=14.3`, `ram_used=39.4`, `disk_used=82.26`);
+- окно Jarvis оставлено запущенным без traceback.
 
 Откат:
 
