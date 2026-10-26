@@ -2650,7 +2650,13 @@ Backup по прямой просьбе пользователя не созда
 - `docs/CANONICAL_STRUCTURE.md`;
 - `docs/HANDOFF.md`.
 
-Проверка: выполняется после запуска обычного режима Jarvis.
+Проверка:
+
+- `py_compile` для HUD и UI: пройден;
+- `git diff --check`: пройден;
+- backend и frontend перезапущены из командной строки;
+- `GET /health`: HTTP 200 (`cpu=13.5`, `ram_used=39.4`, `disk_used=82.25`);
+- обычное окно Jarvis оставлено запущенным без traceback.
 
 Откат:
 
