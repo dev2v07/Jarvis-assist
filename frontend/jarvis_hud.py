@@ -66,7 +66,8 @@ class JarvisHUD(QWidget):
         # HUD PNG layers. Group.png is intentionally not loaded: it is the
         # blue glow layer that is absent from the original clean composition.
         self.bg1 = QPixmap(os.path.join(ASSETS, "BG1.png"))
-        self.bg2 = QPixmap(os.path.join(ASSETS, "BG2.png"))
+        # BG000 is the clean inner-ring source replacing the former BG2 layer.
+        self.bg2 = QPixmap(os.path.join(ASSETS, "BG000.png"))
         self.bg3 = QPixmap(os.path.join(ASSETS, "BG3.png"))
         self.bg4 = QPixmap(os.path.join(ASSETS, "BG4.png"))
         self.bg5 = QPixmap(os.path.join(ASSETS, "BG5.png"))
