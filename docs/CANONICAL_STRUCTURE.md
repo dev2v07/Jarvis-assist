@@ -91,3 +91,5 @@ The HUD currently renders only the first two animated rotator layers;
 The `START` button uses a custom text renderer: a subtle dark offset shadow and
 a low-alpha accent contour improve readability over the Aero Glass center
 without adding a heavy text glow. Both colors follow the appearance settings.
+On hover, the text reacts with a slightly stronger contour and lifted shadow so
+it visually follows the button interaction.

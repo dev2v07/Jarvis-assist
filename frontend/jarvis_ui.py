@@ -181,6 +181,7 @@ class StartButton(QPushButton):
         super().__init__(text, parent)
         self.start_text_color = QColor(text_color)
         self.start_accent_color = QColor(accent_color)
+        self.start_hovered = False
 
     def set_text_color(self, color):
         parsed = QColor(color)
@@ -193,6 +194,16 @@ class StartButton(QPushButton):
         if parsed.isValid():
             self.start_accent_color = parsed
             self.update()
+
+    def enterEvent(self, event):
+        self.start_hovered = True
+        self.update()
+        super().enterEvent(event)
+
+    def leaveEvent(self, event):
+        self.start_hovered = False
+        self.update()
+        super().leaveEvent(event)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -208,13 +219,17 @@ class StartButton(QPushButton):
         text_rect = self.rect()
 
         # Dark offset shadow keeps START readable over the bright glass core.
-        shadow = QColor(0, 0, 0, 210)
+        shadow = QColor(0, 0, 0, 225 if self.start_hovered else 210)
         painter.setPen(shadow)
-        painter.drawText(text_rect.translated(0, 2), Qt.AlignCenter, text)
+        painter.drawText(
+            text_rect.translated(0, 3 if self.start_hovered else 2),
+            Qt.AlignCenter,
+            text,
+        )
 
         # A restrained accent contour adds separation without a heavy glow.
         contour = QColor(self.start_accent_color)
-        contour.setAlpha(115)
+        contour.setAlpha(180 if self.start_hovered else 115)
         painter.setPen(contour)
         for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
             painter.drawText(text_rect.translated(dx, dy), Qt.AlignCenter, text)

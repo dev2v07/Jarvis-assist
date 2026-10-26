@@ -2262,3 +2262,33 @@ Backup по прямой просьбе пользователя не созда
 
 - восстановить файлы из `backups/handoff-0067-start-text-shadow/`.
 
+## Очередь 0068 — START text hover response
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0068-start-text-hover-response/`
+
+Изменения:
+
+- при наведении на `START` контур текста становится немного ярче;
+- тень текста слегка усиливается и смещается на `3 px`, создавая мягкий
+  эффект подъёма;
+- реакция применяется только к надписи и не раздувает внешний glow кнопки.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0068-start-text-hover-response/`.
+
