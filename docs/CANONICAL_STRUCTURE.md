@@ -18,6 +18,21 @@ Desktop, web, smartphone, smart speaker and smart-home clients must depend on th
 
 ## Stage 0 completion baseline
 
+## TECH-A network readouts
+
+The left-side network block preserves the original Rainmeter terminology from
+`TECH-A 6 CPU.ini`:
+
+- `UP` / `UPLOAD` — outgoing network traffic (`NetOut`);
+- `UPLOAD.Total` — cumulative outgoing traffic in bytes;
+- `DN` / `DOWNLOAD` — incoming network traffic (`NetIn`);
+- `DOWNLOAD.Total` — cumulative incoming traffic in bytes.
+
+In Jarvis, the four values remain dynamic and are formatted automatically in
+`B`, `KB`, `MB`, `GB`, or `TB`. `UP` and `DN` are visual direction labels, not
+interactive controls: `UP` is shown above the upload pair and `DN` above the
+download pair.
+
 - secrets are supplied through environment variables;
 - generated runtime state is ignored by Git;
 - core and optional dependencies are listed separately;

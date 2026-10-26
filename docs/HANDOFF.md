@@ -1542,3 +1542,34 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0045-shift-net-readouts-one-more/`.
 
+## Очередь 0046 — integrate UP/DN network direction labels
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0046-integrate-up-dn-labels/`
+
+Изменения:
+
+- в сетевой блок добавлены подписи `UP` и `DN` по схеме оригинального TECH-A;
+- `UP` обозначает исходящий трафик (`NetOut`), `DN` — входящий (`NetIn`);
+- четыре динамических значения сохранены без изменения: текущий и накопительный
+  исходящий трафик, затем накопительный и текущий входящий трафик;
+- расшифровка терминов добавлена в `docs/CANONICAL_STRUCTURE.md`.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0046-integrate-up-dn-labels/`.
+
