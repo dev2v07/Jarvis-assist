@@ -1343,7 +1343,9 @@ Rollback point:
 
 Проверка:
 
-- `py_compile` для HUD и UI: ожидается после записи очереди;
-- backend и frontend будут перезапущены после фиксации rollback;
+- `py_compile` для HUD и UI: пройден;
+- `git diff --check`: пройден;
+- backend перезапущен, `GET /health`: HTTP 200;
+- frontend перезапущен, актуальное окно `Jarvis Assist` открыто;
 - пользователь визуально проверит возврат к состоянию до дисковых readout-значений.
 
