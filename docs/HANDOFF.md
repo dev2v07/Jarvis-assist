@@ -1211,7 +1211,10 @@ Git:
 
 - `py_compile` для HUD, UI и animation: пройден;
 - `git diff --check`: пройден;
-- backend и frontend будут перезапущены после фиксации очереди;
+- переключатель `ANI` проверен: `False -> True -> False`;
+- переключатель `GAME` проверен: `DESK -> GAME` корректно отключает rotator;
+- backend перезапущен, `GET /health`: HTTP 200;
+- frontend перезапущен, актуальное окно `Jarvis Assist` открыто;
 - пользователь визуально проверит отсутствие синего Group-свечения и работу кнопок.
 
 Откат:
