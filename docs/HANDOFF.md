@@ -1283,9 +1283,12 @@ Git:
 
 Проверка:
 
-- `py_compile` для HUD, UI и animation: ожидается после записи очереди;
-- `git diff --check`: ожидается после записи очереди;
-- backend и frontend будут перезапущены после фиксации очереди;
+- `py_compile` для HUD, UI и animation: пройден;
+- `git diff --check`: пройден;
+- тест режима: `GAME` даёт `rotator_visible=False`, `DESK` возвращает `True`;
+- `C:\Program Files\Google\Chrome\Application\chrome.exe`: найден;
+- backend перезапущен, `GET /health`: HTTP 200;
+- frontend перезапущен, актуальное окно `Jarvis Assist` открыто;
 - пользователь проверит фактический запуск Chrome и исчезновение/возврат всех rotator-колец.
 
 Откат:
