@@ -1,5 +1,6 @@
 import os
 import math
+import json
 import time
 from datetime import datetime
 import psutil
@@ -39,14 +40,27 @@ class JarvisHUD(QWidget):
     GAUGE_RADIUS = 300
     GAUGE_BG_SIZE = 82
 
-    def __init__(self, accent_color=None, interface_font=None, text_color=None):
+    def __init__(self, accent_color=None, interface_font=None, text_color=None,
+                 calibration_mode=False):
         super().__init__()
 
         self.accent_color = QColor(accent_color or "#00ebf5")
         self.text_color = QColor(text_color or "#ffffff")
+        self.calibration_mode = calibration_mode
+        self.calibration_path = os.path.join(BASE_DIR, "..", "docs", "cpu_calibration.json")
+        self.calibration_drag = None
+        center = self.HUD_SIZE / 2
+        self.calibration_anchors = {
+            "0": QPointF(center, center - 155),
+            "50": QPointF(center + 165, center),
+            "100": QPointF(center, center + 155),
+        }
+        self.calibration_radius = 150.0
 
-        self.setAttribute(Qt.WA_TransparentForMouseEvents)
+        self.setAttribute(Qt.WA_TransparentForMouseEvents, not calibration_mode)
         self.setAttribute(Qt.WA_TranslucentBackground)
+        if calibration_mode:
+            self.setMouseTracking(True)
 
         # HUD PNG layers. Group.png is intentionally not loaded: it is the
         # blue glow layer that is absent from the original clean composition.
@@ -372,7 +386,7 @@ class JarvisHUD(QWidget):
         # px from the 355,355 center), not on the START button's inner ring.
         # The source progress dots sit on the inner dotted track around START,
         # not on the larger outer cell ring.
-        radius = 150.0
+        radius = self.calibration_radius if self.calibration_mode else 150.0
         start_angle = -90.0
 
         inactive = QColor(self.text_color)
@@ -418,6 +432,77 @@ class JarvisHUD(QWidget):
             painter.setPen(QPen(active, 0.8))
             painter.drawPoint(endpoint)
         painter.restore()
+
+        if self.calibration_mode:
+            self.draw_cpu_calibration_overlay(painter)
+
+    def draw_cpu_calibration_overlay(self, painter):
+        """Temporary draggable calibration handles for source alignment."""
+        painter.save()
+        painter.setRenderHint(QPainter.Antialiasing, True)
+        painter.setFont(self.font_net)
+        handle_pen = QPen(QColor("#ff4b4b"), 1.5)
+        painter.setPen(handle_pen)
+        for label, point in self.calibration_anchors.items():
+            painter.drawEllipse(point, 8, 8)
+            painter.drawText(QRectF(point.x() - 28, point.y() - 28, 56, 18),
+                             Qt.AlignCenter, label)
+
+        radius_handle = QPointF(self.width() / 2 + self.calibration_radius,
+                                self.height() / 2)
+        painter.setPen(QPen(QColor("#ffd166"), 1.5))
+        painter.drawEllipse(radius_handle, 9, 9)
+        painter.drawText(QRectF(radius_handle.x() - 30, radius_handle.y() + 12, 60, 18),
+                         Qt.AlignCenter, "SIZE")
+
+        painter.setPen(QColor("#ffffff"))
+        painter.drawText(QRectF(12, 12, 420, 24), Qt.AlignLeft,
+                         "CPU CALIBRATION: перетащите 0 / 50 / 100 и SIZE")
+        painter.restore()
+
+    def mousePressEvent(self, event):
+        if not self.calibration_mode or event.button() != Qt.MouseButton.LeftButton:
+            return
+        point = event.position()
+        candidates = [(name, anchor) for name, anchor in self.calibration_anchors.items()]
+        candidates.append(("SIZE", QPointF(self.width() / 2 + self.calibration_radius,
+                                             self.height() / 2)))
+        self.calibration_drag = min(
+            candidates,
+            key=lambda item: (item[1].x() - point.x()) ** 2 + (item[1].y() - point.y()) ** 2,
+        ) if candidates else None
+        if self.calibration_drag:
+            dx = self.calibration_drag[1].x() - point.x()
+            dy = self.calibration_drag[1].y() - point.y()
+            if dx * dx + dy * dy > 24 ** 2:
+                self.calibration_drag = None
+
+    def mouseMoveEvent(self, event):
+        if not self.calibration_mode or not self.calibration_drag:
+            return
+        point = event.position()
+        name = self.calibration_drag[0]
+        if name == "SIZE":
+            self.calibration_radius = max(90.0, min(220.0,
+                abs(point.x() - self.width() / 2)))
+        else:
+            self.calibration_anchors[name] = QPointF(point.x(), point.y())
+        self.update()
+
+    def mouseReleaseEvent(self, event):
+        if not self.calibration_mode or event.button() != Qt.MouseButton.LeftButton:
+            return
+        self.calibration_drag = None
+        payload = {
+            "anchors": {key: {"x": round(point.x(), 2), "y": round(point.y(), 2)}
+                        for key, point in self.calibration_anchors.items()},
+            "progress_radius": round(self.calibration_radius, 2),
+        }
+        try:
+            with open(self.calibration_path, "w", encoding="utf-8") as handle:
+                json.dump(payload, handle, ensure_ascii=False, indent=2)
+        except OSError:
+            pass
 
     def draw_big_animation(self, painter):
         if self.big_animation.isNull():

@@ -882,6 +882,7 @@ class JarvisUI(QWidget):
             self.accent_color,
             self.active_font_family,
             self.text_color,
+            calibration_mode="--calibrate-cpu" in sys.argv,
         )
         self.hud.setFixedSize(JarvisHUD.HUD_SIZE, JarvisHUD.HUD_SIZE)
         self.assistant_label = QLabel("Нажмите кнопку чтобы активировать JARVIS")
