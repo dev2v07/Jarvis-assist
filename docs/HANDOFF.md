@@ -2518,3 +2518,30 @@ Backup по прямой просьбе пользователя не созда
 
 - восстановить файлы из `backups/handoff-0075-cpu-visual-calibration/`.
 
+## Очередь 0076 — смещение CPU-прогресса в режиме калибровки
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0076-cpu-progress-offset-calibration/`
+
+Изменения:
+
+- в calibration-режим добавлен маркер `OFFSET`;
+- `OFFSET` двигает весь прогресс по X/Y независимо от шкалы `0 / 50 / 100`;
+- `SIZE` продолжает менять радиус прогресса независимо от его смещения;
+- `progress_offset` сохраняется вместе с координатами в
+  `docs/cpu_calibration.json`.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка: выполняется после перезапуска calibration-режима.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0076-cpu-progress-offset-calibration/`.
+

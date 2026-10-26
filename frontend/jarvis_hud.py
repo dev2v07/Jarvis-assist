@@ -50,6 +50,7 @@ class JarvisHUD(QWidget):
         self.calibration_path = os.path.join(BASE_DIR, "..", "docs", "cpu_calibration.json")
         self.calibration_drag = None
         center = self.HUD_SIZE / 2
+        self.calibration_offset = QPointF(0, 0)
         self.calibration_anchors = {
             "0": QPointF(center, center - 155),
             "50": QPointF(center + 165, center),
@@ -381,6 +382,9 @@ class JarvisHUD(QWidget):
         total_points = 72
         active_points = int(round(total_points * value / 100.0))
         center_x, center_y = self.width() / 2, self.height() / 2
+        if self.calibration_mode:
+            center_x += self.calibration_offset.x()
+            center_y += self.calibration_offset.y()
         # Source-aligned radius: the TECH-A point trail sits on the dotted
         # inner dashboard ring (the source roundline spans roughly 205..236
         # px from the 355,355 center), not on the START button's inner ring.
@@ -449,15 +453,24 @@ class JarvisHUD(QWidget):
                              Qt.AlignCenter, label)
 
         radius_handle = QPointF(self.width() / 2 + self.calibration_radius,
-                                self.height() / 2)
+                                self.height() / 2 + self.calibration_offset.y())
+        radius_handle.setX(self.width() / 2 + self.calibration_offset.x() +
+                           self.calibration_radius)
         painter.setPen(QPen(QColor("#ffd166"), 1.5))
         painter.drawEllipse(radius_handle, 9, 9)
         painter.drawText(QRectF(radius_handle.x() - 30, radius_handle.y() + 12, 60, 18),
                          Qt.AlignCenter, "SIZE")
 
+        offset_handle = QPointF(self.width() / 2 + self.calibration_offset.x(),
+                                self.height() / 2 + self.calibration_offset.y())
+        painter.setPen(QPen(QColor("#ff9f1c"), 1.5))
+        painter.drawEllipse(offset_handle, 9, 9)
+        painter.drawText(QRectF(offset_handle.x() - 34, offset_handle.y() + 12, 68, 18),
+                         Qt.AlignCenter, "OFFSET")
+
         painter.setPen(QColor("#ffffff"))
-        painter.drawText(QRectF(12, 12, 420, 24), Qt.AlignLeft,
-                         "CPU CALIBRATION: перетащите 0 / 50 / 100 и SIZE")
+        painter.drawText(QRectF(12, 12, 470, 24), Qt.AlignLeft,
+                         "CPU CALIBRATION: 0 / 50 / 100 / SIZE / OFFSET")
         painter.restore()
 
     def mousePressEvent(self, event):
@@ -465,8 +478,12 @@ class JarvisHUD(QWidget):
             return
         point = event.position()
         candidates = [(name, anchor) for name, anchor in self.calibration_anchors.items()]
-        candidates.append(("SIZE", QPointF(self.width() / 2 + self.calibration_radius,
-                                             self.height() / 2)))
+        candidates.append(("SIZE", QPointF(
+            self.width() / 2 + self.calibration_offset.x() + self.calibration_radius,
+            self.height() / 2 + self.calibration_offset.y())))
+        candidates.append(("OFFSET", QPointF(
+            self.width() / 2 + self.calibration_offset.x(),
+            self.height() / 2 + self.calibration_offset.y())))
         self.calibration_drag = min(
             candidates,
             key=lambda item: (item[1].x() - point.x()) ** 2 + (item[1].y() - point.y()) ** 2,
@@ -484,7 +501,12 @@ class JarvisHUD(QWidget):
         name = self.calibration_drag[0]
         if name == "SIZE":
             self.calibration_radius = max(90.0, min(220.0,
-                abs(point.x() - self.width() / 2)))
+                abs(point.x() - (self.width() / 2 + self.calibration_offset.x()))))
+        elif name == "OFFSET":
+            self.calibration_offset = QPointF(
+                point.x() - self.width() / 2,
+                point.y() - self.height() / 2,
+            )
         else:
             self.calibration_anchors[name] = QPointF(point.x(), point.y())
         self.update()
@@ -497,6 +519,10 @@ class JarvisHUD(QWidget):
             "anchors": {key: {"x": round(point.x(), 2), "y": round(point.y(), 2)}
                         for key, point in self.calibration_anchors.items()},
             "progress_radius": round(self.calibration_radius, 2),
+            "progress_offset": {
+                "x": round(self.calibration_offset.x(), 2),
+                "y": round(self.calibration_offset.y(), 2),
+            },
         }
         try:
             with open(self.calibration_path, "w", encoding="utf-8") as handle:
