@@ -1745,3 +1745,32 @@ Rollback point:
 
 - вернуть состояние из backup очереди 0050 и отменить изменения очереди 0051.
 
+## Очередь 0052 — fix settings text contrast
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0052-fix-settings-text-contrast/`
+
+Изменения:
+
+- живые `QLabel` интерфейса принудительно получили светлый цвет текста;
+- выпадающий список шрифтов получил читаемый текст и контрастное popup-меню;
+- исправлена видимость названий настроек при выборе TECH-A шрифта.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0052-fix-settings-text-contrast/`.
+

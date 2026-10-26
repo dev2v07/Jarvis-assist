@@ -60,3 +60,6 @@ unchanged because it is raster artwork rather than a live font.
 - core and optional dependencies are listed separately;
 - a local Git baseline and CI syntax check exist;
 - backend and desktop frontend are manually launched after each change queue.
+
+All live Qt labels and controls keep a readable foreground color when a TECH-A
+font is selected; combo-box popup items use a light background for contrast.

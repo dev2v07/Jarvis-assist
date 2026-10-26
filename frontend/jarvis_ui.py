@@ -1044,6 +1044,20 @@ background:rgba(255,255,255,0.08);
 QCheckBox::indicator:checked{
 background:#2E89FF;
 }       
+
+QLabel{
+color:white;
+}
+
+QComboBox{
+color:#111;
+background:rgba(255,255,255,220);
+}
+
+QComboBox QAbstractItemView{
+color:#111;
+background:white;
+}
                                                
 #chatFrame{
 
