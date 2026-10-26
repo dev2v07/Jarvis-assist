@@ -307,9 +307,7 @@ class JarvisHUD(QWidget):
         """Render the original UPLOAD/DOWNLOAD readouts at source anchors."""
         painter.save()
         painter.setFont(self.font_net)
-        # Exact source anchors from TECH-A 6 CPU.ini, with the source direction labels.
-        painter.setPen(QColor(255, 255, 255, 220))
-        painter.drawText(QRectF(28, 298, 64, 14), Qt.AlignCenter, "UP")
+        # The source BG layer already contains the UP/DN labels; draw values only.
         readouts = (
             (self.net_readouts[0], 60, 315, QColor(255, 255, 255, 220)),
             (self.net_readouts[1], 60, 335, QColor(200, 200, 200, 190)),
@@ -319,8 +317,6 @@ class JarvisHUD(QWidget):
         for value, x, y, color in readouts:
             painter.setPen(color)
             painter.drawText(QRectF(x - 32, y, 64, 14), Qt.AlignCenter, value)
-        painter.setPen(QColor(255, 255, 255, 220))
-        painter.drawText(QRectF(28, 398, 64, 14), Qt.AlignCenter, "DN")
         painter.restore()
 
     def draw_rotating_pixmap(self, painter, pixmap, angle, cx, cy):

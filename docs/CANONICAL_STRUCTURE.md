@@ -29,9 +29,9 @@ The left-side network block preserves the original Rainmeter terminology from
 - `DOWNLOAD.Total` — cumulative incoming traffic in bytes.
 
 In Jarvis, the four values remain dynamic and are formatted automatically in
-`B`, `KB`, `MB`, `GB`, or `TB`. `UP` and `DN` are visual direction labels, not
-interactive controls: `UP` is shown above the upload pair and `DN` above the
-download pair.
+`B`, `KB`, `MB`, `GB`, or `TB`. The `UP` and `DN` labels are preserved by the
+source `BG3.png` layer and are not drawn a second time by the HUD code. They are
+visual direction labels, not interactive controls.
 
 - secrets are supplied through environment variables;
 - generated runtime state is ignored by Git;
