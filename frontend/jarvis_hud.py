@@ -116,7 +116,7 @@ class JarvisHUD(QWidget):
         # Original BitDust readout, enlarged by 2.3 px for readability.
         self.font_ram = QFont(ram_family, 8.3)
         self.font_net = QFont(ram_family, 8.3)
-        self.font_time = QFont(ram_family, 10.3)
+        self.font_time = QFont(ram_family, 12.3)
         if interface_font:
             self.set_interface_font(interface_font)
 
@@ -250,7 +250,7 @@ class JarvisHUD(QWidget):
         self.font_label = QFont(family, 7)
         self.font_ram = QFont(family, 8.3)
         self.font_net = QFont(family, 8.3)
-        self.font_time = QFont(family, 10.3)
+        self.font_time = QFont(family, 12.3)
         self.update()
 
     def set_text_color(self, color):

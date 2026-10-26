@@ -2105,3 +2105,31 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0062-increase-time-font/`.
 
+## Очередь 0063 — increase live clock font again
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0063-increase-clock-font-again/`
+
+Изменения:
+
+- размер отдельного шрифта времени увеличен с `10.3 pt` до `12.3 pt`;
+- позиция времени, дата и остальные текстовые элементы не изменялись.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0063-increase-clock-font-again/`.
+
