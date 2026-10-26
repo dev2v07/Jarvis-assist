@@ -2167,3 +2167,32 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0064-shift-date-right/`.
 
+## Очередь 0065 — shift HUD date right again
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0065-shift-date-right-again/`
+
+Изменения:
+
+- дата дополнительно сдвинута вправо на `3 px`;
+- итоговый центр даты: `X=361`;
+- время, формат даты и вертикальная координата не изменялись.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0065-shift-date-right-again/`.
+
