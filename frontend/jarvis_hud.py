@@ -284,18 +284,12 @@ class JarvisHUD(QWidget):
         gpu_x, gpu_y = 80, 465
         disk_x, disk_y = 645, 465
         ram_x, ram_y = 645, 250
-        temp_x, temp_y = 365, 53
-        net_x, net_y = 365, 656
-
-        temp_text = str(round(self.temp_anim)) if self.temp > 0 else "--"
-        self.draw_gauge(painter, temp_x, temp_y, self.temp_anim, "TEMP", temp_text)
         self.draw_net_readouts(painter)
         self.draw_net_progress(painter)
         self.draw_gauge(painter, cpu_x, cpu_y, self.cpu_anim, "CPU")
         self.draw_gauge(painter, ram_x, ram_y, self.ram_anim, "RAM")
         self.draw_gauge(painter, gpu_x, gpu_y, self.gpu_anim, "GPU")
         self.draw_gauge(painter, disk_x, disk_y, self.disk_anim, "DISK")
-        self.draw_gauge(painter, net_x, net_y, self.net_anim, "NET", self.net_display)
         self.draw_ram_panel(painter)
 
     def draw_big_animation(self, painter):
@@ -405,7 +399,7 @@ class JarvisHUD(QWidget):
         painter.drawArc(rect, 135 * 16, 270 * 16)
 
         # дуга нагрузки
-        pen_val = QPen(QColor(0, 200, 255), 3)
+        pen_val = QPen(QColor(0, 235, 245), 3)
         painter.setPen(pen_val)
 
         span = int(-value * 270 / 100 * 16)

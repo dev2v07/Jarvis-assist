@@ -38,6 +38,11 @@ values follow the original TECH-A formulas: outgoing traffic is divided by
 `1,048,576` bytes/s and incoming traffic by `6,144,000` bytes/s. The arcs are
 smoothed in the HUD, so short network bursts do not cause flicker.
 
+The four primary cells `CPU`, `RAM`, `GPU`, and `DISK` use the active cyan
+value color `RGB(0, 235, 245)`. The central `TEMP` and `NET` gauge cells are
+not rendered in the current widget layout; the separate `UP/DN` network block
+remains available for traffic details.
+
 - secrets are supplied through environment variables;
 - generated runtime state is ignored by Git;
 - core and optional dependencies are listed separately;

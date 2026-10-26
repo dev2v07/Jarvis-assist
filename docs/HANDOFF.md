@@ -1642,3 +1642,33 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0048-network-progress/`.
 
+## Очередь 0049 — cyan primary gauges and remove TEMP/NET cells
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0049-cyan-main-gauges-remove-temp-net/`
+
+Изменения:
+
+- цвет дуги значения для `CPU`, `RAM`, `GPU` и `DISK` установлен в
+  `RGB(0,235,245)`;
+- центральные ячейки `TEMP` и `NET` удалены из отрисовки виджета;
+- отдельный блок `UP/DN` с сетевыми значениями и живыми полосами сохранён.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0049-cyan-main-gauges-remove-temp-net/`.
+
