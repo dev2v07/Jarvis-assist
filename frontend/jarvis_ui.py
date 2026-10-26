@@ -174,6 +174,55 @@ class TechActionButton(QToolButton):
         self.setIcon(QIcon(self.hover_frame if self.underMouse() else self.static_frame))
 
 
+class StartButton(QPushButton):
+    """START button with a restrained readable shadow and accent contour."""
+
+    def __init__(self, text, text_color, accent_color, parent=None):
+        super().__init__(text, parent)
+        self.start_text_color = QColor(text_color)
+        self.start_accent_color = QColor(accent_color)
+
+    def set_text_color(self, color):
+        parsed = QColor(color)
+        if parsed.isValid():
+            self.start_text_color = parsed
+            self.update()
+
+    def set_accent_color(self, color):
+        parsed = QColor(color)
+        if parsed.isValid():
+            self.start_accent_color = parsed
+            self.update()
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing, True)
+
+        option = QStyleOptionButton()
+        self.initStyleOption(option)
+        text = option.text
+        option.text = ""
+        self.style().drawControl(QStyle.CE_PushButton, option, painter, self)
+
+        painter.setFont(self.font())
+        text_rect = self.rect()
+
+        # Dark offset shadow keeps START readable over the bright glass core.
+        shadow = QColor(0, 0, 0, 210)
+        painter.setPen(shadow)
+        painter.drawText(text_rect.translated(0, 2), Qt.AlignCenter, text)
+
+        # A restrained accent contour adds separation without a heavy glow.
+        contour = QColor(self.start_accent_color)
+        contour.setAlpha(115)
+        painter.setPen(contour)
+        for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+            painter.drawText(text_rect.translated(dx, dy), Qt.AlignCenter, text)
+
+        painter.setPen(self.start_text_color)
+        painter.drawText(text_rect, Qt.AlignCenter, text)
+
+
 # ---------------- MAIN UI ----------------
 
 class JarvisUI(QWidget):
@@ -411,6 +460,7 @@ class JarvisUI(QWidget):
         self.accent_hex = color.name()
         self.ui_settings.setValue("accent_color", self.accent_hex)
         self.hud.set_accent_color(color)
+        self.jarvis_button.set_accent_color(color)
         self.accent_value_label.setText(
             f"{self.accent_hex.upper()}  RGB {color.red()}, {color.green()}, {color.blue()}"
         )
@@ -425,6 +475,7 @@ class JarvisUI(QWidget):
         self.text_color_hex = color.name()
         self.ui_settings.setValue("font_color", self.text_color_hex)
         self.hud.set_text_color(color)
+        self.jarvis_button.set_text_color(color)
         self.font_color_value_label.setText(
             f"{self.text_color_hex.upper()}  RGB {color.red()}, {color.green()}, {color.blue()}"
         )
@@ -827,7 +878,7 @@ class JarvisUI(QWidget):
         self.jarvis_state = False
 
         # кнопка jarvis
-        self.jarvis_button = QPushButton("START")
+        self.jarvis_button = StartButton("START", self.text_color, self.accent_color)
         self.jarvis_button.setFixedSize(150,150)
         self.jarvis_button.setObjectName("jarvisStart")
         self.jarvis_button.setCursor(Qt.PointingHandCursor)

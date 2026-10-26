@@ -2232,3 +2232,33 @@ Backup по прямой просьбе пользователя не созда
 
 - использовать Git-коммит до очереди 0066; backup намеренно не создавался.
 
+## Очередь 0067 — readable START text shadow and contour
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0067-start-text-shadow/`
+
+Изменения:
+
+- текст `START` получил мягкую тёмную тень со смещением `2 px`;
+- добавлен тонкий низкоальфа-акцентный контур для читаемости на Aero Glass;
+- цвет тени, контура и текста не усиливает общий glow и синхронизируется с
+  настройками цветов интерфейса.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0067-start-text-shadow/`.
+
