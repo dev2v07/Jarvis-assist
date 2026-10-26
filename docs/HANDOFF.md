@@ -1969,3 +1969,32 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0058-fix-time-date-import/`.
 
+## Очередь 0059 — fix time/date point import
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0059-fix-time-date-point-import/`
+
+Изменения:
+
+- добавлен отсутствующий импорт `QPointF` для baseline-позиционирования времени
+  и даты;
+- устранено исключение `NameError` при отрисовке HUD.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200;
+- frontend должен запускаться без повторяющихся ошибок `paintEvent`.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0059-fix-time-date-point-import/`.
+

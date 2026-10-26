@@ -10,7 +10,7 @@ from PySide6.QtGui import (
     QPainter, QPixmap, QFont, QFontDatabase,
     QPen, QColor, QFontMetricsF
 )
-from PySide6.QtCore import QTimer, Qt, QRectF
+from PySide6.QtCore import QTimer, Qt, QRectF, QPointF
 from tech_a_animation import TechAAnimation
 
 
