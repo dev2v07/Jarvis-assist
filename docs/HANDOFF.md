@@ -2489,7 +2489,14 @@ Backup по прямой просьбе пользователя не созда
 - `docs/CANONICAL_STRUCTURE.md`;
 - `docs/HANDOFF.md`.
 
-Проверка: выполняется после перезапуска backend и frontend.
+Проверка:
+
+- `py_compile` для HUD и UI: пройден;
+- `git diff --check`: пройден;
+- backend и frontend перезапущены из командной строки;
+- `GET /health`: HTTP 200 (`cpu=17.7`, `ram_used=39.3`, `disk_used=82.25`);
+- BG000 остаётся видимым при запуске в GAME MODE;
+- окно Jarvis оставлено запущенным без traceback.
 
 Откат:
 
