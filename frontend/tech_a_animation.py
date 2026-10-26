@@ -18,8 +18,11 @@ class TechAAnimation:
         self._rotator_3_counter = 0
         self._rotator_elapsed_ms = 0.0
         self._big_animation_elapsed_ms = 0.0
-        self.rotator_enabled = True
-        self.rotator_visible = True
+        # Jarvis starts in GAME MODE: rotating layers are hidden until the
+        # existing GAME button toggles back to the normal desktop mode.
+        self.rotator_enabled = False
+        self.rotator_visible = False
+        self.bg000_enabled = True
         self.big_animation_enabled = False
         self.big_animation_frame = 0
 
@@ -35,6 +38,13 @@ class TechAAnimation:
                 # rotator_3 now drives the animated BG000 replacement layer.
                 self.rotator_1 = 360.0 * self._rotator_1_counter / 2500.0
                 self.rotator_2 = -360.0 * self._rotator_2_counter / 2500.0
+                self.rotator_3 = -360.0 * self._rotator_3_counter / 20.0
+
+        if self.bg000_enabled and not self.rotator_enabled:
+            self._rotator_elapsed_ms += elapsed_ms
+            while self._rotator_elapsed_ms >= 50.0:
+                self._rotator_elapsed_ms -= 50.0
+                self._rotator_3_counter = (self._rotator_3_counter + 1) % 10
                 self.rotator_3 = -360.0 * self._rotator_3_counter / 20.0
 
         if self.big_animation_enabled:

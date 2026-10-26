@@ -2713,3 +2713,62 @@ Backup по прямой просьбе пользователя не созда
 
 - восстановить файлы из `backups/handoff-0081-animate-bg000/`.
 
+## Очередь 0082 — запуск Jarvis в GAME MODE
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0082-default-game-mode/`
+
+Изменения:
+
+- Jarvis по умолчанию запускается с `rotator_visible=False` и
+  `rotator_enabled=False`;
+- при старте скрыты два обычных вращаемых слоя;
+- BG000 остаётся видимым и вращается независимо как отдельная команда;
+- существующая кнопка `GAME` сохраняет переключение между GAME MODE и обычным
+  режимом;
+- действие кнопки `DESK` не изменялось.
+
+Уточнение после проверки: BG000 не скрывается GAME MODE и не зависит от
+переключателя `GAME`.
+
+Файлы:
+
+- `frontend/tech_a_animation.py`;
+- `docs/HANDOFF.md`.
+
+Проверка: выполняется после перезапуска backend и frontend.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0082-default-game-mode/`.
+
+## Очередь 0083 — независимая анимация BG000
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0083-game-mode-bg000-independent/`
+
+Изменения:
+
+- GAME MODE по умолчанию скрывает только обычные rotator-слои;
+- BG000 всегда остаётся видимым и вращается независимо;
+- переключатель `GAME` не отключает анимацию BG000;
+- для BG000 добавлен отдельный флаг `bg000_enabled=True`.
+
+Файлы:
+
+- `frontend/tech_a_animation.py`;
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка: выполняется после перезапуска backend и frontend.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0083-game-mode-bg000-independent/`.
+

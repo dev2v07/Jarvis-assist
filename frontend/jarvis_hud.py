@@ -350,10 +350,12 @@ class JarvisHUD(QWidget):
         if self.animation.big_animation_enabled:
             self.draw_big_animation(painter)
 
-        # GAME MODE deactivates the rotating TECH-A layers, including BG000.
+        # GAME MODE hides the two regular rotating layers. BG000 is an
+        # independent animation and remains visible in both modes.
         if self.animation.rotator_visible:
             self.draw_rotator(painter, self.rotator_1, self.animation.rotator_1, cx, cy)
             self.draw_rotator(painter, self.rotator_2, self.animation.rotator_2, cx, cy)
+        if self.animation.bg000_enabled:
             self.draw_rotator(painter, self.bg2, self.animation.rotator_3, cx, cy)
 
         self.draw_datetime(painter)
