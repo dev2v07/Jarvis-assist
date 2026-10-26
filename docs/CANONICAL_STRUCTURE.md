@@ -94,7 +94,12 @@ without adding a heavy text glow. Both colors follow the appearance settings.
 On hover, the text reacts with a slightly stronger contour and lifted shadow so
 it visually follows the button interaction.
 
-The source CPU point/core animation is integrated as a single overall-load
-indicator. Its point strip uses `CPU/12.5`, the six core layers use `CPU/20`,
-and their highlight layers use `CPU/50`, matching the original formulas. It is
-not presented as six independent per-core measurements.
+The source CPU point/core animation was studied, but the visible port uses one
+continuous overall-load trail instead of stacking the source's six sprite
+layers. This avoids duplicated `0/50/100` marks and the blue tinted overlays
+that do not belong to the clean dashboard presentation. The trail has 72
+points, and the active point count follows the overall CPU percentage in
+`self.cpu_anim`; inactive points remain subtle and the active segment follows
+the selected accent color. The source formulas (`CPU/12.5`, `CPU/20`,
+`CPU/50`) remain recorded as reference for a future optional source-faithful
+animation mode.
