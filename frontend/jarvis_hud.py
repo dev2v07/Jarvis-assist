@@ -370,7 +370,9 @@ class JarvisHUD(QWidget):
         # Source-aligned radius: the TECH-A point trail sits on the dotted
         # inner dashboard ring (the source roundline spans roughly 205..236
         # px from the 355,355 center), not on the START button's inner ring.
-        radius = 220.0
+        # The source progress dots sit on the inner dotted track around START,
+        # not on the larger outer cell ring.
+        radius = 150.0
         start_angle = -90.0
 
         inactive = QColor(self.text_color)
@@ -402,7 +404,7 @@ class JarvisHUD(QWidget):
             x = center_x + radius * math.cos(angle)
             y = center_y + radius * math.sin(angle)
             painter.setPen(active if index < active_points else inactive)
-            point_radius = 0.85 if index < active_points else 0.55
+            point_radius = 0.58 if index < active_points else 0.36
             painter.drawEllipse(QPointF(x, y), point_radius, point_radius)
 
         if active_points:
@@ -413,7 +415,7 @@ class JarvisHUD(QWidget):
                 center_x + radius * math.cos(endpoint_angle),
                 center_y + radius * math.sin(endpoint_angle),
             )
-            painter.setPen(QPen(active, 1.2))
+            painter.setPen(QPen(active, 0.8))
             painter.drawPoint(endpoint)
         painter.restore()
 
