@@ -2005,3 +2005,35 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0059-fix-time-date-point-import/`.
 
+## Очередь 0060 — move time/date to the first outer BG6 ring
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0060-move-time-date-to-bg6/`
+
+Изменения:
+
+- время и дата перенесены с внутреннего кольца на первое внешнее кольцо
+  `BG6`;
+- оба значения выровнены по вертикальной оси центра виджета;
+- время размещено на верхней точке кольца, дата — на нижней;
+- синхронизация с локальным временем ПК и пользовательские шрифт/цвет
+  сохранены.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0060-move-time-date-to-bg6/`.
+

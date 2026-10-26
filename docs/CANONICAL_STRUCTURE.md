@@ -78,5 +78,6 @@ The HUD also renders live local PC date/time: the top center uses 24-hour
 `25TH OCT`. Both values are refreshed from `datetime.now()` and follow the
 computer's local clock and calendar.
 
-The time/date placement follows the original TECH-A source anchors: time at
-`X=350, Y=167`, day at `X=348, Y=534`, and month at `X=379, Y=534`.
+The user-selected time/date placement follows the first outer `BG6` ring on
+the vertical center axis: time baseline `X=355, Y=61`, date baseline
+`X=355, Y=697`.

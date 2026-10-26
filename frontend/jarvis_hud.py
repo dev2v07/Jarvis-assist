@@ -348,17 +348,16 @@ class JarvisHUD(QWidget):
         painter.setPen(color)
         metrics = QFontMetricsF(self.font_net)
 
-        # Source anchors from TECH-A 6 CPU.ini are baseline coordinates:
-        # MeterTime X=350 Y=167, Meterdate X=348 Y=534,
-        # Metermounth X=379 Y=534.
+        # The user-selected placement is the first outer ring, BG6, on the
+        # vertical center axis rather than the original inner MeterTime anchors.
         time_width = metrics.horizontalAdvance(self.clock_text)
-        painter.drawText(QPointF(350 - time_width / 2, 167), self.clock_text)
+        painter.drawText(QPointF(355 - time_width / 2, 61), self.clock_text)
 
         day_part, month_part = self.date_text.split(" ", 1)
         day_width = metrics.horizontalAdvance(day_part)
         month_width = metrics.horizontalAdvance(month_part)
-        painter.drawText(QPointF(348 - day_width / 2, 534), day_part)
-        painter.drawText(QPointF(379 - month_width / 2, 534), month_part)
+        painter.drawText(QPointF(355 - (day_width + month_width + 6) / 2, 697), day_part)
+        painter.drawText(QPointF(355 + (day_width + 6 - month_width) / 2, 697), month_part)
         painter.restore()
 
     def draw_big_animation(self, painter):
