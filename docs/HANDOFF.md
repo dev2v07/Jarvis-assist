@@ -1832,8 +1832,12 @@ Rollback point:
 
 Проверка:
 
-- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
-  `GET /health` со статусом HTTP 200.
+- `py_compile` для UI и HUD: пройден;
+- `git diff --check`: пройден;
+- backend и frontend перезапущены;
+- `GET /health`: HTTP 200;
+- цветовой диалог загружается в Jarvis-теме, выделенный пункт меню получил
+  чёрный текст.
 
 Откат:
 
@@ -1862,8 +1866,11 @@ Rollback point:
 
 Проверка:
 
-- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
-  `GET /health` со статусом HTTP 200.
+- `py_compile` для UI и HUD: пройден;
+- `git diff --check`: пройден;
+- backend и frontend перезапущены;
+- `GET /health`: HTTP 200;
+- выбранный шрифт применяется рекурсивно ко всем Qt-виджетам и к живому HUD.
 
 Откат:
 
