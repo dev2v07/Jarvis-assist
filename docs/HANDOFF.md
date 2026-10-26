@@ -1450,3 +1450,33 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0042-original-net-readouts/`.
 
+## Очередь 0043 — match NET readout font
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0043-match-net-font/`
+
+Изменения:
+
+- шрифт четырёх сетевых значений `UPLOAD/DOWNLOAD` увеличен до размера правых RAM-показателей;
+- используется тот же `BitDust Two`, размер `8.3`;
+- координаты и источники сетевых значений не изменялись.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации очереди;
+- пользователь визуально проверит размер NET-шрифта.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0043-match-net-font/`.
+
