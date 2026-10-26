@@ -66,3 +66,9 @@ font is selected; combo-box popup items use a light background for contrast.
 
 The text color is a separate persisted appearance setting. It defaults to
 `#FFFFFF` and is applied to live HUD text and the visible Qt settings UI.
+
+Color selection uses a Jarvis-styled non-native dialog. The selected sidebar
+item uses the accent background with dark text for contrast.
+
+Font changes are applied recursively to all existing Qt widgets and to the
+custom HUD renderer, so changing the family updates the complete live app.

@@ -1809,3 +1809,63 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0053-font-color-settings-ui/`.
 
+## Очередь 0054 — style color dialog and selected menu text
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0054-style-color-dialog-and-selected-menu/`
+
+Изменения:
+
+- системный цветовой диалог заменён на тёмный Jarvis-styled non-native dialog;
+- поля RGB/HTML и кнопки диалога получили контрастную тёмную тему;
+- выделенный пункт бокового меню теперь использует чёрный текст на акцентном
+  фоне.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0054-style-color-dialog-and-selected-menu/`.
+
+## Очередь 0055 — apply selected font to every Qt widget
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0055-apply-font-to-all-widgets/`
+
+Изменения:
+
+- выбранное семейство шрифта принудительно применяется ко всем существующим
+  Qt-виджетам приложения;
+- применение выполняется при запуске и сразу после смены шрифта;
+- кастомный HUD продолжает получать то же семейство через свой renderer.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0055-apply-font-to-all-widgets/`.
+

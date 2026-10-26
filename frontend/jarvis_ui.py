@@ -208,6 +208,7 @@ class JarvisUI(QWidget):
         self.setWindowOpacity(0.96)
 
         self.build_ui()
+        self.apply_application_font()
 
         self.menu.currentRowChanged.connect(self.pages.setCurrentIndex)
         self.menu.setCurrentRow(0)
@@ -368,13 +369,41 @@ class JarvisUI(QWidget):
             return
 
         self.active_font_family = family
-        QApplication.instance().setFont(QFont(family, 10))
         self.ui_settings.setValue("font_family", family)
+        self.apply_application_font()
         if hasattr(self, "hud"):
             self.hud.set_interface_font(family)
 
+    def apply_application_font(self):
+        """Force the selected family onto existing and future Qt widgets."""
+        font = QFont(self.active_font_family, 10)
+        QApplication.instance().setFont(font)
+        for widget in self.findChildren(QWidget):
+            widget_font = widget.font()
+            widget_font.setFamily(self.active_font_family)
+            widget.setFont(widget_font)
+
+    def pick_color(self, initial, title):
+        dialog = QColorDialog(initial, self)
+        dialog.setWindowTitle(title)
+        dialog.setOption(QColorDialog.DontUseNativeDialog, True)
+        dialog.setStyleSheet("""
+            QColorDialog, QDialog { background:#171922; color:#F4F7FA; }
+            QColorDialog QLabel, QDialog QLabel { color:#F4F7FA; }
+            QColorDialog QSpinBox, QColorDialog QLineEdit {
+                background:#252A36; color:#F4F7FA; border:1px solid #4A5263;
+                border-radius:5px; padding:3px;
+            }
+            QColorDialog QPushButton {
+                background:#27303D; color:#F4F7FA; border:1px solid #566176;
+                border-radius:6px; padding:6px 14px;
+            }
+            QColorDialog QPushButton:hover { background:#3A4658; }
+        """)
+        return dialog.currentColor() if dialog.exec() == QDialog.Accepted else QColor()
+
     def choose_accent_color(self):
-        color = QColorDialog.getColor(self.accent_color, self, "Выберите акцентный цвет")
+        color = self.pick_color(self.accent_color, "Выберите акцентный цвет")
         if not color.isValid():
             return
 
@@ -388,7 +417,7 @@ class JarvisUI(QWidget):
         self.apply_styles()
 
     def choose_text_color(self):
-        color = QColorDialog.getColor(self.text_color, self, "Выберите цвет текста")
+        color = self.pick_color(self.text_color, "Выберите цвет текста")
         if not color.isValid():
             return
 
@@ -1038,7 +1067,7 @@ border-radius:10px;
 
 #menu::item:selected{
 background:#2E89FF;
-color:white;
+color:#111111;
 }
 
 #menu::item:hover{
