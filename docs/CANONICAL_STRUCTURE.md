@@ -72,3 +72,8 @@ item uses the accent background with dark text for contrast.
 
 Font changes are applied recursively to all existing Qt widgets and to the
 custom HUD renderer, so changing the family updates the complete live app.
+
+The HUD also renders live local PC date/time: the top center uses 24-hour
+`HH:MM`, while the bottom center uses ordinal English format such as
+`25TH OCT`. Both values are refreshed from `datetime.now()` and follow the
+computer's local clock and calendar.

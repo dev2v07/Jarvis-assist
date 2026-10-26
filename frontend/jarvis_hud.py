@@ -1,6 +1,7 @@
 import os
 import math
 import time
+from datetime import datetime
 import psutil
 import GPUtil
 
@@ -89,6 +90,9 @@ class JarvisHUD(QWidget):
         self.net_download_rate = 0.0
         self.net_upload_progress = 0.0
         self.net_download_progress = 0.0
+        self.clock_text = "00:00"
+        self.date_text = "01ST JAN"
+        self.update_datetime()
         self.ram_total_gb = 0.0
         self._net_previous = psutil.net_io_counters()
         self._net_previous_at = time.monotonic()
@@ -215,8 +219,20 @@ class JarvisHUD(QWidget):
         self.net_download_progress += (
             min(1.0, self.net_download_rate / 6144000.0) - self.net_download_progress
         ) * 0.16
+        self.update_datetime()
 
         self.update()
+
+    def update_datetime(self):
+        """Synchronize the HUD clock and date with the local PC time."""
+        current = datetime.now()
+        self.clock_text = current.strftime("%H:%M")
+        day = current.day
+        if 10 <= day % 100 <= 20:
+            suffix = "TH"
+        else:
+            suffix = {1: "ST", 2: "ND", 3: "RD"}.get(day % 10, "TH")
+        self.date_text = f"{day:02d}{suffix} {current.strftime('%b').upper()}"
 
     def set_accent_color(self, color):
         """Update the active indicator color without rebuilding the HUD."""
@@ -305,6 +321,8 @@ class JarvisHUD(QWidget):
                 cy - self.ROTATOR_SIZE / 2 + 151,
             )
 
+        self.draw_datetime(painter)
+
         # индикаторы (НЕ вращаются)
         # Match the original TECH-A repeated cell layout.  The source skin
         # places six cells around the ring. Four values are live; two cells
@@ -320,6 +338,17 @@ class JarvisHUD(QWidget):
         self.draw_gauge(painter, gpu_x, gpu_y, self.gpu_anim, "GPU")
         self.draw_gauge(painter, disk_x, disk_y, self.disk_anim, "DISK")
         self.draw_ram_panel(painter)
+
+    def draw_datetime(self, painter):
+        """Render local 24-hour time above and ordinal date below the HUD."""
+        painter.save()
+        painter.setFont(self.font_net)
+        color = QColor(self.text_color)
+        color.setAlpha(225)
+        painter.setPen(color)
+        painter.drawText(QRectF(315, 165, 80, 16), Qt.AlignCenter, self.clock_text)
+        painter.drawText(QRectF(300, 528, 110, 16), Qt.AlignCenter, self.date_text)
+        painter.restore()
 
     def draw_big_animation(self, painter):
         if self.big_animation.isNull():

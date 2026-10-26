@@ -1876,3 +1876,33 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0055-apply-font-to-all-widgets/`.
 
+## Очередь 0056 — live local time and date in HUD
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0056-live-time-date/`
+
+Изменения:
+
+- сверху виджета добавлены локальные часы ПК в формате `HH:MM`;
+- снизу виджета добавлена дата в формате `25TH OCT`;
+- дата и время синхронизируются с локальным `datetime.now()` компьютера;
+- новые надписи наследуют выбранные в настройках шрифт и цвет текста.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0056-live-time-date/`.
+
