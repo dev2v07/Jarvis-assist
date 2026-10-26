@@ -2951,7 +2951,13 @@ Backup по прямой просьбе пользователя не созда
 - `frontend/assets/TECH-A/panel/*.svg`;
 - `docs/HANDOFF.md`.
 
-Проверка: выполняется после запуска backend и frontend.
+Проверка:
+
+- `py_compile` для HUD и UI: пройден;
+- `git diff --check`: пройден;
+- backend и frontend перезапущены из командной строки;
+- `GET /health`: HTTP 200;
+- окно Jarvis оставлено запущенным.
 
 Откат:
 
@@ -2980,7 +2986,14 @@ Backup по прямой просьбе пользователя не созда
 - `frontend/jarvis_hud.py`;
 - `docs/HANDOFF.md`.
 
-Проверка: выполняется после запуска backend и frontend.
+Проверка:
+
+- `py_compile` для HUD и UI: пройден;
+- `git diff --check`: пройден;
+- backend и frontend перезапущены из командной строки;
+- `GET /health`: HTTP 200 (`cpu=9.5`, `ram_used=50.9`, `disk_used=82.26`);
+- отдельное окно настроек виджета доступно через `SET`;
+- окно Jarvis оставлено запущенным.
 
 Откат:
 
