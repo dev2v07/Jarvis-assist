@@ -1704,8 +1704,12 @@ Rollback point:
 
 Проверка:
 
-- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
-  `GET /health` со статусом HTTP 200.
+- `py_compile` для UI и HUD: пройден;
+- `git diff --check`: пройден;
+- backend и frontend перезапущены;
+- `GET /health`: HTTP 200;
+- страница истории отделена от страницы настроек, акцентный цвет по умолчанию
+  сохранён как `#00EBF5`.
 
 Откат:
 
@@ -1731,8 +1735,11 @@ Rollback point:
 
 Проверка:
 
-- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
-  `GET /health` со статусом HTTP 200.
+- `py_compile` для UI и HUD: пройден;
+- `git diff --check`: пройден;
+- backend и frontend перезапущены;
+- `GET /health`: HTTP 200;
+- выбранный шрифт передаётся в HUD и применяется к его живым текстовым слоям.
 
 Откат:
 
