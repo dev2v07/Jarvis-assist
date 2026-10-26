@@ -132,6 +132,8 @@ class WidgetSettingsDialog(QDialog):
 class RotatablePanelButton(QPushButton):
     """Text panel button whose label can be tilted without rotating its hitbox."""
 
+    angleChanged = Signal(float)
+
     def __init__(self, text, parent=None):
         super().__init__(text, parent)
         self.panel_angle = 0.0
@@ -139,6 +141,15 @@ class RotatablePanelButton(QPushButton):
     def set_panel_angle(self, angle):
         self.panel_angle = max(-45.0, min(45.0, float(angle)))
         self.update()
+
+    def wheelEvent(self, event):
+        if self.property("calibrationEnabled"):
+            step = 2 if event.angleDelta().y() > 0 else -2
+            self.set_panel_angle(self.panel_angle + step)
+            self.angleChanged.emit(self.panel_angle)
+            event.accept()
+            return
+        super().wheelEvent(event)
 
     def paintEvent(self, event):
         option = QStyleOptionButton()
@@ -533,8 +544,10 @@ class JarvisUI(QWidget):
             button.setGeometry(x, y, 72 if name != "FUNCTION" else 86, 24)
             button.setCursor(Qt.PointingHandCursor)
             if self.panel_calibration_mode:
+                button.setProperty("calibrationEnabled", True)
                 button.setToolTip(f"{name}: перетащите мышью, колесо — наклон текста")
                 button.installEventFilter(self)
+                button.angleChanged.connect(lambda angle, item=button: self.save_panel_position(item))
             button.clicked.connect(lambda checked=False, item=button: self.handle_hud_panel_action(item.property("actionKey")))
             button.show()
             button.raise_()
@@ -784,11 +797,6 @@ class JarvisUI(QWidget):
     def eventFilter(self, obj, event):
 
         if self.panel_calibration_mode and obj in getattr(self, "hud_panel_button_map", {}).values():
-            if event.type() == QEvent.Wheel and isinstance(obj, RotatablePanelButton):
-                step = 2 if event.angleDelta().y() > 0 else -2
-                obj.set_panel_angle(obj.panel_angle + step)
-                self.save_panel_position(obj)
-                return True
             if event.type() == QEvent.MouseButtonPress and event.button() == Qt.MouseButton.LeftButton:
                 self._panel_drag = (obj, event.position().toPoint(), obj.pos())
                 return True
@@ -1475,7 +1483,7 @@ background:transparent;
 border:1px solid transparent;
 border-radius:4px;
 color:#FFFFFF;
-font-size:9px;
+font-size:7px;
 padding:1px 4px;
 }
 
