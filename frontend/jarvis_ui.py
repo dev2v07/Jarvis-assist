@@ -1,6 +1,8 @@
 import sys
 import requests
 import os
+import ctypes
+import webbrowser
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
@@ -274,13 +276,53 @@ class JarvisUI(QWidget):
         return buttons
 
     def handle_tech_action(self, name):
-        """Keep the restored controls usable without importing user-specific Rainmeter paths."""
-        if name == "CFG":
-            self.menu.setCurrentRow(3)
-            return
+        """Execute the portable equivalent of each original TECH-A action."""
+        try:
+            if name == "COMP":
+                os.startfile("shell:MyComputerFolder")
+                message = "Открыт Этот компьютер"
+            elif name == "DOCS":
+                os.startfile(os.path.join(os.path.expanduser("~"), "Documents"))
+                message = "Открыты Документы"
+            elif name == "CTRL":
+                os.startfile("ms-settings:")
+                message = "Открыты Параметры Windows"
+            elif name == "DESK":
+                self.show_desktop()
+                message = "Показан рабочий стол"
+            elif name == "XPLR":
+                enabled = self.hud.animation.toggle_big_animation()
+                message = f"ANI {'ON' if enabled else 'OFF'}"
+            elif name == "CHRM":
+                webbrowser.open("about:blank")
+                message = "Открыт браузер по умолчанию"
+            elif name == "GAME":
+                game_mode = self.hud.animation.toggle_game_mode()
+                message = "GAME MODE" if game_mode else "DESK MODE"
+            elif name == "CFG":
+                self.menu.setCurrentRow(3)
+                message = "Открыты настройки Jarvis"
+            else:
+                message = f"TECH-A: {name}"
+            self.assistant_label.setText(message)
+            print(f"TECH-A action: {name} -> {message}")
+        except OSError as error:
+            message = f"Не удалось выполнить {name}: {error}"
+            self.assistant_label.setText(message)
+            print(message)
 
-        self.assistant_label.setText(f"TECH-A: {name}")
-        print(f"TECH-A action: {name}")
+    @staticmethod
+    def show_desktop():
+        try:
+            import win32com.client
+            win32com.client.Dispatch("Shell.Application").ToggleDesktop()
+        except Exception:
+            # Fallback for systems without the pywin32 COM wrapper.
+            user32 = ctypes.windll.user32
+            user32.keybd_event(0x5B, 0, 0, 0)
+            user32.keybd_event(0x44, 0, 0, 0)
+            user32.keybd_event(0x44, 0, 2, 0)
+            user32.keybd_event(0x5B, 0, 2, 0)
 
     def register_tech_fonts(self):
         families = {}

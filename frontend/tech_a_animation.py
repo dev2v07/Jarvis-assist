@@ -13,13 +13,23 @@ class TechAAnimation:
         self.rotator_1 = 0.0
         self.rotator_2 = 0.0
         self.rotator_3 = 0.0
-        self.group_angle = 0.0
-        self.orbit_angle = 0.0
+        self.rotator_enabled = True
+        self.big_animation_enabled = False
+        self.big_animation_frame = 0
 
     def step(self):
         """Advance only the optional animated layers."""
-        self.rotator_1 += 0.16
-        self.rotator_2 -= 0.12
-        self.rotator_3 += 0.20
-        self.group_angle += 0.01
-        self.orbit_angle -= 0.08
+        if self.rotator_enabled:
+            self.rotator_1 += 0.16
+            self.rotator_2 -= 0.12
+            self.rotator_3 += 0.20
+        if self.big_animation_enabled:
+            self.big_animation_frame = (self.big_animation_frame + 1) % 10
+
+    def toggle_big_animation(self):
+        self.big_animation_enabled = not self.big_animation_enabled
+        return self.big_animation_enabled
+
+    def toggle_game_mode(self):
+        self.rotator_enabled = not self.rotator_enabled
+        return not self.rotator_enabled

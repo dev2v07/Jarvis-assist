@@ -1180,3 +1180,41 @@ Git:
 
 - восстановить `frontend/jarvis_hud.py` и `docs/HANDOFF.md` из `backups/handoff-0033-readable-temp-net-values/`.
 
+## Очередь 0034 — TECH-A actions and remove Group glow
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0034-actions-and-remove-group-glow/`
+
+Изменения:
+
+- отключён дополнительный слой `Group.png`, который создавал синее свечение на заднем фоне;
+- `COMP` открывает «Этот компьютер»;
+- `DOCS` открывает папку пользователя `Documents`;
+- `CTRL` открывает системные «Параметры Windows»;
+- `DESK` сворачивает окна через Windows Shell и показывает рабочий стол;
+- `XPLR` переключает оригинальную большую bitmap-анимацию `ANI ON/OFF`;
+- `CHRM` открывает браузер по умолчанию через `about:blank`;
+- `GAME` переключает `GAME MODE/DESK MODE`: останавливает или возвращает rotator-анимацию;
+- `CFG` открывает страницу настроек Jarvis.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `frontend/jarvis_hud.py`;
+- `frontend/tech_a_animation.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD, UI и animation: пройден;
+- `git diff --check`: пройден;
+- backend и frontend будут перезапущены после фиксации очереди;
+- пользователь визуально проверит отсутствие синего Group-свечения и работу кнопок.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0034-actions-and-remove-group-glow/`.
+

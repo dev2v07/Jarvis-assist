@@ -44,8 +44,8 @@ class JarvisHUD(QWidget):
         self.setAttribute(Qt.WA_TransparentForMouseEvents)
         self.setAttribute(Qt.WA_TranslucentBackground)
 
-        # HUD PNG
-        self.group = QPixmap(os.path.join(ASSETS, "Group.png"))
+        # HUD PNG layers. Group.png is intentionally not loaded: it is the
+        # blue glow layer that is absent from the original clean composition.
         self.bg1 = QPixmap(os.path.join(ASSETS, "BG1.png"))
         self.bg2 = QPixmap(os.path.join(ASSETS, "BG2.png"))
         self.bg3 = QPixmap(os.path.join(ASSETS, "BG3.png"))
@@ -57,6 +57,7 @@ class JarvisHUD(QWidget):
         self.rotator_1 = QPixmap(os.path.join(ROTATOR, "1xx.png"))
         self.rotator_2 = QPixmap(os.path.join(ROTATOR, "2x.png"))
         self.rotator_3 = QPixmap(os.path.join(ROTATOR, "3x.png"))
+        self.big_animation = QPixmap(os.path.join(ASSETS, "BigAnimation.png"))
 
         self.scale = self.HUD_SIZE / self.bg6.width()
         self.setFixedSize(self.HUD_SIZE, self.HUD_SIZE)
@@ -68,13 +69,6 @@ class JarvisHUD(QWidget):
 
         # Optional motion is isolated from static BG1-BG6 composition.
         self.animation = TechAAnimation()
-        self.group_scale = 0.65
-        self.group_scaled = self.group.scaled(
-            int(self.group.width() * self.scale * self.group_scale),
-            int(self.group.height() * self.scale * self.group_scale),
-            Qt.KeepAspectRatio,
-            Qt.SmoothTransformation,
-        )
         self.gauge_bg = self.bg1.scaled(
             self.GAUGE_BG_SIZE,
             self.GAUGE_BG_SIZE,
@@ -227,18 +221,15 @@ class JarvisHUD(QWidget):
         cx = self.width() / 2
         cy = self.height() / 2
 
-        # ---------- ЗАДНИЙ КРУГ (Group.png) ----------
-
-        painter.setOpacity(0.35)
-        self.draw_rotating_pixmap(painter, self.group_scaled, self.animation.group_angle, cx, cy)
-        painter.setOpacity(1)
-
         # ---------- HUD слои ----------
 
         # Native 1:1 raster cache; no per-frame scaling or smoothing.
         painter.setRenderHint(QPainter.Antialiasing, False)
         painter.drawPixmap(0, 0, self.static_bg)
         painter.setRenderHint(QPainter.Antialiasing, True)
+
+        if self.animation.big_animation_enabled:
+            self.draw_big_animation(painter)
 
         # Separate rotator config: 1xx.png, 2x.png and 3x.png.
         self.draw_rotator(painter, self.rotator_1, self.animation.rotator_1, cx, cy)
@@ -270,6 +261,26 @@ class JarvisHUD(QWidget):
         self.draw_gauge(painter, disk_x, disk_y, self.disk_anim, "DISK")
         self.draw_gauge(painter, net_x, net_y, self.net_anim, "NET", self.net_display)
         self.draw_ram_panel(painter)
+
+    def draw_big_animation(self, painter):
+        if self.big_animation.isNull():
+            return
+        frame_width = self.big_animation.width() // 10
+        frame = self.big_animation.copy(
+            self.animation.big_animation_frame * frame_width,
+            0,
+            frame_width,
+            self.big_animation.height(),
+        )
+        if self.render_dpr != 1.0:
+            frame = frame.scaled(
+                round(self.HUD_SIZE * self.render_dpr),
+                round(self.HUD_SIZE * self.render_dpr),
+                Qt.IgnoreAspectRatio,
+                Qt.SmoothTransformation,
+            )
+            frame.setDevicePixelRatio(self.render_dpr)
+        painter.drawPixmap(0, 0, frame)
 
     def draw_rotating_pixmap(self, painter, pixmap, angle, cx, cy):
         if pixmap.isNull():
