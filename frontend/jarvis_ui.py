@@ -655,7 +655,7 @@ class JarvisUI(QWidget):
 
     def handle_hud_panel_action(self, name, source_key=None):
         """Route the new top/bottom HUD panel commands."""
-        if name != "VID":
+        if name in {"CHAT", "HISTORY"}:
             self.ensure_full_ui()
         if name == "CUSTOM":
             self.open_custom_target(self.widget_settings.get("targets", {}).get(source_key, ""), source_key)
@@ -756,7 +756,8 @@ class JarvisUI(QWidget):
     def handle_tech_action(self, name):
         """Execute the portable equivalent of each original TECH-A action."""
         try:
-            self.ensure_full_ui()
+            if name == "CFG":
+                self.ensure_full_ui()
             bound_name = self.widget_settings.get("actions", {}).get(name, name)
             if bound_name == "CUSTOM":
                 self.open_custom_target(self.widget_settings.get("targets", {}).get(name, ""), name)
