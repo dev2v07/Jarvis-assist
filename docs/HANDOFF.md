@@ -2924,3 +2924,36 @@ Backup по прямой просьбе пользователя не созда
 
 - восстановить файлы из `backups/handoff-0088-bg000-20sec/`.
 
+## Очередь 0089 — верхняя и нижняя панели HUD
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0089-hud-panels-and-40sec-bg000/`
+
+Изменения:
+
+- полный оборот BG000 увеличен до 40 секунд;
+- добавлена верхняя панель команд: `CHAT`, `AGENTS`, `FUNCTION`, `HISTORY`;
+- `CHAT` открывает чат, `HISTORY` — историю, `AGENTS` и `FUNCTION` открывают
+  соответствующие информационные панели;
+- добавлена нижняя панель с SVG-иконками `PROV`, `MOD`, `VID`, `SET`, `OUT`;
+- SVG-иконки скопированы в `frontend/assets/TECH-A/panel/`;
+- `PROV` и `MOD` открывают панели провайдеров и моделей;
+- `VID` переключает прозрачный HUD-only режим с готовым голосовым состоянием;
+- `SET` открывает настройки, `OUT` закрывает приложение.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `frontend/tech_a_animation.py`;
+- `frontend/assets/TECH-A/panel/*.svg`;
+- `docs/HANDOFF.md`.
+
+Проверка: выполняется после запуска backend и frontend.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0089-hud-panels-and-40sec-bg000/`.
+

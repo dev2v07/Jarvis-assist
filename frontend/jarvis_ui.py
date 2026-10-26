@@ -39,6 +39,21 @@ TECH_ACTION_BUTTONS = {
     "CFG": (545, 399),
 }
 
+HUD_TOP_PANEL_BUTTONS = {
+    "CHAT": (266, 137),
+    "AGENTS": (333, 137),
+    "FUNCTION": (407, 137),
+    "HISTORY": (493, 137),
+}
+
+HUD_BOTTOM_PANEL_BUTTONS = {
+    "PROV": (232, 548),
+    "MOD": (291, 548),
+    "VID": (350, 548),
+    "SET": (409, 548),
+    "OUT": (468, 548),
+}
+
 
 # ---------------- MESSAGE BUBBLE ----------------
 
@@ -350,6 +365,105 @@ class JarvisUI(QWidget):
             buttons.append(button)
 
         return buttons
+
+    def create_hud_panel_buttons(self, parent):
+        """Create the upper command labels and lower SVG command icons."""
+        buttons = []
+        for name, (x, y) in HUD_TOP_PANEL_BUTTONS.items():
+            button = QPushButton(name, parent)
+            button.setObjectName("hudPanelTop")
+            button.setGeometry(x, y, 72 if name != "FUNCTION" else 86, 28)
+            button.setCursor(Qt.PointingHandCursor)
+            button.clicked.connect(lambda checked=False, key=name: self.handle_hud_panel_action(key))
+            button.show()
+            button.raise_()
+            buttons.append(button)
+
+        icons_dir = os.path.join(BASE_DIR, "assets", "TECH-A", "panel")
+        for name, (x, y) in HUD_BOTTOM_PANEL_BUTTONS.items():
+            button = QToolButton(parent)
+            button.setObjectName("hudPanelIcon")
+            button.setGeometry(x, y, 40, 32)
+            button.setIcon(QIcon(os.path.join(icons_dir, f"{name}.svg")))
+            button.setIconSize(QSize(18, 18))
+            button.setToolTip(name)
+            button.setCursor(Qt.PointingHandCursor)
+            button.clicked.connect(lambda checked=False, key=name: self.handle_hud_panel_action(key))
+            button.show()
+            button.raise_()
+            buttons.append(button)
+        return buttons
+
+    def handle_hud_panel_action(self, name):
+        """Route the new top/bottom HUD panel commands."""
+        if name == "CHAT":
+            self.menu.setCurrentRow(1)
+            self.pages.setCurrentIndex(1)
+        elif name == "HISTORY":
+            self.menu.setCurrentRow(2)
+            self.pages.setCurrentIndex(2)
+        elif name == "SET":
+            self.menu.setCurrentRow(3)
+            self.pages.setCurrentIndex(3)
+        elif name == "AGENTS":
+            self.show_panel_dialog("ДОСТУПНЫЕ АГЕНТЫ", [
+                "Main Agent", "Planner", "Executor", "Critic", "File",
+                "Network", "Web", "Vision", "Memory", "Performance",
+                "Game Coach", "Social", "Policy", "Selfcheck",
+            ])
+        elif name == "FUNCTION":
+            self.show_panel_dialog("ФУНКЦИИ JARVIS", [
+                "Голосовое управление", "Чаты и история", "Системные команды",
+                "Провайдеры и AI-модели", "Видео / видение", "Режимы TECH-A",
+            ])
+        elif name == "PROV":
+            self.show_panel_dialog("ПРОВАЙДЕРЫ", [
+                "Ollama", "Codex", "Claude", "FreeLLMAPI",
+            ])
+        elif name == "MOD":
+            self.show_panel_dialog("МОДЕЛИ AI", [
+                "Ollama — локальные модели", "Codex", "Claude", "FreeLLMAPI",
+            ])
+        elif name == "VID":
+            self.toggle_widget_mode()
+        elif name == "OUT":
+            self.close()
+
+        self.assistant_label.setText(name)
+
+    def show_panel_dialog(self, title, items):
+        dialog = QDialog(self)
+        dialog.setWindowTitle(title)
+        dialog.setModal(False)
+        dialog.resize(360, 280)
+        layout = QVBoxLayout(dialog)
+        heading = QLabel(title)
+        heading.setObjectName("settingsTitle")
+        layout.addWidget(heading)
+        for item in items:
+            label = QLabel(f"• {item}")
+            label.setObjectName("settingsHint")
+            layout.addWidget(label)
+        close_button = QPushButton("ЗАКРЫТЬ")
+        close_button.clicked.connect(dialog.close)
+        layout.addWidget(close_button)
+        dialog.show()
+        self._panel_dialog = dialog
+
+    def toggle_widget_mode(self):
+        """Toggle a transparent HUD-only presentation while keeping voice ready."""
+        self.widget_mode = not getattr(self, "widget_mode", False)
+        for widget in getattr(self, "widget_chrome_widgets", []):
+            widget.setVisible(not self.widget_mode)
+        if self.widget_mode:
+            self.main_container.setStyleSheet(
+                "QFrame#container { background: transparent; border: none; }"
+            )
+            self.setWindowOpacity(1.0)
+            self.pages.setCurrentIndex(0)
+        else:
+            self.main_container.setStyleSheet("")
+            self.apply_styles()
 
     def handle_tech_action(self, name):
         """Execute the portable equivalent of each original TECH-A action."""
@@ -666,6 +780,8 @@ class JarvisUI(QWidget):
 
         container = QFrame()
         container.setObjectName("container")
+        self.main_container = container
+        self.widget_chrome_widgets = []
 
         container_layout = QVBoxLayout(container)
         container_layout.setContentsMargins(30, 20, 30, 20)
@@ -676,6 +792,7 @@ class JarvisUI(QWidget):
 
         title = QLabel("JARVIS ASSIST")
         title.setObjectName("title")
+        self.widget_chrome_widgets.append(title)
 
         header.addWidget(title)
         header.addStretch()
@@ -687,6 +804,7 @@ class JarvisUI(QWidget):
         btn_close.setFixedSize(32, 32)
 
         btn_close.setObjectName("closeBtn")
+        self.widget_chrome_widgets.extend([btn_min, btn_close])
 
         btn_min.clicked.connect(self.showMinimized)
         btn_close.clicked.connect(self.close)
@@ -721,6 +839,7 @@ class JarvisUI(QWidget):
         self.menu.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.menu.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.menu.setFixedHeight(200)
+        self.widget_chrome_widgets.append(self.menu)
 
         left.addWidget(self.menu)
 
@@ -730,6 +849,7 @@ class JarvisUI(QWidget):
         # заголовок чатов
         chats_title = QLabel("Закрепленные чаты")
         chats_title.setStyleSheet("color:#888; font-size:12px;")
+        self.widget_chrome_widgets.append(chats_title)
 
         left.addWidget(chats_title)
 
@@ -743,6 +863,7 @@ class JarvisUI(QWidget):
         self.chats_list.setContextMenuPolicy(Qt.CustomContextMenu)
         self.chats_list.customContextMenuRequested.connect(self.chat_menu)
         self.chats_list.setFixedHeight(110)
+        self.widget_chrome_widgets.append(self.chats_list)
 
         self.chats_list.addItems([
             "Приручаем Кешу",
@@ -758,6 +879,7 @@ class JarvisUI(QWidget):
         toggles = QFrame()
         toggles.setObjectName("miniCard")
         toggles.setFixedSize(180,80)
+        self.widget_chrome_widgets.append(toggles)
 
         t_layout = QVBoxLayout(toggles)
 
@@ -789,6 +911,7 @@ class JarvisUI(QWidget):
         weather = QFrame()
         weather.setObjectName("miniCard")
         weather.setFixedSize(180,110)
+        self.widget_chrome_widgets.append(weather)
 
         w_layout = QVBoxLayout(weather)
         w_layout.setAlignment(Qt.AlignCenter)
@@ -938,6 +1061,7 @@ class JarvisUI(QWidget):
         # TECH-A action buttons are direct children of the HUD container so
         # their transparent PNGs stay above the rings without covering START.
         self.tech_action_buttons = self.create_tech_action_buttons(hud_container)
+        self.hud_panel_buttons = self.create_hud_panel_buttons(hud_container)
 
         assistant_layout.addWidget(hud_container, alignment=Qt.AlignCenter)
 
@@ -1140,6 +1264,32 @@ color:#111111;
 #menu::item:hover{
 background:#2E89FF;
 color:white;
+}
+
+#hudPanelTop{
+background:transparent;
+border:1px solid transparent;
+border-radius:4px;
+color:#FFFFFF;
+font-size:11px;
+padding:1px 4px;
+}
+
+#hudPanelTop:hover{
+background:rgba(0,235,245,45);
+border:1px solid rgba(0,235,245,160);
+color:#FFFFFF;
+}
+
+#hudPanelIcon{
+background:transparent;
+border:1px solid transparent;
+border-radius:6px;
+}
+
+#hudPanelIcon:hover{
+background:rgba(0,235,245,45);
+border:1px solid rgba(0,235,245,160);
 }
                            
 #chatList{
