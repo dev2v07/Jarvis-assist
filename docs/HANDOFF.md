@@ -1511,3 +1511,33 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0044-shift-net-readouts/`.
 
+## Очередь 0045 — shift NET readouts one more pixel
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0045-shift-net-readouts-one-more/`
+
+Изменения:
+
+- сетевой блок дополнительно сдвинут вправо на `1 px`;
+- итоговая координата X для четырёх значений: `60`;
+- вертикальные координаты, шрифт и значения не изменялись.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD и UI: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации очереди;
+- пользователь визуально проверит итоговое смещение NET-блока.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0045-shift-net-readouts-one-more/`.
+

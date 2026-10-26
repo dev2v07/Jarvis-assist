@@ -310,10 +310,10 @@ class JarvisHUD(QWidget):
         # Exact source anchors from TECH-A 6 CPU.ini:
         # Shifted 2 px right from the source X=57 anchor for this HUD scale.
         readouts = (
-            (self.net_readouts[0], 59, 315, QColor(255, 255, 255, 220)),
-            (self.net_readouts[1], 59, 335, QColor(200, 200, 200, 190)),
-            (self.net_readouts[2], 59, 365, QColor(200, 200, 200, 190)),
-            (self.net_readouts[3], 59, 385, QColor(255, 255, 255, 220)),
+            (self.net_readouts[0], 60, 315, QColor(255, 255, 255, 220)),
+            (self.net_readouts[1], 60, 335, QColor(200, 200, 200, 190)),
+            (self.net_readouts[2], 60, 365, QColor(200, 200, 200, 190)),
+            (self.net_readouts[3], 60, 385, QColor(255, 255, 255, 220)),
         )
         for value, x, y, color in readouts:
             painter.setPen(color)
