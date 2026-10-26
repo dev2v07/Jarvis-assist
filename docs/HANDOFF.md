@@ -2199,3 +2199,33 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0065-shift-date-right-again/`.
 
+## Очередь 0066 — date shift, remove 3x layer, resize START, enlarge clock
+
+Дата: 2026-10-26
+
+Backup по прямой просьбе пользователя не создавался.
+
+Изменения:
+
+- дата дополнительно сдвинута вправо на `2 px`, итоговый центр `X=363`;
+- слой `rotator/3x.png` исключён из загрузки и отрисовки;
+- кнопка `START` уменьшена с `300×300` до `150×150`;
+- часы увеличены с `12.3 pt` до `14.3 pt`;
+- дата, время и остальные пользовательские настройки сохранены.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `frontend/jarvis_ui.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- использовать Git-коммит до очереди 0066; backup намеренно не создавался.
+

@@ -82,5 +82,8 @@ The user-selected time/date placement follows the first outer `BG6` ring on
 the vertical center axis: time baseline `X=355, Y=61`, date baseline
 `X=361, Y=660` (shifted 6 px right for visual alignment).
 
-The clock uses a dedicated larger live-font size (`12.3 pt`); the date keeps the
+The clock uses a dedicated larger live-font size (`14.3 pt`); the date keeps the
 regular HUD readout size.
+
+The HUD currently renders only the first two animated rotator layers;
+`rotator/3x.png` is intentionally excluded from the composition.

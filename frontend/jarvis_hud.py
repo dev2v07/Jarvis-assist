@@ -60,7 +60,6 @@ class JarvisHUD(QWidget):
         # Rainmeter keeps these in a separate rotator config.
         self.rotator_1 = QPixmap(os.path.join(ROTATOR, "1xx.png"))
         self.rotator_2 = QPixmap(os.path.join(ROTATOR, "2x.png"))
-        self.rotator_3 = QPixmap(os.path.join(ROTATOR, "3x.png"))
         self.big_animation = QPixmap(os.path.join(ASSETS, "BigAnimation.png"))
 
         self.scale = self.HUD_SIZE / self.bg6.width()
@@ -116,7 +115,7 @@ class JarvisHUD(QWidget):
         # Original BitDust readout, enlarged by 2.3 px for readability.
         self.font_ram = QFont(ram_family, 8.3)
         self.font_net = QFont(ram_family, 8.3)
-        self.font_time = QFont(ram_family, 12.3)
+        self.font_time = QFont(ram_family, 14.3)
         if interface_font:
             self.set_interface_font(interface_font)
 
@@ -250,7 +249,7 @@ class JarvisHUD(QWidget):
         self.font_label = QFont(family, 7)
         self.font_ram = QFont(family, 8.3)
         self.font_net = QFont(family, 8.3)
-        self.font_time = QFont(family, 12.3)
+        self.font_time = QFont(family, 14.3)
         self.update()
 
     def set_text_color(self, color):
@@ -310,18 +309,11 @@ class JarvisHUD(QWidget):
         if self.animation.big_animation_enabled:
             self.draw_big_animation(painter)
 
-        # GAME MODE deactivates the whole Rainmeter rotator config, rather
-        # than freezing its last frame. DESK MODE restores all three layers.
+        # GAME MODE deactivates the Rainmeter rotator layers. The 3x layer is
+        # intentionally removed; only the first two rotators remain active.
         if self.animation.rotator_visible:
             self.draw_rotator(painter, self.rotator_1, self.animation.rotator_1, cx, cy)
             self.draw_rotator(painter, self.rotator_2, self.animation.rotator_2, cx, cy)
-            self.draw_rotator_at(
-                painter,
-                self.rotator_3,
-                self.animation.rotator_3,
-                cx - self.ROTATOR_SIZE / 2 + 201,
-                cy - self.ROTATOR_SIZE / 2 + 151,
-            )
 
         self.draw_datetime(painter)
 
@@ -360,7 +352,7 @@ class JarvisHUD(QWidget):
         day_part, month_part = self.date_text.split(" ", 1)
         day_width = metrics.horizontalAdvance(day_part)
         month_width = metrics.horizontalAdvance(month_part)
-        date_center_x = 361  # +6 px from the centered source alignment.
+        date_center_x = 363  # +8 px from the centered source alignment.
         painter.drawText(QPointF(date_center_x - (day_width + month_width + 6) / 2, 660), day_part)
         painter.drawText(QPointF(date_center_x + (day_width + 6 - month_width) / 2, 660), month_part)
         painter.restore()

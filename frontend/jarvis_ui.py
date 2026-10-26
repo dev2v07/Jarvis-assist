@@ -828,7 +828,7 @@ class JarvisUI(QWidget):
 
         # кнопка jarvis
         self.jarvis_button = QPushButton("START")
-        self.jarvis_button.setFixedSize(300,300)
+        self.jarvis_button.setFixedSize(150,150)
         self.jarvis_button.setObjectName("jarvisStart")
         self.jarvis_button.setCursor(Qt.PointingHandCursor)
 
@@ -1217,7 +1217,7 @@ color:rgba(235,250,255,245);
 font-size:26px;
 font-weight:bold;
 letter-spacing:3px;
-border-radius:150px;
+border-radius:75px;
 border:1px solid rgba(220,250,255,180);
 background:qradialgradient(
 cx:0.5, cy:0.42, radius:0.62,
