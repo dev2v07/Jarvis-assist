@@ -1635,8 +1635,12 @@ Rollback point:
 
 Проверка:
 
-- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
-  `GET /health` со статусом HTTP 200.
+- `py_compile` для HUD и UI: пройден;
+- `git diff --check`: пройден;
+- backend перезапущен, `GET /health`: HTTP 200;
+- frontend перезапущен, актуальное окно `Jarvis Assist` открыто;
+- основные ячейки используют циан `RGB(0,235,245)`, а `TEMP` и `NET` больше
+  не отрисовываются как центральные gauge-ячейки.
 
 Откат:
 
