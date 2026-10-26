@@ -2296,3 +2296,34 @@ Backup по прямой просьбе пользователя не созда
 
 - восстановить файлы из `backups/handoff-0068-start-text-hover-response/`.
 
+## Очередь 0069 — integrate source CPU points and core layers
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0069-integrate-cpu-core-points/`
+
+Изменения:
+
+- добавлен исходный `animationdots1.png` как шкала точек CPU;
+- добавлены шесть пар `6cpucore*.png` и `6cpucore*str.png`;
+- все слои работают от общей загрузки CPU;
+- нормализация кадров повторяет источник: `/12.5`, `/20`, `/50`;
+- слои окрашиваются текущим акцентным цветом приложения.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/CANONICAL_STRUCTURE.md`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0069-integrate-cpu-core-points/`.
+

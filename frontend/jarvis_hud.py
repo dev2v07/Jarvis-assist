@@ -61,6 +61,15 @@ class JarvisHUD(QWidget):
         self.rotator_1 = QPixmap(os.path.join(ROTATOR, "1xx.png"))
         self.rotator_2 = QPixmap(os.path.join(ROTATOR, "2x.png"))
         self.big_animation = QPixmap(os.path.join(ASSETS, "BigAnimation.png"))
+        self.cpu_points = QPixmap(os.path.join(ASSETS, "animationdots1.png"))
+        self.cpu_core_layers = [
+            QPixmap(os.path.join(ASSETS, f"6cpucore{i}.png"))
+            for i in range(1, 7)
+        ]
+        self.cpu_core_highlights = [
+            QPixmap(os.path.join(ASSETS, f"6cpucore{i}str.png"))
+            for i in range(1, 7)
+        ]
 
         self.scale = self.HUD_SIZE / self.bg6.width()
         self.setFixedSize(self.HUD_SIZE, self.HUD_SIZE)
@@ -316,6 +325,7 @@ class JarvisHUD(QWidget):
             self.draw_rotator(painter, self.rotator_2, self.animation.rotator_2, cx, cy)
 
         self.draw_datetime(painter)
+        self.draw_cpu_core_animation(painter)
 
         # индикаторы (НЕ вращаются)
         # Match the original TECH-A repeated cell layout.  The source skin
@@ -356,6 +366,49 @@ class JarvisHUD(QWidget):
         painter.drawText(QPointF(date_center_x - (day_width + month_width + 6) / 2, 660), day_part)
         painter.drawText(QPointF(date_center_x + (day_width + 6 - month_width) / 2, 660), month_part)
         painter.restore()
+
+    def draw_cpu_core_animation(self, painter):
+        """Render source CPU-core/point sprites from one overall CPU load."""
+        painter.save()
+        painter.setRenderHint(QPainter.Antialiasing, False)
+
+        # Source formulas: MeasureCPU/12.5 for the point strip, /20 for the
+        # six core layers and /50 for their highlight layers.
+        cpu_value = max(0.0, min(100.0, float(self.cpu_anim)))
+        point_frame = min(7, int(cpu_value / 12.5))
+        core_frame = min(4, int(cpu_value / 20.0))
+        highlight_frame = min(2, int(cpu_value / 50.0))
+
+        self.draw_tinted_sprite_frame(
+            painter, self.cpu_points, point_frame, 8, 37, 349, 319, 0.9
+        )
+        for core, highlight in zip(self.cpu_core_layers, self.cpu_core_highlights):
+            self.draw_tinted_sprite_frame(
+                painter, core, core_frame, 5, 250, 237, 231, 0.78
+            )
+            self.draw_tinted_sprite_frame(
+                painter, highlight, highlight_frame, 3, 250, 237, 231, 0.9
+            )
+        painter.restore()
+
+    def draw_tinted_sprite_frame(
+        self, painter, sprite, frame, frame_count, frame_width,
+        x, y, opacity
+    ):
+        if sprite.isNull():
+            return
+        frame = max(0, min(frame_count - 1, frame))
+        source = sprite.copy(frame * frame_width, 0, frame_width, sprite.height())
+        tinted = QPixmap(source.size())
+        tinted.fill(Qt.transparent)
+        mask_painter = QPainter(tinted)
+        mask_painter.drawPixmap(0, 0, source)
+        mask_painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+        color = QColor(self.accent_color)
+        color.setAlphaF(max(0.0, min(1.0, opacity)))
+        mask_painter.fillRect(tinted.rect(), color)
+        mask_painter.end()
+        painter.drawPixmap(x, y, tinted)
 
     def draw_big_animation(self, painter):
         if self.big_animation.isNull():

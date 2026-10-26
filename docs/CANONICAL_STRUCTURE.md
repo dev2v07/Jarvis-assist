@@ -93,3 +93,8 @@ a low-alpha accent contour improve readability over the Aero Glass center
 without adding a heavy text glow. Both colors follow the appearance settings.
 On hover, the text reacts with a slightly stronger contour and lifted shadow so
 it visually follows the button interaction.
+
+The source CPU point/core animation is integrated as a single overall-load
+indicator. Its point strip uses `CPU/12.5`, the six core layers use `CPU/20`,
+and their highlight layers use `CPU/50`, matching the original formulas. It is
+not presented as six independent per-core measurements.
