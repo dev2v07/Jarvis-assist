@@ -102,5 +102,6 @@ points, and the active point count follows the overall CPU percentage in
 `self.cpu_anim`; inactive points remain subtle and the active segment follows
 the selected accent color. The source formulas (`CPU/12.5`, `CPU/20`,
 `CPU/50`) remain recorded as reference for a future optional source-faithful
-animation mode. Fixed `0`, `50`, and `100` labels sit at the top, right, and
-bottom as scale marks, not as additional measurements.
+animation mode. Fixed `0`, `50`, and `100` labels sit on the inner reference
+ticks at the top, right, and bottom as scale marks, not as additional
+measurements; the 50 mark has the source-like slight outward offset.

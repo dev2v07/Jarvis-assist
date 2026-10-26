@@ -383,8 +383,11 @@ class JarvisHUD(QWidget):
         scale_color = QColor(self.text_color)
         scale_color.setAlpha(235)
         painter.setPen(scale_color)
-        scale_radius = 174.0
-        for label, scale_angle in (("0", -90.0), ("50", 0.0), ("100", 90.0)):
+        for label, scale_angle, scale_radius in (
+            ("0", -90.0, 155.0),
+            ("50", 0.0, 165.0),
+            ("100", 90.0, 155.0),
+        ):
             label_angle = math.radians(scale_angle)
             label_x = center_x + scale_radius * math.cos(label_angle)
             label_y = center_y + scale_radius * math.sin(label_angle)
@@ -399,7 +402,8 @@ class JarvisHUD(QWidget):
             x = center_x + radius * math.cos(angle)
             y = center_y + radius * math.sin(angle)
             painter.setPen(active if index < active_points else inactive)
-            painter.drawEllipse(QPointF(x, y), 1.5 if index < active_points else 1.0, 1.5 if index < active_points else 1.0)
+            point_radius = 0.85 if index < active_points else 0.55
+            painter.drawEllipse(QPointF(x, y), point_radius, point_radius)
 
         if active_points:
             endpoint_angle = math.radians(
@@ -409,11 +413,7 @@ class JarvisHUD(QWidget):
                 center_x + radius * math.cos(endpoint_angle),
                 center_y + radius * math.sin(endpoint_angle),
             )
-            glow = QColor(self.accent_color)
-            glow.setAlpha(80)
-            painter.setPen(QPen(glow, 5))
-            painter.drawPoint(endpoint)
-            painter.setPen(QPen(active, 2))
+            painter.setPen(QPen(active, 1.2))
             painter.drawPoint(endpoint)
         painter.restore()
 
