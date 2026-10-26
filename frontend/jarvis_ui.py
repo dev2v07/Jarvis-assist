@@ -129,6 +129,39 @@ class WidgetSettingsDialog(QDialog):
         }
 
 
+class RotatablePanelButton(QPushButton):
+    """Text panel button whose label can be tilted without rotating its hitbox."""
+
+    def __init__(self, text, parent=None):
+        super().__init__(text, parent)
+        self.panel_angle = 0.0
+
+    def set_panel_angle(self, angle):
+        self.panel_angle = max(-45.0, min(45.0, float(angle)))
+        self.update()
+
+    def paintEvent(self, event):
+        option = QStyleOptionButton()
+        self.initStyleOption(option)
+        text = option.text
+        option.text = ""
+
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        self.style().drawControl(QStyle.ControlElement.CE_PushButton, option, painter, self)
+
+        painter.translate(self.rect().center())
+        painter.rotate(self.panel_angle)
+        painter.setPen(QColor(self.property("panelTextColor") or "#ffffff"))
+        painter.setFont(self.font())
+        painter.drawText(
+            QRectF(-self.width() / 2, -self.height() / 2, self.width(), self.height()),
+            Qt.AlignmentFlag.AlignCenter,
+            text,
+        )
+        painter.end()
+
+
 # ---------------- MESSAGE BUBBLE ----------------
 
 class MessageBubble(QWidget):
@@ -392,7 +425,7 @@ class JarvisUI(QWidget):
             "metrics": {"CPU": True, "RAM": True, "GPU": True, "DISK": True},
             "actions": {key: key for key in list(HUD_TOP_PANEL_BUTTONS) + list(HUD_BOTTOM_PANEL_BUTTONS)},
             "panel_positions": {
-                key: {"x": position[0], "y": position[1]}
+                key: {"x": position[0], "y": position[1], "angle": 0}
                 for key, position in {**HUD_TOP_PANEL_BUTTONS, **HUD_BOTTOM_PANEL_BUTTONS}.items()
             },
         }
@@ -492,13 +525,15 @@ class JarvisUI(QWidget):
         for name, (x, y) in HUD_TOP_PANEL_BUTTONS.items():
             saved_position = position_map.get(name, {"x": x, "y": y})
             x, y = saved_position.get("x", x), saved_position.get("y", y)
-            button = QPushButton(name, parent)
+            button = RotatablePanelButton(name, parent)
             button.setObjectName("hudPanelTop")
             button.setProperty("actionKey", action_map.get(name, name))
-            button.setGeometry(x, y, 72 if name != "FUNCTION" else 86, 28)
+            button.setProperty("panelTextColor", self.text_color_hex)
+            button.set_panel_angle(saved_position.get("angle", 0))
+            button.setGeometry(x, y, 72 if name != "FUNCTION" else 86, 24)
             button.setCursor(Qt.PointingHandCursor)
             if self.panel_calibration_mode:
-                button.setToolTip(f"{name}: перетащите мышью")
+                button.setToolTip(f"{name}: перетащите мышью, колесо — наклон текста")
                 button.installEventFilter(self)
             button.clicked.connect(lambda checked=False, item=button: self.handle_hud_panel_action(item.property("actionKey")))
             button.show()
@@ -749,6 +784,11 @@ class JarvisUI(QWidget):
     def eventFilter(self, obj, event):
 
         if self.panel_calibration_mode and obj in getattr(self, "hud_panel_button_map", {}).values():
+            if event.type() == QEvent.Wheel and isinstance(obj, RotatablePanelButton):
+                step = 2 if event.angleDelta().y() > 0 else -2
+                obj.set_panel_angle(obj.panel_angle + step)
+                self.save_panel_position(obj)
+                return True
             if event.type() == QEvent.MouseButtonPress and event.button() == Qt.MouseButton.LeftButton:
                 self._panel_drag = (obj, event.position().toPoint(), obj.pos())
                 return True
@@ -800,7 +840,9 @@ class JarvisUI(QWidget):
         for name, candidate in self.hud_panel_button_map.items():
             if candidate is button:
                 self.widget_settings.setdefault("panel_positions", {})[name] = {
-                    "x": button.x(), "y": button.y()
+                    "x": button.x(),
+                    "y": button.y(),
+                    "angle": round(getattr(button, "panel_angle", 0), 1),
                 }
                 self.ui_settings.setValue(
                     "widget_settings",
@@ -1433,7 +1475,7 @@ background:transparent;
 border:1px solid transparent;
 border-radius:4px;
 color:#FFFFFF;
-font-size:11px;
+font-size:9px;
 padding:1px 4px;
 }
 
