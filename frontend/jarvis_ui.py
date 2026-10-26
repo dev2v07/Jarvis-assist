@@ -5,6 +5,7 @@ import ctypes
 import subprocess
 import webbrowser
 import json
+import winsound
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
@@ -20,6 +21,10 @@ from PySide6.QtGui import *
 print(os.path.join(BASE_DIR, "assets", "jarvis_off.png"))
 
 API_URL = "http://127.0.0.1:8000/chat"
+STARTUP_DIAGNOSTIC_WAV = os.path.abspath(os.path.join(
+    BASE_DIR, "..", "backend", "voice_engine", "sound",
+    "Начинаю диагностику системы (второй).wav"
+))
 
 TECH_FONT_FILES = {
     "Good Times": "GOODTIME.ttf",
@@ -60,6 +65,17 @@ WIDGET_ACTION_OPTIONS = [
 ]
 PANEL_ASSIGNMENT_KEYS = list(HUD_TOP_PANEL_BUTTONS) + list(HUD_BOTTOM_PANEL_BUTTONS) + list(TECH_ACTION_BUTTONS)
 PANEL_ASSIGNMENT_OPTIONS = WIDGET_ACTION_OPTIONS + list(TECH_ACTION_BUTTONS) + ["CUSTOM"]
+TIME_FORMAT_OPTIONS = (
+    ("24 часа — 14:30", "%H:%M"),
+    ("24 часа с секундами — 14:30:25", "%H:%M:%S"),
+    ("12 часов — 02:30 PM", "%I:%M %p"),
+)
+DATE_FORMAT_OPTIONS = (
+    ("TECH-A — 25TH OCT", "ORDINAL"),
+    ("25 OCT 2026", "%d %b %Y"),
+    ("25.10.2026", "%d.%m.%Y"),
+    ("2026-10-25", "%Y-%m-%d"),
+)
 
 
 class WidgetSettingsDialog(QDialog):
@@ -423,6 +439,12 @@ class JarvisUI(QWidget):
         self.setAttribute(Qt.WA_TranslucentBackground)
 
         self.ui_settings = QSettings("Jarvis", "Jarvis Assist")
+        self.datetime_settings = {
+            "time_format": self.ui_settings.value("time_format", "%H:%M"),
+            "date_format": self.ui_settings.value("date_format", "ORDINAL"),
+            "time_size": int(self.ui_settings.value("time_size", 14)),
+            "date_size": int(self.ui_settings.value("date_size", 8)),
+        }
         self.widget_settings = self.load_widget_settings()
         self.panel_calibration_mode = "--calibrate-panels" in sys.argv
         self._panel_drag = None
@@ -448,6 +470,7 @@ class JarvisUI(QWidget):
 
         self.build_ui()
         self.apply_application_font()
+        QTimer.singleShot(900, self.play_startup_diagnostic)
 
         self.menu.currentRowChanged.connect(self.pages.setCurrentIndex)
         self.menu.setCurrentRow(0)
@@ -465,6 +488,15 @@ class JarvisUI(QWidget):
         self.chats_list.setMouseTracking(True)
         self.chats_list.viewport().setMouseTracking(True)
         self.chats_list.viewport().installEventFilter(self)
+
+    def play_startup_diagnostic(self):
+        """Play the optional local startup phrase without blocking the UI."""
+        enabled = self.ui_settings.value("startup_diagnostic_enabled", True, type=bool)
+        if enabled and os.path.isfile(STARTUP_DIAGNOSTIC_WAV):
+            winsound.PlaySound(
+                STARTUP_DIAGNOSTIC_WAV,
+                winsound.SND_FILENAME | winsound.SND_ASYNC,
+            )
 
     def load_widget_settings(self):
         default = {
@@ -856,6 +888,22 @@ class JarvisUI(QWidget):
             widget_font = widget.font()
             widget_font.setFamily(self.active_font_family)
             widget.setFont(widget_font)
+
+    def apply_datetime_settings(self):
+        """Persist and apply the general clock/date presentation settings."""
+        self.datetime_settings = {
+            "time_format": self.time_format_combo.currentData(),
+            "date_format": self.date_format_combo.currentData(),
+            "time_size": self.time_size_spin.value(),
+            "date_size": self.date_size_spin.value(),
+        }
+        for key, value in self.datetime_settings.items():
+            self.ui_settings.setValue(key, value)
+        if hasattr(self, "hud"):
+            self.hud.set_datetime_settings(self.datetime_settings)
+
+    def set_startup_diagnostic_enabled(self, enabled):
+        self.ui_settings.setValue("startup_diagnostic_enabled", bool(enabled))
 
     def pick_color(self, initial, title):
         dialog = QColorDialog(initial, self)
@@ -1334,6 +1382,7 @@ class JarvisUI(QWidget):
             calibration_mode="--calibrate-cpu" in sys.argv,
         )
         self.hud.apply_widget_settings(self.widget_settings)
+        self.hud.set_datetime_settings(self.datetime_settings)
         self.hud.setFixedSize(JarvisHUD.HUD_SIZE, JarvisHUD.HUD_SIZE)
         self.assistant_label = QLabel("Нажмите кнопку чтобы активировать JARVIS")
         self.assistant_label.setAlignment(Qt.AlignCenter)
@@ -1481,6 +1530,51 @@ class JarvisUI(QWidget):
         colors_layout.addWidget(self.font_color_value_label)
         colors_layout.addWidget(self.font_color_button)
         settings_layout.addWidget(colors_card)
+
+        runtime_card = QFrame()
+        runtime_card.setObjectName("settingsCard")
+        runtime_layout = QFormLayout(runtime_card)
+        runtime_title = QLabel("ЗВУК И ВРЕМЯ")
+        runtime_title.setObjectName("settingsCardTitle")
+        runtime_layout.addRow(runtime_title)
+
+        self.startup_diagnostic_check = QCheckBox("Говорить диагностику при запуске")
+        self.startup_diagnostic_check.setChecked(
+            self.ui_settings.value("startup_diagnostic_enabled", True, type=bool)
+        )
+        self.startup_diagnostic_check.toggled.connect(self.set_startup_diagnostic_enabled)
+        runtime_layout.addRow(self.startup_diagnostic_check)
+
+        self.time_format_combo = QComboBox()
+        for label, value in TIME_FORMAT_OPTIONS:
+            self.time_format_combo.addItem(label, value)
+        time_index = self.time_format_combo.findData(self.datetime_settings["time_format"])
+        self.time_format_combo.setCurrentIndex(max(0, time_index))
+        self.time_format_combo.currentIndexChanged.connect(self.apply_datetime_settings)
+        runtime_layout.addRow(QLabel("Формат времени"), self.time_format_combo)
+
+        self.time_size_spin = QSpinBox()
+        self.time_size_spin.setRange(6, 48)
+        self.time_size_spin.setSuffix(" px")
+        self.time_size_spin.setValue(self.datetime_settings["time_size"])
+        self.time_size_spin.valueChanged.connect(self.apply_datetime_settings)
+        runtime_layout.addRow(QLabel("Размер времени"), self.time_size_spin)
+
+        self.date_format_combo = QComboBox()
+        for label, value in DATE_FORMAT_OPTIONS:
+            self.date_format_combo.addItem(label, value)
+        date_index = self.date_format_combo.findData(self.datetime_settings["date_format"])
+        self.date_format_combo.setCurrentIndex(max(0, date_index))
+        self.date_format_combo.currentIndexChanged.connect(self.apply_datetime_settings)
+        runtime_layout.addRow(QLabel("Формат даты"), self.date_format_combo)
+
+        self.date_size_spin = QSpinBox()
+        self.date_size_spin.setRange(6, 36)
+        self.date_size_spin.setSuffix(" px")
+        self.date_size_spin.setValue(self.datetime_settings["date_size"])
+        self.date_size_spin.valueChanged.connect(self.apply_datetime_settings)
+        runtime_layout.addRow(QLabel("Размер даты"), self.date_size_spin)
+        settings_layout.addWidget(runtime_card)
         settings_layout.addStretch()
         self.pages.addWidget(settings_page)
 

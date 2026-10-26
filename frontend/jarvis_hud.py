@@ -144,6 +144,10 @@ class JarvisHUD(QWidget):
         self.net_download_progress = 0.0
         self.clock_text = "00:00"
         self.date_text = "01ST JAN"
+        self.time_format = "%H:%M"
+        self.date_format = "ORDINAL"
+        self.time_font_size = 14.3
+        self.date_font_size = 8.3
         self.update_datetime()
         self.ram_total_gb = 0.0
         self._net_previous = psutil.net_io_counters()
@@ -168,7 +172,8 @@ class JarvisHUD(QWidget):
         # Original BitDust readout, enlarged by 2.3 px for readability.
         self.font_ram = QFont(ram_family, 8.3)
         self.font_net = QFont(ram_family, 8.3)
-        self.font_time = QFont(ram_family, 14.3)
+        self.font_time = QFont(ram_family, self.time_font_size)
+        self.font_date = QFont(ram_family, self.date_font_size)
         if interface_font:
             self.set_interface_font(interface_font)
 
@@ -279,13 +284,16 @@ class JarvisHUD(QWidget):
     def update_datetime(self):
         """Synchronize the HUD clock and date with the local PC time."""
         current = datetime.now()
-        self.clock_text = current.strftime("%H:%M")
+        self.clock_text = current.strftime(self.time_format)
         day = current.day
         if 10 <= day % 100 <= 20:
             suffix = "TH"
         else:
             suffix = {1: "ST", 2: "ND", 3: "RD"}.get(day % 10, "TH")
-        self.date_text = f"{day:02d}{suffix} {current.strftime('%b').upper()}"
+        if self.date_format == "ORDINAL":
+            self.date_text = f"{day:02d}{suffix} {current.strftime('%b').upper()}"
+        else:
+            self.date_text = current.strftime(self.date_format).upper()
 
     def set_accent_color(self, color):
         """Update the active indicator color without rebuilding the HUD."""
@@ -302,7 +310,21 @@ class JarvisHUD(QWidget):
         self.font_label = QFont(family, 7)
         self.font_ram = QFont(family, 8.3)
         self.font_net = QFont(family, 8.3)
-        self.font_time = QFont(family, 14.3)
+        self.font_time = QFont(family, self.time_font_size)
+        self.font_date = QFont(family, self.date_font_size)
+        self.update()
+
+    def set_datetime_settings(self, settings):
+        """Apply user-selected clock/date formats and sizes."""
+        values = settings or {}
+        self.time_format = values.get("time_format", "%H:%M")
+        self.date_format = values.get("date_format", "ORDINAL")
+        self.time_font_size = max(6.0, min(48.0, float(values.get("time_size", 14))))
+        self.date_font_size = max(6.0, min(36.0, float(values.get("date_size", 8))))
+        family = self.font_time.family()
+        self.font_time = QFont(family, self.time_font_size)
+        self.font_date = QFont(family, self.date_font_size)
+        self.update_datetime()
         self.update()
 
     def set_text_color(self, color):
@@ -433,14 +455,11 @@ class JarvisHUD(QWidget):
         time_width = time_metrics.horizontalAdvance(self.clock_text)
         painter.drawText(QPointF(355 - time_width / 2, 61), self.clock_text)
 
-        painter.setFont(self.font_net)
-        metrics = QFontMetricsF(self.font_net)
-        day_part, month_part = self.date_text.split(" ", 1)
-        day_width = metrics.horizontalAdvance(day_part)
-        month_width = metrics.horizontalAdvance(month_part)
+        painter.setFont(self.font_date)
+        metrics = QFontMetricsF(self.font_date)
+        date_width = metrics.horizontalAdvance(self.date_text)
         date_center_x = 363  # +8 px from the centered source alignment.
-        painter.drawText(QPointF(date_center_x - (day_width + month_width + 6) / 2, 660), day_part)
-        painter.drawText(QPointF(date_center_x + (day_width + 6 - month_width) / 2, 660), month_part)
+        painter.drawText(QPointF(date_center_x - date_width / 2, 660), self.date_text)
         painter.restore()
 
     def draw_cpu_load_indicator(self, painter):
