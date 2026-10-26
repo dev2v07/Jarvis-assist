@@ -338,15 +338,19 @@ class JarvisHUD(QWidget):
         """Render the two original left-side disk value pairs without letters."""
         painter.save()
         painter.setFont(self.font_ram)
-        positions = ((34, 220, 276), (34, 435, 493))
-        for (activity, total), (x, activity_y, total_y) in zip(
-            self.left_disk_readouts,
-            positions,
-        ):
-            painter.setPen(QColor(200, 200, 200, 220))
-            painter.drawText(QRectF(x - 32, activity_y, 64, 14), Qt.AlignCenter, activity)
-            painter.setPen(QColor(200, 200, 200, 190))
-            painter.drawText(QRectF(x - 32, total_y, 64, 14), Qt.AlignCenter, total)
+        (top_activity, top_total), (bottom_activity, bottom_total) = self.left_disk_readouts
+        # Exact source anchors from TECH-A 6 CPU.ini:
+        # Drive1: X=80/Y=220 and X=80/Y=276;
+        # Drive2: X=55/Y=435 and X=115/Y=493.
+        readouts = (
+            (top_activity, 80, 220, QColor(200, 200, 200, 220)),
+            (top_total, 80, 276, QColor(200, 200, 200, 190)),
+            (bottom_activity, 55, 435, QColor(200, 200, 200, 220)),
+            (bottom_total, 115, 493, QColor(200, 200, 200, 190)),
+        )
+        for value, x, y, color in readouts:
+            painter.setPen(color)
+            painter.drawText(QRectF(x - 32, y, 64, 14), Qt.AlignCenter, value)
         painter.restore()
 
     def draw_rotating_pixmap(self, painter, pixmap, angle, cx, cy):
