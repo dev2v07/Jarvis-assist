@@ -3083,8 +3083,8 @@ Backup по прямой просьбе пользователя не созда
   `frontend/tech_a_animation.py`: пройден;
 - `git diff --check`: пройден;
 - backend и frontend перезапущены из командной строки;
-- frontend оставлен запущенным в режиме `--calibrate-panels`;
-- `GET /health`: HTTP 200 (`cpu=10.0`, `ram_used=51.0`, `disk_used=82.26`).
+- после завершения калибровки frontend перезапущен в обычном режиме;
+- `GET /health`: HTTP 200 (`cpu=15.4`, `ram_used=47.2`, `disk_used=82.26`).
 
 Откат:
 
