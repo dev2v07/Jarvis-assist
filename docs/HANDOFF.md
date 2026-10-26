@@ -1599,8 +1599,12 @@ Rollback point:
 
 Проверка:
 
-- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
-  `GET /health` со статусом HTTP 200.
+- `py_compile` для HUD и UI: пройден;
+- `git diff --check`: пройден;
+- backend перезапущен, `GET /health`: HTTP 200;
+- frontend перезапущен, актуальное окно `Jarvis Assist` открыто;
+- обе полосы используют толщину `2 px`; UP — циан `RGB(0,235,245)` с alpha
+  `220`, DN — светло-серый `RGB(235,235,235)` с alpha `210`.
 
 Откат:
 
