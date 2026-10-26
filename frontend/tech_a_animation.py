@@ -13,45 +13,47 @@ class TechAAnimation:
         self.rotator_1 = 0.0
         self.rotator_2 = 0.0
         self.rotator_3 = 0.0
-        self._rotator_1_counter = 0
-        self._rotator_2_counter = 0
-        self._rotator_3_counter = 0
         self._rotator_elapsed_ms = 0.0
+        self._bg000_elapsed_ms = 0.0
         self._big_animation_elapsed_ms = 0.0
         # Jarvis starts in GAME MODE: rotating layers are hidden until the
         # existing GAME button toggles back to the normal desktop mode.
         self.rotator_enabled = False
         self.rotator_visible = False
         self.bg000_enabled = True
+        self.rotator_1_duration_ms = 75000.0
+        self.rotator_2_duration_ms = 125000.0
+        self.bg000_duration_ms = 40000.0
         self.big_animation_enabled = False
         self.big_animation_frame = 0
 
     def step(self, elapsed_ms=16.0):
         """Advance only the optional animated layers."""
-        if self.rotator_enabled:
-            self._rotator_elapsed_ms += elapsed_ms
-            while self._rotator_elapsed_ms >= 50.0:
-                self._rotator_elapsed_ms -= 50.0
-                self._rotator_1_counter = (self._rotator_1_counter + 1) % 1500
-                self._rotator_2_counter = (self._rotator_2_counter + 1) % 2500
-                self._rotator_3_counter = (self._rotator_3_counter + 1) % 800
-                # rotator_3 now drives the animated BG000 replacement layer.
-                self.rotator_1 = 360.0 * self._rotator_1_counter / 2500.0
-                self.rotator_2 = -360.0 * self._rotator_2_counter / 2500.0
-                self.rotator_3 = -360.0 * self._rotator_3_counter / 800.0
+        self._rotator_elapsed_ms += elapsed_ms
+        while self._rotator_elapsed_ms >= 50.0:
+            self._rotator_elapsed_ms -= 50.0
+            if self.rotator_enabled:
+                self.rotator_1 = (self.rotator_1 + 360.0 * 50.0 / self.rotator_1_duration_ms) % 360.0
+                self.rotator_2 = (self.rotator_2 - 360.0 * 50.0 / self.rotator_2_duration_ms) % 360.0
 
-        if self.bg000_enabled and not self.rotator_enabled:
-            self._rotator_elapsed_ms += elapsed_ms
-            while self._rotator_elapsed_ms >= 50.0:
-                self._rotator_elapsed_ms -= 50.0
-                self._rotator_3_counter = (self._rotator_3_counter + 1) % 800
-                self.rotator_3 = -360.0 * self._rotator_3_counter / 800.0
+        if self.bg000_enabled:
+            self._bg000_elapsed_ms += elapsed_ms
+            while self._bg000_elapsed_ms >= 50.0:
+                self._bg000_elapsed_ms -= 50.0
+                self.rotator_3 = (self.rotator_3 - 360.0 * 50.0 / self.bg000_duration_ms) % 360.0
 
         if self.big_animation_enabled:
             self._big_animation_elapsed_ms += elapsed_ms
             while self._big_animation_elapsed_ms >= 1000.0:
                 self._big_animation_elapsed_ms -= 1000.0
                 self.big_animation_frame = (self.big_animation_frame + 1) % 10
+
+    def set_motion_settings(self, settings):
+        """Apply persisted TECH-A motion controls in milliseconds."""
+        motion = settings or {}
+        self.rotator_1_duration_ms = max(1000.0, float(motion.get("rotator_1_seconds", 75)) * 1000.0)
+        self.rotator_2_duration_ms = max(1000.0, float(motion.get("rotator_2_seconds", 125)) * 1000.0)
+        self.bg000_duration_ms = max(1000.0, float(motion.get("bg000_seconds", 40)) * 1000.0)
 
     def toggle_big_animation(self):
         self.big_animation_enabled = not self.big_animation_enabled

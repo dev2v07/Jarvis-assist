@@ -58,6 +58,8 @@ HUD_BOTTOM_PANEL_BUTTONS = {
 WIDGET_ACTION_OPTIONS = [
     "CHAT", "AGENTS", "FUNCTION", "HISTORY", "PROV", "MOD", "VID", "SET", "OUT",
 ]
+PANEL_ASSIGNMENT_KEYS = list(HUD_TOP_PANEL_BUTTONS) + list(HUD_BOTTOM_PANEL_BUTTONS) + list(TECH_ACTION_BUTTONS)
+PANEL_ASSIGNMENT_OPTIONS = WIDGET_ACTION_OPTIONS + list(TECH_ACTION_BUTTONS) + ["CUSTOM"]
 
 
 class WidgetSettingsDialog(QDialog):
@@ -67,11 +69,13 @@ class WidgetSettingsDialog(QDialog):
         super().__init__(parent)
         self.setWindowTitle("НАСТРОЙКИ ВИДЖЕТА")
         self.setModal(False)
-        self.resize(620, 520)
+        self.resize(820, 760)
         self.settings = settings
         self.layer_checks = {}
         self.metric_checks = {}
         self.action_combos = {}
+        self.target_edits = {}
+        self.motion_spins = {}
 
         root = QVBoxLayout(self)
         title = QLabel("НАСТРОЙКИ ВИДЖЕТА TECH-A")
@@ -104,18 +108,51 @@ class WidgetSettingsDialog(QDialog):
         content.addWidget(metrics_box)
         root.addLayout(content)
 
+        motion_box = QGroupBox("АНИМАЦИЯ И РАЗМЕРЫ")
+        motion_layout = QFormLayout(motion_box)
+        motion_values = settings.get("motion", {})
+        motion_fields = (
+            ("ROTATOR 1 — размер (%)", "rotator_1_size", 100, 25, 200),
+            ("ROTATOR 1 — оборот (сек.)", "rotator_1_seconds", 75, 1, 600),
+            ("ROTATOR 2 — размер (%)", "rotator_2_size", 100, 25, 200),
+            ("ROTATOR 2 — оборот (сек.)", "rotator_2_seconds", 125, 1, 600),
+            ("BG000 — размер (%)", "bg000_size", 100, 25, 200),
+            ("BG000 — оборот (сек.)", "bg000_seconds", 40, 1, 600),
+        )
+        for label, key, fallback, minimum, maximum in motion_fields:
+            spin = QSpinBox()
+            spin.setRange(minimum, maximum)
+            spin.setValue(int(motion_values.get(key, fallback)))
+            spin.setSuffix(" %" if "size" in key else " сек")
+            self.motion_spins[key] = spin
+            motion_layout.addRow(QLabel(label), spin)
+        root.addWidget(motion_box)
+
         assignments = QGroupBox("НАЗНАЧЕНИЕ ПАНЕЛЕЙ")
         assignments_layout = QFormLayout(assignments)
         action_values = settings.get("actions", {})
-        for key in list(HUD_TOP_PANEL_BUTTONS) + list(HUD_BOTTOM_PANEL_BUTTONS):
+        target_values = settings.get("targets", {})
+        for key in PANEL_ASSIGNMENT_KEYS:
             combo = QComboBox()
-            combo.addItems(WIDGET_ACTION_OPTIONS)
+            combo.addItems(PANEL_ASSIGNMENT_OPTIONS)
             combo.setCurrentText(action_values.get(key, key))
             self.action_combos[key] = combo
-            assignments_layout.addRow(QLabel(key), combo)
-        root.addWidget(assignments)
+            target = QLineEdit(target_values.get(key, ""))
+            target.setPlaceholderText("EXE, папка или URL — для CUSTOM")
+            self.target_edits[key] = target
+            row = QHBoxLayout()
+            row.addWidget(combo, 1)
+            row.addWidget(target, 2)
+            assignments_layout.addRow(QLabel(key), row)
+        assignment_scroll = QScrollArea()
+        assignment_scroll.setWidgetResizable(True)
+        assignment_scroll.setFrameShape(QFrame.NoFrame)
+        assignment_scroll.setWidget(assignments)
+        root.addWidget(assignment_scroll, 1)
 
         buttons = QDialogButtonBox(QDialogButtonBox.Save | QDialogButtonBox.Cancel)
+        buttons.button(QDialogButtonBox.Save).setText("СОХРАНИТЬ")
+        buttons.button(QDialogButtonBox.Cancel).setText("ОТМЕНА")
         buttons.accepted.connect(self.accept)
         buttons.rejected.connect(self.reject)
         root.addWidget(buttons)
@@ -125,6 +162,8 @@ class WidgetSettingsDialog(QDialog):
             "layers": {name: check.isChecked() for name, check in self.layer_checks.items()},
             "metrics": {name: check.isChecked() for name, check in self.metric_checks.items()},
             "actions": {name: combo.currentText() for name, combo in self.action_combos.items()},
+            "targets": {name: edit.text().strip() for name, edit in self.target_edits.items()},
+            "motion": {name: spin.value() for name, spin in self.motion_spins.items()},
             "panel_positions": self.settings.get("panel_positions", {}),
         }
 
@@ -434,7 +473,12 @@ class JarvisUI(QWidget):
                 "BG5": True, "BG6": True, "ROTATOR 1": True, "ROTATOR 2": True,
             },
             "metrics": {"CPU": True, "RAM": True, "GPU": True, "DISK": True},
-            "actions": {key: key for key in list(HUD_TOP_PANEL_BUTTONS) + list(HUD_BOTTOM_PANEL_BUTTONS)},
+            "actions": {key: key for key in PANEL_ASSIGNMENT_KEYS},
+            "targets": {},
+            "motion": {
+                "rotator_1_size": 100, "rotator_2_size": 100, "bg000_size": 100,
+                "rotator_1_seconds": 75, "rotator_2_seconds": 125, "bg000_seconds": 40,
+            },
             "panel_positions": {
                 key: {"x": position[0], "y": position[1], "angle": 0}
                 for key, position in {**HUD_TOP_PANEL_BUTTONS, **HUD_BOTTOM_PANEL_BUTTONS}.items()
@@ -445,7 +489,7 @@ class JarvisUI(QWidget):
             return default
         try:
             saved = json.loads(raw)
-            for group in ("layers", "metrics", "actions"):
+            for group in ("layers", "metrics", "actions", "targets", "motion"):
                 default[group].update(saved.get(group, {}))
             default["panel_positions"].update(saved.get("panel_positions", {}))
         except (TypeError, ValueError, json.JSONDecodeError):
@@ -454,6 +498,7 @@ class JarvisUI(QWidget):
 
     def open_widget_settings(self):
         dialog = WidgetSettingsDialog(self, self.widget_settings)
+        dialog.setStyleSheet(self.dialog_stylesheet())
         if dialog.exec() == QDialog.DialogCode.Accepted:
             self.widget_settings = dialog.values()
             self.ui_settings.setValue("widget_settings", json.dumps(self.widget_settings, ensure_ascii=False))
@@ -463,6 +508,22 @@ class JarvisUI(QWidget):
                 button.style().unpolish(button)
                 button.style().polish(button)
             self.assistant_label.setText("Настройки виджета сохранены")
+
+    def open_custom_target(self, target, source_name=None):
+        """Open a user-defined URL, application or folder from a panel binding."""
+        if not target:
+            self.assistant_label.setText(f"Для {source_name or 'кнопки'} не задан адрес")
+            return
+        try:
+            if target.lower().startswith(("http://", "https://", "mailto:")):
+                webbrowser.open(target)
+            elif os.path.exists(target):
+                os.startfile(target)
+            else:
+                subprocess.Popen(target, shell=True)
+            self.assistant_label.setText(f"Открыто: {target}")
+        except (OSError, ValueError) as error:
+            self.assistant_label.setText(f"Не удалось открыть {target}: {error}")
 
 
     def activate_assistant(self):
@@ -539,6 +600,7 @@ class JarvisUI(QWidget):
             button = RotatablePanelButton(name, parent)
             button.setObjectName("hudPanelTop")
             button.setProperty("actionKey", action_map.get(name, name))
+            button.setProperty("panelName", name)
             button.setProperty("panelTextColor", self.text_color_hex)
             button.set_panel_angle(saved_position.get("angle", 0))
             button.setGeometry(x, y, 72 if name != "FUNCTION" else 86, 24)
@@ -548,7 +610,9 @@ class JarvisUI(QWidget):
                 button.setToolTip(f"{name}: перетащите мышью, колесо — наклон текста")
                 button.installEventFilter(self)
                 button.angleChanged.connect(lambda angle, item=button: self.save_panel_position(item))
-            button.clicked.connect(lambda checked=False, item=button: self.handle_hud_panel_action(item.property("actionKey")))
+            button.clicked.connect(lambda checked=False, item=button: self.handle_hud_panel_action(
+                item.property("actionKey"), item.property("panelName")
+            ))
             button.show()
             button.raise_()
             buttons.append(button)
@@ -561,6 +625,7 @@ class JarvisUI(QWidget):
             button = QToolButton(parent)
             button.setObjectName("hudPanelIcon")
             button.setProperty("actionKey", action_map.get(name, name))
+            button.setProperty("panelName", name)
             button.setGeometry(x, y, 40, 32)
             button.setIcon(QIcon(os.path.join(icons_dir, f"{name}.svg")))
             button.setIconSize(QSize(18, 18))
@@ -569,16 +634,34 @@ class JarvisUI(QWidget):
             if self.panel_calibration_mode:
                 button.setToolTip(f"{name}: перетащите мышью")
                 button.installEventFilter(self)
-            button.clicked.connect(lambda checked=False, item=button: self.handle_hud_panel_action(item.property("actionKey")))
+            button.clicked.connect(lambda checked=False, item=button: self.handle_hud_panel_action(
+                item.property("actionKey"), item.property("panelName")
+            ))
             button.show()
             button.raise_()
             buttons.append(button)
             self.hud_panel_button_map[name] = button
         return buttons
 
-    def handle_hud_panel_action(self, name):
+    def ensure_full_ui(self):
+        """Restore the normal Jarvis chrome before opening an application page."""
+        if not getattr(self, "widget_mode", False):
+            return
+        self.widget_mode = False
+        for widget in getattr(self, "widget_chrome_widgets", []):
+            widget.setVisible(True)
+        self.main_container.setStyleSheet("")
+        self.apply_styles()
+
+    def handle_hud_panel_action(self, name, source_key=None):
         """Route the new top/bottom HUD panel commands."""
-        if name == "CHAT":
+        if name != "VID":
+            self.ensure_full_ui()
+        if name == "CUSTOM":
+            self.open_custom_target(self.widget_settings.get("targets", {}).get(source_key, ""), source_key)
+        elif name in TECH_ACTION_BUTTONS:
+            self.handle_tech_action(name)
+        elif name == "CHAT":
             self.menu.setCurrentRow(1)
             self.pages.setCurrentIndex(1)
         elif name == "HISTORY":
@@ -617,6 +700,7 @@ class JarvisUI(QWidget):
         dialog.setWindowTitle(title)
         dialog.setModal(False)
         dialog.resize(360, 280)
+        dialog.setStyleSheet(self.dialog_stylesheet())
         layout = QVBoxLayout(dialog)
         heading = QLabel(title)
         heading.setObjectName("settingsTitle")
@@ -630,6 +714,29 @@ class JarvisUI(QWidget):
         layout.addWidget(close_button)
         dialog.show()
         self._panel_dialog = dialog
+
+    def dialog_stylesheet(self):
+        accent_hover = self.accent_color.lighter(120).name()
+        return f"""
+            QDialog {{ background: rgba(20, 23, 31, 245); color: {self.text_color_hex};
+                border: 1px solid rgba(255,255,255,55); border-radius: 16px; }}
+            QLabel, QGroupBox, QCheckBox, QRadioButton {{ color: {self.text_color_hex}; }}
+            QGroupBox {{ border: 1px solid rgba(255,255,255,55); border-radius: 12px;
+                margin-top: 10px; padding: 14px 8px 8px; }}
+            QGroupBox::title {{ subcontrol-origin: margin; left: 12px; padding: 0 5px;
+                color: {self.accent_hex}; }}
+            QPushButton, QDialogButtonBox QPushButton {{ background: {self.accent_hex};
+                color: #071116; border: none; border-radius: 9px; padding: 8px 18px;
+                min-height: 18px; }}
+            QPushButton:hover, QDialogButtonBox QPushButton:hover {{ background: {accent_hover}; }}
+            QComboBox, QLineEdit, QSpinBox {{ background: rgba(255,255,255,225); color: #111820;
+                border: 1px solid rgba(255,255,255,100); border-radius: 7px; padding: 5px; }}
+            QComboBox QAbstractItemView {{ background: #171b24; color: #ffffff;
+                selection-background-color: {self.accent_hex}; selection-color: #071116; }}
+            QCheckBox::indicator {{ width: 18px; height: 18px; border-radius: 5px;
+                border: 1px solid rgba(255,255,255,100); background: rgba(255,255,255,25); }}
+            QCheckBox::indicator:checked {{ background: {self.accent_hex}; border: 1px solid {self.accent_hex}; }}
+        """
 
     def toggle_widget_mode(self):
         """Toggle a transparent HUD-only presentation while keeping voice ready."""
@@ -649,6 +756,13 @@ class JarvisUI(QWidget):
     def handle_tech_action(self, name):
         """Execute the portable equivalent of each original TECH-A action."""
         try:
+            self.ensure_full_ui()
+            bound_name = self.widget_settings.get("actions", {}).get(name, name)
+            if bound_name == "CUSTOM":
+                self.open_custom_target(self.widget_settings.get("targets", {}).get(name, ""), name)
+                return
+            if bound_name in TECH_ACTION_BUTTONS and bound_name != name:
+                name = bound_name
             if name == "COMP":
                 os.startfile("shell:MyComputerFolder")
                 message = "Открыт Этот компьютер"
@@ -1483,7 +1597,7 @@ background:transparent;
 border:1px solid transparent;
 border-radius:4px;
 color:#FFFFFF;
-font-size:7px;
+font-size:8px;
 padding:1px 4px;
 }
 

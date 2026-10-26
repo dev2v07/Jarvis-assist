@@ -110,6 +110,14 @@ class JarvisHUD(QWidget):
             "BG5": True, "BG6": True, "ROTATOR 1": True, "ROTATOR 2": True,
         }
         self.metric_visibility = {"CPU": True, "RAM": True, "GPU": True, "DISK": True}
+        self.motion_settings = {
+            "rotator_1_size": 100,
+            "rotator_2_size": 100,
+            "bg000_size": 100,
+            "rotator_1_seconds": 75,
+            "rotator_2_seconds": 125,
+            "bg000_seconds": 40,
+        }
 
         # Compose the native Rainmeter image meters once at the physical
         # screen resolution. This avoids a second Qt/DWM resample on 125% DPI.
@@ -308,6 +316,8 @@ class JarvisHUD(QWidget):
         """Apply standalone HUD settings without rebuilding the main window."""
         self.layer_visibility.update(settings.get("layers", {}))
         self.metric_visibility.update(settings.get("metrics", {}))
+        self.motion_settings.update(settings.get("motion", {}))
+        self.animation.set_motion_settings(self.motion_settings)
         self.animation.bg000_enabled = self.layer_visibility.get("BG2/BG000", True)
         self.static_bg = self.build_static_bg()
         self.update()
@@ -375,14 +385,18 @@ class JarvisHUD(QWidget):
         # GAME MODE hides the two regular rotating layers. BG000 is an
         # independent animation and remains visible in both modes.
         if self.animation.rotator_visible and self.layer_visibility.get("ROTATOR 1", True):
-            self.draw_rotator(painter, self.rotator_1, self.animation.rotator_1, cx, cy)
+            self.draw_rotator(painter, self.rotator_1, self.animation.rotator_1, cx, cy,
+                              self.motion_settings["rotator_1_size"] / 100.0)
         if self.animation.rotator_visible and self.layer_visibility.get("ROTATOR 2", True):
-            self.draw_rotator(painter, self.rotator_2, self.animation.rotator_2, cx, cy)
+            self.draw_rotator(painter, self.rotator_2, self.animation.rotator_2, cx, cy,
+                              self.motion_settings["rotator_2_size"] / 100.0)
         if self.animation.bg000_enabled and self.layer_visibility.get("BG2/BG000", True):
-            self.draw_rotator(painter, self.bg2, self.animation.rotator_3, cx, cy)
+            self.draw_rotator(painter, self.bg2, self.animation.rotator_3, cx, cy,
+                              self.motion_settings["bg000_size"] / 100.0)
 
         self.draw_datetime(painter)
-        self.draw_cpu_load_indicator(painter)
+        if self.metric_visibility.get("CPU", True):
+            self.draw_cpu_load_indicator(painter)
 
         # индикаторы (НЕ вращаются)
         # Match the original TECH-A repeated cell layout.  The source skin
@@ -402,7 +416,8 @@ class JarvisHUD(QWidget):
             self.draw_gauge(painter, gpu_x, gpu_y, self.gpu_anim, "GPU")
         if self.metric_visibility.get("DISK", True):
             self.draw_gauge(painter, disk_x, disk_y, self.disk_anim, "DISK")
-        self.draw_ram_panel(painter)
+        if self.metric_visibility.get("RAM", True):
+            self.draw_ram_panel(painter)
 
     def draw_datetime(self, painter):
         """Render local 24-hour time above and ordinal date below the HUD."""
@@ -656,7 +671,7 @@ class JarvisHUD(QWidget):
         painter.drawArc(rect, 181 * 16, round(21 * 16 * self.net_download_progress))
         painter.restore()
 
-    def draw_rotating_pixmap(self, painter, pixmap, angle, cx, cy):
+    def draw_rotating_pixmap(self, painter, pixmap, angle, cx, cy, scale=1.0):
         if pixmap.isNull():
             return
         painter.save()
@@ -670,13 +685,14 @@ class JarvisHUD(QWidget):
             visible_center_y = 356.0
         painter.translate(round(cx), round(cy))
         painter.rotate(angle)
+        painter.scale(scale, scale)
         painter.drawPixmap(-round(visible_center_x), -round(visible_center_y), pixmap)
         painter.restore()
 
-    def draw_rotator(self, painter, pixmap, angle, cx, cy):
+    def draw_rotator(self, painter, pixmap, angle, cx, cy, scale=1.0):
         if pixmap.isNull():
             return
-        self.draw_rotating_pixmap(painter, pixmap, angle, cx, cy)
+        self.draw_rotating_pixmap(painter, pixmap, angle, cx, cy, scale)
 
     def draw_rotator_at(self, painter, pixmap, angle, x, y):
         if pixmap.isNull():
