@@ -125,6 +125,7 @@ class WidgetSettingsDialog(QDialog):
             "layers": {name: check.isChecked() for name, check in self.layer_checks.items()},
             "metrics": {name: check.isChecked() for name, check in self.metric_checks.items()},
             "actions": {name: combo.currentText() for name, combo in self.action_combos.items()},
+            "panel_positions": self.settings.get("panel_positions", {}),
         }
 
 
@@ -340,6 +341,8 @@ class JarvisUI(QWidget):
 
         self.ui_settings = QSettings("Jarvis", "Jarvis Assist")
         self.widget_settings = self.load_widget_settings()
+        self.panel_calibration_mode = "--calibrate-panels" in sys.argv
+        self._panel_drag = None
         self.tech_font_families = self.register_tech_fonts()
         self.active_font_family = self.ui_settings.value(
             "font_family",
@@ -368,6 +371,9 @@ class JarvisUI(QWidget):
 
         self.load_weather()
 
+        if self.panel_calibration_mode:
+            self.assistant_label.setText("КАЛИБРОВКА ПАНЕЛЕЙ: перетащите иконки мышью")
+
         self.weather_timer = QTimer()
         self.weather_timer.timeout.connect(self.load_weather)
         self.weather_timer.start(600000)
@@ -385,6 +391,10 @@ class JarvisUI(QWidget):
             },
             "metrics": {"CPU": True, "RAM": True, "GPU": True, "DISK": True},
             "actions": {key: key for key in list(HUD_TOP_PANEL_BUTTONS) + list(HUD_BOTTOM_PANEL_BUTTONS)},
+            "panel_positions": {
+                key: {"x": position[0], "y": position[1]}
+                for key, position in {**HUD_TOP_PANEL_BUTTONS, **HUD_BOTTOM_PANEL_BUTTONS}.items()
+            },
         }
         raw = self.ui_settings.value("widget_settings", "")
         if not raw:
@@ -393,6 +403,7 @@ class JarvisUI(QWidget):
             saved = json.loads(raw)
             for group in ("layers", "metrics", "actions"):
                 default[group].update(saved.get(group, {}))
+            default["panel_positions"].update(saved.get("panel_positions", {}))
         except (TypeError, ValueError, json.JSONDecodeError):
             pass
         return default
@@ -477,12 +488,18 @@ class JarvisUI(QWidget):
         buttons = []
         self.hud_panel_button_map = {}
         action_map = self.widget_settings.get("actions", {})
+        position_map = self.widget_settings.get("panel_positions", {})
         for name, (x, y) in HUD_TOP_PANEL_BUTTONS.items():
+            saved_position = position_map.get(name, {"x": x, "y": y})
+            x, y = saved_position.get("x", x), saved_position.get("y", y)
             button = QPushButton(name, parent)
             button.setObjectName("hudPanelTop")
             button.setProperty("actionKey", action_map.get(name, name))
             button.setGeometry(x, y, 72 if name != "FUNCTION" else 86, 28)
             button.setCursor(Qt.PointingHandCursor)
+            if self.panel_calibration_mode:
+                button.setToolTip(f"{name}: перетащите мышью")
+                button.installEventFilter(self)
             button.clicked.connect(lambda checked=False, item=button: self.handle_hud_panel_action(item.property("actionKey")))
             button.show()
             button.raise_()
@@ -491,6 +508,8 @@ class JarvisUI(QWidget):
 
         icons_dir = os.path.join(BASE_DIR, "assets", "TECH-A", "panel")
         for name, (x, y) in HUD_BOTTOM_PANEL_BUTTONS.items():
+            saved_position = position_map.get(name, {"x": x, "y": y})
+            x, y = saved_position.get("x", x), saved_position.get("y", y)
             button = QToolButton(parent)
             button.setObjectName("hudPanelIcon")
             button.setProperty("actionKey", action_map.get(name, name))
@@ -499,6 +518,9 @@ class JarvisUI(QWidget):
             button.setIconSize(QSize(18, 18))
             button.setToolTip(name)
             button.setCursor(Qt.PointingHandCursor)
+            if self.panel_calibration_mode:
+                button.setToolTip(f"{name}: перетащите мышью")
+                button.installEventFilter(self)
             button.clicked.connect(lambda checked=False, item=button: self.handle_hud_panel_action(item.property("actionKey")))
             button.show()
             button.raise_()
@@ -726,6 +748,21 @@ class JarvisUI(QWidget):
 
     def eventFilter(self, obj, event):
 
+        if self.panel_calibration_mode and obj in getattr(self, "hud_panel_button_map", {}).values():
+            if event.type() == QEvent.MouseButtonPress and event.button() == Qt.MouseButton.LeftButton:
+                self._panel_drag = (obj, event.position().toPoint(), obj.pos())
+                return True
+            if event.type() == QEvent.MouseMove and self._panel_drag:
+                dragged, start, origin = self._panel_drag
+                delta = event.position().toPoint() - start
+                dragged.move(origin + delta)
+                return True
+            if event.type() == QEvent.MouseButtonRelease and self._panel_drag:
+                dragged, _, _ = self._panel_drag
+                self._panel_drag = None
+                self.save_panel_position(dragged)
+                return True
+
         if obj == self.chats_list.viewport():
 
             if event.type() == QEvent.MouseMove:
@@ -758,6 +795,19 @@ class JarvisUI(QWidget):
                         widget.menu_btn.hide()
 
         return super().eventFilter(obj, event)
+
+    def save_panel_position(self, button):
+        for name, candidate in self.hud_panel_button_map.items():
+            if candidate is button:
+                self.widget_settings.setdefault("panel_positions", {})[name] = {
+                    "x": button.x(), "y": button.y()
+                }
+                self.ui_settings.setValue(
+                    "widget_settings",
+                    json.dumps(self.widget_settings, ensure_ascii=False),
+                )
+                print(f"Panel position saved: {name} -> ({button.x()}, {button.y()})")
+                return
 
 
     # ---------------- CHAT MENU ----------------
