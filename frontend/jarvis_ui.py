@@ -103,6 +103,7 @@ class WidgetSettingsDialog(QDialog):
 
         content = QHBoxLayout()
         layers_box = QGroupBox("СЛОИ")
+        layers_box.setObjectName("settingsTile")
         layers_layout = QVBoxLayout(layers_box)
         layer_values = settings.get("layers", {})
         for name in ("BG1", "BG2/BG000", "BG3", "BG4", "BG5", "BG6", "ROTATOR 1", "ROTATOR 2"):
@@ -113,6 +114,7 @@ class WidgetSettingsDialog(QDialog):
         content.addWidget(layers_box)
 
         metrics_box = QGroupBox("МЕТРИКИ")
+        metrics_box.setObjectName("settingsTile")
         metrics_layout = QVBoxLayout(metrics_box)
         metric_values = settings.get("metrics", {})
         for name in ("CPU", "RAM", "GPU", "DISK"):
@@ -125,6 +127,7 @@ class WidgetSettingsDialog(QDialog):
         root.addLayout(content)
 
         motion_box = QGroupBox("АНИМАЦИЯ И РАЗМЕРЫ")
+        motion_box.setObjectName("settingsTile")
         motion_layout = QFormLayout(motion_box)
         motion_values = settings.get("motion", {})
         motion_fields = (
@@ -144,7 +147,38 @@ class WidgetSettingsDialog(QDialog):
             motion_layout.addRow(QLabel(label), spin)
         root.addWidget(motion_box)
 
+        datetime_box = QGroupBox("ВРЕМЯ И ДАТА HUD")
+        datetime_box.setObjectName("settingsTile")
+        datetime_layout = QFormLayout(datetime_box)
+        datetime_values = settings.get("datetime", {})
+        self.time_format_combo = QComboBox()
+        for label, value in TIME_FORMAT_OPTIONS:
+            self.time_format_combo.addItem(label, value)
+        self.time_format_combo.setCurrentIndex(max(
+            0, self.time_format_combo.findData(datetime_values.get("time_format", "%H:%M"))
+        ))
+        datetime_layout.addRow(QLabel("Формат времени"), self.time_format_combo)
+        self.time_size_spin = QSpinBox()
+        self.time_size_spin.setRange(6, 48)
+        self.time_size_spin.setSuffix(" px")
+        self.time_size_spin.setValue(int(datetime_values.get("time_size", 14)))
+        datetime_layout.addRow(QLabel("Размер времени"), self.time_size_spin)
+        self.date_format_combo = QComboBox()
+        for label, value in DATE_FORMAT_OPTIONS:
+            self.date_format_combo.addItem(label, value)
+        self.date_format_combo.setCurrentIndex(max(
+            0, self.date_format_combo.findData(datetime_values.get("date_format", "ORDINAL"))
+        ))
+        datetime_layout.addRow(QLabel("Формат даты"), self.date_format_combo)
+        self.date_size_spin = QSpinBox()
+        self.date_size_spin.setRange(6, 36)
+        self.date_size_spin.setSuffix(" px")
+        self.date_size_spin.setValue(int(datetime_values.get("date_size", 8)))
+        datetime_layout.addRow(QLabel("Размер даты"), self.date_size_spin)
+        root.addWidget(datetime_box)
+
         assignments = QGroupBox("НАЗНАЧЕНИЕ ПАНЕЛЕЙ")
+        assignments.setObjectName("settingsTile")
         assignments_layout = QFormLayout(assignments)
         action_values = settings.get("actions", {})
         target_values = settings.get("targets", {})
@@ -180,6 +214,12 @@ class WidgetSettingsDialog(QDialog):
             "actions": {name: combo.currentText() for name, combo in self.action_combos.items()},
             "targets": {name: edit.text().strip() for name, edit in self.target_edits.items()},
             "motion": {name: spin.value() for name, spin in self.motion_spins.items()},
+            "datetime": {
+                "time_format": self.time_format_combo.currentData(),
+                "time_size": self.time_size_spin.value(),
+                "date_format": self.date_format_combo.currentData(),
+                "date_size": self.date_size_spin.value(),
+            },
             "panel_positions": self.settings.get("panel_positions", {}),
         }
 
@@ -439,12 +479,22 @@ class JarvisUI(QWidget):
         self.setAttribute(Qt.WA_TranslucentBackground)
 
         self.ui_settings = QSettings("Jarvis", "Jarvis Assist")
-        self.datetime_settings = {
-            "time_format": self.ui_settings.value("time_format", "%H:%M"),
-            "date_format": self.ui_settings.value("date_format", "ORDINAL"),
-            "time_size": int(self.ui_settings.value("time_size", 14)),
-            "date_size": int(self.ui_settings.value("date_size", 8)),
+        self.visual_settings = {
+            "window_opacity": int(self.ui_settings.value("window_opacity", 96)),
+            "transparent_background": self.ui_settings.value(
+                "transparent_background", True, type=bool
+            ),
+            "glass_enabled": self.ui_settings.value("glass_enabled", True, type=bool),
         }
+        self.hardware_settings = {
+            "audio_input_device": int(self.ui_settings.value("audio_input_device", -1)),
+            "video_input_device": int(self.ui_settings.value("video_input_device", 0)),
+        }
+        self.startup_widget_mode = self.ui_settings.value("startup_widget_mode", True, type=bool)
+        self.setAttribute(
+            Qt.WA_TranslucentBackground,
+            self.visual_settings["transparent_background"],
+        )
         self.widget_settings = self.load_widget_settings()
         self.panel_calibration_mode = "--calibrate-panels" in sys.argv
         self._panel_drag = None
@@ -466,7 +516,7 @@ class JarvisUI(QWidget):
         QApplication.instance().setFont(QFont(self.active_font_family, 10))
 
         self.oldPos = None
-        self.setWindowOpacity(0.96)
+        self.setWindowOpacity(self.visual_settings["window_opacity"] / 100.0)
 
         self.build_ui()
         self.apply_application_font()
@@ -474,6 +524,8 @@ class JarvisUI(QWidget):
 
         self.menu.currentRowChanged.connect(self.pages.setCurrentIndex)
         self.menu.setCurrentRow(0)
+        if self.startup_widget_mode:
+            QTimer.singleShot(0, self.toggle_widget_mode)
 
         self.load_weather()
 
@@ -511,6 +563,10 @@ class JarvisUI(QWidget):
                 "rotator_1_size": 100, "rotator_2_size": 100, "bg000_size": 100,
                 "rotator_1_seconds": 75, "rotator_2_seconds": 125, "bg000_seconds": 40,
             },
+            "datetime": {
+                "time_format": "%H:%M", "time_size": 14,
+                "date_format": "ORDINAL", "date_size": 8,
+            },
             "panel_positions": {
                 key: {"x": position[0], "y": position[1], "angle": 0}
                 for key, position in {**HUD_TOP_PANEL_BUTTONS, **HUD_BOTTOM_PANEL_BUTTONS}.items()
@@ -521,7 +577,7 @@ class JarvisUI(QWidget):
             return default
         try:
             saved = json.loads(raw)
-            for group in ("layers", "metrics", "actions", "targets", "motion"):
+            for group in ("layers", "metrics", "actions", "targets", "motion", "datetime"):
                 default[group].update(saved.get(group, {}))
             default["panel_positions"].update(saved.get("panel_positions", {}))
         except (TypeError, ValueError, json.JSONDecodeError):
@@ -530,11 +586,14 @@ class JarvisUI(QWidget):
 
     def open_widget_settings(self):
         dialog = WidgetSettingsDialog(self, self.widget_settings)
+        dialog.setAttribute(Qt.WA_TranslucentBackground, self.visual_settings["transparent_background"])
+        dialog.setWindowOpacity(self.visual_settings["window_opacity"] / 100.0)
         dialog.setStyleSheet(self.dialog_stylesheet())
         if dialog.exec() == QDialog.DialogCode.Accepted:
             self.widget_settings = dialog.values()
             self.ui_settings.setValue("widget_settings", json.dumps(self.widget_settings, ensure_ascii=False))
             self.hud.apply_widget_settings(self.widget_settings)
+            self.hud.set_datetime_settings(self.widget_settings.get("datetime", {}))
             for key, button in getattr(self, "hud_panel_button_map", {}).items():
                 button.setProperty("actionKey", self.widget_settings["actions"].get(key, key))
                 button.style().unpolish(button)
@@ -732,6 +791,8 @@ class JarvisUI(QWidget):
         dialog.setWindowTitle(title)
         dialog.setModal(False)
         dialog.resize(360, 280)
+        dialog.setAttribute(Qt.WA_TranslucentBackground, self.visual_settings["transparent_background"])
+        dialog.setWindowOpacity(self.visual_settings["window_opacity"] / 100.0)
         dialog.setStyleSheet(self.dialog_stylesheet())
         layout = QVBoxLayout(dialog)
         heading = QLabel(title)
@@ -749,11 +810,19 @@ class JarvisUI(QWidget):
 
     def dialog_stylesheet(self):
         accent_hover = self.accent_color.lighter(120).name()
+        if self.visual_settings["glass_enabled"]:
+            popup_background = (
+                "qlineargradient(x1:0,y1:0,x2:1,y2:1,"
+                "stop:0 rgba(20,20,25,220),stop:0.35 rgba(15,15,20,220),"
+                "stop:0.65 rgba(10,10,15,230),stop:1 rgba(30,30,35,220))"
+            )
+        else:
+            popup_background = "rgba(15,15,20,220)"
         return f"""
-            QDialog {{ background: rgba(20, 23, 31, 245); color: {self.text_color_hex};
+            QDialog {{ background: {popup_background}; color: {self.text_color_hex};
                 border: 1px solid rgba(255,255,255,55); border-radius: 16px; }}
             QLabel, QGroupBox, QCheckBox, QRadioButton {{ color: {self.text_color_hex}; }}
-            QGroupBox {{ border: 1px solid rgba(255,255,255,55); border-radius: 12px;
+            QGroupBox, QGroupBox#settingsTile {{ border: 1px solid rgba(255,255,255,55); border-radius: 12px;
                 margin-top: 10px; padding: 14px 8px 8px; }}
             QGroupBox::title {{ subcontrol-origin: margin; left: 12px; padding: 0 5px;
                 color: {self.accent_hex}; }}
@@ -783,6 +852,7 @@ class JarvisUI(QWidget):
             self.pages.setCurrentIndex(0)
         else:
             self.main_container.setStyleSheet("")
+            self.setWindowOpacity(self.visual_settings["window_opacity"] / 100.0)
             self.apply_styles()
 
     def handle_tech_action(self, name):
@@ -889,6 +959,40 @@ class JarvisUI(QWidget):
             widget_font.setFamily(self.active_font_family)
             widget.setFont(widget_font)
 
+    def container_visual_stylesheet(self):
+        if self.visual_settings["glass_enabled"]:
+            background = (
+                "qlineargradient(x1:0,y1:0,x2:1,y2:1,"
+                "stop:0 rgba(20,20,25,220),stop:0.35 rgba(15,15,20,220),"
+                "stop:0.65 rgba(10,10,15,230),stop:1 rgba(30,30,35,220))"
+            )
+        else:
+            background = "rgba(15,15,20,220)"
+        return (
+            "QFrame#container { border-radius:30px; "
+            f"background:{background}; border:1px solid rgba(255,255,255,40); }}"
+        )
+
+    def apply_visual_settings(self):
+        """Apply the existing main-window glass parameters to every popup."""
+        if hasattr(self, "transparent_background_check"):
+            self.visual_settings["transparent_background"] = self.transparent_background_check.isChecked()
+            self.visual_settings["glass_enabled"] = self.glass_enabled_check.isChecked()
+            self.visual_settings["window_opacity"] = self.window_opacity_spin.value()
+        for key, value in self.visual_settings.items():
+            self.ui_settings.setValue(key, value)
+        self.setAttribute(Qt.WA_TranslucentBackground, self.visual_settings["transparent_background"])
+        self.setWindowOpacity(self.visual_settings["window_opacity"] / 100.0)
+        if hasattr(self, "main_container") and not getattr(self, "widget_mode", False):
+            self.main_container.setStyleSheet(self.container_visual_stylesheet())
+        if hasattr(self, "main_container"):
+            self.apply_styles()
+        for widget in QApplication.topLevelWidgets():
+            if isinstance(widget, QDialog):
+                widget.setAttribute(Qt.WA_TranslucentBackground, self.visual_settings["transparent_background"])
+                widget.setWindowOpacity(self.visual_settings["window_opacity"] / 100.0)
+                widget.setStyleSheet(self.dialog_stylesheet())
+
     def apply_datetime_settings(self):
         """Persist and apply the general clock/date presentation settings."""
         self.datetime_settings = {
@@ -905,10 +1009,59 @@ class JarvisUI(QWidget):
     def set_startup_diagnostic_enabled(self, enabled):
         self.ui_settings.setValue("startup_diagnostic_enabled", bool(enabled))
 
+    def set_startup_widget_mode(self, enabled):
+        self.startup_widget_mode = bool(enabled)
+        self.ui_settings.setValue("startup_widget_mode", self.startup_widget_mode)
+
+    @staticmethod
+    def enumerate_audio_sources():
+        sources = [("Системный выбор", -1)]
+        try:
+            import sounddevice as sd
+            for index, device in enumerate(sd.query_devices()):
+                if device.get("max_input_channels", 0) > 0:
+                    sources.append((f"{index}: {device['name']}", index))
+        except Exception as error:
+            print(f"Audio device enumeration failed: {error}")
+        return sources
+
+    @staticmethod
+    def enumerate_video_sources():
+        sources = []
+        try:
+            import cv2
+            for index in range(6):
+                capture = cv2.VideoCapture(index, cv2.CAP_DSHOW)
+                opened = capture.isOpened()
+                capture.release()
+                if opened:
+                    sources.append((f"Камера {index}", index))
+        except Exception as error:
+            print(f"Video device enumeration failed: {error}")
+        return sources or [("Камера по умолчанию (0)", 0)]
+
+    def apply_hardware_settings(self):
+        self.hardware_settings = {
+            "audio_input_device": self.audio_source_combo.currentData(),
+            "video_input_device": self.video_source_combo.currentData(),
+        }
+        for key, value in self.hardware_settings.items():
+            self.ui_settings.setValue(key, value)
+        try:
+            requests.post(
+                "http://127.0.0.1:8000/hardware/settings",
+                json=self.hardware_settings,
+                timeout=2,
+            )
+        except requests.RequestException:
+            print("Hardware settings saved locally; backend is unavailable")
+
     def pick_color(self, initial, title):
         dialog = QColorDialog(initial, self)
         dialog.setWindowTitle(title)
         dialog.setOption(QColorDialog.DontUseNativeDialog, True)
+        dialog.setAttribute(Qt.WA_TranslucentBackground, self.visual_settings["transparent_background"])
+        dialog.setWindowOpacity(self.visual_settings["window_opacity"] / 100.0)
         dialog.setStyleSheet("""
             QColorDialog, QDialog { background:#171922; color:#F4F7FA; }
             QColorDialog QLabel, QDialog QLabel { color:#F4F7FA; }
@@ -934,6 +1087,8 @@ class JarvisUI(QWidget):
         self.ui_settings.setValue("accent_color", self.accent_hex)
         self.hud.set_accent_color(color)
         self.jarvis_button.set_accent_color(color)
+        for toggle in getattr(self, "sidebar_toggles", []):
+            toggle.set_accent_color(color)
         self.accent_value_label.setText(
             f"{self.accent_hex.upper()}  RGB {color.red()}, {color.green()}, {color.blue()}"
         )
@@ -1261,6 +1416,7 @@ class JarvisUI(QWidget):
         label1 = QLabel("Ассистент")
         label1.setStyleSheet("color:white; font-size:14px;")
         toggle1 = ToggleSwitch()
+        toggle1.set_accent_color(self.accent_color)
 
         row1.addWidget(label1)
         row1.addStretch()
@@ -1271,6 +1427,8 @@ class JarvisUI(QWidget):
         label2 = QLabel("Микрофон")
         label2.setStyleSheet("color:white; font-size:14px;")
         toggle2 = ToggleSwitch()
+        toggle2.set_accent_color(self.accent_color)
+        self.sidebar_toggles = [toggle1, toggle2]
 
         row2.addWidget(label2)
         row2.addStretch()
@@ -1382,7 +1540,7 @@ class JarvisUI(QWidget):
             calibration_mode="--calibrate-cpu" in sys.argv,
         )
         self.hud.apply_widget_settings(self.widget_settings)
-        self.hud.set_datetime_settings(self.datetime_settings)
+        self.hud.set_datetime_settings(self.widget_settings.get("datetime", {}))
         self.hud.setFixedSize(JarvisHUD.HUD_SIZE, JarvisHUD.HUD_SIZE)
         self.assistant_label = QLabel("Нажмите кнопку чтобы активировать JARVIS")
         self.assistant_label.setAlignment(Qt.AlignCenter)
@@ -1534,7 +1692,7 @@ class JarvisUI(QWidget):
         runtime_card = QFrame()
         runtime_card.setObjectName("settingsCard")
         runtime_layout = QFormLayout(runtime_card)
-        runtime_title = QLabel("ЗВУК И ВРЕМЯ")
+        runtime_title = QLabel("ЗВУК И ВИЗУАЛ")
         runtime_title.setObjectName("settingsCardTitle")
         runtime_layout.addRow(runtime_title)
 
@@ -1545,35 +1703,48 @@ class JarvisUI(QWidget):
         self.startup_diagnostic_check.toggled.connect(self.set_startup_diagnostic_enabled)
         runtime_layout.addRow(self.startup_diagnostic_check)
 
-        self.time_format_combo = QComboBox()
-        for label, value in TIME_FORMAT_OPTIONS:
-            self.time_format_combo.addItem(label, value)
-        time_index = self.time_format_combo.findData(self.datetime_settings["time_format"])
-        self.time_format_combo.setCurrentIndex(max(0, time_index))
-        self.time_format_combo.currentIndexChanged.connect(self.apply_datetime_settings)
-        runtime_layout.addRow(QLabel("Формат времени"), self.time_format_combo)
+        self.startup_widget_check = QCheckBox("Запускать сразу в прозрачном VID-режиме")
+        self.startup_widget_check.setChecked(self.startup_widget_mode)
+        self.startup_widget_check.toggled.connect(self.set_startup_widget_mode)
+        runtime_layout.addRow(self.startup_widget_check)
 
-        self.time_size_spin = QSpinBox()
-        self.time_size_spin.setRange(6, 48)
-        self.time_size_spin.setSuffix(" px")
-        self.time_size_spin.setValue(self.datetime_settings["time_size"])
-        self.time_size_spin.valueChanged.connect(self.apply_datetime_settings)
-        runtime_layout.addRow(QLabel("Размер времени"), self.time_size_spin)
+        self.audio_source_combo = QComboBox()
+        for label, device_id in self.enumerate_audio_sources():
+            self.audio_source_combo.addItem(label, device_id)
+        audio_index = self.audio_source_combo.findData(self.hardware_settings["audio_input_device"])
+        self.audio_source_combo.setCurrentIndex(max(0, audio_index))
+        self.audio_source_combo.currentIndexChanged.connect(self.apply_hardware_settings)
+        runtime_layout.addRow(QLabel("Микрофон"), self.audio_source_combo)
 
-        self.date_format_combo = QComboBox()
-        for label, value in DATE_FORMAT_OPTIONS:
-            self.date_format_combo.addItem(label, value)
-        date_index = self.date_format_combo.findData(self.datetime_settings["date_format"])
-        self.date_format_combo.setCurrentIndex(max(0, date_index))
-        self.date_format_combo.currentIndexChanged.connect(self.apply_datetime_settings)
-        runtime_layout.addRow(QLabel("Формат даты"), self.date_format_combo)
+        self.video_source_combo = QComboBox()
+        for label, device_id in self.enumerate_video_sources():
+            self.video_source_combo.addItem(label, device_id)
+        video_index = self.video_source_combo.findData(self.hardware_settings["video_input_device"])
+        self.video_source_combo.setCurrentIndex(max(0, video_index))
+        self.video_source_combo.currentIndexChanged.connect(self.apply_hardware_settings)
+        runtime_layout.addRow(QLabel("Камера / видео"), self.video_source_combo)
+        QTimer.singleShot(0, self.apply_hardware_settings)
 
-        self.date_size_spin = QSpinBox()
-        self.date_size_spin.setRange(6, 36)
-        self.date_size_spin.setSuffix(" px")
-        self.date_size_spin.setValue(self.datetime_settings["date_size"])
-        self.date_size_spin.valueChanged.connect(self.apply_datetime_settings)
-        runtime_layout.addRow(QLabel("Размер даты"), self.date_size_spin)
+        self.transparent_background_check = QCheckBox("Прозрачный фон окна")
+        self.transparent_background_check.setChecked(self.visual_settings["transparent_background"])
+        self.transparent_background_check.toggled.connect(self.apply_visual_settings)
+        runtime_layout.addRow(self.transparent_background_check)
+
+        self.glass_enabled_check = QCheckBox("Glass-градиент интерфейса")
+        self.glass_enabled_check.setChecked(self.visual_settings["glass_enabled"])
+        self.glass_enabled_check.toggled.connect(self.apply_visual_settings)
+        runtime_layout.addRow(self.glass_enabled_check)
+
+        self.acrylic_status = QLabel("Acrylic Windows: не подключён")
+        self.acrylic_status.setObjectName("settingsHint")
+        runtime_layout.addRow(self.acrylic_status)
+
+        self.window_opacity_spin = QSpinBox()
+        self.window_opacity_spin.setRange(20, 100)
+        self.window_opacity_spin.setSuffix(" %")
+        self.window_opacity_spin.setValue(self.visual_settings["window_opacity"])
+        self.window_opacity_spin.valueChanged.connect(self.apply_visual_settings)
+        runtime_layout.addRow(QLabel("Прозрачность окна и popup"), self.window_opacity_spin)
         settings_layout.addWidget(runtime_card)
         settings_layout.addStretch()
         self.pages.addWidget(settings_page)
@@ -1898,6 +2069,9 @@ background:#444;
 """.replace("#2E89FF", accent)
         .replace("#4aa0ff", accent_hover)
         .replace("#FFFFFF", self.text_color_hex))
+
+        if hasattr(self, "main_container") and not getattr(self, "widget_mode", False):
+            self.main_container.setStyleSheet(self.container_visual_stylesheet())
 
 
     # ---------------- COMMAND ----------------

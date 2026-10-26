@@ -1,6 +1,7 @@
 import asyncio
 import uuid
 import uvicorn
+import os
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -51,7 +52,7 @@ from utils.logging_setup import configure_logging
 # CONFIG
 # -----------------------------
 
-from config import LOG_DIR
+from config import LOG_DIR, update_runtime_config
 
 # -----------------------------
 # APP
@@ -141,6 +142,23 @@ async def startup_event():
 class ChatRequest(BaseModel):
 
     message: str
+
+
+class HardwareSettings(BaseModel):
+    audio_input_device: int = -1
+    video_input_device: int = 0
+
+
+@app.post("/hardware/settings")
+def save_hardware_settings(settings: HardwareSettings):
+    """Persist physical audio/video device selections for voice and vision modules."""
+    updates = {
+        "JARVIS_MICROPHONE_INDEX": str(settings.audio_input_device),
+        "JARVIS_CAMERA_INDEX": str(settings.video_input_device),
+    }
+    update_runtime_config(updates)
+    os.environ.update(updates)
+    return {"ok": True, **updates}
 
 
 # -----------------------------

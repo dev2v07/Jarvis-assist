@@ -174,11 +174,16 @@ class FaceAuthenticator:
             print(f"[AUTH] [OK] Successfully opened and read from device {index}.")
             return cap
 
-        video_capture = try_open_camera(0)
-        
+        try:
+            preferred_camera = int(os.getenv("JARVIS_CAMERA_INDEX", "0"))
+        except ValueError:
+            preferred_camera = 0
+        video_capture = try_open_camera(preferred_camera)
+
         if video_capture is None:
-             print("[AUTH] Device 0 failed. Trying device 1...")
-             video_capture = try_open_camera(1)
+             fallback_camera = 0 if preferred_camera != 0 else 1
+             print(f"[AUTH] Device {preferred_camera} failed. Trying device {fallback_camera}...")
+             video_capture = try_open_camera(fallback_camera)
 
         if video_capture is None:
              print("[AUTH] [ERR] All camera attempts failed. Authentication cannot proceed.")

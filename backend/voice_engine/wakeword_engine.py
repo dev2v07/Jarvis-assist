@@ -1,6 +1,7 @@
 import sounddevice as sd
 import numpy as np
 import time
+import os
 import librosa
 import torch
 
@@ -43,6 +44,14 @@ print("Wakeword система готова")
 def find_microphone():
 
     devices = sd.query_devices()
+
+    configured = os.getenv("JARVIS_MICROPHONE_INDEX", "-1")
+    if configured not in ("", "-1"):
+        index = int(configured)
+        device = devices[index]
+        if device["max_input_channels"] > 0:
+            print(f"Выбран микрофон Jarvis: {device['name']} (id={index})")
+            return index, int(device["default_samplerate"])
 
     for i, dev in enumerate(devices):
 

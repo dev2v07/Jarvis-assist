@@ -12,6 +12,7 @@ class ToggleSwitch(QCheckBox):
         self.setCursor(Qt.PointingHandCursor)
 
         self._circle_pos = 3
+        self.accent_color = QColor("#00ebf5")
 
         self.anim = QPropertyAnimation(self, b"circle_pos")
         self.anim.setDuration(180)
@@ -35,7 +36,7 @@ class ToggleSwitch(QCheckBox):
         painter.setRenderHint(QPainter.Antialiasing)
 
         if self.isChecked():
-            bg = QColor("#2E89FF")
+            bg = QColor(self.accent_color)
         else:
             bg = QColor("#444")
 
@@ -45,6 +46,12 @@ class ToggleSwitch(QCheckBox):
 
         painter.setBrush(QColor("white"))
         painter.drawEllipse(self._circle_pos, 3, 18, 18)
+
+    def set_accent_color(self, color):
+        parsed = QColor(color)
+        if parsed.isValid():
+            self.accent_color = parsed
+            self.update()
 
     def get_circle_pos(self):
         return self._circle_pos
