@@ -2285,8 +2285,12 @@ Backup по прямой просьбе пользователя не созда
 
 Проверка:
 
-- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
-  `GET /health` со статусом HTTP 200.
+- `py_compile` для UI и HUD: пройден;
+- `git diff --check`: пройден;
+- backend и frontend перезапущены;
+- `GET /health`: HTTP 200;
+- frontend запускается без ошибок, реакция текста START готова к визуальной
+  проверке наведением.
 
 Откат:
 
