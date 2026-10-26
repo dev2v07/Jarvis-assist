@@ -116,6 +116,7 @@ class JarvisHUD(QWidget):
         # Original BitDust readout, enlarged by 2.3 px for readability.
         self.font_ram = QFont(ram_family, 8.3)
         self.font_net = QFont(ram_family, 8.3)
+        self.font_time = QFont(ram_family, 10.3)
         if interface_font:
             self.set_interface_font(interface_font)
 
@@ -249,6 +250,7 @@ class JarvisHUD(QWidget):
         self.font_label = QFont(family, 7)
         self.font_ram = QFont(family, 8.3)
         self.font_net = QFont(family, 8.3)
+        self.font_time = QFont(family, 10.3)
         self.update()
 
     def set_text_color(self, color):
@@ -342,17 +344,19 @@ class JarvisHUD(QWidget):
     def draw_datetime(self, painter):
         """Render local 24-hour time above and ordinal date below the HUD."""
         painter.save()
-        painter.setFont(self.font_net)
+        painter.setFont(self.font_time)
         color = QColor(self.text_color)
         color.setAlpha(225)
         painter.setPen(color)
-        metrics = QFontMetricsF(self.font_net)
+        time_metrics = QFontMetricsF(self.font_time)
 
         # The user-selected placement is the first outer ring, BG6, on the
         # vertical center axis rather than the original inner MeterTime anchors.
-        time_width = metrics.horizontalAdvance(self.clock_text)
+        time_width = time_metrics.horizontalAdvance(self.clock_text)
         painter.drawText(QPointF(355 - time_width / 2, 61), self.clock_text)
 
+        painter.setFont(self.font_net)
+        metrics = QFontMetricsF(self.font_net)
         day_part, month_part = self.date_text.split(" ", 1)
         day_width = metrics.horizontalAdvance(day_part)
         month_width = metrics.horizontalAdvance(month_part)
