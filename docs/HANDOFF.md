@@ -1258,3 +1258,37 @@ Git:
 
 - восстановить файлы из `backups/handoff-0035-match-original-animation-speed/`.
 
+## Очередь 0036 — Chrome launch and true GAME/DESH visibility
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0036-chrome-and-game-mode/`
+
+Изменения:
+
+- `CHRM` сначала ищет установленный Chrome в стандартных Windows-путях и запускает его через `chrome.exe --new-window`;
+- если Chrome не найден, сохраняется fallback на браузер по умолчанию;
+- `GAME MODE` теперь скрывает все три rotator-слоя, как исходный `!RainmeterDeActivateConfig "TECH-A\\rotator"`;
+- `DESK MODE` возвращает все три rotator-слоя, как исходный `!RainmeterActivateConfig`;
+- переключение больше не оставляет последние кадры колец на экране.
+
+Файлы:
+
+- `frontend/jarvis_ui.py`;
+- `frontend/jarvis_hud.py`;
+- `frontend/tech_a_animation.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- `py_compile` для HUD, UI и animation: ожидается после записи очереди;
+- `git diff --check`: ожидается после записи очереди;
+- backend и frontend будут перезапущены после фиксации очереди;
+- пользователь проверит фактический запуск Chrome и исчезновение/возврат всех rotator-колец.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0036-chrome-and-game-mode/`.
+

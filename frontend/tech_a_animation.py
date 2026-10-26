@@ -19,6 +19,7 @@ class TechAAnimation:
         self._rotator_elapsed_ms = 0.0
         self._big_animation_elapsed_ms = 0.0
         self.rotator_enabled = True
+        self.rotator_visible = True
         self.big_animation_enabled = False
         self.big_animation_frame = 0
 
@@ -47,5 +48,6 @@ class TechAAnimation:
         return self.big_animation_enabled
 
     def toggle_game_mode(self):
-        self.rotator_enabled = not self.rotator_enabled
-        return not self.rotator_enabled
+        self.rotator_visible = not self.rotator_visible
+        self.rotator_enabled = self.rotator_visible
+        return not self.rotator_visible

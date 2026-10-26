@@ -2,6 +2,7 @@ import sys
 import requests
 import os
 import ctypes
+import subprocess
 import webbrowser
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -294,8 +295,8 @@ class JarvisUI(QWidget):
                 enabled = self.hud.animation.toggle_big_animation()
                 message = f"ANI {'ON' if enabled else 'OFF'}"
             elif name == "CHRM":
-                webbrowser.open("about:blank")
-                message = "Открыт браузер по умолчанию"
+                browser = self.open_chrome()
+                message = f"Открыт {browser}"
             elif name == "GAME":
                 game_mode = self.hud.animation.toggle_game_mode()
                 message = "GAME MODE" if game_mode else "DESK MODE"
@@ -310,6 +311,20 @@ class JarvisUI(QWidget):
             message = f"Не удалось выполнить {name}: {error}"
             self.assistant_label.setText(message)
             print(message)
+
+    @staticmethod
+    def open_chrome():
+        chrome_candidates = [
+            os.path.join(os.environ.get("ProgramFiles", ""), "Google", "Chrome", "Application", "chrome.exe"),
+            os.path.join(os.environ.get("LOCALAPPDATA", ""), "Google", "Chrome", "Application", "chrome.exe"),
+            os.path.join(os.environ.get("ProgramFiles(x86)", ""), "Google", "Chrome", "Application", "chrome.exe"),
+        ]
+        for chrome_path in chrome_candidates:
+            if chrome_path and os.path.isfile(chrome_path):
+                subprocess.Popen([chrome_path, "--new-window"])
+                return "Chrome"
+        webbrowser.open("about:blank")
+        return "браузер по умолчанию"
 
     @staticmethod
     def show_desktop():

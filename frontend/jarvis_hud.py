@@ -232,16 +232,18 @@ class JarvisHUD(QWidget):
         if self.animation.big_animation_enabled:
             self.draw_big_animation(painter)
 
-        # Separate rotator config: 1xx.png, 2x.png and 3x.png.
-        self.draw_rotator(painter, self.rotator_1, self.animation.rotator_1, cx, cy)
-        self.draw_rotator(painter, self.rotator_2, self.animation.rotator_2, cx, cy)
-        self.draw_rotator_at(
-            painter,
-            self.rotator_3,
-            self.animation.rotator_3,
-            cx - self.ROTATOR_SIZE / 2 + 201,
-            cy - self.ROTATOR_SIZE / 2 + 151,
-        )
+        # GAME MODE deactivates the whole Rainmeter rotator config, rather
+        # than freezing its last frame. DESK MODE restores all three layers.
+        if self.animation.rotator_visible:
+            self.draw_rotator(painter, self.rotator_1, self.animation.rotator_1, cx, cy)
+            self.draw_rotator(painter, self.rotator_2, self.animation.rotator_2, cx, cy)
+            self.draw_rotator_at(
+                painter,
+                self.rotator_3,
+                self.animation.rotator_3,
+                cx - self.ROTATOR_SIZE / 2 + 201,
+                cy - self.ROTATOR_SIZE / 2 + 151,
+            )
 
         # индикаторы (НЕ вращаются)
         # Match the original TECH-A repeated cell layout.  The source skin
