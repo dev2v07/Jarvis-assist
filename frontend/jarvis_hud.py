@@ -378,6 +378,22 @@ class JarvisHUD(QWidget):
         active = QColor(self.accent_color)
         active.setAlpha(230)
 
+        # Fixed source-like scale marks for the same overall CPU trail.
+        painter.setFont(self.font_net)
+        scale_color = QColor(self.text_color)
+        scale_color.setAlpha(235)
+        painter.setPen(scale_color)
+        scale_radius = 174.0
+        for label, scale_angle in (("0", -90.0), ("50", 0.0), ("100", 90.0)):
+            label_angle = math.radians(scale_angle)
+            label_x = center_x + scale_radius * math.cos(label_angle)
+            label_y = center_y + scale_radius * math.sin(label_angle)
+            painter.drawText(
+                QRectF(label_x - 32, label_y - 13, 64, 26),
+                Qt.AlignCenter,
+                label,
+            )
+
         for index in range(total_points):
             angle = math.radians(start_angle + index * 360.0 / total_points)
             x = center_x + radius * math.cos(angle)
