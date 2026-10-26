@@ -4,6 +4,7 @@ import os
 import ctypes
 import subprocess
 import webbrowser
+import json
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
@@ -53,6 +54,78 @@ HUD_BOTTOM_PANEL_BUTTONS = {
     "SET": (409, 548),
     "OUT": (468, 548),
 }
+
+WIDGET_ACTION_OPTIONS = [
+    "CHAT", "AGENTS", "FUNCTION", "HISTORY", "PROV", "MOD", "VID", "SET", "OUT",
+]
+
+
+class WidgetSettingsDialog(QDialog):
+    """Standalone HUD settings: layers, metrics and panel assignments."""
+
+    def __init__(self, parent, settings):
+        super().__init__(parent)
+        self.setWindowTitle("НАСТРОЙКИ ВИДЖЕТА")
+        self.setModal(False)
+        self.resize(620, 520)
+        self.settings = settings
+        self.layer_checks = {}
+        self.metric_checks = {}
+        self.action_combos = {}
+
+        root = QVBoxLayout(self)
+        title = QLabel("НАСТРОЙКИ ВИДЖЕТА TECH-A")
+        title.setObjectName("settingsTitle")
+        root.addWidget(title)
+        hint = QLabel("Слои, метрики и назначения кнопок сохраняются отдельно от общих настроек приложения.")
+        hint.setObjectName("settingsHint")
+        root.addWidget(hint)
+
+        content = QHBoxLayout()
+        layers_box = QGroupBox("СЛОИ")
+        layers_layout = QVBoxLayout(layers_box)
+        layer_values = settings.get("layers", {})
+        for name in ("BG1", "BG2/BG000", "BG3", "BG4", "BG5", "BG6", "ROTATOR 1", "ROTATOR 2"):
+            check = QCheckBox(name)
+            check.setChecked(layer_values.get(name, True))
+            self.layer_checks[name] = check
+            layers_layout.addWidget(check)
+        content.addWidget(layers_box)
+
+        metrics_box = QGroupBox("МЕТРИКИ")
+        metrics_layout = QVBoxLayout(metrics_box)
+        metric_values = settings.get("metrics", {})
+        for name in ("CPU", "RAM", "GPU", "DISK"):
+            check = QCheckBox(name)
+            check.setChecked(metric_values.get(name, True))
+            self.metric_checks[name] = check
+            metrics_layout.addWidget(check)
+        metrics_layout.addStretch()
+        content.addWidget(metrics_box)
+        root.addLayout(content)
+
+        assignments = QGroupBox("НАЗНАЧЕНИЕ ПАНЕЛЕЙ")
+        assignments_layout = QFormLayout(assignments)
+        action_values = settings.get("actions", {})
+        for key in list(HUD_TOP_PANEL_BUTTONS) + list(HUD_BOTTOM_PANEL_BUTTONS):
+            combo = QComboBox()
+            combo.addItems(WIDGET_ACTION_OPTIONS)
+            combo.setCurrentText(action_values.get(key, key))
+            self.action_combos[key] = combo
+            assignments_layout.addRow(QLabel(key), combo)
+        root.addWidget(assignments)
+
+        buttons = QDialogButtonBox(QDialogButtonBox.Save | QDialogButtonBox.Cancel)
+        buttons.accepted.connect(self.accept)
+        buttons.rejected.connect(self.reject)
+        root.addWidget(buttons)
+
+    def values(self):
+        return {
+            "layers": {name: check.isChecked() for name, check in self.layer_checks.items()},
+            "metrics": {name: check.isChecked() for name, check in self.metric_checks.items()},
+            "actions": {name: combo.currentText() for name, combo in self.action_combos.items()},
+        }
 
 
 # ---------------- MESSAGE BUBBLE ----------------
@@ -266,6 +339,7 @@ class JarvisUI(QWidget):
         self.setAttribute(Qt.WA_TranslucentBackground)
 
         self.ui_settings = QSettings("Jarvis", "Jarvis Assist")
+        self.widget_settings = self.load_widget_settings()
         self.tech_font_families = self.register_tech_fonts()
         self.active_font_family = self.ui_settings.value(
             "font_family",
@@ -302,6 +376,38 @@ class JarvisUI(QWidget):
         self.chats_list.setMouseTracking(True)
         self.chats_list.viewport().setMouseTracking(True)
         self.chats_list.viewport().installEventFilter(self)
+
+    def load_widget_settings(self):
+        default = {
+            "layers": {
+                "BG1": True, "BG2/BG000": True, "BG3": True, "BG4": True,
+                "BG5": True, "BG6": True, "ROTATOR 1": True, "ROTATOR 2": True,
+            },
+            "metrics": {"CPU": True, "RAM": True, "GPU": True, "DISK": True},
+            "actions": {key: key for key in list(HUD_TOP_PANEL_BUTTONS) + list(HUD_BOTTOM_PANEL_BUTTONS)},
+        }
+        raw = self.ui_settings.value("widget_settings", "")
+        if not raw:
+            return default
+        try:
+            saved = json.loads(raw)
+            for group in ("layers", "metrics", "actions"):
+                default[group].update(saved.get(group, {}))
+        except (TypeError, ValueError, json.JSONDecodeError):
+            pass
+        return default
+
+    def open_widget_settings(self):
+        dialog = WidgetSettingsDialog(self, self.widget_settings)
+        if dialog.exec() == QDialog.DialogCode.Accepted:
+            self.widget_settings = dialog.values()
+            self.ui_settings.setValue("widget_settings", json.dumps(self.widget_settings, ensure_ascii=False))
+            self.hud.apply_widget_settings(self.widget_settings)
+            for key, button in getattr(self, "hud_panel_button_map", {}).items():
+                button.setProperty("actionKey", self.widget_settings["actions"].get(key, key))
+                button.style().unpolish(button)
+                button.style().polish(button)
+            self.assistant_label.setText("Настройки виджета сохранены")
 
 
     def activate_assistant(self):
@@ -369,29 +475,35 @@ class JarvisUI(QWidget):
     def create_hud_panel_buttons(self, parent):
         """Create the upper command labels and lower SVG command icons."""
         buttons = []
+        self.hud_panel_button_map = {}
+        action_map = self.widget_settings.get("actions", {})
         for name, (x, y) in HUD_TOP_PANEL_BUTTONS.items():
             button = QPushButton(name, parent)
             button.setObjectName("hudPanelTop")
+            button.setProperty("actionKey", action_map.get(name, name))
             button.setGeometry(x, y, 72 if name != "FUNCTION" else 86, 28)
             button.setCursor(Qt.PointingHandCursor)
-            button.clicked.connect(lambda checked=False, key=name: self.handle_hud_panel_action(key))
+            button.clicked.connect(lambda checked=False, item=button: self.handle_hud_panel_action(item.property("actionKey")))
             button.show()
             button.raise_()
             buttons.append(button)
+            self.hud_panel_button_map[name] = button
 
         icons_dir = os.path.join(BASE_DIR, "assets", "TECH-A", "panel")
         for name, (x, y) in HUD_BOTTOM_PANEL_BUTTONS.items():
             button = QToolButton(parent)
             button.setObjectName("hudPanelIcon")
+            button.setProperty("actionKey", action_map.get(name, name))
             button.setGeometry(x, y, 40, 32)
             button.setIcon(QIcon(os.path.join(icons_dir, f"{name}.svg")))
             button.setIconSize(QSize(18, 18))
             button.setToolTip(name)
             button.setCursor(Qt.PointingHandCursor)
-            button.clicked.connect(lambda checked=False, key=name: self.handle_hud_panel_action(key))
+            button.clicked.connect(lambda checked=False, item=button: self.handle_hud_panel_action(item.property("actionKey")))
             button.show()
             button.raise_()
             buttons.append(button)
+            self.hud_panel_button_map[name] = button
         return buttons
 
     def handle_hud_panel_action(self, name):
@@ -403,8 +515,7 @@ class JarvisUI(QWidget):
             self.menu.setCurrentRow(2)
             self.pages.setCurrentIndex(2)
         elif name == "SET":
-            self.menu.setCurrentRow(3)
-            self.pages.setCurrentIndex(3)
+            self.open_widget_settings()
         elif name == "AGENTS":
             self.show_panel_dialog("ДОСТУПНЫЕ АГЕНТЫ", [
                 "Main Agent", "Planner", "Executor", "Critic", "File",
@@ -1007,6 +1118,7 @@ class JarvisUI(QWidget):
             self.text_color,
             calibration_mode="--calibrate-cpu" in sys.argv,
         )
+        self.hud.apply_widget_settings(self.widget_settings)
         self.hud.setFixedSize(JarvisHUD.HUD_SIZE, JarvisHUD.HUD_SIZE)
         self.assistant_label = QLabel("Нажмите кнопку чтобы активировать JARVIS")
         self.assistant_label.setAlignment(Qt.AlignCenter)

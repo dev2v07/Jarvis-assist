@@ -105,6 +105,11 @@ class JarvisHUD(QWidget):
         self.scale = self.HUD_SIZE / self.bg6.width()
         self.setFixedSize(self.HUD_SIZE, self.HUD_SIZE)
         self.render_dpr = max(1.0, float(self.devicePixelRatioF()))
+        self.layer_visibility = {
+            "BG1": True, "BG2/BG000": True, "BG3": True, "BG4": True,
+            "BG5": True, "BG6": True, "ROTATOR 1": True, "ROTATOR 2": True,
+        }
+        self.metric_visibility = {"CPU": True, "RAM": True, "GPU": True, "DISK": True}
 
         # Compose the native Rainmeter image meters once at the physical
         # screen resolution. This avoids a second Qt/DWM resample on 125% DPI.
@@ -299,6 +304,14 @@ class JarvisHUD(QWidget):
             self.text_color = parsed
             self.update()
 
+    def apply_widget_settings(self, settings):
+        """Apply standalone HUD settings without rebuilding the main window."""
+        self.layer_visibility.update(settings.get("layers", {}))
+        self.metric_visibility.update(settings.get("metrics", {}))
+        self.animation.bg000_enabled = self.layer_visibility.get("BG2/BG000", True)
+        self.static_bg = self.build_static_bg()
+        self.update()
+
     def ring_pos(self, cx, cy, angle):
 
         r = self.GAUGE_RADIUS
@@ -316,7 +329,16 @@ class JarvisHUD(QWidget):
         composer = QPainter(canvas)
         composer.setRenderHint(QPainter.Antialiasing, False)
         # BG000/BG2 is animated separately; keep it out of the static cache.
-        for pixmap in (self.bg1, self.bg3, self.bg4, self.bg5, self.bg6):
+        static_layers = (
+            ("BG1", self.bg1),
+            ("BG3", self.bg3),
+            ("BG4", self.bg4),
+            ("BG5", self.bg5),
+            ("BG6", self.bg6),
+        )
+        for name, pixmap in static_layers:
+            if not self.layer_visibility.get(name, True):
+                continue
             if not pixmap.isNull():
                 if self.render_dpr == 1.0:
                     layer = pixmap
@@ -352,10 +374,11 @@ class JarvisHUD(QWidget):
 
         # GAME MODE hides the two regular rotating layers. BG000 is an
         # independent animation and remains visible in both modes.
-        if self.animation.rotator_visible:
+        if self.animation.rotator_visible and self.layer_visibility.get("ROTATOR 1", True):
             self.draw_rotator(painter, self.rotator_1, self.animation.rotator_1, cx, cy)
+        if self.animation.rotator_visible and self.layer_visibility.get("ROTATOR 2", True):
             self.draw_rotator(painter, self.rotator_2, self.animation.rotator_2, cx, cy)
-        if self.animation.bg000_enabled:
+        if self.animation.bg000_enabled and self.layer_visibility.get("BG2/BG000", True):
             self.draw_rotator(painter, self.bg2, self.animation.rotator_3, cx, cy)
 
         self.draw_datetime(painter)
@@ -371,10 +394,14 @@ class JarvisHUD(QWidget):
         ram_x, ram_y = 645, 250
         self.draw_net_readouts(painter)
         self.draw_net_progress(painter)
-        self.draw_gauge(painter, cpu_x, cpu_y, self.cpu_anim, "CPU")
-        self.draw_gauge(painter, ram_x, ram_y, self.ram_anim, "RAM")
-        self.draw_gauge(painter, gpu_x, gpu_y, self.gpu_anim, "GPU")
-        self.draw_gauge(painter, disk_x, disk_y, self.disk_anim, "DISK")
+        if self.metric_visibility.get("CPU", True):
+            self.draw_gauge(painter, cpu_x, cpu_y, self.cpu_anim, "CPU")
+        if self.metric_visibility.get("RAM", True):
+            self.draw_gauge(painter, ram_x, ram_y, self.ram_anim, "RAM")
+        if self.metric_visibility.get("GPU", True):
+            self.draw_gauge(painter, gpu_x, gpu_y, self.gpu_anim, "GPU")
+        if self.metric_visibility.get("DISK", True):
+            self.draw_gauge(painter, disk_x, disk_y, self.disk_anim, "DISK")
         self.draw_ram_panel(painter)
 
     def draw_datetime(self, painter):
