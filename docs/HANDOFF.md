@@ -1940,3 +1940,32 @@ Rollback point:
 
 - восстановить файлы из `backups/handoff-0057-align-time-date-source-anchors/`.
 
+## Очередь 0058 — fix time/date font metrics import
+
+Дата: 2026-10-26
+
+Перед правками создан backup:
+
+- `backups/handoff-0058-fix-time-date-import/`
+
+Изменения:
+
+- добавлен отсутствующий импорт `QFontMetricsF`, необходимый для выравнивания
+  времени и даты по исходным координатам;
+- устранено исключение `NameError` в `paintEvent`.
+
+Файлы:
+
+- `frontend/jarvis_hud.py`;
+- `docs/HANDOFF.md`.
+
+Проверка:
+
+- ожидается: `py_compile`, `git diff --check`, перезапуск backend/frontend и
+  `GET /health` со статусом HTTP 200;
+- окно frontend должно работать без повторяющихся ошибок `paintEvent`.
+
+Откат:
+
+- восстановить файлы из `backups/handoff-0058-fix-time-date-import/`.
+
