@@ -77,6 +77,38 @@ class JarvisHUD(QWidget):
         self.rotator_2 = QPixmap(os.path.join(ROTATOR, "2x.png"))
         self.big_animation = QPixmap(os.path.join(ASSETS, "BigAnimation.png"))
 
+        # Source-faithful TECH-A 6 CPU profile: six layers, each with five
+        # normal frames and a three-frame highlight strip.
+        self.cpu_source_layers = [
+            QPixmap(os.path.join(ASSETS, f"6cpucore{index}.png"))
+            for index in range(1, 7)
+        ]
+        self.cpu_source_highlights = [
+            QPixmap(os.path.join(ASSETS, f"6cpucore{index}str.png"))
+            for index in range(1, 7)
+        ]
+
+        self.cpu_source_center = QPointF(self.HUD_SIZE / 2 + 7.6,
+                                         self.HUD_SIZE / 2 + 1.6)
+        try:
+            with open(self.calibration_path, "r", encoding="utf-8") as handle:
+                saved_calibration = json.load(handle)
+            saved_offset = saved_calibration.get("progress_offset", {})
+            self.cpu_source_center = QPointF(
+                self.HUD_SIZE / 2 + float(saved_offset.get("x", 0)),
+                self.HUD_SIZE / 2 + float(saved_offset.get("y", 0)),
+            )
+            self.calibration_radius = float(
+                saved_calibration.get("progress_radius", self.calibration_radius)
+            )
+            for label, point in saved_calibration.get("anchors", {}).items():
+                if label in self.calibration_anchors:
+                    self.calibration_anchors[label] = QPointF(
+                        float(point["x"]), float(point["y"])
+                    )
+        except (OSError, ValueError, TypeError, json.JSONDecodeError, KeyError):
+            pass
+
         self.scale = self.HUD_SIZE / self.bg6.width()
         self.setFixedSize(self.HUD_SIZE, self.HUD_SIZE)
         self.render_dpr = max(1.0, float(self.devicePixelRatioF()))
@@ -374,71 +406,53 @@ class JarvisHUD(QWidget):
         painter.restore()
 
     def draw_cpu_load_indicator(self, painter):
-        """Render one continuous CPU-load point trail from the overall value."""
+        """Render the source TECH-A CPU sprite layers and scale marks."""
         painter.save()
         painter.setRenderHint(QPainter.Antialiasing, True)
 
         value = max(0.0, min(100.0, float(self.cpu_anim)))
-        total_points = 72
-        active_points = int(round(total_points * value / 100.0))
-        center_x, center_y = self.width() / 2, self.height() / 2
+        center_x, center_y = self.cpu_source_center.x(), self.cpu_source_center.y()
         if self.calibration_mode:
             center_x += self.calibration_offset.x()
             center_y += self.calibration_offset.y()
-        # Source-aligned radius: the TECH-A point trail sits on the dotted
-        # inner dashboard ring (the source roundline spans roughly 205..236
-        # px from the 355,355 center), not on the START button's inner ring.
-        # The source progress dots sit on the inner dotted track around START,
-        # not on the larger outer cell ring.
-        radius = self.calibration_radius if self.calibration_mode else 150.0
-        start_angle = -90.0
+        radius = self.calibration_radius
+        frame_index = min(4, max(0, int(value / 20.0)))
+        highlight_index = min(2, max(0, int(value / 50.0)))
+        frame_size = max(1, int(round(radius * 2.0)))
+        left = center_x - radius
+        top = center_y - radius
 
-        inactive = QColor(self.text_color)
-        inactive.setAlpha(65)
-        active = QColor(self.accent_color)
-        active.setAlpha(230)
+        for source in self.cpu_source_layers:
+            self.draw_source_cpu_frame(painter, source, 5, frame_index,
+                                       left, top, frame_size)
+        for source in self.cpu_source_highlights:
+            self.draw_source_cpu_frame(painter, source, 3, highlight_index,
+                                       left, top, frame_size)
 
-        # Fixed source-like scale marks for the same overall CPU trail.
         painter.setFont(self.font_net)
         scale_color = QColor(self.text_color)
         scale_color.setAlpha(235)
         painter.setPen(scale_color)
-        for label, scale_angle, scale_radius in (
-            ("0", -90.0, 155.0),
-            ("50", 0.0, 165.0),
-            ("100", 90.0, 155.0),
-        ):
-            label_angle = math.radians(scale_angle)
-            label_x = center_x + scale_radius * math.cos(label_angle)
-            label_y = center_y + scale_radius * math.sin(label_angle)
+        for label, anchor in self.calibration_anchors.items():
             painter.drawText(
-                QRectF(label_x - 32, label_y - 13, 64, 26),
+                QRectF(anchor.x() - 32, anchor.y() - 13, 64, 26),
                 Qt.AlignCenter,
                 label,
             )
-
-        for index in range(total_points):
-            angle = math.radians(start_angle + index * 360.0 / total_points)
-            x = center_x + radius * math.cos(angle)
-            y = center_y + radius * math.sin(angle)
-            painter.setPen(active if index < active_points else inactive)
-            point_radius = 0.58 if index < active_points else 0.36
-            painter.drawEllipse(QPointF(x, y), point_radius, point_radius)
-
-        if active_points:
-            endpoint_angle = math.radians(
-                start_angle + (active_points - 1) * 360.0 / total_points
-            )
-            endpoint = QPointF(
-                center_x + radius * math.cos(endpoint_angle),
-                center_y + radius * math.sin(endpoint_angle),
-            )
-            painter.setPen(QPen(active, 0.8))
-            painter.drawPoint(endpoint)
         painter.restore()
 
         if self.calibration_mode:
             self.draw_cpu_calibration_overlay(painter)
+
+    @staticmethod
+    def draw_source_cpu_frame(painter, source, frame_count, frame_index,
+                              left, top, frame_size):
+        if source.isNull():
+            return
+        source_frame_width = source.width() // frame_count
+        frame = source.copy(frame_index * source_frame_width, 0,
+                            source_frame_width, source.height())
+        painter.drawPixmap(QRectF(left, top, frame_size, frame_size), frame)
 
     def draw_cpu_calibration_overlay(self, painter):
         """Temporary draggable calibration handles for source alignment."""
