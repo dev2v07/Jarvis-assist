@@ -2103,3 +2103,13 @@ telemetry ping: `requests ReadTimeout` на `coqui.gateway.scarf.sh`. В
 - GitHub Push Protection обнаружила секрет в историческом legacy-файле `JARVIS-main/.../toolbench_tool_instruction.json`; файл удалён из локальной Git-истории, секретный скан чистый.
 - коммит публичной подготовки опубликован в `https://github.com/dev2v07/Jarvis-assist.git` в ветку `master`.
 - визуальный PNG-снимок приложения через computer-use не сохранён: окно Jarvis в момент проверки было свёрнуто; макеты вместо реального снимка не добавлялись.
+
+Очередь 0116 — ссылка Tandem и финальная проверка сборки, 2026-11-14:
+
+- ссылка `© Разработано Tandem Marketing 2026` перенесена непосредственно под карточку профиля в обычном окне;
+- ссылка открывает `https://tandemarketing.ru` через Qt rich-text link и добавлена в `widget_chrome_widgets`, поэтому скрывается вместе с остальным chrome при переходе в прозрачный HUD;
+- исходный `jarvis_ui.py` и launcher с Qt DLL runtime-hook успешно скомпилированы; GUI-сборка и Inno Setup пересобраны;
+- свежий `dist/Jarvis-Assistant-Setup.exe` создан успешно, размер около 88 МБ;
+- запуск свежего frozen GUI фактически проверен и не пройден: окно `Unhandled exception in script`, `DLL load failed while importing QtCore: Не найдена указанная процедура`;
+- поэтому запуск установленного GUI с голосом/аудио и получение реальных PNG-скриншотов остаются незакрытыми; backend source health ранее подтверждён отдельно;
+- процессы S2/GPT-SoVITS не останавливались и не изменялись.

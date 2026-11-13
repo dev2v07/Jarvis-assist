@@ -9,10 +9,28 @@ import time
 from pathlib import Path
 
 import requests
+
+# PyInstaller keeps PySide6's Qt DLLs in a subdirectory. Register that
+# directory before importing QtCore so Windows cannot resolve an incompatible
+# Qt6Core.dll from another Python/Qt installation on PATH.
+if getattr(sys, "frozen", False):
+    _qt_base = Path(getattr(sys, "_MEIPASS", Path(sys.executable).resolve().parent))
+    _qt_dll_handles = []
+    for _qt_dll_dir in (
+        _qt_base / "PySide6",
+        _qt_base / "_internal" / "PySide6",
+        Path(sys.executable).resolve().parent / "_internal" / "PySide6",
+    ):
+        if _qt_dll_dir.is_dir():
+            # Keep handles alive for the whole process; otherwise Windows
+            # removes the DLL search directories before QtCore imports.
+            _qt_dll_handles.append(os.add_dll_directory(str(_qt_dll_dir)))
+
 from PySide6.QtCore import QLockFile
 
 ROOT = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parents[1]
 BACKEND = ROOT / "backend"
+FROZEN_BACKEND = ROOT / "backend_runtime"
 HEALTH_URL = "http://127.0.0.1:8000/health"
 
 
@@ -39,12 +57,14 @@ def main() -> int:
     env = os.environ.copy()
     env["PYTHONPATH"] = os.pathsep.join([str(BACKEND), env.get("PYTHONPATH", "")]).rstrip(os.pathsep)
     if getattr(sys, "frozen", False):
-        backend_command = [str(ROOT / "JarvisBackend.exe")]
+        backend_command = [str(FROZEN_BACKEND / "JarvisBackend.exe")]
+        backend_cwd = FROZEN_BACKEND
     else:
         backend_command = [sys.executable, str(BACKEND / "main.py")]
+        backend_cwd = BACKEND
     backend_process = subprocess.Popen(
         backend_command,
-        cwd=str(BACKEND),
+        cwd=str(backend_cwd),
         env=env,
         creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
     )

@@ -11,6 +11,7 @@ python -m PyInstaller --noconfirm --clean --onedir --name JarvisBackend `
     "$root\backend\main.py"
 
 python -m PyInstaller --noconfirm --clean --onedir --windowed `
+    --contents-directory . `
     --name JarvisAssistant `
     --paths "$root\frontend" --paths "$root\backend" `
     --add-data "$root\frontend\assets;frontend\assets" `
@@ -18,11 +19,14 @@ python -m PyInstaller --noconfirm --clean --onedir --windowed `
     --add-data "$root\backend\voice_engine\sound;backend\voice_engine\sound" `
     --add-data "$root\backend\voice_engine\commands.yaml;backend\voice_engine\commands.yaml" `
     --hidden-import jarvis_ui `
+    --runtime-hook "$root\packaging\pyi_qt_runtime_hook.py" `
     "$root\frontend\launch_jarvis.py"
 
 $guiDir = Join-Path $dist "JarvisAssistant"
 $backendDir = Join-Path $dist "JarvisBackend"
-Copy-Item (Join-Path $backendDir "*") $guiDir -Recurse -Force
+$frozenBackendDir = Join-Path $guiDir "backend_runtime"
+New-Item -ItemType Directory -Force $frozenBackendDir | Out-Null
+Copy-Item (Join-Path $backendDir "*") $frozenBackendDir -Recurse -Force
 
 $iscc = Get-Command iscc -ErrorAction SilentlyContinue
 if (-not $iscc) {

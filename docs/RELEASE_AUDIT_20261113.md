@@ -64,10 +64,23 @@ or represented as a ready model.
 
 ## Open release gates
 
-The frozen build and Inno Setup compile are complete. The public Git tree was
-scanned for common secret formats; GitHub Push Protection initially found a
-token in an old legacy file, so that file was removed from local history before
-the normal push. The public `master` branch is now published. Runtime
-screenshots and a real reboot autostart test remain open. The installer is
-functional but oversized because the current backend bundle includes PyTorch
-and optional voice/device dependencies.
+The public Git tree was scanned for common secret formats; GitHub Push
+Protection initially found a token in an old legacy file, so that file was
+removed from local history before the normal push. The public `master` branch
+is now published.
+
+The attribution link is implemented in the source app directly below the
+profile card and is hidden in transparent HUD mode. The installer wizard also
+contains the clickable attribution link and publisher URL.
+
+The frozen GUI gate is still open: the latest `JarvisAssistant.exe` was
+launched, but its window reported `Unhandled exception in script` caused by
+`DLL load failed while importing QtCore: Не найдена указанная процедура`.
+Consequently, installed-GUI voice/audio playback has not been claimed as
+verified. The source backend health check remains independently verified.
+
+Runtime PNG screenshots and a real reboot autostart test remain open. The
+installer compiles successfully, but should not be described as a fully
+usable desktop release until the frozen PySide6/QtCore startup issue is fixed.
+The installer is oversized because the current backend bundle includes
+PyTorch and optional voice/device dependencies.

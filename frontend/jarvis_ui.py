@@ -3637,6 +3637,18 @@ class JarvisUI(QWidget):
         self.widget_chrome_widgets.append(profile_button)
         self._refresh_user_profile_card()
 
+        tandem_footer = QLabel(
+            '<a href="https://tandemarketing.ru">© Разработано Tandem Marketing 2026</a>'
+        )
+        tandem_footer.setObjectName("tandemFooter")
+        tandem_footer.setOpenExternalLinks(True)
+        tandem_footer.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
+        tandem_footer.setCursor(Qt.CursorShape.PointingHandCursor)
+        tandem_footer.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        tandem_footer.setFixedWidth(240)
+        self.tandem_footer = tandem_footer
+        self.widget_chrome_widgets.append(tandem_footer)
+
 
         # ---------- TOGGLES ----------
 
@@ -3714,6 +3726,7 @@ class JarvisUI(QWidget):
         left.addWidget(toggles)
         left.addWidget(weather)
         left.addWidget(profile_button)
+        left.addWidget(tandem_footer)
 
     
         # ---------- CHAT ----------
@@ -4942,6 +4955,16 @@ border:1px solid rgba(255,255,255,40);
 font-size:20px;
 font-weight:bold;
 color:#2E89FF;
+}
+
+#tandemFooter{
+color:rgba(255,255,255,205);
+font-size:12px;
+padding:3px 16px 7px 16px;
+}
+
+#tandemFooter:hover{
+color:#00EBF5;
 }
 
 #menu{
