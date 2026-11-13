@@ -1,0 +1,1555 @@
+{
+  "pack_id": "mailru_agent",
+  "title": "Mail.Ru Agent",
+  "version": 1,
+  "items": [
+    {
+      "item_id": "koloboks/air_kiss",
+      "path": "koloboks/air_kiss.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/air_kiss.gif",
+      "media_path": "mailru/koloboks/air_kiss.gif",
+      "send_mode": "draft_attachment",
+      "title": "air_kiss"
+    },
+    {
+      "item_id": "koloboks/bad",
+      "path": "koloboks/bad.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/bad.gif",
+      "media_path": "mailru/koloboks/bad.gif",
+      "send_mode": "draft_attachment",
+      "title": "bad"
+    },
+    {
+      "item_id": "koloboks/biggrin",
+      "path": "koloboks/biggrin.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/biggrin.gif",
+      "media_path": "mailru/koloboks/biggrin.gif",
+      "send_mode": "draft_attachment",
+      "title": "biggrin"
+    },
+    {
+      "item_id": "koloboks/blum1",
+      "path": "koloboks/blum1.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/blum1.gif",
+      "media_path": "mailru/koloboks/blum1.gif",
+      "send_mode": "draft_attachment",
+      "title": "blum1"
+    },
+    {
+      "item_id": "koloboks/blush",
+      "path": "koloboks/blush.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/blush.gif",
+      "media_path": "mailru/koloboks/blush.gif",
+      "send_mode": "draft_attachment",
+      "title": "blush"
+    },
+    {
+      "item_id": "koloboks/bomb",
+      "path": "koloboks/bomb.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/bomb.gif",
+      "media_path": "mailru/koloboks/bomb.gif",
+      "send_mode": "draft_attachment",
+      "title": "bomb"
+    },
+    {
+      "item_id": "koloboks/bye2",
+      "path": "koloboks/bye2.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/bye2.gif",
+      "media_path": "mailru/koloboks/bye2.gif",
+      "send_mode": "draft_attachment",
+      "title": "bye2"
+    },
+    {
+      "item_id": "koloboks/cool",
+      "path": "koloboks/cool.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/cool.gif",
+      "media_path": "mailru/koloboks/cool.gif",
+      "send_mode": "draft_attachment",
+      "title": "cool"
+    },
+    {
+      "item_id": "koloboks/crazy",
+      "path": "koloboks/crazy.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/crazy.gif",
+      "media_path": "mailru/koloboks/crazy.gif",
+      "send_mode": "draft_attachment",
+      "title": "crazy"
+    },
+    {
+      "item_id": "koloboks/cry",
+      "path": "koloboks/cry.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/cry.gif",
+      "media_path": "mailru/koloboks/cry.gif",
+      "send_mode": "draft_attachment",
+      "title": "cry"
+    },
+    {
+      "item_id": "koloboks/dance",
+      "path": "koloboks/dance.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/dance.gif",
+      "media_path": "mailru/koloboks/dance.gif",
+      "send_mode": "draft_attachment",
+      "title": "dance"
+    },
+    {
+      "item_id": "koloboks/diablo",
+      "path": "koloboks/diablo.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/diablo.gif",
+      "media_path": "mailru/koloboks/diablo.gif",
+      "send_mode": "draft_attachment",
+      "title": "diablo"
+    },
+    {
+      "item_id": "koloboks/drinks",
+      "path": "koloboks/drinks.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/drinks.gif",
+      "media_path": "mailru/koloboks/drinks.gif",
+      "send_mode": "draft_attachment",
+      "title": "drinks"
+    },
+    {
+      "item_id": "koloboks/gamer",
+      "path": "koloboks/gamer.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/gamer.gif",
+      "media_path": "mailru/koloboks/gamer.gif",
+      "send_mode": "draft_attachment",
+      "title": "gamer"
+    },
+    {
+      "item_id": "koloboks/girl_angel",
+      "path": "koloboks/girl_angel.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/girl_angel.gif",
+      "media_path": "mailru/koloboks/girl_angel.gif",
+      "send_mode": "draft_attachment",
+      "title": "girl_angel"
+    },
+    {
+      "item_id": "koloboks/give_heart",
+      "path": "koloboks/give_heart.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/give_heart.gif",
+      "media_path": "mailru/koloboks/give_heart.gif",
+      "send_mode": "draft_attachment",
+      "title": "give_heart"
+    },
+    {
+      "item_id": "koloboks/give_rose",
+      "path": "koloboks/give_rose.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/give_rose.gif",
+      "media_path": "mailru/koloboks/give_rose.gif",
+      "send_mode": "draft_attachment",
+      "title": "give_rose"
+    },
+    {
+      "item_id": "koloboks/good",
+      "path": "koloboks/good.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/good.gif",
+      "media_path": "mailru/koloboks/good.gif",
+      "send_mode": "draft_attachment",
+      "title": "good"
+    },
+    {
+      "item_id": "koloboks/hang1",
+      "path": "koloboks/hang1.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/hang1.gif",
+      "media_path": "mailru/koloboks/hang1.gif",
+      "send_mode": "draft_attachment",
+      "title": "hang1"
+    },
+    {
+      "item_id": "koloboks/hi",
+      "path": "koloboks/hi.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/hi.gif",
+      "media_path": "mailru/koloboks/hi.gif",
+      "send_mode": "draft_attachment",
+      "title": "hi"
+    },
+    {
+      "item_id": "koloboks/i_am_so_happy",
+      "path": "koloboks/i_am_so_happy.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/i_am_so_happy.gif",
+      "media_path": "mailru/koloboks/i_am_so_happy.gif",
+      "send_mode": "draft_attachment",
+      "title": "i_am_so_happy"
+    },
+    {
+      "item_id": "koloboks/ireful",
+      "path": "koloboks/ireful.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/ireful.gif",
+      "media_path": "mailru/koloboks/ireful.gif",
+      "send_mode": "draft_attachment",
+      "title": "ireful"
+    },
+    {
+      "item_id": "koloboks/kiss",
+      "path": "koloboks/kiss.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/kiss.gif",
+      "media_path": "mailru/koloboks/kiss.gif",
+      "send_mode": "draft_attachment",
+      "title": "kiss"
+    },
+    {
+      "item_id": "koloboks/kiss3",
+      "path": "koloboks/kiss3.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/kiss3.gif",
+      "media_path": "mailru/koloboks/kiss3.gif",
+      "send_mode": "draft_attachment",
+      "title": "kiss3"
+    },
+    {
+      "item_id": "koloboks/lol",
+      "path": "koloboks/lol.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/lol.gif",
+      "media_path": "mailru/koloboks/lol.gif",
+      "send_mode": "draft_attachment",
+      "title": "lol"
+    },
+    {
+      "item_id": "koloboks/mad",
+      "path": "koloboks/mad.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/mad.gif",
+      "media_path": "mailru/koloboks/mad.gif",
+      "send_mode": "draft_attachment",
+      "title": "mad"
+    },
+    {
+      "item_id": "koloboks/man_in_love",
+      "path": "koloboks/man_in_love.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/man_in_love.gif",
+      "media_path": "mailru/koloboks/man_in_love.gif",
+      "send_mode": "draft_attachment",
+      "title": "man_in_love"
+    },
+    {
+      "item_id": "koloboks/mocking",
+      "path": "koloboks/mocking.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/mocking.gif",
+      "media_path": "mailru/koloboks/mocking.gif",
+      "send_mode": "draft_attachment",
+      "title": "mocking"
+    },
+    {
+      "item_id": "koloboks/music",
+      "path": "koloboks/music.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/music.gif",
+      "media_path": "mailru/koloboks/music.gif",
+      "send_mode": "draft_attachment",
+      "title": "music"
+    },
+    {
+      "item_id": "koloboks/nea",
+      "path": "koloboks/nea.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/nea.gif",
+      "media_path": "mailru/koloboks/nea.gif",
+      "send_mode": "draft_attachment",
+      "title": "nea"
+    },
+    {
+      "item_id": "koloboks/pardon",
+      "path": "koloboks/pardon.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/pardon.gif",
+      "media_path": "mailru/koloboks/pardon.gif",
+      "send_mode": "draft_attachment",
+      "title": "pardon"
+    },
+    {
+      "item_id": "koloboks/rofl",
+      "path": "koloboks/rofl.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/rofl.gif",
+      "media_path": "mailru/koloboks/rofl.gif",
+      "send_mode": "draft_attachment",
+      "title": "rofl"
+    },
+    {
+      "item_id": "koloboks/sad",
+      "path": "koloboks/sad.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/sad.gif",
+      "media_path": "mailru/koloboks/sad.gif",
+      "send_mode": "draft_attachment",
+      "title": "sad"
+    },
+    {
+      "item_id": "koloboks/scratch_one-s_head",
+      "path": "koloboks/scratch_one-s_head.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/scratch_one-s_head.gif",
+      "media_path": "mailru/koloboks/scratch_one-s_head.gif",
+      "send_mode": "draft_attachment",
+      "title": "scratch_one-s_head"
+    },
+    {
+      "item_id": "koloboks/shok",
+      "path": "koloboks/shok.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/shok.gif",
+      "media_path": "mailru/koloboks/shok.gif",
+      "send_mode": "draft_attachment",
+      "title": "shok"
+    },
+    {
+      "item_id": "koloboks/shout",
+      "path": "koloboks/shout.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/shout.gif",
+      "media_path": "mailru/koloboks/shout.gif",
+      "send_mode": "draft_attachment",
+      "title": "shout"
+    },
+    {
+      "item_id": "koloboks/smile",
+      "path": "koloboks/smile.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/smile.gif",
+      "media_path": "mailru/koloboks/smile.gif",
+      "send_mode": "draft_attachment",
+      "title": "smile"
+    },
+    {
+      "item_id": "koloboks/sorry",
+      "path": "koloboks/sorry.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/sorry.gif",
+      "media_path": "mailru/koloboks/sorry.gif",
+      "send_mode": "draft_attachment",
+      "title": "sorry"
+    },
+    {
+      "item_id": "koloboks/unknown",
+      "path": "koloboks/unknown.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/unknown.gif",
+      "media_path": "mailru/koloboks/unknown.gif",
+      "send_mode": "draft_attachment",
+      "title": "unknown"
+    },
+    {
+      "item_id": "koloboks/wacko1",
+      "path": "koloboks/wacko1.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/wacko1.gif",
+      "media_path": "mailru/koloboks/wacko1.gif",
+      "send_mode": "draft_attachment",
+      "title": "wacko1"
+    },
+    {
+      "item_id": "koloboks/wink",
+      "path": "koloboks/wink.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/wink.gif",
+      "media_path": "mailru/koloboks/wink.gif",
+      "send_mode": "draft_attachment",
+      "title": "wink"
+    },
+    {
+      "item_id": "koloboks/yahoo",
+      "path": "koloboks/yahoo.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/yahoo.gif",
+      "media_path": "mailru/koloboks/yahoo.gif",
+      "send_mode": "draft_attachment",
+      "title": "yahoo"
+    },
+    {
+      "item_id": "koloboks/yes",
+      "path": "koloboks/yes.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/koloboks/yes.gif",
+      "media_path": "mailru/koloboks/yes.gif",
+      "send_mode": "draft_attachment",
+      "title": "yes"
+    },
+    {
+      "item_id": "s008",
+      "path": "s008.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/s008.gif",
+      "media_path": "mailru/s008.gif",
+      "send_mode": "draft_attachment",
+      "title": "s008"
+    },
+    {
+      "item_id": "set03/angel",
+      "path": "set03/angel.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/angel.gif",
+      "media_path": "mailru/set03/angel.gif",
+      "send_mode": "draft_attachment",
+      "title": "angel"
+    },
+    {
+      "item_id": "set03/bad",
+      "path": "set03/bad.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/bad.gif",
+      "media_path": "mailru/set03/bad.gif",
+      "send_mode": "draft_attachment",
+      "title": "bad"
+    },
+    {
+      "item_id": "set03/biggrin",
+      "path": "set03/biggrin.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/biggrin.gif",
+      "media_path": "mailru/set03/biggrin.gif",
+      "send_mode": "draft_attachment",
+      "title": "biggrin"
+    },
+    {
+      "item_id": "set03/blum",
+      "path": "set03/blum.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/blum.gif",
+      "media_path": "mailru/set03/blum.gif",
+      "send_mode": "draft_attachment",
+      "title": "blum"
+    },
+    {
+      "item_id": "set03/blush",
+      "path": "set03/blush.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/blush.gif",
+      "media_path": "mailru/set03/blush.gif",
+      "send_mode": "draft_attachment",
+      "title": "blush"
+    },
+    {
+      "item_id": "set03/cray",
+      "path": "set03/cray.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/cray.gif",
+      "media_path": "mailru/set03/cray.gif",
+      "send_mode": "draft_attachment",
+      "title": "cray"
+    },
+    {
+      "item_id": "set03/crazy",
+      "path": "set03/crazy.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/crazy.gif",
+      "media_path": "mailru/set03/crazy.gif",
+      "send_mode": "draft_attachment",
+      "title": "crazy"
+    },
+    {
+      "item_id": "set03/dance",
+      "path": "set03/dance.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/dance.gif",
+      "media_path": "mailru/set03/dance.gif",
+      "send_mode": "draft_attachment",
+      "title": "dance"
+    },
+    {
+      "item_id": "set03/diablo",
+      "path": "set03/diablo.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/diablo.gif",
+      "media_path": "mailru/set03/diablo.gif",
+      "send_mode": "draft_attachment",
+      "title": "diablo"
+    },
+    {
+      "item_id": "set03/dirol",
+      "path": "set03/dirol.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/dirol.gif",
+      "media_path": "mailru/set03/dirol.gif",
+      "send_mode": "draft_attachment",
+      "title": "dirol"
+    },
+    {
+      "item_id": "set03/drinks",
+      "path": "set03/drinks.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/drinks.gif",
+      "media_path": "mailru/set03/drinks.gif",
+      "send_mode": "draft_attachment",
+      "title": "drinks"
+    },
+    {
+      "item_id": "set03/facepalm",
+      "path": "set03/facepalm.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/facepalm.gif",
+      "media_path": "mailru/set03/facepalm.gif",
+      "send_mode": "draft_attachment",
+      "title": "facepalm"
+    },
+    {
+      "item_id": "set03/fool",
+      "path": "set03/fool.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/fool.gif",
+      "media_path": "mailru/set03/fool.gif",
+      "send_mode": "draft_attachment",
+      "title": "fool"
+    },
+    {
+      "item_id": "set03/give_rose",
+      "path": "set03/give_rose.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/give_rose.gif",
+      "media_path": "mailru/set03/give_rose.gif",
+      "send_mode": "draft_attachment",
+      "title": "give_rose"
+    },
+    {
+      "item_id": "set03/good",
+      "path": "set03/good.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/good.gif",
+      "media_path": "mailru/set03/good.gif",
+      "send_mode": "draft_attachment",
+      "title": "good"
+    },
+    {
+      "item_id": "set03/kiss_mini",
+      "path": "set03/kiss_mini.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/kiss_mini.gif",
+      "media_path": "mailru/set03/kiss_mini.gif",
+      "send_mode": "draft_attachment",
+      "title": "kiss_mini"
+    },
+    {
+      "item_id": "set03/man_in_love",
+      "path": "set03/man_in_love.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/man_in_love.gif",
+      "media_path": "mailru/set03/man_in_love.gif",
+      "send_mode": "draft_attachment",
+      "title": "man_in_love"
+    },
+    {
+      "item_id": "set03/mocking",
+      "path": "set03/mocking.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/mocking.gif",
+      "media_path": "mailru/set03/mocking.gif",
+      "send_mode": "draft_attachment",
+      "title": "mocking"
+    },
+    {
+      "item_id": "set03/music",
+      "path": "set03/music.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/music.gif",
+      "media_path": "mailru/set03/music.gif",
+      "send_mode": "draft_attachment",
+      "title": "music"
+    },
+    {
+      "item_id": "set03/nea",
+      "path": "set03/nea.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/nea.gif",
+      "media_path": "mailru/set03/nea.gif",
+      "send_mode": "draft_attachment",
+      "title": "nea"
+    },
+    {
+      "item_id": "set03/pardon",
+      "path": "set03/pardon.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/pardon.gif",
+      "media_path": "mailru/set03/pardon.gif",
+      "send_mode": "draft_attachment",
+      "title": "pardon"
+    },
+    {
+      "item_id": "set03/rofl",
+      "path": "set03/rofl.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/rofl.gif",
+      "media_path": "mailru/set03/rofl.gif",
+      "send_mode": "draft_attachment",
+      "title": "rofl"
+    },
+    {
+      "item_id": "set03/rolleyes",
+      "path": "set03/rolleyes.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/rolleyes.gif",
+      "media_path": "mailru/set03/rolleyes.gif",
+      "send_mode": "draft_attachment",
+      "title": "rolleyes"
+    },
+    {
+      "item_id": "set03/sad",
+      "path": "set03/sad.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/sad.gif",
+      "media_path": "mailru/set03/sad.gif",
+      "send_mode": "draft_attachment",
+      "title": "sad"
+    },
+    {
+      "item_id": "set03/scratch_one-s_head",
+      "path": "set03/scratch_one-s_head.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/scratch_one-s_head.gif",
+      "media_path": "mailru/set03/scratch_one-s_head.gif",
+      "send_mode": "draft_attachment",
+      "title": "scratch_one-s_head"
+    },
+    {
+      "item_id": "set03/shok",
+      "path": "set03/shok.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/shok.gif",
+      "media_path": "mailru/set03/shok.gif",
+      "send_mode": "draft_attachment",
+      "title": "shok"
+    },
+    {
+      "item_id": "set03/shout",
+      "path": "set03/shout.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/shout.gif",
+      "media_path": "mailru/set03/shout.gif",
+      "send_mode": "draft_attachment",
+      "title": "shout"
+    },
+    {
+      "item_id": "set03/smile",
+      "path": "set03/smile.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/smile.gif",
+      "media_path": "mailru/set03/smile.gif",
+      "send_mode": "draft_attachment",
+      "title": "smile"
+    },
+    {
+      "item_id": "set03/unknw",
+      "path": "set03/unknw.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/unknw.gif",
+      "media_path": "mailru/set03/unknw.gif",
+      "send_mode": "draft_attachment",
+      "title": "unknw"
+    },
+    {
+      "item_id": "set03/wacko2",
+      "path": "set03/wacko2.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/wacko2.gif",
+      "media_path": "mailru/set03/wacko2.gif",
+      "send_mode": "draft_attachment",
+      "title": "wacko2"
+    },
+    {
+      "item_id": "set03/wink",
+      "path": "set03/wink.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/wink.gif",
+      "media_path": "mailru/set03/wink.gif",
+      "send_mode": "draft_attachment",
+      "title": "wink"
+    },
+    {
+      "item_id": "set03/yahoo",
+      "path": "set03/yahoo.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set03/yahoo.gif",
+      "media_path": "mailru/set03/yahoo.gif",
+      "send_mode": "draft_attachment",
+      "title": "yahoo"
+    },
+    {
+      "item_id": "set04/s001",
+      "path": "set04/s001.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s001.gif",
+      "media_path": "mailru/set04/s001.gif",
+      "send_mode": "draft_attachment",
+      "title": "s001"
+    },
+    {
+      "item_id": "set04/s002",
+      "path": "set04/s002.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s002.gif",
+      "media_path": "mailru/set04/s002.gif",
+      "send_mode": "draft_attachment",
+      "title": "s002"
+    },
+    {
+      "item_id": "set04/s003",
+      "path": "set04/s003.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s003.gif",
+      "media_path": "mailru/set04/s003.gif",
+      "send_mode": "draft_attachment",
+      "title": "s003"
+    },
+    {
+      "item_id": "set04/s004",
+      "path": "set04/s004.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s004.gif",
+      "media_path": "mailru/set04/s004.gif",
+      "send_mode": "draft_attachment",
+      "title": "s004"
+    },
+    {
+      "item_id": "set04/s005",
+      "path": "set04/s005.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s005.gif",
+      "media_path": "mailru/set04/s005.gif",
+      "send_mode": "draft_attachment",
+      "title": "s005"
+    },
+    {
+      "item_id": "set04/s006",
+      "path": "set04/s006.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s006.gif",
+      "media_path": "mailru/set04/s006.gif",
+      "send_mode": "draft_attachment",
+      "title": "s006"
+    },
+    {
+      "item_id": "set04/s007",
+      "path": "set04/s007.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s007.gif",
+      "media_path": "mailru/set04/s007.gif",
+      "send_mode": "draft_attachment",
+      "title": "s007"
+    },
+    {
+      "item_id": "set04/s008",
+      "path": "set04/s008.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s008.gif",
+      "media_path": "mailru/set04/s008.gif",
+      "send_mode": "draft_attachment",
+      "title": "s008"
+    },
+    {
+      "item_id": "set04/s009",
+      "path": "set04/s009.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s009.gif",
+      "media_path": "mailru/set04/s009.gif",
+      "send_mode": "draft_attachment",
+      "title": "s009"
+    },
+    {
+      "item_id": "set04/s010",
+      "path": "set04/s010.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s010.gif",
+      "media_path": "mailru/set04/s010.gif",
+      "send_mode": "draft_attachment",
+      "title": "s010"
+    },
+    {
+      "item_id": "set04/s011",
+      "path": "set04/s011.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s011.gif",
+      "media_path": "mailru/set04/s011.gif",
+      "send_mode": "draft_attachment",
+      "title": "s011"
+    },
+    {
+      "item_id": "set04/s012",
+      "path": "set04/s012.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s012.gif",
+      "media_path": "mailru/set04/s012.gif",
+      "send_mode": "draft_attachment",
+      "title": "s012"
+    },
+    {
+      "item_id": "set04/s013",
+      "path": "set04/s013.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s013.gif",
+      "media_path": "mailru/set04/s013.gif",
+      "send_mode": "draft_attachment",
+      "title": "s013"
+    },
+    {
+      "item_id": "set04/s014",
+      "path": "set04/s014.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s014.gif",
+      "media_path": "mailru/set04/s014.gif",
+      "send_mode": "draft_attachment",
+      "title": "s014"
+    },
+    {
+      "item_id": "set04/s015",
+      "path": "set04/s015.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s015.gif",
+      "media_path": "mailru/set04/s015.gif",
+      "send_mode": "draft_attachment",
+      "title": "s015"
+    },
+    {
+      "item_id": "set04/s016",
+      "path": "set04/s016.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set04/s016.gif",
+      "media_path": "mailru/set04/s016.gif",
+      "send_mode": "draft_attachment",
+      "title": "s016"
+    },
+    {
+      "item_id": "set05/s001",
+      "path": "set05/s001.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s001.gif",
+      "media_path": "mailru/set05/s001.gif",
+      "send_mode": "draft_attachment",
+      "title": "s001"
+    },
+    {
+      "item_id": "set05/s002",
+      "path": "set05/s002.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s002.gif",
+      "media_path": "mailru/set05/s002.gif",
+      "send_mode": "draft_attachment",
+      "title": "s002"
+    },
+    {
+      "item_id": "set05/s003",
+      "path": "set05/s003.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s003.gif",
+      "media_path": "mailru/set05/s003.gif",
+      "send_mode": "draft_attachment",
+      "title": "s003"
+    },
+    {
+      "item_id": "set05/s004",
+      "path": "set05/s004.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s004.gif",
+      "media_path": "mailru/set05/s004.gif",
+      "send_mode": "draft_attachment",
+      "title": "s004"
+    },
+    {
+      "item_id": "set05/s005",
+      "path": "set05/s005.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s005.gif",
+      "media_path": "mailru/set05/s005.gif",
+      "send_mode": "draft_attachment",
+      "title": "s005"
+    },
+    {
+      "item_id": "set05/s006",
+      "path": "set05/s006.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s006.gif",
+      "media_path": "mailru/set05/s006.gif",
+      "send_mode": "draft_attachment",
+      "title": "s006"
+    },
+    {
+      "item_id": "set05/s007",
+      "path": "set05/s007.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s007.gif",
+      "media_path": "mailru/set05/s007.gif",
+      "send_mode": "draft_attachment",
+      "title": "s007"
+    },
+    {
+      "item_id": "set05/s008",
+      "path": "set05/s008.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s008.gif",
+      "media_path": "mailru/set05/s008.gif",
+      "send_mode": "draft_attachment",
+      "title": "s008"
+    },
+    {
+      "item_id": "set05/s009",
+      "path": "set05/s009.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s009.gif",
+      "media_path": "mailru/set05/s009.gif",
+      "send_mode": "draft_attachment",
+      "title": "s009"
+    },
+    {
+      "item_id": "set05/s010",
+      "path": "set05/s010.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s010.gif",
+      "media_path": "mailru/set05/s010.gif",
+      "send_mode": "draft_attachment",
+      "title": "s010"
+    },
+    {
+      "item_id": "set05/s011",
+      "path": "set05/s011.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s011.gif",
+      "media_path": "mailru/set05/s011.gif",
+      "send_mode": "draft_attachment",
+      "title": "s011"
+    },
+    {
+      "item_id": "set05/s012",
+      "path": "set05/s012.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s012.gif",
+      "media_path": "mailru/set05/s012.gif",
+      "send_mode": "draft_attachment",
+      "title": "s012"
+    },
+    {
+      "item_id": "set05/s013",
+      "path": "set05/s013.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s013.gif",
+      "media_path": "mailru/set05/s013.gif",
+      "send_mode": "draft_attachment",
+      "title": "s013"
+    },
+    {
+      "item_id": "set05/s014",
+      "path": "set05/s014.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s014.gif",
+      "media_path": "mailru/set05/s014.gif",
+      "send_mode": "draft_attachment",
+      "title": "s014"
+    },
+    {
+      "item_id": "set05/s015",
+      "path": "set05/s015.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s015.gif",
+      "media_path": "mailru/set05/s015.gif",
+      "send_mode": "draft_attachment",
+      "title": "s015"
+    },
+    {
+      "item_id": "set05/s016",
+      "path": "set05/s016.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s016.gif",
+      "media_path": "mailru/set05/s016.gif",
+      "send_mode": "draft_attachment",
+      "title": "s016"
+    },
+    {
+      "item_id": "set05/s017",
+      "path": "set05/s017.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s017.gif",
+      "media_path": "mailru/set05/s017.gif",
+      "send_mode": "draft_attachment",
+      "title": "s017"
+    },
+    {
+      "item_id": "set05/s018",
+      "path": "set05/s018.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s018.gif",
+      "media_path": "mailru/set05/s018.gif",
+      "send_mode": "draft_attachment",
+      "title": "s018"
+    },
+    {
+      "item_id": "set05/s019",
+      "path": "set05/s019.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s019.gif",
+      "media_path": "mailru/set05/s019.gif",
+      "send_mode": "draft_attachment",
+      "title": "s019"
+    },
+    {
+      "item_id": "set05/s020",
+      "path": "set05/s020.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set05/s020.gif",
+      "media_path": "mailru/set05/s020.gif",
+      "send_mode": "draft_attachment",
+      "title": "s020"
+    },
+    {
+      "item_id": "set06/s001",
+      "path": "set06/s001.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s001.gif",
+      "media_path": "mailru/set06/s001.gif",
+      "send_mode": "draft_attachment",
+      "title": "s001"
+    },
+    {
+      "item_id": "set06/s002",
+      "path": "set06/s002.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s002.gif",
+      "media_path": "mailru/set06/s002.gif",
+      "send_mode": "draft_attachment",
+      "title": "s002"
+    },
+    {
+      "item_id": "set06/s003",
+      "path": "set06/s003.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s003.gif",
+      "media_path": "mailru/set06/s003.gif",
+      "send_mode": "draft_attachment",
+      "title": "s003"
+    },
+    {
+      "item_id": "set06/s004",
+      "path": "set06/s004.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s004.gif",
+      "media_path": "mailru/set06/s004.gif",
+      "send_mode": "draft_attachment",
+      "title": "s004"
+    },
+    {
+      "item_id": "set06/s006",
+      "path": "set06/s006.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s006.gif",
+      "media_path": "mailru/set06/s006.gif",
+      "send_mode": "draft_attachment",
+      "title": "s006"
+    },
+    {
+      "item_id": "set06/s008",
+      "path": "set06/s008.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s008.gif",
+      "media_path": "mailru/set06/s008.gif",
+      "send_mode": "draft_attachment",
+      "title": "s008"
+    },
+    {
+      "item_id": "set06/s009",
+      "path": "set06/s009.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s009.gif",
+      "media_path": "mailru/set06/s009.gif",
+      "send_mode": "draft_attachment",
+      "title": "s009"
+    },
+    {
+      "item_id": "set06/s010",
+      "path": "set06/s010.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s010.gif",
+      "media_path": "mailru/set06/s010.gif",
+      "send_mode": "draft_attachment",
+      "title": "s010"
+    },
+    {
+      "item_id": "set06/s011",
+      "path": "set06/s011.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s011.gif",
+      "media_path": "mailru/set06/s011.gif",
+      "send_mode": "draft_attachment",
+      "title": "s011"
+    },
+    {
+      "item_id": "set06/s012",
+      "path": "set06/s012.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s012.gif",
+      "media_path": "mailru/set06/s012.gif",
+      "send_mode": "draft_attachment",
+      "title": "s012"
+    },
+    {
+      "item_id": "set06/s013",
+      "path": "set06/s013.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s013.gif",
+      "media_path": "mailru/set06/s013.gif",
+      "send_mode": "draft_attachment",
+      "title": "s013"
+    },
+    {
+      "item_id": "set06/s014",
+      "path": "set06/s014.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s014.gif",
+      "media_path": "mailru/set06/s014.gif",
+      "send_mode": "draft_attachment",
+      "title": "s014"
+    },
+    {
+      "item_id": "set06/s015",
+      "path": "set06/s015.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s015.gif",
+      "media_path": "mailru/set06/s015.gif",
+      "send_mode": "draft_attachment",
+      "title": "s015"
+    },
+    {
+      "item_id": "set06/s016",
+      "path": "set06/s016.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s016.gif",
+      "media_path": "mailru/set06/s016.gif",
+      "send_mode": "draft_attachment",
+      "title": "s016"
+    },
+    {
+      "item_id": "set06/s017",
+      "path": "set06/s017.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s017.gif",
+      "media_path": "mailru/set06/s017.gif",
+      "send_mode": "draft_attachment",
+      "title": "s017"
+    },
+    {
+      "item_id": "set06/s018",
+      "path": "set06/s018.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s018.gif",
+      "media_path": "mailru/set06/s018.gif",
+      "send_mode": "draft_attachment",
+      "title": "s018"
+    },
+    {
+      "item_id": "set06/s019",
+      "path": "set06/s019.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s019.gif",
+      "media_path": "mailru/set06/s019.gif",
+      "send_mode": "draft_attachment",
+      "title": "s019"
+    },
+    {
+      "item_id": "set06/s020",
+      "path": "set06/s020.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/set06/s020.gif",
+      "media_path": "mailru/set06/s020.gif",
+      "send_mode": "draft_attachment",
+      "title": "s020"
+    },
+    {
+      "item_id": "smiles/aaa",
+      "path": "smiles/aaa.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/aaa.gif",
+      "media_path": "mailru/smiles/aaa.gif",
+      "send_mode": "draft_attachment",
+      "title": "aaa"
+    },
+    {
+      "item_id": "smiles/amazed",
+      "path": "smiles/amazed.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/amazed.gif",
+      "media_path": "mailru/smiles/amazed.gif",
+      "send_mode": "draft_attachment",
+      "title": "amazed"
+    },
+    {
+      "item_id": "smiles/angry",
+      "path": "smiles/angry.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/angry.gif",
+      "media_path": "mailru/smiles/angry.gif",
+      "send_mode": "draft_attachment",
+      "title": "angry"
+    },
+    {
+      "item_id": "smiles/ass",
+      "path": "smiles/ass.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/ass.gif",
+      "media_path": "mailru/smiles/ass.gif",
+      "send_mode": "draft_attachment",
+      "title": "ass"
+    },
+    {
+      "item_id": "smiles/bazilio",
+      "path": "smiles/bazilio.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/bazilio.gif",
+      "media_path": "mailru/smiles/bazilio.gif",
+      "send_mode": "draft_attachment",
+      "title": "bazilio"
+    },
+    {
+      "item_id": "smiles/bee",
+      "path": "smiles/bee.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/bee.gif",
+      "media_path": "mailru/smiles/bee.gif",
+      "send_mode": "draft_attachment",
+      "title": "bee"
+    },
+    {
+      "item_id": "smiles/biganger",
+      "path": "smiles/biganger.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/biganger.gif",
+      "media_path": "mailru/smiles/biganger.gif",
+      "send_mode": "draft_attachment",
+      "title": "biganger"
+    },
+    {
+      "item_id": "smiles/biggrin",
+      "path": "smiles/biggrin.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/biggrin.gif",
+      "media_path": "mailru/smiles/biggrin.gif",
+      "send_mode": "draft_attachment",
+      "title": "biggrin"
+    },
+    {
+      "item_id": "smiles/blink",
+      "path": "smiles/blink.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/blink.gif",
+      "media_path": "mailru/smiles/blink.gif",
+      "send_mode": "draft_attachment",
+      "title": "blink"
+    },
+    {
+      "item_id": "smiles/bullshit",
+      "path": "smiles/bullshit.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/bullshit.gif",
+      "media_path": "mailru/smiles/bullshit.gif",
+      "send_mode": "draft_attachment",
+      "title": "bullshit"
+    },
+    {
+      "item_id": "smiles/coolguy",
+      "path": "smiles/coolguy.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/coolguy.gif",
+      "media_path": "mailru/smiles/coolguy.gif",
+      "send_mode": "draft_attachment",
+      "title": "coolguy"
+    },
+    {
+      "item_id": "smiles/crocodile",
+      "path": "smiles/crocodile.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/crocodile.gif",
+      "media_path": "mailru/smiles/crocodile.gif",
+      "send_mode": "draft_attachment",
+      "title": "crocodile"
+    },
+    {
+      "item_id": "smiles/cry",
+      "path": "smiles/cry.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/cry.gif",
+      "media_path": "mailru/smiles/cry.gif",
+      "send_mode": "draft_attachment",
+      "title": "cry"
+    },
+    {
+      "item_id": "smiles/detzl",
+      "path": "smiles/detzl.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/detzl.gif",
+      "media_path": "mailru/smiles/detzl.gif",
+      "send_mode": "draft_attachment",
+      "title": "detzl"
+    },
+    {
+      "item_id": "smiles/devil",
+      "path": "smiles/devil.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/devil.gif",
+      "media_path": "mailru/smiles/devil.gif",
+      "send_mode": "draft_attachment",
+      "title": "devil"
+    },
+    {
+      "item_id": "smiles/die",
+      "path": "smiles/die.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/die.gif",
+      "media_path": "mailru/smiles/die.gif",
+      "send_mode": "draft_attachment",
+      "title": "die"
+    },
+    {
+      "item_id": "smiles/disappointed",
+      "path": "smiles/disappointed.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/disappointed.gif",
+      "media_path": "mailru/smiles/disappointed.gif",
+      "send_mode": "draft_attachment",
+      "title": "disappointed"
+    },
+    {
+      "item_id": "smiles/fist",
+      "path": "smiles/fist.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/fist.gif",
+      "media_path": "mailru/smiles/fist.gif",
+      "send_mode": "draft_attachment",
+      "title": "fist"
+    },
+    {
+      "item_id": "smiles/fuck",
+      "path": "smiles/fuck.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/fuck.gif",
+      "media_path": "mailru/smiles/fuck.gif",
+      "send_mode": "draft_attachment",
+      "title": "fuck"
+    },
+    {
+      "item_id": "smiles/heart",
+      "path": "smiles/heart.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/heart.gif",
+      "media_path": "mailru/smiles/heart.gif",
+      "send_mode": "draft_attachment",
+      "title": "heart"
+    },
+    {
+      "item_id": "smiles/hm",
+      "path": "smiles/hm.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/hm.gif",
+      "media_path": "mailru/smiles/hm.gif",
+      "send_mode": "draft_attachment",
+      "title": "hm"
+    },
+    {
+      "item_id": "smiles/kiss",
+      "path": "smiles/kiss.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/kiss.gif",
+      "media_path": "mailru/smiles/kiss.gif",
+      "send_mode": "draft_attachment",
+      "title": "kiss"
+    },
+    {
+      "item_id": "smiles/koza_left",
+      "path": "smiles/koza_left.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/koza_left.gif",
+      "media_path": "mailru/smiles/koza_left.gif",
+      "send_mode": "draft_attachment",
+      "title": "koza_left"
+    },
+    {
+      "item_id": "smiles/koza_right",
+      "path": "smiles/koza_right.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/koza_right.gif",
+      "media_path": "mailru/smiles/koza_right.gif",
+      "send_mode": "draft_attachment",
+      "title": "koza_right"
+    },
+    {
+      "item_id": "smiles/kukes",
+      "path": "smiles/kukes.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/kukes.gif",
+      "media_path": "mailru/smiles/kukes.gif",
+      "send_mode": "draft_attachment",
+      "title": "kukes"
+    },
+    {
+      "item_id": "smiles/laughter",
+      "path": "smiles/laughter.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/laughter.gif",
+      "media_path": "mailru/smiles/laughter.gif",
+      "send_mode": "draft_attachment",
+      "title": "laughter"
+    },
+    {
+      "item_id": "smiles/live",
+      "path": "smiles/live.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/live.gif",
+      "media_path": "mailru/smiles/live.gif",
+      "send_mode": "draft_attachment",
+      "title": "live"
+    },
+    {
+      "item_id": "smiles/ok",
+      "path": "smiles/ok.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/ok.gif",
+      "media_path": "mailru/smiles/ok.gif",
+      "send_mode": "draft_attachment",
+      "title": "ok"
+    },
+    {
+      "item_id": "smiles/oo",
+      "path": "smiles/oo.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/oo.gif",
+      "media_path": "mailru/smiles/oo.gif",
+      "send_mode": "draft_attachment",
+      "title": "oo"
+    },
+    {
+      "item_id": "smiles/pig",
+      "path": "smiles/pig.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/pig.gif",
+      "media_path": "mailru/smiles/pig.gif",
+      "send_mode": "draft_attachment",
+      "title": "pig"
+    },
+    {
+      "item_id": "smiles/plug",
+      "path": "smiles/plug.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/plug.gif",
+      "media_path": "mailru/smiles/plug.gif",
+      "send_mode": "draft_attachment",
+      "title": "plug"
+    },
+    {
+      "item_id": "smiles/really",
+      "path": "smiles/really.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/really.gif",
+      "media_path": "mailru/smiles/really.gif",
+      "send_mode": "draft_attachment",
+      "title": "really"
+    },
+    {
+      "item_id": "smiles/rrr",
+      "path": "smiles/rrr.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/rrr.gif",
+      "media_path": "mailru/smiles/rrr.gif",
+      "send_mode": "draft_attachment",
+      "title": "rrr"
+    },
+    {
+      "item_id": "smiles/sceptic",
+      "path": "smiles/sceptic.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/sceptic.gif",
+      "media_path": "mailru/smiles/sceptic.gif",
+      "send_mode": "draft_attachment",
+      "title": "sceptic"
+    },
+    {
+      "item_id": "smiles/shy",
+      "path": "smiles/shy.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/shy.gif",
+      "media_path": "mailru/smiles/shy.gif",
+      "send_mode": "draft_attachment",
+      "title": "shy"
+    },
+    {
+      "item_id": "smiles/sleepy",
+      "path": "smiles/sleepy.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/sleepy.gif",
+      "media_path": "mailru/smiles/sleepy.gif",
+      "send_mode": "draft_attachment",
+      "title": "sleepy"
+    },
+    {
+      "item_id": "smiles/smile",
+      "path": "smiles/smile.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/smile.gif",
+      "media_path": "mailru/smiles/smile.gif",
+      "send_mode": "draft_attachment",
+      "title": "smile"
+    },
+    {
+      "item_id": "smiles/tears",
+      "path": "smiles/tears.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/tears.gif",
+      "media_path": "mailru/smiles/tears.gif",
+      "send_mode": "draft_attachment",
+      "title": "tears"
+    },
+    {
+      "item_id": "smiles/think",
+      "path": "smiles/think.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/think.gif",
+      "media_path": "mailru/smiles/think.gif",
+      "send_mode": "draft_attachment",
+      "title": "think"
+    },
+    {
+      "item_id": "smiles/vampire",
+      "path": "smiles/vampire.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/vampire.gif",
+      "media_path": "mailru/smiles/vampire.gif",
+      "send_mode": "draft_attachment",
+      "title": "vampire"
+    },
+    {
+      "item_id": "smiles/victory",
+      "path": "smiles/victory.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/victory.gif",
+      "media_path": "mailru/smiles/victory.gif",
+      "send_mode": "draft_attachment",
+      "title": "victory"
+    },
+    {
+      "item_id": "smiles/zloradstvo",
+      "path": "smiles/zloradstvo.gif",
+      "kind": "mult",
+      "preview_path": "stickers/mailru/smiles/zloradstvo.gif",
+      "media_path": "mailru/smiles/zloradstvo.gif",
+      "send_mode": "draft_attachment",
+      "title": "zloradstvo"
+    }
+  ]
+}

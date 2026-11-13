@@ -9,7 +9,12 @@ from typing import Dict, List
 import requests
 from cachetools import TTLCache
 
-from config import RETRY_BACKOFF_SECONDS, SEARCH_CACHE_TTL
+from config import OLLAMA_MODEL, RETRY_BACKOFF_SECONDS, SEARCH_CACHE_TTL
+from services.provider_adapters import (
+    ProviderConfigurationError,
+    ProviderError,
+    build_provider_adapter,
+)
 from utils.logging_setup import get_logger
 
 
@@ -44,6 +49,7 @@ class LocalLLMService:
         self._overrides = overrides or {}
 
         self.backend_name = self.provider
+        self._provider_cooldown_until = 0.0
 
     # -----------------------------------------------------
 
@@ -72,7 +78,7 @@ class LocalLLMService:
     @property
     def ollama_model(self) -> str:
 
-        return self._getenv("HEL_OLLAMA_MODEL", "qwen2.5:7b-q4_K_M")
+        return self._getenv("HEL_OLLAMA_MODEL", OLLAMA_MODEL)
 
     # -----------------------------------------------------
     # OPENAI
@@ -97,6 +103,27 @@ class LocalLLMService:
     def openai_temperature(self) -> float:
 
         return float(self._getenv("HEL_OPENAI_TEMPERATURE", "0.2"))
+
+    def _provider_config(self) -> dict[str, str]:
+        """Build adapter config without logging or serializing credentials."""
+
+        return {
+            "HEL_OLLAMA_BASE_URL": self.ollama_base_url,
+            "HEL_OLLAMA_MODEL": self.ollama_model,
+            "HEL_OPENAI_BASE_URL": self.openai_base_url,
+            "HEL_OPENAI_MODEL": self.openai_model,
+            "HEL_OPENAI_API_KEY": self.openai_api_key,
+            "HEL_OPENAI_TEMPERATURE": str(self.openai_temperature),
+            "HEL_LLM_REQUEST_TIMEOUT": str(self.request_timeout),
+            "HEL_OLLAMA_NUM_PREDICT": self._getenv("HEL_OLLAMA_NUM_PREDICT", ""),
+            "HEL_CODEX_API_KEY": self._getenv("HEL_CODEX_API_KEY"),
+            "HEL_CODEX_MODEL": self._getenv("HEL_CODEX_MODEL"),
+            "HEL_ANTHROPIC_API_KEY": self._getenv("HEL_ANTHROPIC_API_KEY"),
+            "HEL_ANTHROPIC_MODEL": self._getenv("HEL_ANTHROPIC_MODEL"),
+            "HEL_FREELLMAPI_API_KEY": self._getenv("HEL_FREELLMAPI_API_KEY"),
+            "HEL_FREELLMAPI_BASE_URL": self._getenv("HEL_FREELLMAPI_BASE_URL"),
+            "HEL_FREELLMAPI_MODEL": self._getenv("HEL_FREELLMAPI_MODEL"),
+        }
 
     # -----------------------------------------------------
 
@@ -153,27 +180,38 @@ class LocalLLMService:
 
         try:
 
-            if self.backend_name == "ollama":
+            adapter = build_provider_adapter(
+                self.backend_name,
+                self._provider_config(),
+            )
+            provider_response = await asyncio.to_thread(
+                self._with_retries,
+                adapter.chat,
+                messages,
+                system_prompt,
+            )
+            response = provider_response.text
 
-                response = await asyncio.to_thread(
-                    self._with_retries,
-                    self._chat_ollama,
-                    messages,
-                    system_prompt,
-                )
+        except ProviderConfigurationError as exc:
 
-            elif self.backend_name in {"openai", "openai_compatible"}:
+            # Configuration errors must not silently become a stub response.
+            # Only stable provider/field names are returned; credentials never
+            # enter logs or user-facing error text.
+            logger.warning(
+                "llm_provider_not_configured",
+                extra={"provider": exc.provider},
+            )
+            missing = ", ".join(exc.missing)
+            response = f"Провайдер {exc.provider} не настроен. Укажите: {missing}."
 
-                response = await asyncio.to_thread(
-                    self._with_retries,
-                    self._chat_openai_compatible,
-                    messages,
-                    system_prompt,
-                )
+        except ProviderError:
 
-            else:
+            logger.exception(
+                "llm_provider_failed",
+                extra={"provider": self.backend_name},
+            )
 
-                response = self._chat_stub(messages, system_prompt)
+            response = self._chat_stub(messages, system_prompt)
 
         except Exception:
 
@@ -187,6 +225,39 @@ class LocalLLMService:
         _cache[key] = response
 
         return response
+
+    async def chat_stream(
+        self,
+        messages: List[Dict[str, str]],
+        system_prompt: str | None = None,
+    ):
+        """Yield provider deltas without buffering the whole Ollama response."""
+        self.backend_name = self.provider
+        system_prompt = system_prompt or DEFAULT_SYSTEM_PROMPT
+        adapter = build_provider_adapter(self.backend_name, self._provider_config())
+        queue: asyncio.Queue[str | BaseException | None] = asyncio.Queue()
+        loop = asyncio.get_running_loop()
+
+        def produce():
+            try:
+                for delta in adapter.stream_chat(messages, system_prompt):
+                    asyncio.run_coroutine_threadsafe(queue.put(str(delta)), loop)
+                asyncio.run_coroutine_threadsafe(queue.put(None), loop)
+            except BaseException as error:
+                asyncio.run_coroutine_threadsafe(queue.put(error), loop)
+
+        task = asyncio.create_task(asyncio.to_thread(produce))
+        try:
+            while True:
+                item = await queue.get()
+                if item is None:
+                    break
+                if isinstance(item, BaseException):
+                    raise item
+                yield item
+        finally:
+            if not task.done():
+                task.cancel()
 
     # -----------------------------------------------------
     # PLAN STEPS
@@ -226,6 +297,9 @@ class LocalLLMService:
 
     def _with_retries(self, fn, messages, system_prompt):
 
+        # A stopped local Ollama is a normal desktop state, not a transient
+        # server error. Retrying a refused TCP connection makes every chat
+        # request feel frozen and needlessly blocks the agent pipeline.
         attempts = max(1, self.max_retries + 1)
 
         last_error = None
@@ -248,10 +322,20 @@ class LocalLLMService:
 
                 last_error = exc
 
+                if isinstance(exc, ProviderConfigurationError):
+                    # A missing key/model is deterministic; retrying it only
+                    # delays the actionable configuration error.
+                    raise
+
                 logger.warning(
                     "llm_retry",
                     extra={"attempt": attempt},
                 )
+
+                if isinstance(exc, requests.exceptions.ConnectionError):
+                    raise RuntimeError(
+                        f"Провайдер {self.backend_name} недоступен; проверьте его запуск и настройки."
+                    ) from exc
 
                 if attempt < attempts:
 
@@ -264,70 +348,16 @@ class LocalLLMService:
     # -----------------------------------------------------
 
     def _chat_ollama(self, messages, system_prompt):
-
-        payload_messages = list(messages)
-
-        if system_prompt:
-
-            payload_messages = [
-                {"role": "system", "content": system_prompt}
-            ] + payload_messages
-
-        response = requests.post(
-            f"{self.ollama_base_url.rstrip('/')}/api/chat",
-            json={
-                "model": self.ollama_model,
-                "messages": payload_messages,
-                "stream": False,
-                "options": {
-                    "temperature": 0.2
-                },
-            },
-            timeout=self.request_timeout,
-        )
-
-        response.raise_for_status()
-
-        data = response.json()
-
-        return data.get("message", {}).get("content") or ""
+        adapter = build_provider_adapter("ollama", self._provider_config())
+        return adapter.chat(messages, system_prompt).text
 
     # -----------------------------------------------------
     # OPENAI
     # -----------------------------------------------------
 
     def _chat_openai_compatible(self, messages, system_prompt):
-
-        if not self.openai_api_key:
-
-            raise RuntimeError("HEL_OPENAI_API_KEY not set")
-
-        payload_messages = list(messages)
-
-        if system_prompt:
-
-            payload_messages = [
-                {"role": "system", "content": system_prompt}
-            ] + payload_messages
-
-        response = requests.post(
-            f"{self.openai_base_url.rstrip('/')}/chat/completions",
-            headers={
-                "Authorization": f"Bearer {self.openai_api_key}"
-            },
-            json={
-                "model": self.openai_model,
-                "messages": payload_messages,
-                "temperature": self.openai_temperature,
-            },
-            timeout=self.request_timeout,
-        )
-
-        response.raise_for_status()
-
-        data = response.json()
-
-        return data["choices"][0]["message"]["content"]
+        adapter = build_provider_adapter("openai_compatible", self._provider_config())
+        return adapter.chat(messages, system_prompt).text
 
     # -----------------------------------------------------
     # STUB
@@ -341,6 +371,57 @@ class LocalLLMService:
             "Jarvis (stub режим)\n\n"
             f"Получен запрос: {text[:500]}"
         )
+
+    # -----------------------------------------------------
+
+    async def test_connection_with_overrides(self, overrides: dict[str, str]) -> dict[str, object]:
+        """Probe one provider using temporary config without exposing secrets."""
+
+        service = LocalLLMService(overrides=overrides)
+        provider = service.provider
+        try:
+            adapter = build_provider_adapter(provider, service._provider_config())
+            result = await asyncio.to_thread(
+                service._with_retries,
+                adapter.chat,
+                [{"role": "user", "content": "ping"}],
+                "Return a short health-check response.",
+            )
+            return {
+                "ok": True,
+                "provider": provider,
+                "model": result.model,
+                "response": result.text,
+            }
+        except ProviderConfigurationError as exc:
+            return {
+                "ok": False,
+                "provider": exc.provider,
+                "error_code": "not_configured",
+                "missing": list(exc.missing),
+            }
+        except ProviderError as exc:
+            logger.warning(
+                "llm_provider_connection_test_failed",
+                extra={"provider": provider, "error_code": type(exc).__name__},
+            )
+            return {
+                "ok": False,
+                "provider": provider,
+                "error_code": "provider_request_failed",
+                "message": "Провайдер недоступен или вернул некорректный ответ.",
+            }
+        except Exception:
+            logger.exception(
+                "llm_provider_connection_test_failed",
+                extra={"provider": provider},
+            )
+            return {
+                "ok": False,
+                "provider": provider,
+                "error_code": "provider_test_failed",
+                "message": "Не удалось проверить провайдер.",
+            }
 
     # -----------------------------------------------------
 

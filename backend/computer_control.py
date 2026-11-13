@@ -4,6 +4,8 @@ import pyautogui
 import datetime
 import time
 import re
+import subprocess
+from pathlib import Path
 import yaml
 
 from rapidfuzz import fuzz
@@ -74,7 +76,20 @@ def open_dollar():
 
 
 def open_telegram():
-    os.system("start telegram")
+    candidates = [
+        Path(os.environ.get("APPDATA", "")) / "Telegram Desktop" / "Telegram.exe",
+        Path(os.environ.get("LOCALAPPDATA", "")) / "Telegram Desktop" / "Telegram.exe",
+    ]
+    for candidate in candidates:
+        if candidate.is_file():
+            subprocess.Popen([str(candidate)])
+            return
+    try:
+        os.startfile("tg://resolve")
+        return
+    except (OSError, AttributeError):
+        # Keep the voice command useful when only Telegram Web is available.
+        webbrowser.open("https://web.telegram.org/")
 
 
 def open_discord():
@@ -116,6 +131,32 @@ def reboot_pc():
     os.system("shutdown /r /t 1")
 
 
+def set_system_mute(muted):
+    """Mute/unmute the current Windows output endpoint."""
+    from ctypes import POINTER, cast
+    from comtypes import CLSCTX_ALL
+    from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
+
+    devices = AudioUtilities.GetSpeakers()
+    interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+    volume = cast(interface, POINTER(IAudioEndpointVolume))
+    volume.SetMute(1 if muted else 0, None)
+
+
+def run_custom_command(script_name):
+    """Run a bundled command script when the matching .exe/.ahk exists."""
+    root = Path(BASE_DIR) / "voice_engine" / "custom-commands"
+    for suffix in (".exe", ".ahk"):
+        path = root / f"{script_name}{suffix}"
+        if path.is_file():
+            if suffix == ".exe":
+                subprocess.Popen([str(path)])
+            else:
+                os.startfile(str(path))
+            return
+    raise FileNotFoundError(f"Командный скрипт не найден: {script_name}")
+
+
 # ---------------------------------------------
 # intent → действие
 # ---------------------------------------------
@@ -126,6 +167,7 @@ ACTIONS = {
     "open_google": open_google,
     "open_youtube": open_youtube,
     "music": open_music,
+    "open_music_service": open_music,
 
     "open_telegram": open_telegram,
     "open_discord": open_discord,
@@ -139,7 +181,17 @@ ACTIONS = {
     "screenshot": make_screenshot,
 
     "shutdown": shutdown_pc,
-    "reboot": reboot_pc
+    "reboot": reboot_pc,
+    "sound_on": lambda: set_system_mute(False),
+    "sound_off": lambda: set_system_mute(True),
+    "music_next": lambda: run_custom_command("Next music"),
+    "music_prev": lambda: run_custom_command("Prev music"),
+    "music_off": lambda: run_custom_command("Stop music"),
+    "music_save": lambda: run_custom_command("Save music"),
+    "gaming_mode_on": lambda: run_custom_command("Switch to gaming mode"),
+    "gaming_mode_off": lambda: run_custom_command("Switch back to workspace"),
+    "switch_to_headphones": lambda: run_custom_command("Switch to headphones"),
+    "switch_to_dynamics": lambda: run_custom_command("Switch to dynamics"),
 }
 
 
@@ -168,25 +220,30 @@ def learn_command(command, intent):
 # ---------------------------------------------
 
 def find_intent(command):
-
+    normalized = " ".join(str(command or "").lower().split())
+    command_tokens = set(normalized.split())
     best_score = 0
     best_intent = None
 
     for intent, phrases in COMMANDS.items():
-
         for phrase in phrases:
+            phrase_normalized = " ".join(str(phrase).lower().split())
+            phrase_tokens = set(phrase_normalized.split())
+            if not phrase_tokens:
+                continue
 
-            score = fuzz.partial_ratio(command, phrase)
-
-            if score > best_score:
-
+            # Keep natural variants such as "открой браузер пожалуйста", but
+            # do not route a conversation to a command merely because it
+            # shares one generic word like "сегодня".
+            contains_phrase = phrase_normalized in normalized
+            overlap = len(command_tokens & phrase_tokens) / len(phrase_tokens)
+            score = fuzz.token_set_ratio(normalized, phrase_normalized)
+            accepted = contains_phrase or (overlap >= 0.75 and score >= 70)
+            if accepted and score > best_score:
                 best_score = score
                 best_intent = intent
 
-    if best_score > 70:
-        return best_intent
-
-    return None
+    return best_intent
 
 
 # ---------------------------------------------

@@ -16,7 +16,21 @@ class Planner(Agent):
         goal = msg["payload"]["goal"]
         msg_id = msg["payload"].get("id") or msg["payload"].get("original_msg_id")
 
-        steps = self.create_plan(goal)
+        self.publish_runtime_event("item.started", msg, {"item_type": "planner", "goal": goal})
+
+        steps = self._formalize_plan(goal, self.create_plan(goal))
+
+        self.publish_runtime_event(
+            "plan.created",
+            msg,
+            {"goal": goal, "steps": steps, "step_count": len(steps)},
+        )
+
+        self.publish_runtime_event(
+            "item.completed",
+            msg,
+            {"item_type": "planner", "step_count": len(steps)},
+        )
 
         await self.bus.send(
             "executor",
@@ -30,9 +44,33 @@ class Planner(Agent):
                     "goal": goal,
                     "mode": "social",
                     "steps": steps,
+                    "chat_id": msg["payload"].get("chat_id"),
+                    "turn_id": msg["payload"].get("turn_id"),
+                    "history": msg["payload"].get("history", []),
+                    "custom_instructions": msg["payload"].get("custom_instructions", ""),
+                    "preferred_address": msg["payload"].get("preferred_address", ""),
+                    "chat_system_prompt": msg["payload"].get("chat_system_prompt", ""),
                 },
             },
         )
+
+    @staticmethod
+    def _formalize_plan(goal, steps):
+        """Add stable step IDs and cheap verification metadata.
+
+        This is deliberately deterministic and local: it adds no LLM call to
+        the fast path and gives the UI a useful, inspectable execution plan.
+        """
+
+        formal = []
+        for index, raw_step in enumerate(steps or [], start=1):
+            step = dict(raw_step)
+            step.setdefault("id", f"step-{index}")
+            step.setdefault("title", str(goal))
+            step.setdefault("expected", "non_empty_result")
+            step.setdefault("verification", {"strategy": "non_empty_result", "required": True})
+            formal.append(step)
+        return formal
 
     # ---------------------------------------------------
     # основной планировщик
@@ -184,12 +222,20 @@ class Planner(Agent):
         match = re.search(r"(https?://\S+)", text)
 
         if match:
-            return match.group(1)
+            return match.group(1).rstrip(",.;:!?)]}")
 
-        tokens = text.split()
-
-        for t in tokens:
-            if "." in t and "/" not in t:
-                return t.strip(",.")
+        # Bare domains are accepted only when they look like domains.  A
+        # filename such as ``air_kiss.gif`` is semantic chat media, not a URL;
+        # treating every dotted token as a network target was the reason Mail.Ru
+        # emotes were sent to NetworkAgent in Jarvis instead of remaining
+        # attachments.  This mirrors Crazy Tad's separation of media metadata
+        # from tool routing.
+        bare_domain = re.search(
+            r"(?<![\w-])(?:www\.)?[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.(?:com|ru|org|net|io|dev|ai|app|me|tv|info|biz)(?:/[^\s]*)?",
+            text,
+            re.IGNORECASE,
+        )
+        if bare_domain:
+            return bare_domain.group(0).rstrip(",.;:!?)]}")
 
         return None

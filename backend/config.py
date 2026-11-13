@@ -28,7 +28,9 @@ BACKUP_SCHEDULE_HOURS = 6
 # LLM SETTINGS
 # =========================================================
 
-OLLAMA_MODEL = "qwen2.5:7b-q4_K_M"
+# Keep the default aligned with the model currently installed on this PC.
+# Override with HEL_OLLAMA_MODEL when a larger local model is available.
+OLLAMA_MODEL = "phi3:latest"
 
 # =========================================================
 # LLM RETRY / CACHE
@@ -121,7 +123,7 @@ WAKE_WORDS = [
     "джервис!",
     "джармис!",
     "дервис!",
-    "дервис"
+    "дервис",
     "здравия желаю",
     "джарлис, привет!",
     "джарлис",

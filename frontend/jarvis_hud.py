@@ -666,8 +666,12 @@ class JarvisHUD(QWidget):
         """Render the two live network progress arcs from the TECH-A NET meters."""
         painter.save()
         painter.setRenderHint(QPainter.Antialiasing, True)
-        center_x, center_y = self.width() / 2, self.height() / 2
-        radius = 263.0
+        # Match the canonical TECH-A ROUNDLINE/RAM meters:
+        # X=361, Y=355, QRect=528x528, LineStart=261, LineLength=265.
+        # The native raster has a small left-side visual inset; shift only the
+        # live LAN arcs right by 8 px so they sit on the intended side rail.
+        center_x, center_y = 369.0, 355.0
+        radius = 264.0
         rect = QRectF(
             center_x - radius,
             center_y - radius,
@@ -677,14 +681,15 @@ class JarvisHUD(QWidget):
 
         # Original source: CalcNetOut has a -0.3665 radian sweep and
         # CalcNetIn has a +0.3665 radian sweep around the left side.
-        upload_color = QColor(self.accent_color)
-        upload_color.setAlpha(220)
-        pen = QPen(upload_color, 2.0, Qt.SolidLine, Qt.RoundCap)
+        # Lower arc: white, matching the lower canonical side line.
+        upload_color = QColor(255, 255, 255, 220)
+        pen = QPen(upload_color, 4.0, Qt.SolidLine, Qt.RoundCap)
         painter.setPen(pen)
         painter.drawArc(rect, 179 * 16, round(-21 * 16 * self.net_upload_progress))
 
+        # Upper arc: accent blue, matching the upper canonical side line.
         download_color = QColor(self.accent_color)
-        download_color.setAlpha(210)
+        download_color.setAlpha(220)
         pen.setColor(download_color)
         painter.setPen(pen)
         painter.drawArc(rect, 181 * 16, round(21 * 16 * self.net_download_progress))

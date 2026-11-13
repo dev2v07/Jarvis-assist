@@ -10,10 +10,12 @@ pytesseract
 GPUtil
 Pillow
 opencv-python
-mediapipe
+# Installed for the device adapters in backend/device_env (kept separate from
+# jarvis_env because MediaPipe/CAD require NumPy 2 while the voice stack uses NumPy 1.x).
+# See requirements-device.txt.
 torch
 torchaudio
-transformers
+transformers==4.49.0
 diffusers
 flask
 flask-cors

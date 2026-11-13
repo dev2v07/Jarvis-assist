@@ -18,7 +18,28 @@ backups/
 
 # Large models, datasets and media caches
 **/phoneme_cache/
+backend/voice_engine/models/
+external/
+models/
+rocm-installer/
+tools/
+dist/
+build/
+*.spec
+*.egg-info/
+backend/device_env/
+backend/jarvis_env/
+backend/gpt_sovits_env/
+backend/voice_engine/dataset/external_jarvis_staging/
+backend/.venv/
+frontend/.venv/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+logs/
+workspace/
 *.pth
+*.pt
 *.onnx
 *.bin
 *.wav

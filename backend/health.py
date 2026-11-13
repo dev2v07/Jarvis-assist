@@ -3,6 +3,8 @@ import requests
 import shutil
 from pathlib import Path
 
+from config import OLLAMA_BASE_URL
+
 
 def system_health():
 
@@ -23,7 +25,7 @@ def system_health():
 
     # Ollama check
     try:
-        r = requests.get("http://localhost:11434/api/tags", timeout=2)
+        r = requests.get(f"{OLLAMA_BASE_URL.rstrip('/')}/api/tags", timeout=2)
         status["ollama"] = r.status_code == 200
     except Exception:
         status["ollama"] = False

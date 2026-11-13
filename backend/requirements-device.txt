@@ -1,0 +1,5 @@
+# Isolated optional environment: backend/device_env
+mediapipe==1.2.0
+pywin32==312
+build123d==0.13.0
+zeroconf==0.151.5

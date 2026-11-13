@@ -1,5 +1,6 @@
 import os
 import random
+import threading
 import sounddevice as sd
 import soundfile as sf
 
@@ -63,8 +64,14 @@ def play_voice(file):
         # воспроизводим
         sd.play(data, samplerate)
 
-        # ждём окончания
-        sd.wait()
+        # ждём окончания, но не позволяем драйверу навсегда заблокировать
+        # голосовой обработчик
+        waiter = threading.Thread(target=sd.wait, name="jarvis-wav-wait", daemon=True)
+        waiter.start()
+        playback_timeout = max(5.0, min(30.0, len(data) / float(samplerate) + 5.0))
+        waiter.join(timeout=playback_timeout)
+        if waiter.is_alive():
+            sd.stop()
 
     except Exception as e:
 

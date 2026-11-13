@@ -20,23 +20,23 @@ from config import (
 )
 
 from services.llm_service import LocalLLMService, llm_service
+from services.provider_adapters import (
+    SUPPORTED_PROVIDERS,
+    build_provider_adapter,
+    normalize_provider_name,
+)
 
 
 # -----------------------------------------------------
 # PROVIDERS
 # -----------------------------------------------------
 
-_ALLOWED_PROVIDERS = {
-    "stub",
-    "ollama",
-    "openai",
-    "openai_compatible",
-}
+_ALLOWED_PROVIDERS = set(SUPPORTED_PROVIDERS)
 
 
 def _normalize_provider(provider: str | None) -> str:
 
-    value = str(provider or LLM_PROVIDER).strip().lower()
+    value = normalize_provider_name(provider or LLM_PROVIDER)
 
     if not value:
         value = "stub"
@@ -53,43 +53,43 @@ def _normalize_provider(provider: str | None) -> str:
 # -----------------------------------------------------
 
 def _quick_connection_status(provider: str, config: dict[str, Any]) -> dict[str, Any]:
-
+    adapter = build_provider_adapter(provider, _adapter_config(config))
+    status = adapter.configuration_status()
     if provider == "stub":
+        message = "Используется встроенный stub-провайдер."
+    elif status["configured"]:
+        message = f"{provider} настроен. Модель: {status.get('model') or 'по умолчанию'}."
+    else:
+        missing = ", ".join(status.get("missing", [])) or "конфигурация"
+        message = f"{provider} не настроен: {missing}."
+    return {
+        "ok": bool(status["configured"]),
+        "provider": provider,
+        "model": status.get("model"),
+        "message": message,
+        "implemented": bool(status.get("implemented")),
+        "missing": status.get("missing", []),
+    }
 
-        return {
-            "ok": True,
-            "provider": "stub",
-            "message": "Используется встроенный stub-провайдер.",
-        }
 
-    if provider == "ollama":
-
-        base = config.get("HEL_OLLAMA_BASE_URL") or OLLAMA_BASE_URL
-        model = config.get("HEL_OLLAMA_MODEL") or OLLAMA_MODEL
-
-        return {
-            "ok": None,
-            "provider": "ollama",
-            "message": f"Ollama настроен: {base} / модель {model}",
-        }
-
-    has_api_key = bool((config.get("HEL_OPENAI_API_KEY") or "").strip())
-
-    model = config.get("HEL_OPENAI_MODEL") or OPENAI_MODEL
-
-    if has_api_key:
-
-        return {
-            "ok": None,
-            "provider": provider,
-            "message": f"API ключ сохранён. Модель {model}",
-        }
+def _adapter_config(config: dict[str, Any]) -> dict[str, Any]:
+    """Merge persisted runtime values with safe provider defaults."""
 
     return {
-        "ok": False,
-        "provider": provider,
-        "message": "API ключ не задан.",
+        **config,
+        "HEL_OLLAMA_BASE_URL": config.get("HEL_OLLAMA_BASE_URL") or OLLAMA_BASE_URL,
+        "HEL_OLLAMA_MODEL": config.get("HEL_OLLAMA_MODEL") or OLLAMA_MODEL,
+        "HEL_OPENAI_BASE_URL": config.get("HEL_OPENAI_BASE_URL") or OPENAI_BASE_URL,
+        "HEL_OPENAI_MODEL": config.get("HEL_OPENAI_MODEL") or OPENAI_MODEL,
+        "HEL_OPENAI_API_KEY": config.get("HEL_OPENAI_API_KEY") or OPENAI_API_KEY,
     }
+
+
+def _mask_secret(value: str) -> str:
+    value = str(value or "")
+    if len(value) > 8:
+        return value[:4] + "..." + value[-4:]
+    return "***" if value else ""
 
 
 # -----------------------------------------------------
@@ -112,18 +112,6 @@ def _build_settings_from_runtime() -> dict[str, Any]:
 
     api_key = data.get("HEL_OPENAI_API_KEY", OPENAI_API_KEY)
 
-    if api_key and len(api_key) > 8:
-
-        masked = api_key[:4] + "..." + api_key[-4:]
-
-    elif api_key:
-
-        masked = "***"
-
-    else:
-
-        masked = ""
-
     return {
 
         "provider": provider,
@@ -132,11 +120,31 @@ def _build_settings_from_runtime() -> dict[str, Any]:
 
         "openai_model": model,
 
-        "openai_api_key_masked": masked,
+        "openai_api_key_masked": _mask_secret(api_key),
 
         "ollama_base_url": ollama_base_url,
 
         "ollama_model": ollama_model,
+
+        "codex_base_url": data.get("HEL_CODEX_BASE_URL", ""),
+
+        "codex_model": data.get("HEL_CODEX_MODEL", ""),
+
+        "codex_api_key_masked": _mask_secret(data.get("HEL_CODEX_API_KEY", "")),
+
+        "claude_base_url": data.get("HEL_ANTHROPIC_BASE_URL", "https://api.anthropic.com/v1"),
+
+        "claude_model": data.get("HEL_ANTHROPIC_MODEL", ""),
+
+        "claude_api_key_masked": _mask_secret(data.get("HEL_ANTHROPIC_API_KEY", "")),
+
+        "freellmapi_base_url": data.get("HEL_FREELLMAPI_BASE_URL", ""),
+
+        "freellmapi_model": data.get("HEL_FREELLMAPI_MODEL", ""),
+
+        "freellmapi_api_key_masked": _mask_secret(data.get("HEL_FREELLMAPI_API_KEY", "")),
+
+        "supported_providers": list(SUPPORTED_PROVIDERS),
 
         "runtime_env_path": str(CONFIG_HOME / ".env"),
 
@@ -157,17 +165,32 @@ def get_llm_settings() -> dict[str, Any]:
 
 def get_settings_bundle() -> dict[str, Any]:
 
-    config = read_runtime_config(mask_secrets=False)
+    raw_config = read_runtime_config(mask_secrets=False)
 
-    provider = _normalize_provider(config.get("HEL_LLM_PROVIDER", LLM_PROVIDER))
+    provider = _normalize_provider(raw_config.get("HEL_LLM_PROVIDER", LLM_PROVIDER))
 
-    has_api_key = bool((config.get("HEL_OPENAI_API_KEY") or "").strip())
+    provider_status = _quick_connection_status(provider, raw_config)
+    needs_onboarding = not provider_status["ok"]
 
-    needs_onboarding = provider in {"stub", "openai", "openai_compatible"} and not has_api_key
-
-    if provider == "ollama":
-
-        needs_onboarding = False
+    profiles = []
+    profile_specs = (
+        ("ollama", "Ollama", "ollama_base_url", "ollama_model", ""),
+        ("openai", "OpenAI", "openai_base_url", "openai_model", "openai_api_key_masked"),
+        ("openai_compatible", "OpenAI-compatible", "openai_base_url", "openai_model", "openai_api_key_masked"),
+        ("codex", "Codex", "codex_base_url", "codex_model", "codex_api_key_masked"),
+        ("claude", "Claude", "claude_base_url", "claude_model", "claude_api_key_masked"),
+        ("freellmapi", "FreeLLMAPI", "freellmapi_base_url", "freellmapi_model", "freellmapi_api_key_masked"),
+    )
+    settings = _build_settings_from_runtime()
+    for provider_id, label, base_key, model_key, secret_key in profile_specs:
+        profiles.append({
+            "id": provider_id,
+            "label": label,
+            "base_url": settings.get(base_key, ""),
+            "model": settings.get(model_key, ""),
+            "api_key_masked": settings.get(secret_key, "") if secret_key else "",
+            "active": provider_id == provider,
+        })
 
     return {
 
@@ -175,9 +198,17 @@ def get_settings_bundle() -> dict[str, Any]:
 
         "runtime_env_path": str(CONFIG_HOME / ".env"),
 
-        "config": config,
+        "config": read_runtime_config(mask_secrets=True),
 
-        "llm_connection": _quick_connection_status(provider, config),
+        "llm_connection": provider_status,
+
+        "provider_status": provider_status,
+
+        "supported_providers": list(SUPPORTED_PROVIDERS),
+
+        # Safe, non-secret connection profiles for the desktop settings UI.
+        # API keys are masked and never returned in plaintext.
+        "profiles": profiles,
 
         "needs_onboarding": needs_onboarding,
 
@@ -211,6 +242,25 @@ def save_llm_settings(payload: dict[str, Any]) -> dict[str, Any]:
         "HEL_OLLAMA_MODEL":
             str(payload.get("ollama_model", OLLAMA_MODEL)).strip() or OLLAMA_MODEL,
 
+        "HEL_CODEX_BASE_URL":
+            str(payload.get("codex_base_url", "")).strip(),
+
+        "HEL_CODEX_MODEL":
+            str(payload.get("codex_model", "")).strip(),
+
+        "HEL_ANTHROPIC_BASE_URL":
+            str(payload.get("claude_base_url", "https://api.anthropic.com/v1")).strip()
+            or "https://api.anthropic.com/v1",
+
+        "HEL_ANTHROPIC_MODEL":
+            str(payload.get("claude_model", "")).strip(),
+
+        "HEL_FREELLMAPI_BASE_URL":
+            str(payload.get("freellmapi_base_url", "")).strip(),
+
+        "HEL_FREELLMAPI_MODEL":
+            str(payload.get("freellmapi_model", "")).strip(),
+
         "HEL_LLM_REQUEST_TIMEOUT":
             str(int(payload.get("llm_request_timeout", LLM_REQUEST_TIMEOUT) or LLM_REQUEST_TIMEOUT)),
 
@@ -233,6 +283,15 @@ def save_llm_settings(payload: dict[str, Any]) -> dict[str, Any]:
         if cleaned:
 
             updates["HEL_OPENAI_API_KEY"] = cleaned
+
+    for payload_key, env_key in (
+        ("codex_api_key", "HEL_CODEX_API_KEY"),
+        ("claude_api_key", "HEL_ANTHROPIC_API_KEY"),
+        ("freellmapi_api_key", "HEL_FREELLMAPI_API_KEY"),
+    ):
+        secret = payload.get(payload_key)
+        if secret is not None and str(secret).strip():
+            updates[env_key] = str(secret).strip()
 
     update_runtime_config(updates)
 
@@ -266,6 +325,27 @@ async def test_llm_settings(payload: dict[str, Any]) -> dict[str, Any]:
 
         "HEL_OLLAMA_MODEL":
             str(payload.get("ollama_model", OLLAMA_MODEL)).strip() or OLLAMA_MODEL,
+
+        "HEL_CODEX_API_KEY":
+            str(payload.get("codex_api_key", "")).strip(),
+
+        "HEL_CODEX_MODEL":
+            str(payload.get("codex_model", "")).strip(),
+
+        "HEL_ANTHROPIC_API_KEY":
+            str(payload.get("claude_api_key", "")).strip(),
+
+        "HEL_ANTHROPIC_MODEL":
+            str(payload.get("claude_model", "")).strip(),
+
+        "HEL_FREELLMAPI_API_KEY":
+            str(payload.get("freellmapi_api_key", "")).strip(),
+
+        "HEL_FREELLMAPI_BASE_URL":
+            str(payload.get("freellmapi_base_url", "")).strip(),
+
+        "HEL_FREELLMAPI_MODEL":
+            str(payload.get("freellmapi_model", "")).strip(),
 
         "HEL_OPENAI_API_KEY":
             str(payload.get("openai_api_key", "")).strip() or OPENAI_API_KEY,

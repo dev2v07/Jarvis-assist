@@ -38,6 +38,12 @@ class ExecutorAgent(Agent):
             self.sessions[request_id] = {
                 "goal": payload.get("goal", ""),
                 "mode": payload.get("mode", "general"),
+                "chat_id": payload.get("chat_id"),
+                "turn_id": payload.get("turn_id"),
+                "history": payload.get("history", []),
+                "custom_instructions": payload.get("custom_instructions", ""),
+                "preferred_address": payload.get("preferred_address", ""),
+                "chat_system_prompt": payload.get("chat_system_prompt", ""),
                 "steps": payload.get("steps", []),
                 "index": 0,
                 "results": [],
@@ -47,6 +53,11 @@ class ExecutorAgent(Agent):
             logger.info(
                 "execution_started",
                 extra={"request_id": request_id},
+            )
+            self.publish_runtime_event(
+                "task.started",
+                msg,
+                {"step_count": len(payload.get("steps", []))},
             )
 
             await self._run_next_step(request_id)
@@ -77,7 +88,19 @@ class ExecutorAgent(Agent):
                     "step": step,
                     "result": result_text,
                     "artifact": payload.get("artifact"),
+                    "verification": self._verify_step_result(step, result_text),
                 }
+            )
+
+            verification = session["results"][-1]["verification"]
+            self.publish_runtime_event(
+                "step.verified" if verification["ok"] else "step.verification_failed",
+                msg,
+                {
+                    "step_id": step.get("id"),
+                    "step": step.get("title", str(step)),
+                    "verification": verification,
+                },
             )
 
             await self.bus.send(
@@ -89,9 +112,12 @@ class ExecutorAgent(Agent):
                     "type": "step_finished",
                     "payload": {
                         "original_msg_id": request_id,
+                        "chat_id": session.get("chat_id"),
+                        "turn_id": session.get("turn_id"),
                         "step": step.get("title", str(step)),
                         "result": result_text,
                         "artifact": payload.get("artifact"),
+                        "verification": verification,
                     },
                 },
             )
@@ -170,6 +196,11 @@ class ExecutorAgent(Agent):
                 "execution_completed",
                 extra={"request_id": request_id},
             )
+            self.publish_runtime_event(
+                "task.completed",
+                {"payload": {"original_msg_id": request_id}},
+                {"step_count": len(results), "verified": sum(bool(item.get("verification", {}).get("ok")) for item in results)},
+            )
 
             await self.bus.send(
                 "critic",
@@ -182,6 +213,8 @@ class ExecutorAgent(Agent):
                         "original_msg_id": request_id,
                         "goal": session.get("goal", ""),
                         "result": result_text,
+                        "chat_id": session.get("chat_id"),
+                        "turn_id": session.get("turn_id"),
                         "artifacts": [
                             r.get("artifact")
                             for r in results
@@ -272,6 +305,16 @@ class ExecutorAgent(Agent):
                 "agent": destination,
             },
         )
+        self.publish_runtime_event(
+            "tool.selected",
+            {"payload": {"original_msg_id": request_id}},
+            {
+                "step_id": step.get("id"),
+                "route": route,
+                "agent": destination,
+                "action": step.get("action", ""),
+            },
+        )
 
         await self.bus.send(
             destination,
@@ -287,9 +330,36 @@ class ExecutorAgent(Agent):
                     "goal": session.get("goal", ""),
                     "mode": session.get("mode", "general"),
                     "target": target,
+                    "history": session.get("history", []),
+                    "custom_instructions": session.get("custom_instructions", ""),
+                    "preferred_address": session.get("preferred_address", ""),
+                    "chat_system_prompt": session.get("chat_system_prompt", ""),
                 },
             },
         )
+
+    @staticmethod
+    def _verify_step_result(step: dict, result_text: str) -> dict:
+        """Verify tool output locally without a second model call."""
+
+        text = str(result_text or "").strip()
+        lowered = text.lower()
+        failure_markers = (
+            "ошибка",
+            "не удалось",
+            "не выполнено",
+            "error:",
+            "failed",
+        )
+        if not text:
+            return {"ok": False, "strategy": "non_empty_result", "reason": "empty_result"}
+        if any(marker in lowered for marker in failure_markers):
+            return {"ok": False, "strategy": "non_empty_result", "reason": "failure_marker"}
+        return {
+            "ok": True,
+            "strategy": str((step.get("verification") or {}).get("strategy", "non_empty_result")),
+            "reason": "non_empty_result",
+        }
 
     # --------------------------------------------------
 

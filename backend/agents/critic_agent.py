@@ -23,52 +23,43 @@ class CriticAgent(Agent):
         goal = payload.get("goal", "")
         artifacts = payload.get("artifacts", [])
 
+        self.publish_runtime_event("item.started", msg, {"item_type": "critic"})
+
         final = result.strip() if result else "Результат отсутствует."
 
-        # ---------------------------------------
-        # LLM анализ результата
-        # ---------------------------------------
+        # Conversational replies should reach the user as one answer.  Running
+        # a second LLM pass over a greeting made small local models emit three
+        # competing rewrites and invented commentary.
+        conversational = not artifacts and len(goal.strip()) <= 120 and not any(
+            token in goal.lower()
+            for token in ("создай", "сделай", "открой", "найди", "проверь", "прочитай", "удали", "запиши")
+        )
 
-        try:
-
-            improved = await llm_service.chat(
-
-                [
-                    {
-                        "role": "user",
-                        "content": f"""
+        if not conversational:
+            try:
+                improved = await llm_service.chat(
+                    [{"role": "user", "content": f"""
 Задача пользователя:
 {goal}
 
 Результат выполнения:
 {final}
 
-Проверь результат и:
-1. Исправь возможные ошибки
-2. Сделай ответ понятным
-3. Структурируй информацию
+Верни только один окончательный ответ пользователю. Исправь только фактические
+ошибки и сделай текст понятным. Не добавляй варианты ответа, мета-комментарии,
+разделы «исправленный ответ», «улучшенная формулировка», «структурированная
+информация», планы проверки или выдуманные детали.
+"""}],
+                    system_prompt="""
+Ты финальный редактор Jarvis. Верни только один короткий ответ пользователю.
+Не перечисляй альтернативные формулировки и не описывай собственную работу.
+Сохраняй факты результата и не выдумывай новые.
 """
-                    }
-                ],
-
-                system_prompt="""
-Ты AI критик системы Jarvis.
-
-Твоя задача:
-- проверять результат выполнения задачи
-- исправлять ошибки
-- улучшать формулировку ответа
-
-Никогда не выдумывай факты.
-"""
-            )
-
-            if improved and improved.strip():
-
-                final = improved.strip()
-
-        except Exception:
-            pass
+                )
+                if improved and improved.strip():
+                    final = improved.strip()
+            except Exception:
+                pass
 
         # ---------------------------------------
         # артефакты
@@ -90,13 +81,12 @@ class CriticAgent(Agent):
 
             final += "\n\nАртефакты:\n" + "\n".join(lines)
 
-        # ---------------------------------------
-        # защита от пустых ответов
-        # ---------------------------------------
+        # Short answers are valid conversational answers ("Да", "Спасибо",
+        # "Здравствуйте"). Never append internal diagnostics to user text.
+        if not final.strip():
+            final = "Я не смог сформировать ответ."
 
-        if len(final) < 15:
-
-            final += "\n\n[Jarvis]: результат получился слишком кратким."
+        self.publish_runtime_event("item.completed", msg, {"item_type": "critic"})
 
         # ---------------------------------------
         # отправка в main
@@ -113,6 +103,8 @@ class CriticAgent(Agent):
         "type": "review_result",
         "payload": {
             "original_msg_id": request_id,
+            "chat_id": payload.get("chat_id"),
+            "turn_id": payload.get("turn_id"),
             "result": final
         },
     },
