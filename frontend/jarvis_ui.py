@@ -1765,6 +1765,7 @@ class JarvisUI(QWidget):
         super().__init__()
 
         self.setWindowTitle("Jarvis Assist")
+        self.setWindowIcon(QIcon(os.path.join(BASE_DIR, "assets", "jarvis.ico")))
         self.resize(1280, 850)
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
@@ -2518,13 +2519,16 @@ class JarvisUI(QWidget):
 
     def ensure_full_ui(self):
         """Restore the normal Jarvis chrome before opening an application page."""
-        if not getattr(self, "widget_mode", False):
-            return
-        self.widget_mode = False
-        for widget in getattr(self, "widget_chrome_widgets", []):
-            widget.setVisible(True)
-        self.main_container.setStyleSheet("")
-        self.apply_styles()
+        # Settings and application pages live in the same main window as the
+        # HUD.  Leaving widget_mode enabled only hides the chrome and leaves
+        # the settings page looking like a transparent, non-navigable overlay.
+        # Use the normal mode transition so opacity, styles and hitboxes are
+        # restored together instead of duplicating only part of the change.
+        if getattr(self, "widget_mode", False):
+            self.toggle_widget_mode()
+        else:
+            self.setWindowOpacity(self.visual_settings["window_opacity"] / 100.0)
+            self.apply_styles()
 
     def handle_hud_panel_action(self, name, source_key=None):
         """Route the new top/bottom HUD panel commands."""
@@ -2541,6 +2545,7 @@ class JarvisUI(QWidget):
             self.menu.setCurrentRow(2)
             self.pages.setCurrentIndex(2)
         elif name == "SET":
+            self.ensure_full_ui()
             self.open_settings_section(3)
         elif name == "AGENTS":
             self.show_panel_dialog("ДОСТУПНЫЕ АГЕНТЫ", [
@@ -2549,10 +2554,13 @@ class JarvisUI(QWidget):
                 "Game Coach", "Social", "Policy", "Selfcheck",
             ])
         elif name == "FUNCTION":
+            self.ensure_full_ui()
             self.open_settings_section(7)
         elif name == "PROV":
+            self.ensure_full_ui()
             self.open_settings_section(5)
         elif name == "MOD":
+            self.ensure_full_ui()
             self.open_settings_section(5)
         elif name == "VID":
             self.toggle_widget_mode()

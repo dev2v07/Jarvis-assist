@@ -13,6 +13,7 @@ python -m PyInstaller --noconfirm --clean --onedir --name JarvisBackend `
 python -m PyInstaller --noconfirm --clean --onedir --windowed `
     --contents-directory . `
     --name JarvisAssistant `
+    --icon "$root\frontend\assets\jarvis.ico" `
     --paths "$root\frontend" --paths "$root\backend" `
     --add-data "$root\frontend\assets;frontend\assets" `
     --add-data "$root\frontend\assets\fonts;frontend\assets\fonts" `

@@ -12,6 +12,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppPublisherURL}
 AppSupportURL={#MyAppPublisherURL}
 AppUpdatesURL={#MyAppPublisherURL}
+SetupIconFile=..\frontend\assets\jarvis.ico
 DefaultDirName={autopf}\Jarvis Assistant
 DefaultGroupName={#MyAppName}
 OutputBaseFilename=Jarvis-Assistant-Setup
@@ -19,6 +20,8 @@ OutputDir=..\dist
 ArchitecturesInstallIn64BitMode=x64
 PrivilegesRequired=lowest
 WizardStyle=modern
+WizardImageFile=jarvis-preview.bmp
+WizardSmallImageFile=jarvis-preview-small.bmp
 Uninstallable=yes
 
 [Languages]
