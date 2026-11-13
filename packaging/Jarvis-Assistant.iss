@@ -21,6 +21,9 @@ PrivilegesRequired=lowest
 WizardStyle=modern
 Uninstallable=yes
 
+[Languages]
+Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
+
 [Files]
 Source: "..\dist\JarvisAssistant\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
 
@@ -45,13 +48,14 @@ end;
 procedure InitializeWizard;
 begin
   TandemLink := TNewStaticText.Create(WizardForm);
-  TandemLink.Parent := WizardForm.WelcomePage;
+  TandemLink.Parent := WizardForm;
   TandemLink.Caption := '© Разработано Tandem Marketing 2026';
-  TandemLink.Font.Color := clAqua;
+  TandemLink.Font.Color := clNavy;
+  TandemLink.Font.Style := [fsUnderline];
   TandemLink.Cursor := crHand;
-  TandemLink.Left := 0;
-  TandemLink.Top := WizardForm.WelcomePage.ClientHeight - 34;
-  TandemLink.Width := WizardForm.WelcomePage.ClientWidth;
+  TandemLink.Left := 20;
+  TandemLink.Top := WizardForm.ClientHeight - 34;
+  TandemLink.Width := 360;
   TandemLink.Height := 24;
   TandemLink.OnClick := @TandemLinkClick;
 end;

@@ -4958,7 +4958,7 @@ color:#2E89FF;
 }
 
 #tandemFooter{
-color:rgba(255,255,255,205);
+color:#ffffff;
 font-size:12px;
 padding:3px 16px 7px 16px;
 }
