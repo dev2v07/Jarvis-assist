@@ -38,8 +38,13 @@ is the authority for the release snapshot.
   registry modules.
 - Backend test discovery passed 22/22 tests in the audit run.
 - Existing CI compiles `backend frontend core` and runs backend tests.
-- Full GUI, audio playback, installed EXE, uninstall and reboot autostart tests
-  have not yet been claimed; they require the packaging/runtime phase.
+- Full GUI and audio playback tests remain open. Backend health and source
+  launcher were verified.
+- Inno Setup produced `dist/Jarvis-Assistant-Setup.exe` (about 450 MB).
+- A silent install to a temporary directory returned exit code 0 and created
+  Start-menu and desktop shortcuts. A silent uninstall returned exit code 0
+  and left the test directory empty.
+- Reboot autostart has not been verified by an actual reboot.
 
 ## Public-release boundaries
 
@@ -59,6 +64,10 @@ or represented as a ready model.
 
 ## Open release gates
 
-PyInstaller/Inno Setup availability, a real frozen build, a clean staged Git
-tree, GitHub authentication and runtime screenshots remain release gates. No
-GitHub push is claimed until those gates are actually verified.
+The frozen build and Inno Setup compile are complete. The public Git tree was
+scanned for common secret formats; GitHub Push Protection initially found a
+token in an old legacy file, so that file was removed from local history before
+the normal push. The public `master` branch is now published. Runtime
+screenshots and a real reboot autostart test remain open. The installer is
+functional but oversized because the current backend bundle includes PyTorch
+and optional voice/device dependencies.
