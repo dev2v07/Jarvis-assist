@@ -3,12 +3,35 @@
 from __future__ import annotations
 
 import os
+import ctypes
 import subprocess
 import sys
 import time
+import traceback
 from pathlib import Path
 
 import requests
+
+
+def _install_crash_log() -> None:
+    """Persist frozen-launch exceptions because the GUI build has no console."""
+    log_dir = Path(os.getenv("LOCALAPPDATA", Path.home())) / "Jarvis Assist"
+    log_path = log_dir / "launcher_crash.log"
+
+    def _hook(exc_type, exc_value, exc_traceback):
+        try:
+            log_dir.mkdir(parents=True, exist_ok=True)
+            with log_path.open("a", encoding="utf-8") as stream:
+                stream.write("\n--- Jarvis launcher crash ---\n")
+                traceback.print_exception(exc_type, exc_value, exc_traceback, file=stream)
+        except Exception:
+            pass
+        sys.__excepthook__(exc_type, exc_value, exc_traceback)
+
+    sys.excepthook = _hook
+
+
+_install_crash_log()
 
 # PyInstaller keeps PySide6's Qt DLLs in a subdirectory. Register that
 # directory before importing QtCore so Windows cannot resolve an incompatible
@@ -16,6 +39,7 @@ import requests
 if getattr(sys, "frozen", False):
     _qt_base = Path(getattr(sys, "_MEIPASS", Path(sys.executable).resolve().parent))
     _qt_dll_handles = []
+    _qt_loaded_handles = []
     for _qt_dll_dir in (
         _qt_base / "PySide6",
         _qt_base / "_internal" / "PySide6",
@@ -25,8 +49,20 @@ if getattr(sys, "frozen", False):
             # Keep handles alive for the whole process; otherwise Windows
             # removes the DLL search directories before QtCore imports.
             _qt_dll_handles.append(os.add_dll_directory(str(_qt_dll_dir)))
+            _qt_core = _qt_dll_dir / "Qt6Core.dll"
+            if _qt_core.is_file():
+                # PySide6's QtCore.pyd may otherwise resolve Qt6Core.dll from
+                # another Qt installation before the bundled DLL directory is
+                # consulted, producing ERROR_PROC_NOT_FOUND on Windows.
+                _qt_loaded_handles.append(ctypes.WinDLL(str(_qt_core)))
 
-from PySide6.QtCore import QLockFile
+try:
+    from PySide6.QtCore import QLockFile
+except Exception:
+    # Keep the original traceback in the local crash log before re-raising so
+    # a windowed PyInstaller build remains diagnosable on another PC.
+    sys.excepthook(*sys.exc_info())
+    raise
 
 ROOT = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parents[1]
 BACKEND = ROOT / "backend"

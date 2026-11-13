@@ -73,11 +73,18 @@ The attribution link is implemented in the source app directly below the
 profile card and is hidden in transparent HUD mode. The installer wizard also
 contains the clickable attribution link and publisher URL.
 
-The frozen GUI gate is still open: the latest `JarvisAssistant.exe` was
-launched, but its window reported `Unhandled exception in script` caused by
-`DLL load failed while importing QtCore: Не найдена указанная процедура`.
-Consequently, installed-GUI voice/audio playback has not been claimed as
-verified. The source backend health check remains independently verified.
+The frozen GUI Qt gate was fixed after the original audit snapshot. The
+failure was caused by Poppler ICU DLLs shadowing the symbols expected by
+Qt6Core; the GUI packaging script now excludes those conflicting DLLs, and
+the runtime hook preloads the bundled Qt6Core. A second frozen-only issue was
+also fixed: HUD assets now resolve below `_MEIPASS/frontend`, with a safe
+fallback for an empty image.
+
+The latest frozen `JarvisAssistant.exe` was launched successfully and showed
+the `Jarvis Assist` window. Source backend health returned HTTP 200 and the
+updated Python modules compiled successfully. The Inno Setup installer was
+rebuilt successfully from this corrected GUI bundle. Full installed-GUI
+voice/audio playback remains a separate functional test.
 
 Runtime PNG screenshots and a real reboot autostart test remain open. The
 installer compiles successfully, but should not be described as a fully

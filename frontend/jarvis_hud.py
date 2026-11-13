@@ -1,6 +1,7 @@
 import os
 import math
 import json
+import sys
 import time
 from datetime import datetime
 import psutil
@@ -15,7 +16,10 @@ from PySide6.QtCore import QTimer, Qt, QRectF, QPointF
 from tech_a_animation import TechAAnimation
 
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+if getattr(sys, "frozen", False):
+    BASE_DIR = os.path.join(getattr(sys, "_MEIPASS", os.path.dirname(sys.executable)), "frontend")
+else:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(BASE_DIR, "assets", "TECH-A")
 ROTATOR = os.path.join(ASSETS, "rotator")
 FONTS = os.path.join(BASE_DIR, "assets", "fonts")
@@ -102,7 +106,10 @@ class JarvisHUD(QWidget):
         except (OSError, ValueError, TypeError, json.JSONDecodeError, KeyError):
             pass
 
-        self.scale = self.HUD_SIZE / self.bg6.width()
+        # A missing asset must not abort the whole desktop client. In a
+        # frozen build assets live below _MEIPASS/frontend; use a neutral
+        # scale until the resource path is resolved or a fallback is drawn.
+        self.scale = self.HUD_SIZE / self.bg6.width() if self.bg6.width() else 1.0
         self.setFixedSize(self.HUD_SIZE, self.HUD_SIZE)
         self.render_dpr = max(1.0, float(self.devicePixelRatioF()))
         self.layer_visibility = {

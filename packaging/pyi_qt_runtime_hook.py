@@ -2,10 +2,12 @@
 
 import os
 import sys
+import ctypes
 from pathlib import Path
 
 _base = Path(getattr(sys, "_MEIPASS", Path(sys.executable).resolve().parent))
 _handles = []
+_loaded = []
 for _directory in (
     _base,
     _base / "PySide6",
@@ -16,3 +18,6 @@ for _directory in (
 ):
     if _directory.is_dir():
         _handles.append(os.add_dll_directory(str(_directory)))
+        _core = _directory / "Qt6Core.dll"
+        if _core.is_file():
+            _loaded.append(ctypes.WinDLL(str(_core)))

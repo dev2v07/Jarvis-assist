@@ -2113,3 +2113,14 @@ telemetry ping: `requests ReadTimeout` на `coqui.gateway.scarf.sh`. В
 - запуск свежего frozen GUI фактически проверен и не пройден: окно `Unhandled exception in script`, `DLL load failed while importing QtCore: Не найдена указанная процедура`;
 - поэтому запуск установленного GUI с голосом/аудио и получение реальных PNG-скриншотов остаются незакрытыми; backend source health ранее подтверждён отдельно;
 - процессы S2/GPT-SoVITS не останавливались и не изменялись.
+
+Очередь 0117 — исправление запуска frozen GUI, 2026-11-14:
+
+- установлена причина Qt-ошибки: PyInstaller подхватывал ICU DLL из Poppler, где экспорт был суффиксирован (`ucnv_open_78`), а `Qt6Core.dll` требовал обычный `ucnv_open`;
+- в `packaging/build_windows.ps1` добавлено исключение конфликтующих `icuuc.dll`/`icudt78.dll` только из GUI-поставки; backend-поставка не изменена;
+- runtime-hook предварительно загружает bundled `Qt6Core.dll`, а launcher сохраняет DLL handles и пишет traceback в `%LOCALAPPDATA%\\Jarvis Assist\\launcher_crash.log`;
+- для frozen HUD исправлен путь ресурсов на `_MEIPASS/frontend/assets`; добавлена защита от пустого `BG6.png`;
+- новый frozen GUI реально запущен и показал окно `Jarvis Assist`; Qt/ICU и `ZeroDivisionError` больше не воспроизводятся;
+- исходный backend health снова подтверждён HTTP 200, Python-компиляция ключевых файлов прошла;
+- `dist/Jarvis-Assistant-Setup.exe` пересобран после исправлений; Inno Setup завершился успешно;
+- S2/GPT-SoVITS не затрагивались.
