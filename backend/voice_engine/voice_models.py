@@ -16,6 +16,28 @@ from pathlib import Path
 from typing import Any
 
 
+def _environment_value(name: str, default: str = "") -> str:
+    """Read process env and, on Windows, the current user env as a fallback.
+
+    The desktop app can be started from a long-lived shell whose environment
+    predates a `setx`/profile change. Reading HKCU here keeps voice settings
+    consistent without logging or copying the secret elsewhere.
+    """
+    value = str(os.getenv(name, "") or "").strip()
+    if value:
+        return value
+    if os.name == "nt":
+        try:
+            import winreg
+
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Environment") as key:
+                value, _ = winreg.QueryValueEx(key, name)
+                return str(value or "").strip()
+        except (FileNotFoundError, OSError):
+            pass
+    return default
+
+
 @dataclass(frozen=True)
 class VoiceModelSpec:
     model_id: str
@@ -79,12 +101,12 @@ class VoiceModelManager:
     def _fish_config(self, profile: str = "jarvis") -> tuple[str, str, str]:
         suffix = "_DEAN" if profile == "dean" else ""
         return (
-            str(os.getenv(f"FISH_AUDIO{suffix}_API_KEY", "")).strip(),
-            str(os.getenv(
+            _environment_value(f"FISH_AUDIO{suffix}_API_KEY"),
+            _environment_value(
                 f"FISH_AUDIO{suffix}_REFERENCE_ID",
                 "3fc339d7c6474b11a221708e2a7b1c4b" if profile == "jarvis" else "",
-            )).strip(),
-            str(os.getenv(f"FISH_AUDIO{suffix}_MODEL", "s2.1-pro-free")).strip() or "s2.1-pro-free",
+            ),
+            _environment_value(f"FISH_AUDIO{suffix}_MODEL", "s2.1-pro-free") or "s2.1-pro-free",
         )
 
     def _fish_availability(self, profile: str = "jarvis") -> tuple[bool, str]:
