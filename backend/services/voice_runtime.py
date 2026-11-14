@@ -114,9 +114,7 @@ class VoiceRuntime:
         self._thread.start()
         self._ensure_conversation_worker()
         if self._tts_queue is None:
-            from voice_engine.tts import speak
-
-            self._tts_queue = TTSQueue(speak)
+            self._tts_queue = TTSQueue(self._speak_tts)
         return self.status()
 
     def _ensure_conversation_worker(self) -> None:
@@ -447,6 +445,16 @@ class VoiceRuntime:
         except Exception as error:
             self._last_error = f"wav: {error}"
 
+    def _speak_tts(self, text: str) -> None:
+        """Play generated speech while muting microphone self-listening."""
+        from voice_engine.tts import speak
+
+        self._speaking.set()
+        try:
+            speak(text)
+        finally:
+            self._speaking.clear()
+
     def _respond_conversationally(self, text: str) -> None:
         try:
             from services.llm_service import LocalLLMService
@@ -487,9 +495,7 @@ class VoiceRuntime:
             self._last_response = response
             self._tts_available = True
             if self._tts_queue is None:
-                from voice_engine.tts import speak
-
-                self._tts_queue = TTSQueue(speak)
+                self._tts_queue = TTSQueue(self._speak_tts)
             self._phase = "говорю AI по предложениям"
             self._tts_queue.wait_idle(timeout=90.0)
             if self._enabled:
@@ -513,14 +519,10 @@ class VoiceRuntime:
                     break
                 sentence, pending = pending[: boundary + 1], pending[boundary + 1 :]
                 if self._tts_queue is None:
-                    from voice_engine.tts import speak
-
-                    self._tts_queue = TTSQueue(speak)
+                    self._tts_queue = TTSQueue(self._speak_tts)
                 self._tts_queue.put(sentence)
         if pending.strip():
             if self._tts_queue is None:
-                from voice_engine.tts import speak
-
-                self._tts_queue = TTSQueue(speak)
+                self._tts_queue = TTSQueue(self._speak_tts)
             self._tts_queue.put(pending)
         return "".join(chunks)
