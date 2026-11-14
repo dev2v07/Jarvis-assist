@@ -2919,7 +2919,7 @@ class JarvisUI(QWidget):
     def apply_voice_model_setting(self):
         if not hasattr(self, "voice_model_combo"):
             return
-        model_id = str(self.voice_model_combo.currentData() or "jarvis")
+        model_id = str(self.voice_model_combo.currentData() or "fish_jarvis")
         self.ui_settings.setValue("voice_model_id", model_id)
         self.ui_settings.sync()
         try:
@@ -2940,9 +2940,14 @@ class JarvisUI(QWidget):
         if not hasattr(self, "voice_model_combo"):
             return
         model_id = str(
-            self.ui_settings.value("voice_model_id", "jarvis") or "jarvis"
+            self.ui_settings.value("voice_model_id", "fish_jarvis") or "fish_jarvis"
         ).strip().lower()
         index = self.voice_model_combo.findData(model_id)
+        if index < 0:
+            model_id = "fish_jarvis"
+            index = self.voice_model_combo.findData(model_id)
+            self.ui_settings.setValue("voice_model_id", model_id)
+            self.ui_settings.sync()
         if index >= 0 and index != self.voice_model_combo.currentIndex():
             self.voice_model_combo.blockSignals(True)
             self.voice_model_combo.setCurrentIndex(index)
@@ -4467,27 +4472,30 @@ class JarvisUI(QWidget):
 
         self.voice_model_combo = QComboBox()
         self.voice_model_combo.addItem(
-            "Jarvis — основная модель (в разработке)", "jarvis"
-        )
-        self.voice_model_combo.addItem(
             "Fish Audio — Джарвис (облачный профиль)", "fish_jarvis"
         )
         self.voice_model_combo.addItem(
             "Fish Audio — Дин Винчестер (отдельный ключ)", "fish_dean"
         )
         stored_voice_model = str(
-            self.ui_settings.value("voice_model_id", "jarvis") or "jarvis"
+            self.ui_settings.value("voice_model_id", "fish_jarvis") or "fish_jarvis"
         ).strip().lower()
+        if stored_voice_model not in {"fish_jarvis", "fish_dean"}:
+            stored_voice_model = "fish_jarvis"
+            self.ui_settings.setValue("voice_model_id", stored_voice_model)
+            self.ui_settings.sync()
         voice_model_index = self.voice_model_combo.findData(stored_voice_model)
         self.voice_model_combo.setCurrentIndex(max(0, voice_model_index))
-        self.voice_model_combo.currentIndexChanged.connect(self.apply_voice_model_setting)
         voice_layout.addRow(QLabel("Голосовая модель"), self.voice_model_combo)
+        save_voice_model_button = QPushButton("СОХРАНИТЬ ГОЛОСОВУЮ МОДЕЛЬ")
+        save_voice_model_button.clicked.connect(self.apply_voice_model_setting)
+        voice_layout.addRow("", save_voice_model_button)
         self.voice_model_status_label = QLabel("Проверка доступности…")
         self.voice_model_status_label.setObjectName("settingsHint")
         self.voice_model_status_label.setWordWrap(True)
         voice_layout.addRow(QLabel("Статус голоса"), self.voice_model_status_label)
         voice_layout.addRow(QLabel("Фактический движок"), QLabel(
-            "Jarvis: XTTS v2 fallback; Fish Audio: S2.1 Pro Free"
+            "Fish Audio: S2.1 Pro Free"
         ))
         settings_stack.addWidget(voice_page)
         settings_stack.layout().setAlignment(voice_page, Qt.AlignLeft | Qt.AlignTop)
