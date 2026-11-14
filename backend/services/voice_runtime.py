@@ -9,6 +9,7 @@ import queue
 import threading
 import time
 import importlib.util
+import random
 import tempfile
 import wave
 from pathlib import Path
@@ -60,6 +61,15 @@ class VoiceRuntime:
         "shutdown": "Отключаю питание.wav",
         "reboot": "Я перезагрузился сэр.wav",
     }
+    SMALLTALK_WAVS = (
+        "smalltalk_how_1.wav",
+        "smalltalk_how_2.wav",
+        "smalltalk_how_3.wav",
+    )
+    SMALLTALK_MARKERS = (
+        "как дела", "как поживаешь", "что нового", "что делаешь",
+        "поговорим", "расскажи о себе", "ты здесь",
+    )
 
     def __init__(self, base_dir: Path):
         self.base_dir = Path(base_dir)
@@ -78,12 +88,22 @@ class VoiceRuntime:
         self._phase = "выключен"
         self._follow_up_until = 0.0
         self._speaking = threading.Event()
-        self._conversation_queue: queue.Queue[str | None] = queue.Queue(maxsize=4)
+        # Voice input is latest-turn-wins. A request waiting behind a long
+        # story is stale, so never allow a backlog to grow.
+        self._conversation_queue: queue.Queue[str | None] = queue.Queue(maxsize=1)
         self._conversation_thread: threading.Thread | None = None
         self._conversation_history: list[dict[str, str]] = []
         self._response_router = ResponseRouter()
         self._tts_queue: TTSQueue | None = None
         self._llm_warmup_started = False
+
+    def _smalltalk_wav_for(self, command: str) -> Path | None:
+        normalized = " ".join(command.lower().split())
+        if not any(marker in normalized for marker in self.SMALLTALK_MARKERS):
+            return None
+        candidates = [self.voice_dir / "cache" / name for name in self.SMALLTALK_WAVS]
+        candidates = [path for path in candidates if path.exists()]
+        return random.choice(candidates) if candidates else None
 
     @property
     def enabled(self) -> bool:
@@ -381,6 +401,13 @@ class VoiceRuntime:
             else:
                 self._phase = "слушаю"
             return
+        cached_smalltalk = self._smalltalk_wav_for(command)
+        if cached_smalltalk is not None:
+            self._last_response = f"wav:{cached_smalltalk.name}"
+            self._phase = "говорю WAV"
+            self._say_wav(str(Path("cache") / cached_smalltalk.name))
+            self._follow_up_until = time.monotonic() + 45.0
+            return
         route = self._response_router.route(command)
         if route.kind == "preset" and route.intent == "hello":
             self._say_wav(self.ACK_FILES["hello"])
@@ -432,9 +459,10 @@ class VoiceRuntime:
                     break
             self._conversation_queue.put_nowait(command)
         except queue.Full:
-            self._last_error = "conversation queue is full"
-            self._phase = "ошибка"
-            self._say_wav("Я провел симуляции со всеми известными элементами.wav")
+            # The worker may currently be speaking/thinking. Drop this stale
+            # turn instead of producing another error WAV or growing a queue.
+            self._last_error = "conversation request superseded"
+            self._phase = "слушаю"
 
     def _conversation_loop(self) -> None:
         while not self._stop.is_set():
@@ -510,7 +538,7 @@ class VoiceRuntime:
             )
             style_instruction = (
                 " Пользователь попросил сказку или историю: расскажи законченную короткую историю "
-                "на 4-8 абзацев, не обрывай её и не добавляй служебных комментариев."
+                "на 2-3 коротких абзаца, примерно 350-700 знаков, с понятным финалом."
                 if story_request
                 else ""
             )
@@ -538,7 +566,7 @@ class VoiceRuntime:
                 {"role": "user", "content": text},
             ]
             llm = LocalLLMService(
-                overrides={"HEL_OLLAMA_NUM_PREDICT": "192" if story_request else "64"}
+                overrides={"HEL_OLLAMA_NUM_PREDICT": "96" if story_request else "64"}
             )
             response = asyncio.run(self._stream_response(llm, messages))
             response = " ".join(str(response or "").split()).strip()
@@ -558,7 +586,7 @@ class VoiceRuntime:
                 response = "Я здесь, сэр. Давайте продолжим разговор — расскажите, что вас сейчас интересует."
             # Voice replies must stay short. Long Ollama completions make CPU
             # TTS dominate the interaction and are poor spoken responses.
-            max_response_chars = 1600 if story_request else 280
+            max_response_chars = 700 if story_request else 280
             if len(response) > max_response_chars:
                 response = response[:max_response_chars].rsplit(" ", 1)[0].rstrip(" ,;:") + "…"
             if not response or "__JARVIS_NOT_UNDERSTOOD__" in response:
@@ -576,9 +604,8 @@ class VoiceRuntime:
             # Fish Audio is a request/response TTS API. Sending every sentence
             # separately creates a network-sized pause between sentences. One
             # short response per request keeps the speech continuous.
-            self._tts_queue.put(response)
+            self._tts_queue.put_latest(response)
             self._phase = "говорю AI по предложениям"
-            self._tts_queue.wait_idle(timeout=90.0)
             if self._enabled:
                 # Keep the conversation open after an answer. The next user
                 # turn should not require repeating the wake word.

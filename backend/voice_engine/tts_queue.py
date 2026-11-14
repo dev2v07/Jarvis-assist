@@ -21,6 +21,16 @@ class TTSQueue:
         if text and not self._stop.is_set():
             self._items.put(text)
 
+    def put_latest(self, text: str) -> None:
+        """Keep the currently playing item, but discard stale pending speech."""
+        while True:
+            try:
+                self._items.get_nowait()
+                self._items.task_done()
+            except queue.Empty:
+                break
+        self.put(text)
+
     def wait_idle(self, timeout: float = 60.0) -> bool:
         finished = threading.Event()
         self._items.put(None)
