@@ -446,10 +446,10 @@ class VoiceRuntime:
         try:
             from services.llm_service import LocalLLMService
 
-            # Start the acknowledgement immediately, but overlap its playback
-            # with LLM generation so the user is not forced to wait for a WAV
-            # before Ollama even receives the question.
-            self._say_wav("Всегда к вашим услугам сэр.wav", wait_done=False)
+            # Conversation turns must not be mistaken for a finished answer:
+            # canned WAV acknowledgements are reserved for wake-word and
+            # deterministic command paths.  The first spoken response here
+            # must be the generated answer from the selected TTS engine.
             self._phase = "думаю"
             messages = [
                 {
