@@ -468,6 +468,16 @@ class VoiceRuntime:
             # deterministic command paths.  The first spoken response here
             # must be the generated answer from the selected TTS engine.
             self._phase = "думаю"
+            story_request = any(
+                marker in text.lower()
+                for marker in ("расскажи сказку", "расскажи историю", "придумай сказку", "история на ночь")
+            )
+            style_instruction = (
+                " Пользователь попросил сказку или историю: расскажи законченную короткую историю "
+                "на 4-8 абзацев, не обрывай её и не добавляй служебных комментариев."
+                if story_request
+                else ""
+            )
             messages = [
                 {
                     "role": "system",
@@ -485,13 +495,16 @@ class VoiceRuntime:
                         "обычно 1-3 предложениями. Не добавляй планы проектов, "
                         "markdown, служебные блоки и длинные списки, если их не просили. "
                         "Если смысл запроса невозможно понять, ответь ровно "
-                        "__JARVIS_NOT_UNDERSTOOD__."
+                        "__JARVIS_NOT_UNDERSTOOD__." + style_instruction
                     ),
                 },
                 *self._conversation_history[-8:],
                 {"role": "user", "content": text},
             ]
-            response = asyncio.run(self._stream_response(LocalLLMService(), messages))
+            llm = LocalLLMService(
+                overrides={"HEL_OLLAMA_NUM_PREDICT": "192" if story_request else "64"}
+            )
+            response = asyncio.run(self._stream_response(llm, messages))
             response = " ".join(str(response or "").split()).strip()
             # Small local models occasionally append a foreign prompt/template
             # after the answer. Never expose or speak that service text.
@@ -509,8 +522,9 @@ class VoiceRuntime:
                 response = "Я здесь, сэр. Давайте продолжим разговор — расскажите, что вас сейчас интересует."
             # Voice replies must stay short. Long Ollama completions make CPU
             # TTS dominate the interaction and are poor spoken responses.
-            if len(response) > 280:
-                response = response[:280].rsplit(" ", 1)[0].rstrip(" ,;:") + "…"
+            max_response_chars = 1600 if story_request else 280
+            if len(response) > max_response_chars:
+                response = response[:max_response_chars].rsplit(" ", 1)[0].rstrip(" ,;:") + "…"
             if not response or "__JARVIS_NOT_UNDERSTOOD__" in response:
                 self._last_error = "conversation returned an empty response"
                 self._say_wav("Создать визуальный образ по новым спецификациям.wav")
