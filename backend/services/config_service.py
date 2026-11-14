@@ -79,6 +79,7 @@ def _adapter_config(config: dict[str, Any]) -> dict[str, Any]:
         **config,
         "HEL_OLLAMA_BASE_URL": config.get("HEL_OLLAMA_BASE_URL") or OLLAMA_BASE_URL,
         "HEL_OLLAMA_MODEL": config.get("HEL_OLLAMA_MODEL") or OLLAMA_MODEL,
+        "HEL_OLLAMA_THINK": config.get("HEL_OLLAMA_THINK") or "false",
         "HEL_OPENAI_BASE_URL": config.get("HEL_OPENAI_BASE_URL") or OPENAI_BASE_URL,
         "HEL_OPENAI_MODEL": config.get("HEL_OPENAI_MODEL") or OPENAI_MODEL,
         "HEL_OPENAI_API_KEY": config.get("HEL_OPENAI_API_KEY") or OPENAI_API_KEY,
@@ -258,6 +259,9 @@ def save_llm_settings(payload: dict[str, Any]) -> dict[str, Any]:
         "HEL_OLLAMA_MODEL":
             str(payload.get("ollama_model", OLLAMA_MODEL)).strip() or OLLAMA_MODEL,
 
+        "HEL_OLLAMA_THINK":
+            str(payload.get("ollama_think", "false")).strip().lower() or "false",
+
         "HEL_CODEX_BASE_URL":
             str(payload.get("codex_base_url", "")).strip(),
 
@@ -351,6 +355,9 @@ async def test_llm_settings(payload: dict[str, Any]) -> dict[str, Any]:
 
         "HEL_OLLAMA_MODEL":
             str(payload.get("ollama_model", OLLAMA_MODEL)).strip() or OLLAMA_MODEL,
+
+        "HEL_OLLAMA_THINK":
+            str(payload.get("ollama_think", "false")).strip().lower() or "false",
 
         "HEL_CODEX_API_KEY":
             str(payload.get("codex_api_key", "")).strip(),

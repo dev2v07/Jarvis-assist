@@ -172,7 +172,10 @@ class OllamaAdapter(_HttpAdapter):
         if not status["configured"]:
             raise ProviderConfigurationError(self.provider_name, status["missing"])
 
-        options = {"temperature": float(self.config.get("HEL_OPENAI_TEMPERATURE") or 0.2)}
+        options = {
+            "temperature": float(self.config.get("HEL_OPENAI_TEMPERATURE") or 0.2),
+            "think": str(self.config.get("HEL_OLLAMA_THINK", "false")).lower() in {"1", "true", "yes", "on"},
+        }
         num_predict = self.config.get("HEL_OLLAMA_NUM_PREDICT")
         if num_predict:
             try:
@@ -202,7 +205,10 @@ class OllamaAdapter(_HttpAdapter):
         status = self.configuration_status()
         if not status["configured"]:
             raise ProviderConfigurationError(self.provider_name, status["missing"])
-        options = {"temperature": float(self.config.get("HEL_OPENAI_TEMPERATURE") or 0.2)}
+        options = {
+            "temperature": float(self.config.get("HEL_OPENAI_TEMPERATURE") or 0.2),
+            "think": str(self.config.get("HEL_OLLAMA_THINK", "false")).lower() in {"1", "true", "yes", "on"},
+        }
         num_predict = self.config.get("HEL_OLLAMA_NUM_PREDICT")
         if num_predict:
             try:

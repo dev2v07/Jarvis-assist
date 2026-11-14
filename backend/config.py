@@ -29,8 +29,8 @@ BACKUP_SCHEDULE_HOURS = 6
 # =========================================================
 
 # Keep the default aligned with the model currently installed on this PC.
-# Override with HEL_OLLAMA_MODEL when a larger local model is available.
-OLLAMA_MODEL = "phi3:latest"
+# Override with HEL_OLLAMA_MODEL to select another local model.
+OLLAMA_MODEL = "qwen3:8b"
 
 # =========================================================
 # LLM RETRY / CACHE

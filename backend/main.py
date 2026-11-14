@@ -205,6 +205,7 @@ class LLMSettingsRequest(BaseModel):
     deepseek_api_key: str | None = None
     ollama_base_url: str = ""
     ollama_model: str = ""
+    ollama_think: str = "false"
     codex_base_url: str = ""
     codex_model: str = ""
     codex_api_key: str | None = None

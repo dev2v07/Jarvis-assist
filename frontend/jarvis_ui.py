@@ -3510,11 +3510,19 @@ class JarvisUI(QWidget):
         header.addWidget(title)
         header.addStretch()
 
-        btn_min = QPushButton("–")
-        btn_close = QPushButton("X")
+        btn_min = QPushButton()
+        btn_close = QPushButton()
 
         btn_min.setFixedSize(32, 32)
         btn_close.setFixedSize(32, 32)
+        btn_min.setIcon(QIcon(str(Path(BASE_DIR) / "assets" / "chevron-down.svg")))
+        btn_close.setIcon(QIcon(str(Path(BASE_DIR) / "assets" / "close.svg")))
+        btn_min.setIconSize(QSize(24, 24))
+        btn_close.setIconSize(QSize(24, 24))
+        btn_min.setToolTip("Свернуть")
+        btn_close.setToolTip("Закрыть")
+        btn_min.setAccessibleName("Свернуть окно")
+        btn_close.setAccessibleName("Закрыть окно")
 
         btn_close.setObjectName("closeBtn")
         self.widget_chrome_widgets.extend([btn_min, btn_close])
@@ -3655,7 +3663,7 @@ class JarvisUI(QWidget):
         self._refresh_user_profile_card()
 
         tandem_footer = QLabel(
-            '<a href="https://tandemarketing.ru">© Разработано Tandem Marketing 2026</a>'
+            '<a style="color:#ffffff;" href="https://tandemarketing.ru">© Разработано Tandem Marketing</a>'
         )
         tandem_footer.setObjectName("tandemFooter")
         tandem_footer.setOpenExternalLinks(True)

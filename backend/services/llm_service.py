@@ -9,7 +9,7 @@ from typing import Dict, List
 import requests
 from cachetools import TTLCache
 
-from config import OLLAMA_MODEL, RETRY_BACKOFF_SECONDS, SEARCH_CACHE_TTL
+from config import OLLAMA_MODEL, RETRY_BACKOFF_SECONDS, SEARCH_CACHE_TTL, read_runtime_config
 from services.provider_adapters import (
     ProviderConfigurationError,
     ProviderError,
@@ -55,8 +55,13 @@ class LocalLLMService:
     # -----------------------------------------------------
 
     def _getenv(self, key: str, default: str = "") -> str:
-
-        return str(self._overrides.get(key, os.getenv(key, default)))
+        if key in self._overrides:
+            return str(self._overrides[key])
+        value = os.getenv(key)
+        if value is not None and str(value).strip():
+            return str(value)
+        runtime = read_runtime_config(mask_secrets=False)
+        return str(runtime.get(key, default))
 
     # -----------------------------------------------------
     # PROVIDER
@@ -80,6 +85,10 @@ class LocalLLMService:
     def ollama_model(self) -> str:
 
         return self._getenv("HEL_OLLAMA_MODEL", OLLAMA_MODEL)
+
+    @property
+    def ollama_think(self) -> bool:
+        return self._getenv("HEL_OLLAMA_THINK", "false").strip().lower() in {"1", "true", "yes", "on"}
 
     # -----------------------------------------------------
     # OPENAI
@@ -123,6 +132,7 @@ class LocalLLMService:
         return {
             "HEL_OLLAMA_BASE_URL": self.ollama_base_url,
             "HEL_OLLAMA_MODEL": self.ollama_model,
+            "HEL_OLLAMA_THINK": str(self.ollama_think).lower(),
             "HEL_OPENAI_BASE_URL": self.openai_base_url,
             "HEL_OPENAI_MODEL": self.openai_model,
             "HEL_OPENAI_API_KEY": self.openai_api_key,
