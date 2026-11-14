@@ -4548,23 +4548,42 @@ class JarvisUI(QWidget):
         QTimer.singleShot(0, self.apply_hardware_settings)
 
         def commands_inline(layout, edits):
-            command_view = QPlainTextEdit()
-            command_view.setObjectName("commandsPreview")
-            command_view.setReadOnly(True)
-            command_view.setFixedSize(560, 300)
             command_path = Path(BASE_DIR).parent / "backend" / "voice_engine" / "commands.yaml"
+            search = QLineEdit()
+            search.setPlaceholderText("Поиск команды или голосовой фразы")
+            layout.addWidget(search)
+            command_view = QListWidget()
+            command_view.setObjectName("commandsPreview")
+            command_view.setMinimumSize(560, 300)
+            layout.addWidget(command_view)
+            count_label = QLabel()
+            count_label.setObjectName("settingsHint")
+            layout.addWidget(count_label)
             try:
                 import yaml
                 command_data = yaml.safe_load(command_path.read_text(encoding="utf-8")) or {}
-                lines = []
+                command_rows = []
                 for intent, phrases in command_data.items():
-                    lines.append(str(intent).upper())
-                    lines.extend(f"  • {phrase}" for phrase in (phrases or []))
-                    lines.append("")
-                command_view.setPlainText("\n".join(lines).strip())
+                    values = [str(item) for item in (phrases or [])]
+                    command_rows.append((str(intent), values))
+                    item = QListWidgetItem(f"{str(intent).upper()}\n" + "  • " + "\n  • ".join(values))
+                    item.setData(Qt.UserRole, " ".join([str(intent), *values]).lower())
+                    command_view.addItem(item)
+                count_label.setText(f"Команд: {len(command_rows)}. Выберите фразу — обработка идёт через существующий router.")
+
+                def filter_commands(value):
+                    needle = value.lower().strip()
+                    visible = 0
+                    for index in range(command_view.count()):
+                        item = command_view.item(index)
+                        show = not needle or needle in str(item.data(Qt.UserRole))
+                        item.setHidden(not show)
+                        visible += int(show)
+                    count_label.setText(f"Показано: {visible} из {len(command_rows)} команд")
+
+                search.textChanged.connect(filter_commands)
             except Exception as error:
-                command_view.setPlainText(f"Не удалось прочитать commands.yaml: {error}")
-            layout.addWidget(command_view)
+                command_view.addItem(f"Не удалось прочитать commands.yaml: {error}")
             edit_button = QPushButton("ОТКРЫТЬ ФАЙЛ КОМАНД")
             edit_button.clicked.connect(lambda: os.startfile(str(command_path)))
             layout.addWidget(edit_button)
