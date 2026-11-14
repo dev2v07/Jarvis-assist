@@ -83,6 +83,7 @@ class VoiceRuntime:
         self._conversation_history: list[dict[str, str]] = []
         self._response_router = ResponseRouter()
         self._tts_queue: TTSQueue | None = None
+        self._llm_warmup_started = False
 
     @property
     def enabled(self) -> bool:
@@ -113,6 +114,7 @@ class VoiceRuntime:
         self._thread = threading.Thread(target=self._run, name="jarvis-voice", daemon=True)
         self._thread.start()
         self._ensure_conversation_worker()
+        self._warm_llm_in_background()
         if self._tts_queue is None:
             self._tts_queue = TTSQueue(self._speak_tts, self._on_tts_error)
         return self.status()
@@ -126,6 +128,29 @@ class VoiceRuntime:
             daemon=True,
         )
         self._conversation_thread.start()
+
+    def _warm_llm_in_background(self) -> None:
+        """Load the active local model before the first real voice question."""
+        if self._llm_warmup_started:
+            return
+        self._llm_warmup_started = True
+
+        def warmup() -> None:
+            try:
+                from services.llm_service import LocalLLMService
+
+                service = LocalLLMService(overrides={"HEL_OLLAMA_NUM_PREDICT": "8"})
+                if service.provider != "ollama":
+                    return
+                asyncio.run(service.chat([
+                    {"role": "user", "content": "Ответь одним словом: готов."},
+                ]))
+            except Exception:
+                # Warmup is an optimization; a real request reports its own
+                # provider error and must not show a false startup failure.
+                pass
+
+        threading.Thread(target=warmup, name="jarvis-llm-warmup", daemon=True).start()
 
     def stop(self) -> dict:
         self._enabled = False
@@ -266,7 +291,7 @@ class VoiceRuntime:
         speech: list[bytes] = []
         speaking = False
         silence_blocks = 0
-        silence_limit = 8  # 8 * 250 ms = 2 seconds of silence
+        silence_limit = 5  # 5 * 250 ms = 1.25 seconds of silence
 
         def callback(indata, frames, time_info, status):
             if status and "overflow" not in str(status).lower():
