@@ -13,6 +13,7 @@ from config import OLLAMA_MODEL, RETRY_BACKOFF_SECONDS, SEARCH_CACHE_TTL
 from services.provider_adapters import (
     ProviderConfigurationError,
     ProviderError,
+    ProviderRequestError,
     build_provider_adapter,
 )
 from utils.logging_setup import get_logger
@@ -342,6 +343,11 @@ class LocalLLMService:
                 if isinstance(exc, ProviderConfigurationError):
                     # A missing key/model is deterministic; retrying it only
                     # delays the actionable configuration error.
+                    raise
+
+                if isinstance(exc, ProviderRequestError) and exc.status_code is not None and exc.status_code < 500:
+                    # Invalid keys, rejected models and malformed requests are
+                    # deterministic; retrying them freezes the desktop UI.
                     raise
 
                 logger.warning(

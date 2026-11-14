@@ -8,6 +8,7 @@ from unittest.mock import patch
 from services.llm_service import LocalLLMService
 from services.provider_adapters import (
     ProviderConfigurationError,
+    ProviderRequestError,
     build_provider_adapter,
 )
 
@@ -152,6 +153,18 @@ class ProviderAdapterTests(unittest.TestCase):
 
         self.assertIn("Провайдер claude не настроен", result)
         self.assertNotIn("stub режим", result)
+
+    def test_provider_4xx_is_not_retried(self) -> None:
+        service = LocalLLMService(overrides={
+            "HEL_LLM_PROVIDER": "deepseek",
+            "HEL_DEEPSEEK_API_KEY": "bad-key",
+        })
+        with self.assertRaises(ProviderRequestError):
+            service._with_retries(
+                lambda messages, prompt: (_ for _ in ()).throw(ProviderRequestError("deepseek", "unauthorized", 401)),
+                [],
+                "health",
+            )
 
 
 if __name__ == "__main__":
