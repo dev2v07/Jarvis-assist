@@ -50,6 +50,7 @@ CONTEXT_TIMEOUT = 30
 
 LEARNING_MODE = False
 UNKNOWN_COMMAND = None
+PENDING_CONFIRMATION = None
 
 
 # ---------------------------------------------
@@ -367,9 +368,26 @@ def run_command(command):
     global LEARNING_MODE
     global UNKNOWN_COMMAND
     global COMMAND_FEEDBACK
+    global PENDING_CONFIRMATION
 
     command = command.lower()
     COMMAND_FEEDBACK = ""
+
+    if PENDING_CONFIRMATION:
+        if command.strip() in {"да", "подтверждаю", "подтвердить", "выполняй"}:
+            intent = PENDING_CONFIRMATION
+            PENDING_CONFIRMATION = None
+            action = ACTIONS.get(intent)
+            if action:
+                action()
+                COMMAND_FEEDBACK = "Подтверждение получено. Команда выполнена."
+                return True
+        if command.strip() in {"нет", "отмена", "отменить", "не надо"}:
+            PENDING_CONFIRMATION = None
+            COMMAND_FEEDBACK = "Команда отменена."
+            return True
+        COMMAND_FEEDBACK = "Ожидаю подтверждение: скажите «да» или «нет»."
+        return True
 
 
     # -----------------------------------------
@@ -449,6 +467,11 @@ def run_command(command):
 
     intent = known_intent or find_intent(command)
 
+    if intent in {"shutdown", "reboot"}:
+        PENDING_CONFIRMATION = intent
+        COMMAND_FEEDBACK = "Это прерывающая системная команда. Подтвердите выполнение словами «да» или «нет»."
+        return True
+
 
     # -----------------------------------------
     # если команда неизвестна
@@ -489,3 +512,7 @@ def run_command(command):
 
 def get_last_command_feedback() -> str:
     return COMMAND_FEEDBACK
+
+
+def has_pending_confirmation() -> bool:
+    return bool(PENDING_CONFIRMATION)

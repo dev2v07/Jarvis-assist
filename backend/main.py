@@ -64,6 +64,9 @@ from services.voice_runtime import VoiceRuntime
 from voice_engine.tts import select_voice_model, voice_models_status
 from services.app_server import AppServer
 from services.device_capabilities import device_capabilities
+from services.filesystem_service import FileSystemService
+from services.application_service import ApplicationService
+from services.local_response_service import LocalResponseService
 from services.config_service import get_settings_bundle, save_llm_settings, test_llm_settings
 from utils.tooling import backup_data
 
@@ -89,6 +92,9 @@ bus = MessageBus()
 chat_store = ChatStore()
 app_server = AppServer(chat_store, runtime_registry)
 voice_runtime = VoiceRuntime(Path(__file__).resolve().parent)
+filesystem_service = FileSystemService(Path(__file__).resolve().parent)
+application_service = ApplicationService(Path(__file__).resolve().parent)
+local_response_service = LocalResponseService(Path(__file__).resolve().parent)
 active_chat_tasks: dict[str, asyncio.Task] = {}
 
 # -----------------------------
@@ -370,6 +376,36 @@ def voice_status():
 @app.get("/voice/models")
 def voice_models():
     return voice_models_status()
+
+
+@app.get("/voice/library")
+def voice_library_status():
+    return local_response_service.summary()
+
+
+@app.get("/commands/catalog")
+def commands_catalog():
+    from computer_control import COMMANDS
+
+    return {
+        "commands": [
+            {"intent": intent, "phrases": list(phrases or [])}
+            for intent, phrases in COMMANDS.items()
+        ],
+        "source": "backend/voice_engine/commands.yaml",
+    }
+
+
+@app.post("/commands/index")
+def commands_index(max_entries: int = 12000):
+    count = filesystem_service.scan(max_entries=max(100, min(int(max_entries), 50000)))
+    return {"ok": True, "indexed": count, "database": str(filesystem_service.db_path)}
+
+
+@app.get("/commands/applications")
+def commands_applications(refresh: bool = False):
+    apps = application_service.discover() if refresh else application_service.apps
+    return {"applications": apps, "path": str(application_service.path)}
 
 
 @app.post("/voice/model")

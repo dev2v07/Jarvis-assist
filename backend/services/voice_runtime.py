@@ -404,6 +404,19 @@ class VoiceRuntime:
             else:
                 self._phase = "слушаю"
             return
+        try:
+            from computer_control import get_last_command_feedback, has_pending_confirmation, run_command
+
+            if has_pending_confirmation():
+                run_command(command)
+                feedback = get_last_command_feedback()
+                if feedback:
+                    self._speak_feedback(feedback)
+                return
+        except Exception as error:
+            self._last_error = f"confirmation: {error}"
+            self._phase = "ошибка"
+            return
         local_match = self._local_response_service.match(command, {"instant", "ack"})
         if local_match is not None:
             if local_match.intent_class == "instant":
@@ -452,7 +465,7 @@ class VoiceRuntime:
                 handled = bool(run_command(command))
                 if handled:
                     feedback = get_last_command_feedback()
-                    if feedback and intent in {"open_folder", "open_bible", "open_system_settings", "computer_info", "open_productivity"}:
+                    if feedback and intent in {"open_folder", "open_bible", "open_system_settings", "computer_info", "open_productivity", "shutdown", "reboot"}:
                         self._speak_feedback(feedback)
                     else:
                         self._say_wav(self.COMMAND_WAVS.get(intent, "Да сэр.wav"))
