@@ -338,7 +338,9 @@ class VoiceRuntime:
         if not command:
             self._phase = "отвечаю WAV"
             self._say_wav("Да сэр.wav")
-            self._follow_up_until = time.monotonic() + 10.0
+            # Give the user enough time to formulate the follow-up question
+            # after saying the wake word separately.
+            self._follow_up_until = time.monotonic() + 30.0
             return
         route = self._response_router.route(command)
         if route.kind == "preset" and route.intent == "hello":
