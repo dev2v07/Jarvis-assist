@@ -46,6 +46,8 @@ workspace/
 *.mp3
 data/voice_responses/selection_state.json
 data/voice_responses/*.tmp
+data/filesystem_index.db*
+data/applications.json
 
 # Archives and installers
 *.zip

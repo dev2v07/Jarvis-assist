@@ -9,6 +9,8 @@ from pathlib import Path
 import yaml
 
 from rapidfuzz import fuzz
+from services.application_service import APP_ALIASES, ApplicationService
+from services.filesystem_service import AmbiguousPathError, FileSystemService
 
 
 # ---------------------------------------------
@@ -25,6 +27,9 @@ COMMANDS_FILE = os.path.join(BASE_DIR, "voice_engine", "commands.yaml")
 
 with open(COMMANDS_FILE, "r", encoding="utf-8") as f:
     COMMANDS = yaml.safe_load(f)
+FILESYSTEM = FileSystemService(Path(BASE_DIR))
+APPLICATIONS = ApplicationService(Path(BASE_DIR))
+COMMAND_FEEDBACK = ""
 
 
 REMINDERS = []
@@ -64,7 +69,13 @@ def open_youtube():
 
 
 def open_music():
-    webbrowser.open("https://music.yandex.ru")
+    global COMMAND_FEEDBACK
+    try:
+        item = APPLICATIONS.launch("яндекс музыка")
+        COMMAND_FEEDBACK = f"Запускаю {item['name']}."
+    except FileNotFoundError:
+        COMMAND_FEEDBACK = "Приложение Яндекс Музыка не найдено, открываю сайт."
+        webbrowser.open("https://music.yandex.ru")
 
 
 def open_weather():
@@ -102,6 +113,76 @@ def open_steam():
 
 def open_settings():
     os.system("start ms-settings:")
+
+
+def open_system_settings():
+    global COMMAND_FEEDBACK
+    COMMAND_FEEDBACK = "Открываю параметры Windows."
+    open_settings()
+
+
+def computer_info():
+    global COMMAND_FEEDBACK
+    try:
+        import psutil
+        memory_gb = psutil.virtual_memory().total / (1024 ** 3)
+        COMMAND_FEEDBACK = f"Память компьютера: {memory_gb:.1f} гигабайт."
+    except Exception:
+        COMMAND_FEEDBACK = "Информация о компьютере временно недоступна."
+    return True
+
+
+def open_calculator():
+    os.system("start calc.exe")
+
+
+def open_task_manager():
+    os.system("start taskmgr.exe")
+
+
+def open_device_manager():
+    os.system("start devmgmt.msc")
+
+
+def open_disk_management():
+    os.system("start diskmgmt.msc")
+
+
+def open_bible():
+    webbrowser.open("https://www.jw.org/ru/%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D1%8F/")
+
+
+def _target_after_prefix(command: str, prefixes: tuple[str, ...]) -> str:
+    value = command.lower().strip()
+    for prefix in prefixes:
+        if value.startswith(prefix):
+            return value[len(prefix):].strip(" ,.!?")
+    return value
+
+
+def open_folder_from_command(command: str) -> bool:
+    global COMMAND_FEEDBACK
+    target = _target_after_prefix(command, ("открой папку", "открой каталог", "найди папку", "покажи папку", "перейди в папку", "мне нужна папка"))
+    try:
+        path = FILESYSTEM.open_folder(target)
+        COMMAND_FEEDBACK = f"Открываю папку {path.name}."
+    except AmbiguousPathError as error:
+        options = "; ".join(str(item) for item in error.candidates[:2])
+        COMMAND_FEEDBACK = f"Нашёл несколько папок {error.query}. Уточните вариант: {options}."
+    except FileNotFoundError:
+        COMMAND_FEEDBACK = f"Папку {target} найти не удалось."
+    return True
+
+
+def launch_application_from_command(command: str) -> bool:
+    global COMMAND_FEEDBACK
+    target = _target_after_prefix(command, ("открой", "запусти", "включи"))
+    try:
+        item = APPLICATIONS.launch(target)
+        COMMAND_FEEDBACK = f"Запускаю {item['name']}."
+    except FileNotFoundError:
+        COMMAND_FEEDBACK = f"Приложение {target} не найдено на этом компьютере."
+    return True
 
 
 def show_desktop():
@@ -172,6 +253,10 @@ ACTIONS = {
     "open_telegram": open_telegram,
     "open_discord": open_discord,
     "open_steam": open_steam,
+    "open_bible": open_bible,
+    "open_system_settings": open_system_settings,
+    "computer_info": computer_info,
+    "open_productivity": open_calculator,
 
     "weather": open_weather,
     "currency_dollar": open_dollar,
@@ -281,8 +366,10 @@ def run_command(command):
     global LAST_CONTEXT_TIME
     global LEARNING_MODE
     global UNKNOWN_COMMAND
+    global COMMAND_FEEDBACK
 
     command = command.lower()
+    COMMAND_FEEDBACK = ""
 
 
     # -----------------------------------------
@@ -307,6 +394,15 @@ def run_command(command):
 
     if time.time() - LAST_CONTEXT_TIME > CONTEXT_TIMEOUT:
         LAST_CONTEXT = None
+
+    # Local file/application actions are resolved before Ollama. Existing
+    # exact command intents keep their established handlers.
+    known_intent = find_intent(command)
+    if any(command.startswith(prefix) for prefix in ("открой папку", "открой каталог", "найди папку", "покажи папку", "перейди в папку", "мне нужна папка")):
+        return open_folder_from_command(command)
+    if known_intent is None and any(command.startswith(prefix) for prefix in ("открой ", "запусти ", "включи ")):
+        if APPLICATIONS.find(command) or any(alias in command for aliases in APP_ALIASES.values() for alias in aliases):
+            return launch_application_from_command(command)
 
 
     # -----------------------------------------
@@ -351,7 +447,7 @@ def run_command(command):
     # поиск интента
     # -----------------------------------------
 
-    intent = find_intent(command)
+    intent = known_intent or find_intent(command)
 
 
     # -----------------------------------------
@@ -389,3 +485,7 @@ def run_command(command):
 
 
     return False
+
+
+def get_last_command_feedback() -> str:
+    return COMMAND_FEEDBACK

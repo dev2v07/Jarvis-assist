@@ -430,7 +430,7 @@ class VoiceRuntime:
             return
 
         try:
-            from computer_control import run_command
+            from computer_control import get_last_command_feedback, run_command
 
             intent = route.intent if route.kind == "command" else None
             self._phase = "проверяю команду"
@@ -451,7 +451,11 @@ class VoiceRuntime:
                 self._phase = "выполняю команду"
                 handled = bool(run_command(command))
                 if handled:
-                    self._say_wav(self.COMMAND_WAVS.get(intent, "Да сэр.wav"))
+                    feedback = get_last_command_feedback()
+                    if feedback and intent in {"open_folder", "open_bible", "open_system_settings", "computer_info", "open_productivity"}:
+                        self._speak_feedback(feedback)
+                    else:
+                        self._say_wav(self.COMMAND_WAVS.get(intent, "Да сэр.wav"))
                     if intent == "off":
                         self.stop()
                     return
@@ -535,6 +539,14 @@ class VoiceRuntime:
             speak(text)
         finally:
             self._speaking.clear()
+
+    def _speak_feedback(self, text: str) -> None:
+        """Speak short local action feedback without creating a new LLM turn."""
+        if self._tts_queue is None:
+            self._tts_queue = TTSQueue(self._speak_tts, self._on_tts_error)
+        self._last_response = text
+        self._tts_queue.put_latest(text)
+        self._phase = "говорю подтверждение"
 
     def _on_tts_error(self, error: Exception) -> None:
         self._last_error = f"TTS: {error}"
