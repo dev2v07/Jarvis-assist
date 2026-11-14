@@ -202,6 +202,13 @@ class OllamaAdapter(_HttpAdapter):
         status = self.configuration_status()
         if not status["configured"]:
             raise ProviderConfigurationError(self.provider_name, status["missing"])
+        options = {"temperature": float(self.config.get("HEL_OPENAI_TEMPERATURE") or 0.2)}
+        num_predict = self.config.get("HEL_OLLAMA_NUM_PREDICT")
+        if num_predict:
+            try:
+                options["num_predict"] = max(16, min(256, int(num_predict)))
+            except (TypeError, ValueError):
+                pass
         try:
             response = requests.post(
                 f"{self.base_url.rstrip('/')}/api/chat",
@@ -209,7 +216,7 @@ class OllamaAdapter(_HttpAdapter):
                     "model": self.model,
                     "messages": self._messages(messages, system_prompt),
                     "stream": True,
-                    "options": {"temperature": float(self.config.get("HEL_OPENAI_TEMPERATURE") or 0.2)},
+                    "options": options,
                 },
                 timeout=self.timeout,
                 stream=True,

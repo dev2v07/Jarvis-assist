@@ -115,7 +115,9 @@ class LocalLLMService:
             "HEL_OPENAI_API_KEY": self.openai_api_key,
             "HEL_OPENAI_TEMPERATURE": str(self.openai_temperature),
             "HEL_LLM_REQUEST_TIMEOUT": str(self.request_timeout),
-            "HEL_OLLAMA_NUM_PREDICT": self._getenv("HEL_OLLAMA_NUM_PREDICT", ""),
+            # Keep spoken replies short by default; users can override this
+            # without changing the runtime code.
+            "HEL_OLLAMA_NUM_PREDICT": self._getenv("HEL_OLLAMA_NUM_PREDICT", "64"),
             "HEL_CODEX_API_KEY": self._getenv("HEL_CODEX_API_KEY"),
             "HEL_CODEX_MODEL": self._getenv("HEL_CODEX_MODEL"),
             "HEL_ANTHROPIC_API_KEY": self._getenv("HEL_ANTHROPIC_API_KEY"),

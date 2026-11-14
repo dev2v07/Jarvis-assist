@@ -98,6 +98,13 @@ class VoiceRuntime:
         if self._enabled and self._thread and self._thread.is_alive():
             self._ensure_conversation_worker()
             return self.status()
+        # Do not speak stale requests captured before the previous stop/restart.
+        while True:
+            try:
+                self._conversation_queue.get_nowait()
+                self._conversation_queue.task_done()
+            except queue.Empty:
+                break
         self._last_error = ""
         self._phase = "запускается"
         self._microphone_enabled = True
@@ -374,6 +381,14 @@ class VoiceRuntime:
 
         try:
             self._phase = "думаю"
+            # Voice interaction is latest-turn-wins: old unanswered questions
+            # are no longer useful after the user has spoken again.
+            while True:
+                try:
+                    self._conversation_queue.get_nowait()
+                    self._conversation_queue.task_done()
+                except queue.Empty:
+                    break
             self._conversation_queue.put_nowait(command)
         except queue.Full:
             self._last_error = "conversation queue is full"
