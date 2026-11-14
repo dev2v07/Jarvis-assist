@@ -30,7 +30,17 @@ def save_json(path: Path, value: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_suffix(path.suffix + ".tmp")
     temp.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding="utf-8")
-    temp.replace(path)
+    for _ in range(5):
+        try:
+            temp.replace(path)
+            return
+        except PermissionError:
+            time.sleep(0.25)
+    # Windows security/indexing tools can briefly hold the destination. The
+    # progress file is recoverable, so fall back to a direct write instead of
+    # terminating a multi-hour batch.
+    path.write_text(temp.read_text(encoding="utf-8"), encoding="utf-8")
+    temp.unlink(missing_ok=True)
 
 
 def update_manifest(data: dict) -> None:
