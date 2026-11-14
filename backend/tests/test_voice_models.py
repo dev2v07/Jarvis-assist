@@ -10,9 +10,9 @@ class VoiceModelRegistryTests(unittest.TestCase):
 
     def test_jarvis_is_first_and_default(self):
         status = self.manager.status()
-        self.assertEqual(status["selected_id"], "jarvis")
+        self.assertEqual(status["selected_id"], "fish_jarvis")
         self.assertEqual(status["models"][0]["model_id"], "jarvis")
-        self.assertTrue(status["models"][0]["default"])
+        self.assertTrue(status["models"][1]["default"])
         self.assertFalse(status["models"][0]["ready"])
 
     def test_fish_profiles_are_registered(self):

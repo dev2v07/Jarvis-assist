@@ -8,8 +8,9 @@ from collections.abc import Callable
 
 
 class TTSQueue:
-    def __init__(self, speak: Callable[[str], None]):
+    def __init__(self, speak: Callable[[str], None], on_error: Callable[[Exception], None] | None = None):
         self._speak = speak
+        self._on_error = on_error
         self._items: queue.Queue[str | None] = queue.Queue()
         self._stop = threading.Event()
         self._worker = threading.Thread(target=self._run, name="jarvis-tts-queue", daemon=True)
@@ -49,5 +50,8 @@ class TTSQueue:
                 continue
             try:
                 self._speak(item)
+            except Exception as error:
+                if self._on_error is not None:
+                    self._on_error(error)
             finally:
                 self._items.task_done()

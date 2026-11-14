@@ -114,7 +114,7 @@ class VoiceRuntime:
         self._thread.start()
         self._ensure_conversation_worker()
         if self._tts_queue is None:
-            self._tts_queue = TTSQueue(self._speak_tts)
+            self._tts_queue = TTSQueue(self._speak_tts, self._on_tts_error)
         return self.status()
 
     def _ensure_conversation_worker(self) -> None:
@@ -455,6 +455,10 @@ class VoiceRuntime:
         finally:
             self._speaking.clear()
 
+    def _on_tts_error(self, error: Exception) -> None:
+        self._last_error = f"TTS: {error}"
+        self._phase = "ошибка озвучки"
+
     def _respond_conversationally(self, text: str) -> None:
         try:
             from services.llm_service import LocalLLMService
@@ -505,7 +509,7 @@ class VoiceRuntime:
             self._last_response = response
             self._tts_available = True
             if self._tts_queue is None:
-                self._tts_queue = TTSQueue(self._speak_tts)
+                self._tts_queue = TTSQueue(self._speak_tts, self._on_tts_error)
             # Fish Audio is a request/response TTS API. Sending every sentence
             # separately creates a network-sized pause between sentences. One
             # short response per request keeps the speech continuous.

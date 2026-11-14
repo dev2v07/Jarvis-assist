@@ -32,14 +32,15 @@ MODEL_SPECS = (
         name="Jarvis",
         description="Основная голосовая модель",
         status="В разработке",
-        default=True,
+        default=False,
         engine="xtts_v2_fallback",
     ),
     VoiceModelSpec(
         model_id="fish_jarvis",
         name="Fish Audio — Джарвис",
         description="Облачный голосовой профиль Fish Audio",
-        status="Проверяется API Fish Audio",
+        status="Рабочий профиль Fish Audio",
+        default=True,
         engine="fish_audio_s2_1_pro_free",
     ),
     VoiceModelSpec(
@@ -57,7 +58,7 @@ class VoiceModelManager:
 
     def __init__(self, base_dir: Path):
         self.base_dir = Path(base_dir)
-        self._selected_id = "jarvis"
+        self._selected_id = "fish_jarvis"
         self._fish_error: dict[str, str] = {}
         self._fish_verified: dict[str, bool] = {}
         self._lock = threading.RLock()
