@@ -68,6 +68,7 @@ ROOT = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) el
 BACKEND = ROOT / "backend"
 FROZEN_BACKEND = ROOT / "backend_runtime"
 HEALTH_URL = "http://127.0.0.1:8000/health"
+VOICE_MODELS_URL = "http://127.0.0.1:8000/voice/models"
 
 
 def wait_for_backend(timeout: float = 25.0) -> bool:
@@ -80,6 +81,40 @@ def wait_for_backend(timeout: float = 25.0) -> bool:
             pass
         time.sleep(0.25)
     return False
+
+
+def backend_has_current_voice_registry() -> bool:
+    """Reject an orphaned backend from an older Jarvis launch."""
+    try:
+        payload = requests.get(VOICE_MODELS_URL, timeout=1.0).json()
+        model_ids = {str(item.get("model_id")) for item in payload.get("models", [])}
+        return {"jarvis", "kesha", "fish_jarvis", "fish_dean"}.issubset(model_ids)
+    except (requests.RequestException, ValueError, AttributeError):
+        return False
+
+
+def stop_backend_on_default_port() -> None:
+    """Stop only the listener occupying Jarvis' reserved local API port."""
+    if os.name != "nt":
+        return
+    try:
+        output = subprocess.check_output(
+            ["netstat", "-ano", "-p", "tcp"],
+            text=True,
+            stderr=subprocess.DEVNULL,
+        )
+        for line in output.splitlines():
+            fields = line.split()
+            if len(fields) >= 5 and fields[1].endswith(":8000") and fields[3] == "LISTENING":
+                subprocess.run(
+                    ["taskkill", "/PID", fields[4], "/T", "/F"],
+                    check=False,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
+                break
+    except (OSError, subprocess.SubprocessError):
+        pass
 
 
 def main() -> int:
@@ -98,21 +133,30 @@ def main() -> int:
     else:
         backend_command = [sys.executable, str(BACKEND / "main.py")]
         backend_cwd = BACKEND
-    backend_process = subprocess.Popen(
-        backend_command,
-        cwd=str(backend_cwd),
-        env=env,
-        creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
-    )
+    backend_process = None
+    reused_backend = False
     try:
+        if wait_for_backend(timeout=1.0):
+            if backend_has_current_voice_registry():
+                reused_backend = True
+            else:
+                stop_backend_on_default_port()
+        if not reused_backend:
+            backend_process = subprocess.Popen(
+                backend_command,
+                cwd=str(backend_cwd),
+                env=env,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+            )
         if not wait_for_backend():
-            backend_process.terminate()
+            if backend_process and backend_process.poll() is None:
+                backend_process.terminate()
             return 2
         sys.path.insert(0, str(Path(__file__).resolve().parent))
         from jarvis_ui import main as desktop_main
         return int(desktop_main() or 0)
     finally:
-        if backend_process.poll() is None:
+        if backend_process and backend_process.poll() is None:
             backend_process.terminate()
             try:
                 backend_process.wait(timeout=5)
