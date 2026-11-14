@@ -15,6 +15,7 @@ import wave
 from pathlib import Path
 
 from services.response_router import ResponseRouter
+from services.local_response_service import LocalResponseService
 from voice_engine.tts_queue import TTSQueue
 
 
@@ -94,6 +95,7 @@ class VoiceRuntime:
         self._conversation_thread: threading.Thread | None = None
         self._conversation_history: list[dict[str, str]] = []
         self._response_router = ResponseRouter()
+        self._local_response_service = LocalResponseService(self.base_dir)
         self._tts_queue: TTSQueue | None = None
         self._llm_warmup_started = False
 
@@ -232,6 +234,7 @@ class VoiceRuntime:
                 self._conversation_thread and self._conversation_thread.is_alive()
             ),
             "conversation_queue_size": self._conversation_queue.qsize(),
+            "local_response_library": self._local_response_service.summary(),
         }
 
     def _run(self) -> None:
@@ -401,6 +404,13 @@ class VoiceRuntime:
             else:
                 self._phase = "слушаю"
             return
+        local_match = self._local_response_service.match(command)
+        if local_match is not None:
+            self._last_response = f"local:{local_match.intent_id}:{local_match.text}"
+            self._phase = "говорю локальный WAV"
+            self._say_wav(str(local_match.audio_path))
+            self._follow_up_until = time.monotonic() + 45.0
+            return
         cached_smalltalk = self._smalltalk_wav_for(command)
         if cached_smalltalk is not None:
             self._last_response = f"wav:{cached_smalltalk.name}"
@@ -480,7 +490,8 @@ class VoiceRuntime:
                 self._phase = "ошибка"
 
     def _say_wav(self, filename: str, wait_done: bool = True) -> None:
-        path = self.voice_dir / filename
+        candidate = Path(filename)
+        path = candidate if candidate.is_absolute() else self.voice_dir / candidate
         if not path.exists():
             self._last_error = f"WAV response not found: {path.name}"
             return

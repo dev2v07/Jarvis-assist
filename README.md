@@ -22,6 +22,9 @@ HUD-интерфейсом, текстовым чатом, голосовым ru
 - камера/OpenCV и capability API для дополнительных устройств;
 - сохранение настроек через QSettings и опциональный автозапуск Windows для
   текущего пользователя.
+- локальная библиотека быстрых разговорных WAV-ответов с вариативным выбором;
+  неизвестные, динамические и требующие расчёта вопросы по-прежнему передаются
+  Ollama или профильному инструменту.
 
 ## Состояние релиза
 
@@ -87,6 +90,30 @@ python -m unittest discover -s backend/tests -p "test_*.py" -v
 Дорожная карта: [ROADMAP.md](ROADMAP.md)
 
 Журнал текущих голосовых и runtime-изменений: [docs/HANDOFF_ASSIST.md](docs/HANDOFF_ASSIST.md)
+
+## Локальная библиотека голосовых ответов
+
+База намерений находится в `data/voice_responses/questions.json`, а её текущий
+статус — в `data/voice_responses/manifest.json`. Для мгновенных бытовых фраз
+Jarvis выбирает один из готовых WAV и не обращается к Ollama. Истории, знания,
+расчёты и команды не подменяются устаревшими статическими ответами.
+
+После добавления или изменения текста базу можно пересобрать:
+
+```powershell
+python backend/voice_engine/build_voice_library.py
+```
+
+Генерация Fish Audio возобновляется с последнего готового файла и сохраняет
+прогресс после каждого ответа:
+
+```powershell
+python backend/voice_engine/generate_voice_library.py --limit 24
+python backend/voice_engine/generate_voice_library.py --all
+```
+
+Локальные WAV-файлы не являются исходным кодом и не добавляются в Git; они
+остаются в `data/voice_responses/` на рабочей машине.
 
 ## Структура
 

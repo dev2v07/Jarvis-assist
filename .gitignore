@@ -44,6 +44,7 @@ workspace/
 *.bin
 *.wav
 *.mp3
+data/voice_responses/selection_state.json
 
 # Archives and installers
 *.zip
