@@ -580,6 +580,9 @@ class VoiceRuntime:
             self._phase = "говорю AI по предложениям"
             self._tts_queue.wait_idle(timeout=90.0)
             if self._enabled:
+                # Keep the conversation open after an answer. The next user
+                # turn should not require repeating the wake word.
+                self._follow_up_until = time.monotonic() + 45.0
                 self._phase = "слушаю"
         except Exception as error:
             self._tts_available = False
