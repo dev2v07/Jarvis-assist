@@ -41,6 +41,35 @@ class ApplicationService:
         if key not in self.apps or not self.apps[key].get("available"):
             self.apps[key] = {"name": name, "target": target, "launch_type": launch_type, "aliases": APP_ALIASES.get(key, (key,)), "available": True}
 
+    def _discover_registry(self) -> None:
+        registry_locations = (
+            (winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Uninstall"),
+            (winreg.HKEY_LOCAL_MACHINE, r"Software\Microsoft\Windows\CurrentVersion\Uninstall"),
+            (winreg.HKEY_LOCAL_MACHINE, r"Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"),
+        )
+        for hive, location in registry_locations:
+            try:
+                with winreg.OpenKey(hive, location) as root:
+                    for index in range(winreg.QueryInfoKey(root)[0]):
+                        try:
+                            with winreg.OpenKey(root, winreg.EnumKey(root, index)) as item:
+                                display = str(winreg.QueryValueEx(item, "DisplayName")[0] or "")
+                                install = str(winreg.QueryValueEx(item, "InstallLocation")[0] or "")
+                                icon = str(winreg.QueryValueEx(item, "DisplayIcon")[0] or "").split(",", 1)[0]
+                        except (FileNotFoundError, OSError, IndexError):
+                            continue
+                        haystack = display.lower()
+                        for key, aliases in APP_ALIASES.items():
+                            if any(alias.lower() in haystack for alias in aliases):
+                                target = icon if Path(icon).is_file() else install
+                                if target and Path(target).is_file():
+                                    self._add(key, display, target, "registry")
+                                elif target and Path(target).is_dir():
+                                    self._add(key, display, target, "directory")
+            except (FileNotFoundError, OSError):
+                continue
+        
+
     def discover(self) -> dict:
         # Shortcuts are safer than guessing arbitrary executables and cover
         # normal desktop/Start-menu installations.
@@ -68,8 +97,9 @@ class ApplicationService:
                 if raw and Path(raw).is_file():
                     self._add(key, key.title(), raw, "executable")
                     break
+        self._discover_registry()
         for key, item in self.apps.items():
-            item["available"] = Path(item["target"]).exists() if item["launch_type"] == "executable" else True
+            item["available"] = Path(item["target"]).exists() if item["launch_type"] in {"executable", "registry", "directory"} else True
         self.path.write_text(json.dumps(self.apps, ensure_ascii=False, indent=2), encoding="utf-8")
         return self.apps
 
@@ -90,6 +120,8 @@ class ApplicationService:
             raise FileNotFoundError(f"Приложение не найдено: {query}")
         key, item = match
         if item["launch_type"] == "shortcut":
+            os.startfile(item["target"])
+        elif item["launch_type"] == "directory":
             os.startfile(item["target"])
         else:
             subprocess.Popen([item["target"]])
