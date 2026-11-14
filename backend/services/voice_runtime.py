@@ -404,13 +404,19 @@ class VoiceRuntime:
             else:
                 self._phase = "слушаю"
             return
-        local_match = self._local_response_service.match(command)
+        local_match = self._local_response_service.match(command, {"instant", "ack"})
         if local_match is not None:
-            self._last_response = f"local:{local_match.intent_id}:{local_match.text}"
-            self._phase = "говорю локальный WAV"
+            if local_match.intent_class == "instant":
+                self._last_response = f"local:{local_match.intent_id}:{local_match.text}"
+                self._phase = "говорю локальный WAV"
+                self._say_wav(str(local_match.audio_path))
+                self._follow_up_until = time.monotonic() + 45.0
+                return
+            # Class B is an immediate acknowledgement only; the original
+            # command continues through the normal action/router path below.
+            self._last_response = f"local_ack:{local_match.intent_id}:{local_match.text}"
+            self._phase = "подтверждаю локальным WAV"
             self._say_wav(str(local_match.audio_path))
-            self._follow_up_until = time.monotonic() + 45.0
-            return
         cached_smalltalk = self._smalltalk_wav_for(command)
         if cached_smalltalk is not None:
             self._last_response = f"wav:{cached_smalltalk.name}"

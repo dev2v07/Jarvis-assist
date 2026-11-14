@@ -12,6 +12,7 @@ from pathlib import Path
 @dataclass(frozen=True)
 class LocalResponseMatch:
     intent_id: str
+    intent_class: str
     text: str
     audio_path: Path
     score: float
@@ -74,7 +75,7 @@ class LocalResponseService:
             best = max(best, len(keywords & set(normalized.split())) / len(keywords) * 0.78)
         return best
 
-    def match(self, text: str) -> LocalResponseMatch | None:
+    def match(self, text: str, allowed_classes: set[str] | None = None) -> LocalResponseMatch | None:
         normalized = self.normalize(text)
         if not normalized:
             return None
@@ -85,7 +86,7 @@ class LocalResponseService:
             for intent in self._data.get("intents", []):
                 # Dynamic intents must go to Ollama/tools. Only Class A is an
                 # immediate answer; Class B keeps its command acknowledgement.
-                if intent.get("class") != "instant":
+                if intent.get("class") not in (allowed_classes or {"instant"}):
                     continue
                 score = self._score(normalized, intent)
                 if score > best_score:
@@ -110,6 +111,7 @@ class LocalResponseService:
                 pass
             return LocalResponseMatch(
                 intent_id=best_intent["id"],
+                intent_class=str(best_intent.get("class", "instant")),
                 text=str(selected.get("text", "")),
                 audio_path=self.library_dir / selected["wav"],
                 score=best_score,
