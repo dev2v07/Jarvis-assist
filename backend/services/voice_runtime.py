@@ -336,11 +336,16 @@ class VoiceRuntime:
         self._last_transcript = text
         self._phase = "распознал"
         if not command:
-            self._phase = "отвечаю WAV"
-            self._say_wav("Да сэр.wav")
-            # Give the user enough time to formulate the follow-up question
-            # after saying the wake word separately.
-            self._follow_up_until = time.monotonic() + 30.0
+            # A repeated wake-word must not replay the acknowledgement on
+            # every recognition pass while the follow-up window is active.
+            if time.monotonic() >= self._follow_up_until:
+                self._phase = "отвечаю WAV"
+                self._say_wav("Да сэр.wav")
+                # Give the user enough time to formulate the follow-up
+                # question after saying the wake word separately.
+                self._follow_up_until = time.monotonic() + 30.0
+            else:
+                self._phase = "слушаю"
             return
         route = self._response_router.route(command)
         if route.kind == "preset" and route.intent == "hello":
