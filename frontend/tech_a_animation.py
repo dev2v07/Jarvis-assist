@@ -24,7 +24,8 @@ class TechAAnimation:
         self.rotator_1_duration_ms = 75000.0
         self.rotator_2_duration_ms = 125000.0
         self.bg000_duration_ms = 40000.0
-        self.big_animation_enabled = False
+        # Start with the TECH-A animation enabled; XPLR then toggles it off.
+        self.big_animation_enabled = True
         self.big_animation_frame = 0
 
     def step(self, elapsed_ms=16.0):

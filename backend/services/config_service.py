@@ -86,6 +86,9 @@ def _adapter_config(config: dict[str, Any]) -> dict[str, Any]:
         "HEL_DEEPSEEK_BASE_URL": config.get("HEL_DEEPSEEK_BASE_URL") or "https://api.deepseek.com",
         "HEL_DEEPSEEK_MODEL": config.get("HEL_DEEPSEEK_MODEL") or "deepseek-flash",
         "HEL_DEEPSEEK_API_KEY": config.get("HEL_DEEPSEEK_API_KEY") or "",
+        "HEL_FREELLMAPI_BASE_URL": config.get("HEL_FREELLMAPI_BASE_URL") or "",
+        "HEL_FREELLMAPI_MODEL": config.get("HEL_FREELLMAPI_MODEL") or "",
+        "HEL_FREELLMAPI_API_KEY": config.get("HEL_FREELLMAPI_API_KEY") or "",
     }
 
 

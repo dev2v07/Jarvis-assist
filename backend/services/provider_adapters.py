@@ -437,9 +437,40 @@ class ClaudeAdapter(NotConfiguredAdapter):
         super().__init__("claude", ["HEL_ANTHROPIC_API_KEY", "HEL_ANTHROPIC_MODEL"])
 
 
-class FreeLLMAPIAdapter(NotConfiguredAdapter):
-    def __init__(self, config: Mapping[str, Any] | None = None) -> None:
-        super().__init__("freellmapi", ["HEL_FREELLMAPI_API_KEY", "HEL_FREELLMAPI_BASE_URL", "HEL_FREELLMAPI_MODEL"])
+class FreeLLMAPIAdapter(OpenAICompatibleAdapter):
+    """FreeLLMAPI's /v1 endpoint follows the OpenAI-compatible contract."""
+
+    provider_name = "freellmapi"
+
+    @property
+    def api_key(self) -> str:
+        return str(self.config.get("HEL_FREELLMAPI_API_KEY") or self.config.get("api_key") or "").strip()
+
+    @property
+    def base_url(self) -> str:
+        return str(self.config.get("HEL_FREELLMAPI_BASE_URL") or self.config.get("base_url") or "").strip()
+
+    @property
+    def model(self) -> str:
+        return str(self.config.get("HEL_FREELLMAPI_MODEL") or self.config.get("model") or "").strip()
+
+    def configuration_status(self) -> dict[str, Any]:
+        missing = [
+            key
+            for key, value in (
+                ("HEL_FREELLMAPI_API_KEY", self.api_key),
+                ("HEL_FREELLMAPI_BASE_URL", self.base_url),
+                ("HEL_FREELLMAPI_MODEL", self.model),
+            )
+            if not value
+        ]
+        return {
+            "provider": self.provider_name,
+            "model": self.model or None,
+            "configured": not missing,
+            "implemented": True,
+            "missing": missing,
+        }
 
 
 SUPPORTED_PROVIDERS = ("stub", "ollama", "openai", "openai_compatible", "deepseek", "codex", "claude", "freellmapi")

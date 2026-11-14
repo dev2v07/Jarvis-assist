@@ -3424,6 +3424,8 @@ class JarvisUI(QWidget):
     def create_new_chat(self):
         self.current_chat_id = "draft_" + uuid.uuid4().hex
         self.pages.setCurrentIndex(1)
+        # A new chat must reflect the provider/model saved in AI settings.
+        self.load_chat_model()
         self.composer.message_input.clear()
         self.chat_view.page().runJavaScript(
             "window.setCurrentChatId && window.setCurrentChatId(" + json.dumps(self.current_chat_id) + ");"
@@ -3435,27 +3437,35 @@ class JarvisUI(QWidget):
 
     def load_chat_model(self):
         """Load the active provider/model instead of showing a placeholder."""
+        config = {}
         try:
             settings = requests.get("http://127.0.0.1:8000/settings/llm", timeout=4).json()
             provider = str(settings.get("provider") or "ollama").lower()
             connection = settings.get("llm_connection") or {}
-            model = str(connection.get("model") or "phi3:latest")
+            default_model = "auto" if provider == "freellmapi" else "qwen3:8b"
+            model = str(connection.get("model") or default_model)
             config = settings.get("config") or {}
-            base_url = str(config.get("HEL_OLLAMA_BASE_URL") or "http://127.0.0.1:11434")
+            if provider == "freellmapi":
+                base_url = str(config.get("HEL_FREELLMAPI_BASE_URL") or "")
+            elif provider == "deepseek":
+                base_url = str(config.get("HEL_DEEPSEEK_BASE_URL") or "https://api.deepseek.com")
+            else:
+                base_url = str(config.get("HEL_OLLAMA_BASE_URL") or "http://127.0.0.1:11434")
             models = []
-            if provider == "ollama":
+            if provider in {"ollama", "deepseek", "freellmapi"}:
                 catalog = requests.get(
                     "http://127.0.0.1:8000/settings/llm/models",
-                    params={"provider": "ollama", "base_url": base_url},
+                    params={"provider": provider, "base_url": base_url},
                     timeout=6,
                 ).json()
                 models = [str(value) for value in catalog.get("models", []) if value]
         except (requests.RequestException, ValueError, TypeError):
-            provider, model, base_url, models = "ollama", "phi3:latest", "http://127.0.0.1:11434", []
+            provider, model, base_url, models = "ollama", "qwen3:8b", "http://127.0.0.1:11434", []
 
         if model not in models:
             models.insert(0, model)
         self._chat_provider = provider
+        self._chat_provider_base_url = str(config.get("HEL_FREELLMAPI_BASE_URL") or base_url)
         self._chat_ollama_base_url = base_url
         self.chat_model_combo.blockSignals(True)
         self.chat_model_combo.clear()
@@ -3469,16 +3479,24 @@ class JarvisUI(QWidget):
         if not model or not hasattr(self, "_chat_provider"):
             return
         self.chat_subtitle.setText(f"Провайдер: {self._chat_provider.title()}  |  Модель: {model}")
-        if self._chat_provider != "ollama":
+        if self._chat_provider == "ollama":
+            payload = {
+                "provider": "ollama",
+                "ollama_base_url": getattr(self, "_chat_ollama_base_url", "http://127.0.0.1:11434"),
+                "ollama_model": model,
+            }
+        elif self._chat_provider == "freellmapi":
+            payload = {
+                "provider": "freellmapi",
+                "freellmapi_base_url": getattr(self, "_chat_provider_base_url", ""),
+                "freellmapi_model": model,
+            }
+        else:
             return
         try:
             requests.post(
                 "http://127.0.0.1:8000/settings/llm",
-                json={
-                    "provider": "ollama",
-                    "ollama_base_url": getattr(self, "_chat_ollama_base_url", "http://127.0.0.1:11434"),
-                    "ollama_model": model,
-                },
+                json=payload,
                 timeout=6,
             ).raise_for_status()
         except requests.RequestException:
@@ -4307,7 +4325,9 @@ class JarvisUI(QWidget):
             active_provider = "ollama"
             current_id = {"value": "ollama"}
             base_edit = QLineEdit()
-            model_edit = QLineEdit()
+            model_edit = QComboBox()
+            model_edit.setEditable(True)
+            model_edit.setInsertPolicy(QComboBox.InsertPolicy.NoInsert)
             key_edit = QLineEdit()
             key_edit.setEchoMode(QLineEdit.EchoMode.Password)
             key_edit.setPlaceholderText("Оставьте пустым, чтобы сохранить текущий ключ")
@@ -4328,21 +4348,25 @@ class JarvisUI(QWidget):
                 provider_value.setText(provider_labels.get(provider_id, provider_id))
                 defaults = {
                     "deepseek": ("https://api.deepseek.com", "deepseek-flash"),
-                    "ollama": ("http://127.0.0.1:11434", "phi3:latest"),
+                    "ollama": ("http://127.0.0.1:11434", "qwen3:8b"),
+                    "freellmapi": ("http://127.0.0.1:31415/v1", "auto"),
                 }
                 default_base, default_model = defaults.get(provider_id, ("", ""))
                 base_edit.setText(str(value.get("base_url") or default_base))
-                model_edit.setText(str(value.get("model") or default_model))
+                model_edit.setCurrentText(str(value.get("model") or default_model))
                 key_edit.clear()
+                is_local = provider_id == "ollama"
+                key_edit.setEnabled(not is_local)
                 masked = str(value.get("api_key_masked") or "")
                 key_edit.setPlaceholderText(
-                    f"Сохранённый ключ: {masked}" if masked else "Ключ не сохранён"
+                    "Для локальной Ollama ключ не требуется"
+                    if is_local else (f"Сохранённый ключ: {masked}" if masked else "Ключ не сохранён")
                 )
 
             def store_editor():
                 value = profile_value(current_id["value"])
                 value["base_url"] = base_edit.text().strip()
-                value["model"] = model_edit.text().strip()
+                value["model"] = model_edit.currentText().strip()
 
             def select_profile(item):
                 if item is None:
@@ -4350,6 +4374,8 @@ class JarvisUI(QWidget):
                 store_editor()
                 current_id["value"] = str(item.data(Qt.ItemDataRole.UserRole) or "ollama")
                 sync_editor_from_current()
+                if current_id["value"] in {"ollama", "deepseek", "freellmapi"}:
+                    QTimer.singleShot(0, fetch_models)
 
             profiles_list.currentItemChanged.connect(lambda current, _previous: select_profile(current))
 
@@ -4382,12 +4408,12 @@ class JarvisUI(QWidget):
                         if provider_id and provider_id != "stub":
                             profiles[provider_id] = dict(item)
                     if not profiles:
-                        profiles["ollama"] = {"base_url": "http://127.0.0.1:11434", "model": "phi3:latest", "active": True}
+                        profiles["ollama"] = {"base_url": "http://127.0.0.1:11434", "model": "qwen3:8b", "active": True}
                     render_profiles()
                     status.setText("Профили загружены. Выберите провайдера слева и настройте его отдельно.")
                 except (requests.RequestException, ValueError, TypeError):
                     profiles.clear()
-                    profiles["ollama"] = {"base_url": "http://127.0.0.1:11434", "model": "phi3:latest", "active": True}
+                    profiles["ollama"] = {"base_url": "http://127.0.0.1:11434", "model": "qwen3:8b", "active": True}
                     render_profiles()
                     status.setText("Backend недоступен: показан локальный профиль Ollama.")
 
@@ -4434,7 +4460,9 @@ class JarvisUI(QWidget):
                     ).json()
                     models = [str(value) for value in data.get("models", []) if value]
                     if models:
-                        model_edit.setText(models[0])
+                        model_edit.clear()
+                        model_edit.addItems(models)
+                        model_edit.setCurrentText(models[0])
                         profile_value(current_id["value"])["model"] = models[0]
                         status.setText("Модели получены: " + ", ".join(models[:5]))
                     else:

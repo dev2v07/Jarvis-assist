@@ -57,7 +57,7 @@ from utils.logging_setup import configure_logging
 # CONFIG
 # -----------------------------
 
-from config import LOG_DIR, UPLOAD_DIR, update_runtime_config
+from config import LOG_DIR, UPLOAD_DIR, update_runtime_config, read_runtime_config
 from services.chat_store import ChatStore
 from services.runtime_service import runtime_registry
 from services.voice_runtime import VoiceRuntime
@@ -239,13 +239,24 @@ def llm_models(provider: str = "ollama", base_url: str = "", api_key: str = ""):
     """Return models from providers that expose a standard model catalogue."""
     provider = provider.strip().lower().replace("-", "_")
     try:
+        # Keep persisted credentials server-side. The UI only receives a mask,
+        # so an empty api_key here means "use the already saved profile key".
+        if not api_key and provider in {"openai", "openai_compatible", "deepseek", "freellmapi"}:
+            runtime = read_runtime_config(mask_secrets=False)
+            key_name = {
+                "openai": "HEL_OPENAI_API_KEY",
+                "openai_compatible": "HEL_OPENAI_API_KEY",
+                "deepseek": "HEL_DEEPSEEK_API_KEY",
+                "freellmapi": "HEL_FREELLMAPI_API_KEY",
+            }[provider]
+            api_key = str(runtime.get(key_name) or "").strip()
         if provider == "ollama":
             url = (base_url or "http://127.0.0.1:11434").rstrip("/") + "/api/tags"
             response = requests.get(url, timeout=5)
             response.raise_for_status()
             data = response.json()
             return {"ok": True, "models": [item.get("name") for item in data.get("models", []) if item.get("name")]}
-        if provider in {"openai", "openai_compatible", "deepseek"} and base_url and api_key:
+        if provider in {"openai", "openai_compatible", "deepseek", "freellmapi"} and base_url and api_key:
             response = requests.get(
                 base_url.rstrip("/") + "/models", headers={"Authorization": f"Bearer {api_key}"}, timeout=8
             )

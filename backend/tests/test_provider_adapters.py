@@ -110,7 +110,7 @@ class ProviderAdapterTests(unittest.TestCase):
         self.assertTrue(post.call_args.kwargs["stream"])
 
     def test_unconfigured_provider_adapters_fail_honestly(self) -> None:
-        for provider in ("codex", "claude", "freellmapi"):
+        for provider in ("codex", "claude"):
             adapter = build_provider_adapter(provider, {})
             status = adapter.configuration_status()
 
@@ -121,6 +121,15 @@ class ProviderAdapterTests(unittest.TestCase):
 
             self.assertEqual(raised.exception.provider, provider)
             self.assertNotIn("secret", str(raised.exception))
+
+    def test_freellmapi_uses_openai_compatible_contract(self) -> None:
+        adapter = build_provider_adapter("freellmapi", {
+            "HEL_FREELLMAPI_API_KEY": "test-key",
+            "HEL_FREELLMAPI_BASE_URL": "http://free.test/v1",
+            "HEL_FREELLMAPI_MODEL": "free-model",
+        })
+        self.assertTrue(adapter.configuration_status()["implemented"])
+        self.assertTrue(adapter.configuration_status()["configured"])
 
     def test_local_llm_service_uses_adapter_without_changing_return_contract(self) -> None:
         service = LocalLLMService(
