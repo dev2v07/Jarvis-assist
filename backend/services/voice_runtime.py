@@ -27,7 +27,7 @@ class VoiceRuntime:
     )
     ACK_FILES = {
         "hello": "К вашим услугам сэр.wav",
-        "thanks": "Да сэр.wav",
+        "thanks": "К вашим услугам сэр.wav",
         "off": "Отключаю питание.wav",
         "shutdown": "Отключаю питание.wav",
         "reboot": "Начинаю диагностику системы.wav",
