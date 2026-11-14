@@ -82,6 +82,9 @@ def _adapter_config(config: dict[str, Any]) -> dict[str, Any]:
         "HEL_OPENAI_BASE_URL": config.get("HEL_OPENAI_BASE_URL") or OPENAI_BASE_URL,
         "HEL_OPENAI_MODEL": config.get("HEL_OPENAI_MODEL") or OPENAI_MODEL,
         "HEL_OPENAI_API_KEY": config.get("HEL_OPENAI_API_KEY") or OPENAI_API_KEY,
+        "HEL_DEEPSEEK_BASE_URL": config.get("HEL_DEEPSEEK_BASE_URL") or "https://api.deepseek.com",
+        "HEL_DEEPSEEK_MODEL": config.get("HEL_DEEPSEEK_MODEL") or "deepseek-flash",
+        "HEL_DEEPSEEK_API_KEY": config.get("HEL_DEEPSEEK_API_KEY") or "",
     }
 
 
@@ -121,6 +124,12 @@ def _build_settings_from_runtime() -> dict[str, Any]:
         "openai_model": model,
 
         "openai_api_key_masked": _mask_secret(api_key),
+
+        "deepseek_base_url": data.get("HEL_DEEPSEEK_BASE_URL", "https://api.deepseek.com"),
+
+        "deepseek_model": data.get("HEL_DEEPSEEK_MODEL", "deepseek-flash"),
+
+        "deepseek_api_key_masked": _mask_secret(data.get("HEL_DEEPSEEK_API_KEY", "")),
 
         "ollama_base_url": ollama_base_url,
 
@@ -177,6 +186,7 @@ def get_settings_bundle() -> dict[str, Any]:
         ("ollama", "Ollama", "ollama_base_url", "ollama_model", ""),
         ("openai", "OpenAI", "openai_base_url", "openai_model", "openai_api_key_masked"),
         ("openai_compatible", "OpenAI-compatible", "openai_base_url", "openai_model", "openai_api_key_masked"),
+        ("deepseek", "DeepSeek", "deepseek_base_url", "deepseek_model", "deepseek_api_key_masked"),
         ("codex", "Codex", "codex_base_url", "codex_model", "codex_api_key_masked"),
         ("claude", "Claude", "claude_base_url", "claude_model", "claude_api_key_masked"),
         ("freellmapi", "FreeLLMAPI", "freellmapi_base_url", "freellmapi_model", "freellmapi_api_key_masked"),
@@ -236,6 +246,12 @@ def save_llm_settings(payload: dict[str, Any]) -> dict[str, Any]:
         "HEL_OPENAI_MODEL":
             str(payload.get("openai_model", OPENAI_MODEL)).strip() or OPENAI_MODEL,
 
+        "HEL_DEEPSEEK_BASE_URL":
+            str(payload.get("deepseek_base_url", "https://api.deepseek.com")).strip() or "https://api.deepseek.com",
+
+        "HEL_DEEPSEEK_MODEL":
+            str(payload.get("deepseek_model", "deepseek-flash")).strip() or "deepseek-flash",
+
         "HEL_OLLAMA_BASE_URL":
             str(payload.get("ollama_base_url", OLLAMA_BASE_URL)).strip() or OLLAMA_BASE_URL,
 
@@ -288,6 +304,7 @@ def save_llm_settings(payload: dict[str, Any]) -> dict[str, Any]:
         ("codex_api_key", "HEL_CODEX_API_KEY"),
         ("claude_api_key", "HEL_ANTHROPIC_API_KEY"),
         ("freellmapi_api_key", "HEL_FREELLMAPI_API_KEY"),
+        ("deepseek_api_key", "HEL_DEEPSEEK_API_KEY"),
     ):
         secret = payload.get(payload_key)
         if secret is not None and str(secret).strip():
@@ -319,6 +336,15 @@ async def test_llm_settings(payload: dict[str, Any]) -> dict[str, Any]:
 
         "HEL_OPENAI_MODEL":
             str(payload.get("openai_model", OPENAI_MODEL)).strip() or OPENAI_MODEL,
+
+        "HEL_DEEPSEEK_BASE_URL":
+            str(payload.get("deepseek_base_url", "https://api.deepseek.com")).strip() or "https://api.deepseek.com",
+
+        "HEL_DEEPSEEK_MODEL":
+            str(payload.get("deepseek_model", "deepseek-flash")).strip() or "deepseek-flash",
+
+        "HEL_DEEPSEEK_API_KEY":
+            str(payload.get("deepseek_api_key") or "").strip(),
 
         "HEL_OLLAMA_BASE_URL":
             str(payload.get("ollama_base_url", OLLAMA_BASE_URL)).strip() or OLLAMA_BASE_URL,

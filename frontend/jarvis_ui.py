@@ -1135,7 +1135,7 @@ class AIProviderDialog(QDialog):
         root.addWidget(title)
         form = QFormLayout()
         self.provider = QComboBox()
-        self.provider.addItems(["ollama", "openai", "codex", "claude", "freellmapi"])
+        self.provider.addItems(["ollama", "openai", "deepseek", "codex", "claude", "freellmapi"])
         self.provider.setCurrentText("ollama")
         self.base = QLineEdit("http://127.0.0.1:11434")
         self.model = QLineEdit("llama3.2")
@@ -1178,6 +1178,8 @@ class AIProviderDialog(QDialog):
             self.base.setText("http://127.0.0.1:11434")
         elif provider == "claude":
             self.base.setText("https://api.anthropic.com/v1")
+        elif provider == "deepseek":
+            self.base.setText("https://api.deepseek.com")
 
     def payload(self):
         key = self.key.text().strip()
@@ -1187,7 +1189,9 @@ class AIProviderDialog(QDialog):
                 "codex_model": self.model.text().strip(), "claude_base_url": self.base.text().strip(),
                 "claude_model": self.model.text().strip(), "freellmapi_base_url": self.base.text().strip(),
                 "freellmapi_model": self.model.text().strip(), "openai_api_key": key or None,
-                "codex_api_key": key or None, "claude_api_key": key or None, "freellmapi_api_key": key or None}
+                "deepseek_base_url": self.base.text().strip(), "deepseek_model": self.model.text().strip(),
+                "deepseek_api_key": key or None, "codex_api_key": key or None, "claude_api_key": key or None,
+                "freellmapi_api_key": key or None}
 
     def fetch_models(self):
         try:
@@ -4286,6 +4290,7 @@ class JarvisUI(QWidget):
                 "ollama": "Ollama",
                 "openai": "OpenAI",
                 "openai_compatible": "OpenAI-compatible",
+                "deepseek": "DeepSeek",
                 "codex": "Codex",
                 "claude": "Claude",
                 "freellmapi": "FreeLLMAPI",
@@ -4379,14 +4384,14 @@ class JarvisUI(QWidget):
                 for provider_id, value in profiles.items():
                     prefix = {
                         "ollama": "ollama", "openai": "openai", "openai_compatible": "openai",
-                        "codex": "codex", "claude": "claude", "freellmapi": "freellmapi",
+                        "deepseek": "deepseek", "codex": "codex", "claude": "claude", "freellmapi": "freellmapi",
                     }.get(provider_id)
                     if not prefix:
                         continue
                     payload[f"{prefix}_base_url"] = str(value.get("base_url") or "").strip()
                     payload[f"{prefix}_model"] = str(value.get("model") or "").strip()
                 secret = key_edit.text().strip()
-                if secret and current_id["value"] in {"openai", "openai_compatible", "codex", "claude", "freellmapi"}:
+                if secret and current_id["value"] in {"openai", "openai_compatible", "deepseek", "codex", "claude", "freellmapi"}:
                     payload_key = "openai_api_key" if current_id["value"] in {"openai", "openai_compatible"} else f"{current_id['value']}_api_key"
                     payload[payload_key] = secret
                 return payload

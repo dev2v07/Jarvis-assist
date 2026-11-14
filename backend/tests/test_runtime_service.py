@@ -61,7 +61,7 @@ class RuntimeServiceTests(unittest.TestCase):
 
         get.assert_not_called()
         self.assertEqual(snapshot["schema_version"], 1)
-        self.assertEqual(len(snapshot["providers"]), 6)
+        self.assertEqual(len(snapshot["providers"]), 7)
         self.assertTrue(snapshot["providers"][0]["available"])
 
 

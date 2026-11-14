@@ -76,6 +76,21 @@ class ProviderAdapterTests(unittest.TestCase):
         )
         self.assertNotIn("secret-key-never-logged", str(result.to_dict()))
 
+    def test_deepseek_uses_dedicated_openai_compatible_configuration(self) -> None:
+        adapter = build_provider_adapter("deepseek", {
+            "HEL_DEEPSEEK_BASE_URL": "https://api.deepseek.test",
+            "HEL_DEEPSEEK_MODEL": "deepseek-flash",
+            "HEL_DEEPSEEK_API_KEY": "deepseek-secret",
+        })
+        with patch("services.provider_adapters.requests.post", return_value=response({
+            "choices": [{"message": {"content": "ответ DeepSeek"}, "finish_reason": "stop"}],
+        })) as post:
+            result = adapter.chat([{"role": "user", "content": "Привет"}], "Ты Jarvis")
+        self.assertEqual(result.provider, "deepseek")
+        self.assertEqual(result.text, "ответ DeepSeek")
+        self.assertEqual(post.call_args.args[0], "https://api.deepseek.test/chat/completions")
+        self.assertEqual(post.call_args.kwargs["json"]["model"], "deepseek-flash")
+
     def test_ollama_stream_adapter_yields_deltas(self) -> None:
         adapter = build_provider_adapter(
             "ollama",

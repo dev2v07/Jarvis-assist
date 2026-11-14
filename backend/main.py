@@ -200,6 +200,9 @@ class LLMSettingsRequest(BaseModel):
     openai_base_url: str = ""
     openai_model: str = ""
     openai_api_key: str | None = None
+    deepseek_base_url: str = ""
+    deepseek_model: str = ""
+    deepseek_api_key: str | None = None
     ollama_base_url: str = ""
     ollama_model: str = ""
     codex_base_url: str = ""
@@ -241,7 +244,7 @@ def llm_models(provider: str = "ollama", base_url: str = "", api_key: str = ""):
             response.raise_for_status()
             data = response.json()
             return {"ok": True, "models": [item.get("name") for item in data.get("models", []) if item.get("name")]}
-        if provider in {"openai", "openai_compatible"} and base_url and api_key:
+        if provider in {"openai", "openai_compatible", "deepseek"} and base_url and api_key:
             response = requests.get(
                 base_url.rstrip("/") + "/models", headers={"Authorization": f"Bearer {api_key}"}, timeout=8
             )

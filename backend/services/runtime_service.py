@@ -38,6 +38,7 @@ class ProviderStatusService:
         "ollama",
         "openai",
         "openai_compatible",
+        "deepseek",
         "claude",
         "freellmapi",
     )
@@ -134,6 +135,19 @@ class ProviderStatusService:
                     "implemented": True,
                     "base_url": base_url,
                 },
+            )
+
+        if provider == "deepseek":
+            api_key = config.get("HEL_DEEPSEEK_API_KEY") or ""
+            model = config.get("HEL_DEEPSEEK_MODEL") or "deepseek-flash"
+            base_url = config.get("HEL_DEEPSEEK_BASE_URL") or "https://api.deepseek.com"
+            configured = bool(api_key and model and base_url)
+            return ProviderStatus(
+                provider=provider,
+                available=configured,
+                model=model,
+                error=None if configured else "api_key_missing",
+                metadata={"configured": configured, "implemented": True, "base_url": base_url},
             )
 
         if provider == "claude":

@@ -303,6 +303,81 @@ class OpenAICompatibleAdapter(_HttpAdapter):
             finish_reason=choices[0].get("finish_reason"),
         )
 
+    def stream_chat(self, messages: list[dict[str, str]], system_prompt: str | None = None):
+        """Stream OpenAI-compatible SSE deltas so remote replies can be spoken sooner."""
+        status = self.configuration_status()
+        if not status["configured"]:
+            raise ProviderConfigurationError(self.provider_name, status["missing"])
+        try:
+            response = requests.post(
+                f"{self.base_url.rstrip('/')}/chat/completions",
+                headers={"Authorization": f"Bearer {self.api_key}"},
+                json={
+                    "model": self.model,
+                    "messages": self._messages(messages, system_prompt),
+                    "temperature": float(self.config.get("HEL_OPENAI_TEMPERATURE") or 0.2),
+                    "stream": True,
+                },
+                timeout=self.timeout,
+                stream=True,
+            )
+            if not 200 <= response.status_code < 300:
+                raise ProviderRequestError(self.provider_name, "non_success_response", response.status_code)
+            for line in response.iter_lines(decode_unicode=True):
+                if not line:
+                    continue
+                text = str(line).strip()
+                if text.startswith("data:"):
+                    text = text[5:].strip()
+                if text == "[DONE]":
+                    break
+                try:
+                    data = json.loads(text)
+                except (TypeError, ValueError) as exc:
+                    raise ProviderRequestError(self.provider_name, "invalid_stream_response") from exc
+                choices = data.get("choices") or []
+                if choices and isinstance(choices[0], Mapping):
+                    delta = choices[0].get("delta") or {}
+                    content = str(delta.get("content") or "") if isinstance(delta, Mapping) else ""
+                    if content:
+                        yield content
+        except requests.RequestException as exc:
+            raise ProviderRequestError(self.provider_name, type(exc).__name__) from exc
+
+
+class DeepSeekAdapter(OpenAICompatibleAdapter):
+    """DeepSeek's official OpenAI-compatible chat API."""
+
+    provider_name = "deepseek"
+
+    @property
+    def api_key(self) -> str:
+        return str(self.config.get("HEL_DEEPSEEK_API_KEY") or "").strip()
+
+    @property
+    def base_url(self) -> str:
+        return str(self.config.get("HEL_DEEPSEEK_BASE_URL") or "https://api.deepseek.com").strip()
+
+    @property
+    def model(self) -> str:
+        return str(self.config.get("HEL_DEEPSEEK_MODEL") or "deepseek-flash").strip()
+
+    def configuration_status(self) -> dict[str, Any]:
+        missing = [
+            key for key, value in (
+                ("HEL_DEEPSEEK_API_KEY", self.api_key),
+                ("HEL_DEEPSEEK_BASE_URL", self.base_url),
+                ("HEL_DEEPSEEK_MODEL", self.model),
+            ) if not value
+        ]
+        return {
+            "provider": self.provider_name,
+            "model": self.model or None,
+            "configured": not missing,
+            "implemented": True,
+            "missing": missing,
+        }
+
 
 class StubAdapter(ProviderAdapter):
     provider_name = "stub"
@@ -361,7 +436,7 @@ class FreeLLMAPIAdapter(NotConfiguredAdapter):
         super().__init__("freellmapi", ["HEL_FREELLMAPI_API_KEY", "HEL_FREELLMAPI_BASE_URL", "HEL_FREELLMAPI_MODEL"])
 
 
-SUPPORTED_PROVIDERS = ("stub", "ollama", "openai", "openai_compatible", "codex", "claude", "freellmapi")
+SUPPORTED_PROVIDERS = ("stub", "ollama", "openai", "openai_compatible", "deepseek", "codex", "claude", "freellmapi")
 
 
 def build_provider_adapter(provider: str | None, config: Mapping[str, Any] | None = None) -> ProviderAdapter:
@@ -376,6 +451,8 @@ def build_provider_adapter(provider: str | None, config: Mapping[str, Any] | Non
         if name == "openai":
             adapter.provider_name = "openai"
         return adapter
+    if name == "deepseek":
+        return DeepSeekAdapter(values)
     if name == "codex":
         return CodexAdapter(values)
     if name == "claude":

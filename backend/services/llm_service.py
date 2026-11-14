@@ -104,6 +104,18 @@ class LocalLLMService:
 
         return float(self._getenv("HEL_OPENAI_TEMPERATURE", "0.2"))
 
+    @property
+    def deepseek_base_url(self) -> str:
+        return self._getenv("HEL_DEEPSEEK_BASE_URL", "https://api.deepseek.com")
+
+    @property
+    def deepseek_api_key(self) -> str:
+        return self._getenv("HEL_DEEPSEEK_API_KEY", "")
+
+    @property
+    def deepseek_model(self) -> str:
+        return self._getenv("HEL_DEEPSEEK_MODEL", "deepseek-flash")
+
     def _provider_config(self) -> dict[str, str]:
         """Build adapter config without logging or serializing credentials."""
 
@@ -114,6 +126,9 @@ class LocalLLMService:
             "HEL_OPENAI_MODEL": self.openai_model,
             "HEL_OPENAI_API_KEY": self.openai_api_key,
             "HEL_OPENAI_TEMPERATURE": str(self.openai_temperature),
+            "HEL_DEEPSEEK_BASE_URL": self.deepseek_base_url,
+            "HEL_DEEPSEEK_MODEL": self.deepseek_model,
+            "HEL_DEEPSEEK_API_KEY": self.deepseek_api_key,
             "HEL_LLM_REQUEST_TIMEOUT": str(self.request_timeout),
             # Keep spoken replies short by default; users can override this
             # without changing the runtime code.
