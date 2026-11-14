@@ -42,6 +42,13 @@ MODEL_SPECS = (
         status="Проверяется локальный Silero checkpoint",
         engine="silero_ru_v3_aidar",
     ),
+    VoiceModelSpec(
+        model_id="fish_jarvis",
+        name="Fish Audio — Джарвис",
+        description="Облачный голосовой профиль Fish Audio",
+        status="Проверяется API Fish Audio",
+        engine="fish_audio_s2_1_pro_free",
+    ),
 )
 
 
@@ -57,6 +64,8 @@ class VoiceModelManager:
         self._silero: Any | None = None
         self._silero_error = ""
         self._silero_verified = False
+        self._fish_error = ""
+        self._fish_verified = False
         self._lock = threading.RLock()
 
     @property
@@ -83,12 +92,31 @@ class VoiceModelManager:
             return False, f"Не удалось загрузить torch: {error}"
         return True, ""
 
+    def _fish_config(self) -> tuple[str, str, str]:
+        return (
+            str(os.getenv("FISH_AUDIO_API_KEY", "")).strip(),
+            str(os.getenv("FISH_AUDIO_REFERENCE_ID", "3fc339d7c6474b11a221708e2a7b1c4b")).strip(),
+            str(os.getenv("FISH_AUDIO_MODEL", "s2.1-pro-free")).strip() or "s2.1-pro-free",
+        )
+
+    def _fish_availability(self) -> tuple[bool, str]:
+        api_key, reference_id, _ = self._fish_config()
+        if not api_key:
+            return False, "Не задана переменная FISH_AUDIO_API_KEY"
+        if not reference_id:
+            return False, "Не задан FISH_AUDIO_REFERENCE_ID"
+        if importlib.util.find_spec("requests") is None:
+            return False, "Зависимость requests не установлена"
+        return True, ""
+
     def status(self) -> dict:
         with self._lock:
             selected_id = self._selected_id
             loaded = self._silero is not None
             load_error = self._silero_error
             verified = self._silero_verified
+            fish_verified = self._fish_verified
+            fish_error = self._fish_error
 
         kesha_ready, kesha_error = self._kesha_availability()
         models = []
@@ -104,7 +132,7 @@ class VoiceModelManager:
                         "для ответов используется существующий XTTS v2 fallback."
                     ),
                 )
-            else:
+            elif spec.model_id == "kesha":
                 item.update(
                     ready=kesha_ready and verified,
                     available=kesha_ready,
@@ -117,6 +145,22 @@ class VoiceModelManager:
                         else "Локальный checkpoint доступен; инференс будет проверен при первом синтезе"
                         if kesha_ready
                         else kesha_error or load_error or "Модель недоступна"
+                    ),
+                )
+            else:
+                fish_ready, fish_config_error = self._fish_availability()
+                item.update(
+                    ready=fish_ready and fish_verified,
+                    available=fish_ready,
+                    loaded=fish_verified,
+                    inference_verified=fish_verified,
+                    actual_engine="fish_audio_s2_1_pro_free" if fish_ready else "",
+                    message=(
+                        "Fish Audio API проверен в текущем процессе"
+                        if fish_verified
+                        else "API-ключ найден; первый синтез проверит доступность Fish Audio"
+                        if fish_ready
+                        else fish_config_error or fish_error or "Fish Audio недоступен"
                     ),
                 )
             item["selected"] = spec.model_id == selected_id
@@ -177,8 +221,47 @@ class VoiceModelManager:
             with self._lock:
                 self._silero_error = str(error)
             raise RuntimeError(f"Silero synthesis failed: {error}") from error
+
+    def synthesize_fish(self, text: str) -> bytes:
+        """Generate WAV bytes through the Fish Audio cloud API."""
+        api_key, reference_id, model = self._fish_config()
+        ready, error = self._fish_availability()
+        if not ready:
+            with self._lock:
+                self._fish_error = error
+            raise RuntimeError(error)
+        try:
+            import requests
+
+            response = requests.post(
+                "https://api.fish.audio/v1/tts",
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json",
+                    "model": model,
+                },
+                json={
+                    "text": str(text),
+                    "reference_id": reference_id,
+                    "format": "wav",
+                },
+                timeout=(10, 90),
+            )
+            response.raise_for_status()
+            if not response.content:
+                raise RuntimeError("Fish Audio вернул пустой WAV")
+            with self._lock:
+                self._fish_verified = True
+                self._fish_error = ""
+            return response.content
+        except Exception as error:
+            with self._lock:
+                self._fish_error = str(error)
+            raise RuntimeError(f"Fish Audio synthesis failed: {error}") from error
+
     def close(self) -> None:
         with self._lock:
             self._silero = None
             self._silero_verified = False
+            self._fish_verified = False
 

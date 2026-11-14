@@ -1,5 +1,6 @@
 import sounddevice as sd
 import soundfile as sf
+import io
 import tempfile
 import os
 import threading
@@ -62,6 +63,11 @@ def speak(text: str, model_id: str | None = None):
     selected_id = model_id or _voice_models.selected_id
     if selected_id == "kesha":
         audio, sample_rate = _voice_models.synthesize_kesha(text)
+        _play_audio(audio, sample_rate)
+        return
+    if selected_id == "fish_jarvis":
+        audio_bytes = _voice_models.synthesize_fish(text)
+        audio, sample_rate = sf.read(io.BytesIO(audio_bytes), dtype="float32")
         _play_audio(audio, sample_rate)
         return
 

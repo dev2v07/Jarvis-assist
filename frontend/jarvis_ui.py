@@ -4472,6 +4472,9 @@ class JarvisUI(QWidget):
         self.voice_model_combo.addItem(
             "Kesha — Silero ru_v3 / aidar (временный профиль)", "kesha"
         )
+        self.voice_model_combo.addItem(
+            "Fish Audio — Джарвис (облачный профиль)", "fish_jarvis"
+        )
         stored_voice_model = str(
             self.ui_settings.value("voice_model_id", "jarvis") or "jarvis"
         ).strip().lower()
@@ -4484,7 +4487,7 @@ class JarvisUI(QWidget):
         self.voice_model_status_label.setWordWrap(True)
         voice_layout.addRow(QLabel("Статус голоса"), self.voice_model_status_label)
         voice_layout.addRow(QLabel("Фактический движок"), QLabel(
-            "Jarvis: XTTS v2 fallback до завершения обучения; Kesha: Silero ru_v3 / aidar"
+            "Jarvis: XTTS v2 fallback; Kesha: Silero ru_v3 / aidar; Fish Audio: S2.1 Pro Free"
         ))
         settings_stack.addWidget(voice_page)
         settings_stack.layout().setAlignment(voice_page, Qt.AlignLeft | Qt.AlignTop)

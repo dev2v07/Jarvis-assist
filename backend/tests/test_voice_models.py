@@ -25,6 +25,7 @@ class VoiceModelRegistryTests(unittest.TestCase):
 
     def test_selection_and_unknown_model(self):
         self.assertEqual(self.manager.select("kesha")["selected_id"], "kesha")
+        self.assertEqual(self.manager.select("fish_jarvis")["selected_id"], "fish_jarvis")
         with self.assertRaises(ValueError):
             self.manager.select("missing")
 
