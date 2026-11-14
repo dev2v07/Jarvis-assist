@@ -4318,8 +4318,13 @@ class JarvisUI(QWidget):
                 provider_id = current_id["value"]
                 value = profile_value(provider_id)
                 provider_value.setText(provider_labels.get(provider_id, provider_id))
-                base_edit.setText(str(value.get("base_url") or ""))
-                model_edit.setText(str(value.get("model") or ""))
+                defaults = {
+                    "deepseek": ("https://api.deepseek.com", "deepseek-flash"),
+                    "ollama": ("http://127.0.0.1:11434", "phi3:latest"),
+                }
+                default_base, default_model = defaults.get(provider_id, ("", ""))
+                base_edit.setText(str(value.get("base_url") or default_base))
+                model_edit.setText(str(value.get("model") or default_model))
                 key_edit.clear()
                 masked = str(value.get("api_key_masked") or "")
                 key_edit.setPlaceholderText(

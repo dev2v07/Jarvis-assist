@@ -423,6 +423,20 @@ class LocalLLMService:
                 "error_code": "not_configured",
                 "missing": list(exc.missing),
             }
+        except ProviderRequestError as exc:
+            messages = {
+                401: "DeepSeek отклонил API-ключ. Проверьте ключ в настройках.",
+                402: "DeepSeek принял ключ, но на аккаунте недостаточно баланса или кредитов.",
+                403: "DeepSeek запретил запрос для этого ключа или модели.",
+                429: "DeepSeek временно ограничил частоту запросов. Попробуйте позже.",
+            }
+            return {
+                "ok": False,
+                "provider": exc.provider,
+                "error_code": "provider_http_error",
+                "status_code": exc.status_code,
+                "message": messages.get(exc.status_code, "Провайдер вернул ошибку HTTP."),
+            }
         except ProviderError as exc:
             logger.warning(
                 "llm_provider_connection_test_failed",
