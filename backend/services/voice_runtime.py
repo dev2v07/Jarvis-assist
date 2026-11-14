@@ -506,6 +506,10 @@ class VoiceRuntime:
             self._tts_available = True
             if self._tts_queue is None:
                 self._tts_queue = TTSQueue(self._speak_tts)
+            # Fish Audio is a request/response TTS API. Sending every sentence
+            # separately creates a network-sized pause between sentences. One
+            # short response per request keeps the speech continuous.
+            self._tts_queue.put(response)
             self._phase = "говорю AI по предложениям"
             self._tts_queue.wait_idle(timeout=90.0)
             if self._enabled:
@@ -517,22 +521,8 @@ class VoiceRuntime:
             self._say_wav("Сэр, для реальной попытки полета не просчитаны еще террабайты данных.wav")
 
     async def _stream_response(self, service, messages: list[dict[str, str]]) -> str:
-        """Stream Ollama text and enqueue each completed sentence immediately."""
+        """Collect a short Ollama response before one continuous TTS request."""
         chunks: list[str] = []
-        pending = ""
         async for chunk in service.chat_stream(messages):
-            pending += str(chunk or "")
             chunks.append(str(chunk or ""))
-            while True:
-                boundary = next((index for index, char in enumerate(pending) if char in ".!?\n"), -1)
-                if boundary < 0:
-                    break
-                sentence, pending = pending[: boundary + 1], pending[boundary + 1 :]
-                if self._tts_queue is None:
-                    self._tts_queue = TTSQueue(self._speak_tts)
-                self._tts_queue.put(sentence)
-        if pending.strip():
-            if self._tts_queue is None:
-                self._tts_queue = TTSQueue(self._speak_tts)
-            self._tts_queue.put(pending)
         return "".join(chunks)
