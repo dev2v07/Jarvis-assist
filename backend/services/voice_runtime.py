@@ -162,6 +162,17 @@ class VoiceRuntime:
 
     def status(self) -> dict:
         thread = self._thread
+        # Fish Audio is a valid TTS path even when the optional local Coqui
+        # package is not installed. Report the selected engine accurately.
+        tts_available = self._tts_available
+        if not tts_available:
+            try:
+                from voice_engine.tts import voice_models_status
+
+                selected = voice_models_status().get("selected") or {}
+                tts_available = bool(selected.get("available"))
+            except Exception:
+                pass
         return {
             "enabled": bool(self._enabled),
             "listening": bool(self._enabled and thread and thread.is_alive()),
@@ -170,7 +181,7 @@ class VoiceRuntime:
             "last_transcript": self._last_transcript,
             "last_response": self._last_response,
             "last_error": self._last_error,
-            "tts_available": self._tts_available,
+            "tts_available": tts_available,
             "phase": self._phase,
             "conversation_worker": bool(
                 self._conversation_thread and self._conversation_thread.is_alive()

@@ -174,8 +174,8 @@ class OllamaAdapter(_HttpAdapter):
 
         options = {
             "temperature": float(self.config.get("HEL_OPENAI_TEMPERATURE") or 0.2),
-            "think": str(self.config.get("HEL_OLLAMA_THINK", "false")).lower() in {"1", "true", "yes", "on"},
         }
+        think = str(self.config.get("HEL_OLLAMA_THINK", "false")).lower() in {"1", "true", "yes", "on"}
         num_predict = self.config.get("HEL_OLLAMA_NUM_PREDICT")
         if num_predict:
             try:
@@ -188,6 +188,7 @@ class OllamaAdapter(_HttpAdapter):
                 "model": self.model,
                 "messages": self._messages(messages, system_prompt),
                 "stream": False,
+                "think": think,
                 "options": options,
             },
             timeout=self.timeout,
@@ -207,8 +208,8 @@ class OllamaAdapter(_HttpAdapter):
             raise ProviderConfigurationError(self.provider_name, status["missing"])
         options = {
             "temperature": float(self.config.get("HEL_OPENAI_TEMPERATURE") or 0.2),
-            "think": str(self.config.get("HEL_OLLAMA_THINK", "false")).lower() in {"1", "true", "yes", "on"},
         }
+        think = str(self.config.get("HEL_OLLAMA_THINK", "false")).lower() in {"1", "true", "yes", "on"}
         num_predict = self.config.get("HEL_OLLAMA_NUM_PREDICT")
         if num_predict:
             try:
@@ -222,6 +223,7 @@ class OllamaAdapter(_HttpAdapter):
                     "model": self.model,
                     "messages": self._messages(messages, system_prompt),
                     "stream": True,
+                    "think": think,
                     "options": options,
                 },
                 timeout=self.timeout,
