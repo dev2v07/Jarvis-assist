@@ -92,7 +92,7 @@ def main() -> None:
                 "keywords": [word.lower().strip("?!,.") for word in question.split() if len(word.strip("?!,.") ) >= 5][:4],
                 "responses": [
                     {"id": f"response_{index:02d}", "text": response_text(category, question, index - 1),
-                     "wav": f"{category}/response_{index:02d}.wav", "status": "pending", "duration": None}
+                     "wav": f"{category}/{intent_id}_response_{index:02d}.wav", "status": "pending", "duration": None}
                     for index in range(1, 7)
                 ],
             })
