@@ -4475,6 +4475,9 @@ class JarvisUI(QWidget):
         self.voice_model_combo.addItem(
             "Fish Audio — Джарвис (облачный профиль)", "fish_jarvis"
         )
+        self.voice_model_combo.addItem(
+            "Fish Audio — Дин Винчестер (отдельный ключ)", "fish_dean"
+        )
         stored_voice_model = str(
             self.ui_settings.value("voice_model_id", "jarvis") or "jarvis"
         ).strip().lower()

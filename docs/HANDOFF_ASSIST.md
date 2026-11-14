@@ -2162,3 +2162,11 @@ telemetry ping: `requests ReadTimeout` на `coqui.gateway.scarf.sh`. В
 - реальный API-тест пройден: HTTP 200, WAV 270380 байт, результат сохранён в `external/GPT-SoVITS-russian/test_outputs/fish_jarvis_api_test.wav`;
 - тесты реестра голосов: `3/3` успешно;
 - S1/S2 обучение не запускалось и не изменялось.
+
+Очередь 0122 — отдельный Fish Audio-профиль Дина Винчестера, 2026-11-14:
+
+- добавлен профиль `fish_dean` — `Fish Audio — Дин Винчестер`;
+- для него используется отдельная конфигурация `FISH_AUDIO_DEAN_API_KEY`, `FISH_AUDIO_DEAN_REFERENCE_ID` и необязательная `FISH_AUDIO_DEAN_MODEL`;
+- ключ Джарвиса (`FISH_AUDIO_API_KEY`) и voice ID Джарвиса не переиспользуются для Дина;
+- до заполнения отдельного ключа и voice ID профиль показывает недоступность, не переключая голос молча;
+- S1/S2 обучение не запускалось и не изменялось.
