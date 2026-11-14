@@ -15,16 +15,12 @@ class VoiceModelRegistryTests(unittest.TestCase):
         self.assertTrue(status["models"][0]["default"])
         self.assertFalse(status["models"][0]["ready"])
 
-    def test_kesha_checkpoint_is_available(self):
+    def test_fish_profiles_are_registered(self):
         status = self.manager.status()
-        kesha = status["models"][1]
-        self.assertEqual(kesha["model_id"], "kesha")
-        self.assertFalse(kesha["ready"])
-        self.assertTrue(kesha["available"])
-        self.assertTrue(status["silero_checkpoint_exists"])
+        self.assertEqual(status["models"][1]["model_id"], "fish_jarvis")
+        self.assertEqual(status["models"][2]["model_id"], "fish_dean")
 
     def test_selection_and_unknown_model(self):
-        self.assertEqual(self.manager.select("kesha")["selected_id"], "kesha")
         self.assertEqual(self.manager.select("fish_jarvis")["selected_id"], "fish_jarvis")
         self.assertEqual(self.manager.select("fish_dean")["selected_id"], "fish_dean")
         with self.assertRaises(ValueError):

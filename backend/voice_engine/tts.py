@@ -61,10 +61,6 @@ def _play_audio(audio, sr: int):
 
 def speak(text: str, model_id: str | None = None):
     selected_id = model_id or _voice_models.selected_id
-    if selected_id == "kesha":
-        audio, sample_rate = _voice_models.synthesize_kesha(text)
-        _play_audio(audio, sample_rate)
-        return
     if selected_id in {"fish_jarvis", "fish_dean"}:
         profile = "dean" if selected_id == "fish_dean" else "jarvis"
         audio_bytes = _voice_models.synthesize_fish(text, profile=profile)

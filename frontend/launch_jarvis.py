@@ -88,7 +88,7 @@ def backend_has_current_voice_registry() -> bool:
     try:
         payload = requests.get(VOICE_MODELS_URL, timeout=1.0).json()
         model_ids = {str(item.get("model_id")) for item in payload.get("models", [])}
-        return {"jarvis", "kesha", "fish_jarvis", "fish_dean"}.issubset(model_ids)
+        return {"jarvis", "fish_jarvis", "fish_dean"}.issubset(model_ids)
     except (requests.RequestException, ValueError, AttributeError):
         return False
 

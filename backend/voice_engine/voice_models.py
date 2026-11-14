@@ -36,13 +36,6 @@ MODEL_SPECS = (
         engine="xtts_v2_fallback",
     ),
     VoiceModelSpec(
-        model_id="kesha",
-        name="Kesha",
-        description="Временный голосовой профиль на базе стандартного Silero ru_v3 (диктор aidar)",
-        status="Проверяется локальный Silero checkpoint",
-        engine="silero_ru_v3_aidar",
-    ),
-    VoiceModelSpec(
         model_id="fish_jarvis",
         name="Fish Audio — Джарвис",
         description="Облачный голосовой профиль Fish Audio",
@@ -64,13 +57,7 @@ class VoiceModelManager:
 
     def __init__(self, base_dir: Path):
         self.base_dir = Path(base_dir)
-        self.silero_checkpoint = (
-            self.base_dir / "voice_engine" / "models" / "silero" / "ru_v3.pt"
-        )
         self._selected_id = "jarvis"
-        self._silero: Any | None = None
-        self._silero_error = ""
-        self._silero_verified = False
         self._fish_error: dict[str, str] = {}
         self._fish_verified: dict[str, bool] = {}
         self._lock = threading.RLock()
@@ -87,17 +74,6 @@ class VoiceModelManager:
         with self._lock:
             self._selected_id = model_id
         return self.status()
-
-    def _kesha_availability(self) -> tuple[bool, str]:
-        if not self.silero_checkpoint.is_file():
-            return False, f"Checkpoint не найден: {self.silero_checkpoint}"
-        if importlib.util.find_spec("torch") is None:
-            return False, "Зависимость torch не установлена"
-        try:
-            import torch  # noqa: F401
-        except Exception as error:  # pragma: no cover - environment-specific
-            return False, f"Не удалось загрузить torch: {error}"
-        return True, ""
 
     def _fish_config(self, profile: str = "jarvis") -> tuple[str, str, str]:
         suffix = "_DEAN" if profile == "dean" else ""
@@ -124,13 +100,9 @@ class VoiceModelManager:
     def status(self) -> dict:
         with self._lock:
             selected_id = self._selected_id
-            loaded = self._silero is not None
-            load_error = self._silero_error
-            verified = self._silero_verified
             fish_verified = dict(self._fish_verified)
             fish_error = dict(self._fish_error)
 
-        kesha_ready, kesha_error = self._kesha_availability()
         models = []
         for spec in MODEL_SPECS:
             item = asdict(spec)
@@ -142,21 +114,6 @@ class VoiceModelManager:
                     message=(
                         "Обученная модель Jarvis ещё не установлена; "
                         "для ответов используется существующий XTTS v2 fallback."
-                    ),
-                )
-            elif spec.model_id == "kesha":
-                item.update(
-                    ready=kesha_ready and verified,
-                    available=kesha_ready,
-                    loaded=loaded,
-                    inference_verified=verified,
-                    actual_engine="silero_ru_v3_aidar" if kesha_ready else "",
-                    message=(
-                        "Silero-инференс проверен в текущем процессе"
-                        if verified
-                        else "Локальный checkpoint доступен; инференс будет проверен при первом синтезе"
-                        if kesha_ready
-                        else kesha_error or load_error or "Модель недоступна"
                     ),
                 )
             else:
@@ -185,56 +142,7 @@ class VoiceModelManager:
             "selected_id": selected_id,
             "selected": selected,
             "models": models,
-            "silero_checkpoint": str(self.silero_checkpoint),
-            "silero_checkpoint_exists": self.silero_checkpoint.is_file(),
         }
-
-    def _load_kesha(self):
-        with self._lock:
-            if self._silero is not None:
-                return self._silero
-            ready, error = self._kesha_availability()
-            if not ready:
-                self._silero_error = error
-                raise RuntimeError(error)
-            try:
-                import torch
-
-                importer = torch.package.PackageImporter(str(self.silero_checkpoint))
-                model = importer.load_pickle("tts_models", "model")
-                # Silero's packaged multi-speaker wrapper is not an nn.Module;
-                # its apply_tts implementation already runs inference-only.
-                eval_method = getattr(model, "eval", None)
-                if callable(eval_method):
-                    eval_method()
-                self._silero = model
-                self._silero_error = ""
-                return model
-            except Exception as error:
-                self._silero_error = str(error)
-                raise RuntimeError(f"Не удалось загрузить Silero Kesha: {error}") from error
-
-    def synthesize_kesha(self, text: str):
-        """Return a CPU tensor and sample rate using the source project's recipe."""
-        model = self._load_kesha()
-        sample_rate = int(os.getenv("JARVIS_KESHA_SAMPLE_RATE", "24000"))
-        if sample_rate not in (8000, 24000, 48000):
-            sample_rate = 24000
-        try:
-            audio = model.apply_tts(
-                text=str(text),
-                speaker="aidar",
-                sample_rate=sample_rate,
-                put_accent=True,
-                put_yo=True,
-            )
-            with self._lock:
-                self._silero_verified = True
-            return audio, sample_rate
-        except Exception as error:
-            with self._lock:
-                self._silero_error = str(error)
-            raise RuntimeError(f"Silero synthesis failed: {error}") from error
 
     def synthesize_fish(self, text: str, profile: str = "jarvis") -> bytes:
         """Generate WAV bytes through the Fish Audio cloud API."""
@@ -275,8 +183,6 @@ class VoiceModelManager:
 
     def close(self) -> None:
         with self._lock:
-            self._silero = None
-            self._silero_verified = False
             self._fish_verified.clear()
             self._fish_error.clear()
 
