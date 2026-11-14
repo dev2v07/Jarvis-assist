@@ -29,10 +29,11 @@ Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
 
 [Files]
 Source: "..\dist\JarvisAssistant\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+Source: "..\frontend\assets\jarvis.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
-Name: "{autodesktop}\Jarvis Assistant"; Filename: "{app}\{#MyAppExeName}"
-Name: "{group}\Jarvis Assistant"; Filename: "{app}\{#MyAppExeName}"
+Name: "{autodesktop}\Jarvis Assistant"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\jarvis.ico"; IconIndex: 0
+Name: "{group}\Jarvis Assistant"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\jarvis.ico"; IconIndex: 0
 
 [UninstallRun]
 Filename: "{cmd}"; Parameters: "/C reg delete ""HKCU\Software\Microsoft\Windows\CurrentVersion\Run"" /v ""Jarvis Assist"" /f"; Flags: runhidden
