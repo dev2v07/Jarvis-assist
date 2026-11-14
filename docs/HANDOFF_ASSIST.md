@@ -2409,3 +2409,10 @@ telemetry ping: `requests ReadTimeout` на `coqui.gateway.scarf.sh`. В
 - добавлено описание и команды продолжения в `README.md`;
 - backend перезапущен, voice runtime снова поднят с микрофоном №1: `enabled=true`, `listening=true`, очередь `0`, ошибок нет;
 - тесты backend: `25/25`, Python-файлы компилируются; обучение S1/S2 не запускалось и не изменялось.
+
+Очередь 0152 — горячее обновление локальной библиотеки, 2026-11-14:
+
+- `LocalResponseService` отслеживает изменение `questions.json` и подхватывает готовые WAV без перезапуска backend;
+- после проверки генератор Fish Audio продолжает работу отдельным процессом; последняя контрольная точка: 106 из 1476 WAV готовы, ошибок нет;
+- backend перезапущен после изменения matcher, voice runtime поднят с микрофоном №1: `enabled=true`, `listening=true`, `conversation_queue_size=0`;
+- тесты backend: `25/25`; обучение S1/S2 не запускалось и не изменялось.

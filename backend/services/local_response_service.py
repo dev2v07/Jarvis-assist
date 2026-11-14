@@ -28,17 +28,26 @@ class LocalResponseService:
         self._lock = threading.RLock()
         self._data: dict = {"intents": []}
         self._state: dict[str, list[str]] = {}
+        self._questions_mtime_ns = 0
         self._reload()
 
     def _reload(self) -> None:
         try:
             self._data = json.loads(self.questions_path.read_text(encoding="utf-8"))
+            self._questions_mtime_ns = self.questions_path.stat().st_mtime_ns
         except (FileNotFoundError, json.JSONDecodeError, OSError):
             self._data = {"intents": []}
         try:
             self._state = json.loads(self.state_path.read_text(encoding="utf-8"))
         except (FileNotFoundError, json.JSONDecodeError, OSError):
             self._state = {}
+
+    def _refresh_if_changed(self) -> None:
+        try:
+            if self.questions_path.stat().st_mtime_ns != self._questions_mtime_ns:
+                self._reload()
+        except OSError:
+            pass
 
     @staticmethod
     def normalize(text: str) -> str:
@@ -70,6 +79,7 @@ class LocalResponseService:
         if not normalized:
             return None
         with self._lock:
+            self._refresh_if_changed()
             best_intent: dict | None = None
             best_score = 0.0
             for intent in self._data.get("intents", []):
@@ -106,6 +116,8 @@ class LocalResponseService:
             )
 
     def summary(self) -> dict:
+        with self._lock:
+            self._refresh_if_changed()
         intents = self._data.get("intents", [])
         responses = [item for intent in intents for item in intent.get("responses", [])]
         return {
