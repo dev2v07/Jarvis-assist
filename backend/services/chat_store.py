@@ -13,6 +13,7 @@ import shutil
 import sqlite3
 import threading
 import uuid
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 
@@ -26,10 +27,18 @@ class ChatStore:
         self._lock = threading.RLock()
         self._init_db()
 
+    @contextmanager
     def _connect(self):
         conn = sqlite3.connect(str(self.db_path), timeout=10)
         conn.row_factory = sqlite3.Row
-        return conn
+        try:
+            yield conn
+            conn.commit()
+        except Exception:
+            conn.rollback()
+            raise
+        finally:
+            conn.close()
 
     @staticmethod
     def _content_with_emote_markers(content: str, attachments: list[dict[str, Any]]) -> str:

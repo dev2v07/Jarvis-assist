@@ -79,6 +79,21 @@ Windows». Он использует только `HKCU\Software\Microsoft\Windo
 
 ## Разработка и проверки
 
+### Единое окружение запуска
+
+Исходный UI и backend должны запускаться одним интерпретатором из
+`backend/jarvis_env`. Для нового окружения:
+
+```powershell
+python -m venv backend/jarvis_env
+backend\jarvis_env\Scripts\python.exe -m pip install -r backend/requirements-core.txt
+backend\jarvis_env\Scripts\python.exe -m pip install -r backend/requirements-optional.txt
+backend\jarvis_env\Scripts\python.exe frontend/launch_jarvis.py
+```
+
+Launcher повторно использует уже доступный актуальный backend на `127.0.0.1:8000`
+и не должен запускаться поверх занятого UI-инстанса.
+
 ```powershell
 python -m compileall -q backend frontend core
 $env:PYTHONPATH = "backend"
@@ -114,6 +129,22 @@ python backend/voice_engine/generate_voice_library.py --all
 
 Локальные WAV-файлы не являются исходным кодом и не добавляются в Git; они
 остаются в `data/voice_responses/` на рабочей машине.
+
+## Offline Knowledge Library
+
+Расширяемый каталог стабильных знаний находится в
+`data/offline_knowledge/catalog.json`. Сейчас в нём зарегистрированы темы из
+первого расширения; незавершённые материалы имеют статус `AUDIO_PENDING` и не
+используются как ответы. Для каждой темы предусмотрены текст, источники,
+категория, число вариантов и статус аудио.
+
+Порядок маршрутизации: готовая Conversational Library → проверенное локальное
+знание → Ollama или другой динамический провайдер. Новые темы добавляются в
+каталог отдельно и не изменяют существующие вопросы или WAV. Массовая
+генерация аудио запускается отдельным возобновляемым процессом после завершения
+текущей генерации Fish Audio.
+
+Отчёт по подготовке: [docs/OFFLINE_KNOWLEDGE_LIBRARY_REPORT.md](docs/OFFLINE_KNOWLEDGE_LIBRARY_REPORT.md)
 
 ## Структура
 

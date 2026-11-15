@@ -57,17 +57,32 @@ from utils.logging_setup import configure_logging
 # CONFIG
 # -----------------------------
 
-from config import LOG_DIR, UPLOAD_DIR, update_runtime_config, read_runtime_config
+from config import API_PORT, LOG_DIR, UPLOAD_DIR, update_runtime_config, read_runtime_config
 from services.chat_store import ChatStore
 from services.runtime_service import runtime_registry
 from services.voice_runtime import VoiceRuntime
+from services.voice_session_manager import VoiceSessionManager
 from voice_engine.tts import select_voice_model, voice_models_status
 from services.app_server import AppServer
 from services.device_capabilities import device_capabilities
 from services.filesystem_service import FileSystemService
 from services.application_service import ApplicationService
 from services.local_response_service import LocalResponseService
+from services.offline_knowledge_service import OfflineKnowledgeService
+from services.knowledge_index_service import KnowledgeIndexService
+from services.knowledge_search_service import KnowledgeSearchService
+from services.programming_mentor_service import ProgrammingMentorService
+from services.coding_sandbox_service import CodingSandboxService
+from services.music_intelligence_service import MusicIntelligenceService
+from services.music_production_service import MusicProductionService
+from services.voice_production_service import VoiceProductionService
+from services.guitar_encyclopedia_service import GuitarEncyclopediaService
+from services.psychology_service import PsychologyService
+from services.literature_service import LiteratureService
+from services.daw_control_service import DawControlService
+from services.mixing_service import MixingService
 from services.config_service import get_settings_bundle, save_llm_settings, test_llm_settings
+from services.llm_service import LocalLLMService
 from utils.tooling import backup_data
 
 # -----------------------------
@@ -77,9 +92,21 @@ from utils.tooling import backup_data
 app = FastAPI(title="Jarvis Backend")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://127.0.0.1",
+        "http://127.0.0.1:8000",
+        f"http://127.0.0.1:{API_PORT}",
+        "http://localhost",
+        "http://localhost:8000",
+        f"http://localhost:{API_PORT}",
+        # The PySide6 QWebEngine chat is loaded from a local file and sends
+        # this explicit origin on its fetch requests. Keep it scoped to the
+        # local desktop UI; do not replace the allow-list with a wildcard.
+        "file://",
+    ],
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
+    allow_credentials=False,
 )
 
 print("Startup check:", check())
@@ -91,10 +118,29 @@ print("Startup check:", check())
 bus = MessageBus()
 chat_store = ChatStore()
 app_server = AppServer(chat_store, runtime_registry)
-voice_runtime = VoiceRuntime(Path(__file__).resolve().parent)
+voice_sessions = VoiceSessionManager()
 filesystem_service = FileSystemService(Path(__file__).resolve().parent)
 application_service = ApplicationService(Path(__file__).resolve().parent)
 local_response_service = LocalResponseService(Path(__file__).resolve().parent)
+offline_knowledge_service = OfflineKnowledgeService(Path(__file__).resolve().parent)
+knowledge_index_service = KnowledgeIndexService(Path(__file__).resolve().parent)
+knowledge_search_service = KnowledgeSearchService(Path(__file__).resolve().parent, local_response_service)
+voice_runtime = VoiceRuntime(
+    Path(__file__).resolve().parent,
+    chat_store,
+    voice_sessions,
+    knowledge_search_service=knowledge_search_service,
+)
+programming_mentor_service = ProgrammingMentorService(Path(__file__).resolve().parent)
+coding_sandbox_service = CodingSandboxService(Path(__file__).resolve().parent)
+music_intelligence_service = MusicIntelligenceService(Path(__file__).resolve().parent)
+music_production_service = MusicProductionService(Path(__file__).resolve().parent)
+voice_production_service = VoiceProductionService(Path(__file__).resolve().parent)
+guitar_encyclopedia_service = GuitarEncyclopediaService(Path(__file__).resolve().parent)
+psychology_service = PsychologyService(Path(__file__).resolve().parent)
+literature_service = LiteratureService(Path(__file__).resolve().parent)
+daw_control_service = DawControlService(Path(__file__).resolve().parent)
+mixing_service = MixingService()
 active_chat_tasks: dict[str, asyncio.Task] = {}
 
 # -----------------------------
@@ -158,9 +204,34 @@ async def startup_event():
 
     configure_logging(LOG_DIR)
 
+    # Keep the selected local model warm so the first free-form question does
+    # not pay the cold-start cost. The warmup is one bounded request and does
+    # not write to ChatStore or trigger the voice runtime.
+    if os.getenv("JARVIS_OLLAMA_WARMUP", "true").strip().lower() not in {"0", "false", "no", "off"}:
+        warmup = await LocalLLMService().warmup_ollama()
+        print(
+            "Ollama warmup:",
+            warmup.get("status"),
+            warmup.get("model", ""),
+            warmup.get("error_type", ""),
+        )
+
     await start_agents()
 
     print("Jarvis agents started")
+
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Release voice and agent tasks before the backend process exits."""
+
+    voice_runtime.stop()
+    for agent in reversed(agents):
+        try:
+            await agent.stop()
+        except Exception as exc:
+            print(f"Shutdown warning for {agent.name}: {exc}")
+    print("Jarvis agents stopped")
 
 
 # -----------------------------
@@ -223,6 +294,42 @@ class LLMSettingsRequest(BaseModel):
     freellmapi_api_key: str | None = None
     llm_request_timeout: int = 45
     llm_max_retries: int = 2
+
+
+class MentorProgressRequest(BaseModel):
+    completed: bool = False
+    score: int = 0
+    note: str = ""
+
+
+class MentorExerciseRequest(BaseModel):
+    code: str
+    timeout: int = 8
+
+
+class SandboxRunRequest(BaseModel):
+    project: str
+    code: str
+    timeout: int = 8
+
+
+class CodingProjectRequest(BaseModel):
+    project: str
+    files: dict[str, str]
+    run_tests: bool = True
+
+
+class DawActionRequest(BaseModel):
+    action: str
+    daw: str = ""
+    project_path: str = ""
+    confirmed: bool = False
+
+
+class DawSnapshotRequest(BaseModel):
+    project_path: str
+    snapshot_name: str = "checkpoint"
+    confirmed: bool = False
 
 
 @app.get("/settings/llm")
@@ -339,6 +446,9 @@ def save_hardware_settings(settings: HardwareSettings):
 class VoiceStartRequest(BaseModel):
     microphone_index: int = -1
     microphone_enabled: bool = True
+    source: str = "widget"
+    chat_id: str | None = None
+    replace: bool = False
 
 
 class VoiceMicrophoneRequest(BaseModel):
@@ -351,9 +461,36 @@ class VoiceModelRequest(BaseModel):
 
 @app.post("/voice/start")
 def voice_start(req: VoiceStartRequest):
+    source = str(req.source or "widget").lower()
+    chat_id = str(req.chat_id or "")
+    if source == "widget" and not chat_id:
+        created = chat_store.create_session("Голосовой разговор")
+        chat_id = str(created.get("id"))
+    elif source == "chat":
+        if not chat_id or not chat_store.get_session(chat_id):
+            raise HTTPException(status_code=404, detail="Chat session not found")
+    active = voice_sessions.active
+    if active and not req.replace:
+        if active.get("source") == source and active.get("chat_id") == chat_id and voice_runtime.enabled:
+            result = voice_runtime.status()
+            result["voice_session"] = active
+            return result
+        raise HTTPException(status_code=409, detail="Another voice session is active")
+    if active:
+        voice_runtime.stop()
+    try:
+        session = voice_sessions.start(source=source, chat_id=chat_id, replace=False)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
     voice_runtime.set_device(req.microphone_index)
-    result = voice_runtime.start()
-    return voice_runtime.set_microphone_enabled(req.microphone_enabled)
+    try:
+        result = voice_runtime.start()
+        result = voice_runtime.set_microphone_enabled(req.microphone_enabled)
+    except Exception:
+        voice_sessions.stop(session_id=session["session_id"])
+        raise
+    result["voice_session"] = session
+    return result
 
 
 @app.post("/voice/microphone")
@@ -363,13 +500,27 @@ def voice_microphone(req: VoiceMicrophoneRequest):
 
 @app.post("/voice/stop")
 def voice_stop():
-    return voice_runtime.stop()
+    result = voice_runtime.stop()
+    result["voice_session"] = voice_sessions.status()
+    return result
+
+
+@app.post("/voice/session/start")
+def voice_session_start(req: VoiceStartRequest):
+    req.source = "chat"
+    return voice_start(req)
+
+
+@app.post("/voice/session/stop")
+def voice_session_stop():
+    return voice_stop()
 
 
 @app.get("/voice/status")
 def voice_status():
     result = voice_runtime.status()
     result["voice_model"] = voice_models_status()
+    result["voice_session"] = voice_sessions.status()
     return result
 
 
@@ -381,6 +532,370 @@ def voice_models():
 @app.get("/voice/library")
 def voice_library_status():
     return local_response_service.summary()
+
+
+@app.get("/voice/knowledge")
+def voice_knowledge_status():
+    """Report the separate offline-knowledge catalog without exposing answers."""
+    return offline_knowledge_service.summary()
+
+
+@app.get("/knowledge/index")
+def knowledge_index_status():
+    """Report the read-only Knowledge 3.0 foundation index."""
+    return knowledge_index_service.summary()
+
+
+@app.get("/knowledge/integrity")
+def knowledge_integrity():
+    return knowledge_index_service.integrity()
+
+
+@app.get("/knowledge/search")
+def knowledge_search(query: str, limit: int = 20):
+    """Search verified local knowledge, programming lessons and local music metadata."""
+    return {"query": query, "results": knowledge_search_service.search(query, limit)}
+
+
+@app.get("/knowledge/answer")
+def knowledge_answer(query: str):
+    """Resolve a local answer and expose a linked WAV when one is ready."""
+    return {"query": query, "answer": knowledge_search_service.answer(query)}
+
+
+@app.get("/knowledge/catalog")
+def knowledge_catalog(offset: int = 0, limit: int = 50, kind: str = "", status: str = ""):
+    catalog = knowledge_search_service.catalog()
+    rows = catalog["records"]
+    if kind:
+        rows = [row for row in rows if row["kind"] == kind]
+    if status:
+        rows = [row for row in rows if row["content_status"] == status]
+    start = max(0, int(offset))
+    count = max(1, min(int(limit), 100))
+    return {"total": len(rows), "offset": start, "limit": count,
+            "collisions": catalog["collisions"], "records": rows[start:start + count]}
+
+
+@app.get("/knowledge/items/{canonical_id}")
+def knowledge_item(canonical_id: str):
+    item = knowledge_search_service.get(canonical_id)
+    if item is None:
+        raise HTTPException(status_code=404, detail="knowledge item not found")
+    return item
+
+
+@app.get("/knowledge/context")
+def knowledge_context(query: str, limit: int = 6):
+    return knowledge_search_service.context_bundle(query, limit)
+
+
+@app.get("/knowledge/music/summary")
+def music_knowledge_summary():
+    return music_intelligence_service.summary()
+
+
+@app.get("/knowledge/music/search")
+def music_knowledge_search(query: str, limit: int = 30):
+    return {"query": query, "results": music_intelligence_service.search(query, limit)}
+
+
+@app.get("/knowledge/music/artist")
+def music_artist_report(name: str):
+    try:
+        return music_intelligence_service.artist_report(name)
+    except LookupError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.post("/knowledge/music/compare")
+def music_compare_artists(names: list[str]):
+    return music_intelligence_service.compare_artists(names)
+
+
+@app.get("/knowledge/music/recommend")
+def music_recommend(name: str, limit: int = 10):
+    try:
+        return music_intelligence_service.recommend_similar(name, limit)
+    except LookupError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/knowledge/music/metadata")
+def music_metadata_analysis():
+    return music_intelligence_service.metadata_analysis()
+
+
+@app.get("/knowledge/audio/summary")
+def audio_knowledge_summary():
+    return music_production_service.summary()
+
+
+@app.get("/knowledge/audio/search")
+def audio_knowledge_search(query: str, limit: int = 30):
+    return {"query": query, "results": music_production_service.search(query, limit)}
+
+
+@app.get("/knowledge/daw/summary")
+def daw_summary():
+    return daw_control_service.summary()
+
+
+@app.get("/knowledge/daw/search")
+def daw_search(query: str = ""):
+    return {"query": query, "results": daw_control_service.search(query)}
+
+
+@app.get("/knowledge/daw/plugins")
+def daw_plugins(query: str = "", limit: int = 250):
+    return daw_control_service.plugin_inventory(query, limit)
+
+
+@app.get("/knowledge/daw/project")
+def daw_project_inspect(project_path: str):
+    try:
+        return daw_control_service.inspect_project(project_path)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=f"Папка не найдена: {exc}") from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.get("/knowledge/daw/project/report")
+def daw_project_report(project_path: str):
+    try:
+        return daw_control_service.project_report(project_path)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=f"Папка не найдена: {exc}") from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/knowledge/daw/project/snapshot")
+def daw_project_snapshot(request: DawSnapshotRequest):
+    try:
+        return daw_control_service.snapshot_project(request.project_path, request.snapshot_name, request.confirmed)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=f"Папка не найдена: {exc}") from exc
+    except FileExistsError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+@app.post("/knowledge/daw/action/plan")
+def daw_action_plan(request: DawActionRequest):
+    try:
+        return daw_control_service.plan_action(request.action, request.daw, request.project_path)
+    except (FileNotFoundError, ValueError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/knowledge/daw/action/execute")
+def daw_action_execute(request: DawActionRequest):
+    try:
+        return daw_control_service.execute_action(
+            request.action, request.daw, request.project_path, request.confirmed
+        )
+    except (FileNotFoundError, ValueError, OSError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/knowledge/mixing/analyze")
+def mixing_analyze(audio_path: str):
+    try:
+        return mixing_service.analyze(audio_path)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=f"Файл не найден: {exc}") from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/knowledge/mixing/suggest")
+def mixing_suggest(audio_path: str, instrument: str = ""):
+    try:
+        return mixing_service.suggest_chain(audio_path, instrument)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=f"Файл не найден: {exc}") from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/knowledge/mixing/render-preview")
+def mixing_render_preview(audio_path: str, preset: str = "clean_headroom", confirmed: bool = False):
+    try:
+        return mixing_service.render_preview(audio_path, preset, confirmed)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=f"Файл не найден: {exc}") from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/knowledge/mixing/compare")
+def mixing_compare(mix_path: str, reference_path: str):
+    try:
+        return mixing_service.compare(mix_path, reference_path)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=f"Файл не найден: {exc}") from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/knowledge/mastering/report")
+def mastering_report(audio_path: str):
+    try:
+        return mixing_service.mastering_report(audio_path)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=f"Файл не найден: {exc}") from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/knowledge/mastering/suggest")
+def mastering_suggest(audio_path: str, genre: str = "", goal: str = ""):
+    try:
+        return mixing_service.suggest_mastering_chain(audio_path, genre, goal)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=f"Файл не найден: {exc}") from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.get("/mentor/voice/lessons")
+def voice_lessons(category: str = ""):
+    return {"lessons": voice_production_service.lessons(category)}
+
+
+@app.get("/mentor/voice/search")
+def voice_lesson_search(query: str, limit: int = 20):
+    return {"query": query, "results": voice_production_service.search(query, limit)}
+
+
+@app.get("/mentor/voice/workflow")
+def voice_workflow(guitars: str = "", scope: str = "", issue: str = "", session_id: str = "", command: str = ""):
+    """Build a safe, step-by-step vocal troubleshooting session."""
+    return voice_production_service.workflow(guitars=guitars, scope=scope, issue=issue, session_id=session_id, command=command)
+
+
+@app.get("/knowledge/guitars/summary")
+def guitar_summary():
+    return guitar_encyclopedia_service.summary()
+
+
+@app.get("/knowledge/guitars/search")
+def guitar_search(query: str, limit: int = 20):
+    return {"query": query, "results": guitar_encyclopedia_service.search(query, limit)}
+
+
+@app.post("/knowledge/guitars/compare")
+def guitar_compare(ids: list[str]):
+    return {"models": guitar_encyclopedia_service.compare(ids)}
+
+
+@app.get("/mentor/psychology/safety")
+def psychology_safety():
+    return psychology_service.safety()
+
+
+@app.get("/mentor/psychology/cards")
+def psychology_cards(topic: str = ""):
+    return {"cards": psychology_service.cards(topic)}
+
+
+@app.get("/mentor/psychology/search")
+def psychology_search(query: str, limit: int = 20):
+    return {"query": query, "results": psychology_service.search(query, limit)}
+
+
+@app.get("/knowledge/literature/works")
+def literature_works(author: str = ""):
+    return {"works": literature_service.works(author)}
+
+
+@app.get("/knowledge/literature/search")
+def literature_search(query: str, limit: int = 20):
+    return {"query": query, "results": literature_service.search(query, limit)}
+
+
+@app.get("/mentor/programming/lessons")
+def programming_lessons(language: str = ""):
+    return {"lessons": programming_mentor_service.lessons(language), "progress": programming_mentor_service.progress()}
+
+
+@app.get("/mentor/programming/progress")
+def programming_progress_summary():
+    return programming_mentor_service.progress()
+
+
+@app.get("/mentor/programming/lessons/{lesson_id}")
+def programming_lesson(lesson_id: str):
+    lesson = programming_mentor_service.get(lesson_id)
+    if not lesson:
+        raise HTTPException(status_code=404, detail="Programming lesson not found")
+    return {"lesson": lesson, "progress": programming_mentor_service.progress().get("lessons", {}).get(lesson_id)}
+
+
+@app.post("/mentor/programming/lessons/{lesson_id}/progress")
+def programming_progress(lesson_id: str, payload: MentorProgressRequest):
+    try:
+        return programming_mentor_service.save_progress(lesson_id, payload.completed, payload.score, payload.note)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Programming lesson not found") from exc
+
+
+@app.post("/mentor/programming/lessons/{lesson_id}/check")
+def programming_exercise_check(lesson_id: str, payload: MentorExerciseRequest):
+    try:
+        lesson = programming_mentor_service.get(lesson_id)
+        if not lesson:
+            raise HTTPException(status_code=404, detail="Programming lesson not found")
+        language = str(lesson.get("language", "")).lower()
+        result = coding_sandbox_service.run_python(f"mentor-{lesson_id}", payload.code, payload.timeout) if language == "python" else {"ok": True, "returncode": 0, "stdout": "", "stderr": "", "execution": "static_only"}
+        evaluation = programming_mentor_service.evaluate(
+            lesson_id, payload.code, result.get("stdout", ""), result.get("stderr", "")
+        )
+        evaluation["sandbox"] = {key: result.get(key) for key in ("ok", "timed_out", "returncode")}
+        if evaluation["passed"]:
+            programming_mentor_service.save_progress(lesson_id, True, evaluation["score"], "Автоматическая проверка упражнения пройдена")
+        return evaluation
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail="Programming lesson not found") from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/coding/sandbox/python")
+def coding_sandbox_python(payload: SandboxRunRequest):
+    try:
+        return coding_sandbox_service.run_python(payload.project, payload.code, payload.timeout)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/coding/sandbox/javascript")
+def coding_sandbox_javascript(payload: SandboxRunRequest):
+    try:
+        return coding_sandbox_service.run_javascript(payload.project, payload.code, payload.timeout)
+    except (RuntimeError, ValueError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/coding/projects/python")
+def coding_create_python_project(payload: CodingProjectRequest):
+    try:
+        return coding_sandbox_service.create_python_project(payload.project, payload.files, payload.run_tests)
+    except FileExistsError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/coding/projects/javascript")
+def coding_create_javascript_project(payload: CodingProjectRequest):
+    try:
+        return coding_sandbox_service.create_javascript_project(payload.project, payload.files, payload.run_tests)
+    except FileExistsError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    except (RuntimeError, ValueError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.get("/commands/catalog")
@@ -568,6 +1083,56 @@ async def chat(req: ChatRequest):
             "Подтверди получение в одном коротком живом ответе; "
             "не запускай операции с диском без отдельной команды."
         )
+
+    # Resolve verified local knowledge before waking the planner/LLM. This
+    # keeps the normal chat path fast and preserves the same source order as
+    # the voice runtime. Dynamic questions continue through the existing
+    # planner unchanged.
+    local_answer = None
+    if original_goal and not safe_attachments:
+        local_answer = knowledge_search_service.answer(original_goal, context_messages)
+    if local_answer is not None:
+        result_text = str(local_answer.get("answer") or "").strip()
+        assistant_message = chat_store.add_message(
+            chat_id=req.chat_id,
+            role="assistant",
+            content=result_text,
+        )
+        runtime_registry.publish_event(
+            event_type="item.completed",
+            source="knowledge3",
+            request_id=msg_id,
+            payload={
+                "chat_id": req.chat_id,
+                "turn_id": turn_id,
+                "item_type": "knowledge_answer",
+                "message_id": assistant_message.get("id"),
+                "source": local_answer.get("source"),
+            },
+        )
+        runtime_registry.publish_event(
+            event_type="turn.completed",
+            source="knowledge3",
+            request_id=msg_id,
+            payload={"chat_id": req.chat_id, "turn_id": turn_id, "source": local_answer.get("source")},
+        )
+        main_agent.pending.pop(msg_id, None)
+        active_chat_tasks.pop(turn_id, None)
+        return {
+            "response": result_text,
+            "turn_id": turn_id,
+            "message_id": assistant_message.get("id"),
+            "user_message_id": user_message.get("id"),
+            "attachments": user_message.get("attachments", []),
+            "knowledge": local_answer,
+        }
+
+    knowledge_bundle = knowledge_search_service.context_bundle(original_goal, 6) if original_goal and not safe_attachments else {"multi_source": False}
+    if knowledge_bundle.get("multi_source"):
+        context_lines = []
+        for item in knowledge_bundle.get("sources", []):
+            context_lines.append(f"[{item['module']}] {item['title']}: {item['answer']}")
+        goal = goal + "\n\nПроверенный локальный контекст Knowledge 3.0. Используй его, не выдумывай источники:\n" + "\n".join(context_lines)
 
     await bus.send(
         "planner",
@@ -804,6 +1369,6 @@ if __name__ == "__main__":
     uvicorn.run(
         "main:app",
         host="127.0.0.1",
-        port=8000,
+        port=API_PORT,
         reload=False,
     )

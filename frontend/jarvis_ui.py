@@ -22,6 +22,9 @@ if getattr(sys, "frozen", False):
 else:
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
+BACKEND_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "backend"))
+if BACKEND_DIR not in sys.path:
+    sys.path.append(BACKEND_DIR)
 
 from PySide6.QtSvgWidgets import QSvgWidget
 from PySide6.QtWebEngineWidgets import QWebEngineView
@@ -33,6 +36,10 @@ from toggle_switch import ToggleSwitch
 from jarvis_hud import JarvisHUD
 from chat_composer import ChatComposer
 from profile_dialog import UserProfileDialog
+from account.application.account_coordinator import AccountCoordinator
+from account.infrastructure.persistent_store import AccountStoreError
+from services.storage_registry import StoragePaths
+from account_ui import AccountCenterDialog
 from autostart import is_enabled as windows_autostart_enabled, set_enabled as set_windows_autostart
 
 from PySide6.QtWidgets import *
@@ -41,7 +48,8 @@ from PySide6.QtGui import *
 
 print(os.path.join(BASE_DIR, "assets", "jarvis_off.png"))
 
-API_URL = "http://127.0.0.1:8000/chat"
+API_ROOT = os.getenv("JARVIS_API_BASE_URL", "http://127.0.0.1:8000").rstrip("/")
+API_URL = f"{API_ROOT}/chat"
 STARTUP_DIAGNOSTIC_WAV = os.path.abspath(os.path.join(
     BASE_DIR, "..", "backend", "voice_engine", "sound",
     "Начинаю диагностику системы (второй).wav"
@@ -79,6 +87,13 @@ HUD_BOTTOM_PANEL_BUTTONS = {
     "VID": (350, 548),
     "SET": (409, 548),
     "OUT": (468, 548),
+}
+
+HUD_TOP_PANEL_FONT_SIZES = {
+    "CHAT": 8,
+    "AGENTS": 8,
+    "FUNCTION": 7,
+    "HISTORY": 8,
 }
 
 WIDGET_ACTION_OPTIONS = [
@@ -256,7 +271,7 @@ class RuntimeDeltaWorker(QObject):
             while not self._stop_event.is_set():
                 try:
                     response = requests.get(
-                        "http://127.0.0.1:8000/runtime/events",
+                        f"{API_ROOT}/runtime/events",
                         params={"turn_id": self.turn_id, "limit": 256},
                         timeout=0.7,
                     )
@@ -749,7 +764,7 @@ class JarvisChatBridge(QObject):
             if not message_id or not reaction:
                 return
             requests.post(
-                f"http://127.0.0.1:8000/chat/messages/{requests.utils.quote(message_id, safe='')}/reaction",
+                f"{API_ROOT}/chat/messages/{requests.utils.quote(message_id, safe='')}/reaction",
                 json={"reaction": reaction, "actor": "user"},
                 timeout=3,
             )
@@ -771,7 +786,7 @@ class JarvisChatBridge(QObject):
     @Slot(str)
     def pinMessage(self, message_id):
         try:
-            requests.post(f"http://127.0.0.1:8000/chat/messages/{message_id}/pin", timeout=3)
+            requests.post(f"{API_ROOT}/chat/messages/{message_id}/pin", timeout=3)
         except requests.RequestException:
             pass
 
@@ -784,7 +799,7 @@ class JarvisChatBridge(QObject):
     def openAttachment(self, path):
         value = str(path or "").strip()
         if value.startswith("att_"):
-            QDesktopServices.openUrl(QUrl(f"http://127.0.0.1:8000/api/media/{requests.utils.quote(value, safe='')}"))
+            QDesktopServices.openUrl(QUrl(f"{API_ROOT}/api/media/{requests.utils.quote(value, safe='')}"))
             return
         candidate = Path(value).expanduser().resolve()
         if candidate.is_file():
@@ -801,7 +816,7 @@ class JarvisChatBridge(QObject):
         try:
             if value.startswith("att_"):
                 response = requests.get(
-                    f"http://127.0.0.1:8000/api/media/{requests.utils.quote(value, safe='')}",
+                    f"{API_ROOT}/api/media/{requests.utils.quote(value, safe='')}",
                     stream=True,
                     timeout=20,
                 )
@@ -837,7 +852,7 @@ class JarvisChatBridge(QObject):
     def openVideoAttachment(self, path):
         value = str(path or "").strip()
         if value.startswith("att_"):
-            source = QUrl(f"http://127.0.0.1:8000/api/media/{requests.utils.quote(value, safe='')}")
+            source = QUrl(f"{API_ROOT}/api/media/{requests.utils.quote(value, safe='')}")
         else:
             candidate = Path(value).expanduser().resolve()
             if not candidate.is_file():
@@ -1164,7 +1179,7 @@ class AIProviderDialog(QDialog):
 
     def load_current(self):
         try:
-            data = requests.get("http://127.0.0.1:8000/settings/llm", timeout=4).json()
+            data = requests.get(f"{API_ROOT}/settings/llm", timeout=4).json()
             self.provider.setCurrentText(data.get("provider", "ollama"))
             config = data.get("config", {})
             self.base.setText(config.get("HEL_OLLAMA_BASE_URL", "http://127.0.0.1:11434"))
@@ -1195,7 +1210,7 @@ class AIProviderDialog(QDialog):
 
     def fetch_models(self):
         try:
-            data = requests.get("http://127.0.0.1:8000/settings/llm/models", params={"provider": self.provider.currentText(), "base_url": self.base.text().strip(), "api_key": self.key.text().strip()}, timeout=10).json()
+            data = requests.get(f"{API_ROOT}/settings/llm/models", params={"provider": self.provider.currentText(), "base_url": self.base.text().strip(), "api_key": self.key.text().strip()}, timeout=10).json()
             models = data.get("models", [])
             if models:
                 self.model.setText(models[0])
@@ -1207,14 +1222,14 @@ class AIProviderDialog(QDialog):
 
     def test_provider(self):
         try:
-            data = requests.post("http://127.0.0.1:8000/settings/llm/test", json=self.payload(), timeout=15).json()
+            data = requests.post(f"{API_ROOT}/settings/llm/test", json=self.payload(), timeout=15).json()
             self.status.setText(data.get("message", "Проверка завершена."))
         except requests.RequestException:
             self.status.setText("Backend недоступен.")
 
     def save_provider(self):
         try:
-            requests.post("http://127.0.0.1:8000/settings/llm", json=self.payload(), timeout=10).raise_for_status()
+            requests.post(f"{API_ROOT}/settings/llm", json=self.payload(), timeout=10).raise_for_status()
             self.status.setText("Провайдер сохранён. Новые запросы используют выбранную конфигурацию.")
         except requests.RequestException:
             self.status.setText("Не удалось сохранить конфигурацию.")
@@ -1394,10 +1409,12 @@ class RotatablePanelButton(QPushButton):
     """Text panel button whose label can be tilted without rotating its hitbox."""
 
     angleChanged = Signal(float)
+    fontSizeChanged = Signal(int)
 
     def __init__(self, text, parent=None):
         super().__init__(text, parent)
         self.panel_angle = 0.0
+        self.panel_font_size = 10
         self._panel_hover = 0.0
         self._panel_press = 0.0
         self._panel_effect = QGraphicsColorizeEffect(self)
@@ -1446,11 +1463,22 @@ class RotatablePanelButton(QPushButton):
         self.panel_angle = max(-45.0, min(45.0, float(angle)))
         self.update()
 
+    def set_panel_font_size(self, size):
+        self.panel_font_size = max(6, min(14, int(size)))
+        font = QFont(self.font())
+        font.setPointSize(self.panel_font_size)
+        self.setFont(font)
+        self.update()
+
     def wheelEvent(self, event):
         if self.property("calibrationEnabled"):
             step = 2 if event.angleDelta().y() > 0 else -2
-            self.set_panel_angle(self.panel_angle + step)
-            self.angleChanged.emit(self.panel_angle)
+            if event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+                self.set_panel_font_size(self.panel_font_size + (1 if step > 0 else -1))
+                self.fontSizeChanged.emit(self.panel_font_size)
+            else:
+                self.set_panel_angle(self.panel_angle + step)
+                self.angleChanged.emit(self.panel_angle)
             event.accept()
             return
         super().wheelEvent(event)
@@ -1599,13 +1627,36 @@ class ChatItemWidget(QWidget):
         layout.addWidget(self.pin)
         layout.addWidget(self.menu_btn)
 
+        self._active = False
+        self._accent = "#00AAFF"
+
+    def set_active(self, active: bool, accent: str) -> None:
+        """Visually mark the chat bound to the current voice/text context."""
+        self._active = bool(active)
+        self._accent = str(accent or "#00AAFF")
+        self.label.setStyleSheet(
+            f"color:{self._accent if self._active else '#FFFFFF'};"
+            f"font-size:14px; font-weight:{'700' if self._active else '400'};"
+        )
+        self.update()
+
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
         rect = self.rect().adjusted(0, 0, -1, -1)
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QColor(255, 255, 255, 30 if self.underMouse() else 18))
-        painter.drawRoundedRect(rect, 10, 10)
+        if self._active:
+            painter.setBrush(QColor(self._accent))
+            painter.setOpacity(0.22)
+            painter.drawRoundedRect(rect, 10, 10)
+            painter.setOpacity(1.0)
+            painter.setPen(QPen(QColor(self._accent), 1.5))
+            painter.setBrush(Qt.BrushStyle.NoBrush)
+            painter.drawRoundedRect(rect, 10, 10)
+        else:
+            painter.setBrush(QColor(255, 255, 255, 30 if self.underMouse() else 18))
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.drawRoundedRect(rect, 10, 10)
         super().paintEvent(event)
 
 
@@ -1775,6 +1826,8 @@ class JarvisUI(QWidget):
         self.setAttribute(Qt.WA_TranslucentBackground)
 
         self.ui_settings = QSettings("Jarvis", "Jarvis Assist")
+        self._normal_geometry = None
+        self._fullscreen_mode = False
         self.visual_settings = {
             "window_opacity": int(self.ui_settings.value("window_opacity", 96)),
             "transparent_background": self.ui_settings.value(
@@ -1787,6 +1840,11 @@ class JarvisUI(QWidget):
             "video_input_device": int(self.ui_settings.value("video_input_device", 0)),
         }
         self.startup_widget_mode = self.ui_settings.value("startup_widget_mode", True, type=bool)
+        # Calibration profiles are kept separately so fullscreen calibration
+        # cannot overwrite the accepted widget-mode layout.
+        self.panel_calibration_profile = (
+            "fullscreen" if "--fullscreen" in sys.argv else "widget"
+        )
         self.setAttribute(
             Qt.WA_TranslucentBackground,
             self.visual_settings["transparent_background"],
@@ -1816,6 +1874,9 @@ class JarvisUI(QWidget):
         self.setWindowOpacity(self.visual_settings["window_opacity"] / 100.0)
 
         self.build_ui()
+        # Keep a final HUD-only mouse fallback above decorative child layers.
+        # It is removed on close and is restricted to the fixed HUD canvas.
+        QApplication.instance().installEventFilter(self)
         self.current_chat_id = "default"
         self.status_widget.refresh_style()
         self.restore_status_widget_position()
@@ -1897,6 +1958,7 @@ class JarvisUI(QWidget):
                 key: {"x": position[0], "y": position[1], "angle": 0}
                 for key, position in {**HUD_TOP_PANEL_BUTTONS, **HUD_BOTTOM_PANEL_BUTTONS}.items()
             },
+            "panel_positions_by_mode": {},
         }
         raw = self.ui_settings.value("widget_settings", "")
         if not raw:
@@ -1914,6 +1976,16 @@ class JarvisUI(QWidget):
             default["status_widget_position"] = saved.get("status_widget_position", {})
             default["status_widget_size"] = saved.get("status_widget_size", "medium")
             default["panel_positions"].update(saved.get("panel_positions", {}))
+            saved_profiles = saved.get("panel_positions_by_mode", {})
+            if isinstance(saved_profiles, dict):
+                for profile, positions in saved_profiles.items():
+                    if isinstance(positions, dict):
+                        default["panel_positions_by_mode"][profile] = positions
+            # Preserve the previously accepted widget profile when opening
+            # older settings that only had the legacy top-level map.
+            default["panel_positions_by_mode"].setdefault(
+                "widget", json.loads(json.dumps(default["panel_positions"]))
+            )
         except (TypeError, ValueError, json.JSONDecodeError):
             pass
         return default
@@ -2016,6 +2088,10 @@ class JarvisUI(QWidget):
             self.position_settings_header()
 
     def open_settings_section(self, index):
+        # Settings are a full application page.  Opening them from the HUD
+        # must leave transparent widget mode first; otherwise the page is
+        # rendered on top of the compact overlay with no normal chrome.
+        self.ensure_full_ui()
         self.menu.setCurrentRow(3)
         if hasattr(self, "settings_nav"):
             self.settings_nav.setCurrentRow(index)
@@ -2114,7 +2190,7 @@ class JarvisUI(QWidget):
         self.jarvis_state = bool(enabled)
         if hasattr(self, "assistant_toggle"):
             self.assistant_toggle.blockSignals(True)
-            self.assistant_toggle.setChecked(True)
+            self.assistant_toggle.setChecked(self.jarvis_state)
             self.assistant_toggle.blockSignals(False)
         if hasattr(self, "microphone_toggle"):
             self.microphone_toggle.blockSignals(True)
@@ -2132,13 +2208,12 @@ class JarvisUI(QWidget):
             self.glow.setBlurRadius(40)
             self.assistant_label.setText(message or "Нажмите кнопку чтобы активировать JARVIS")
 
-    def _assistant_toggle_stub(self, checked):
-        """Assistant switch is intentionally a visual placeholder for now."""
-        if hasattr(self, "assistant_toggle") and not checked:
-            self.assistant_toggle.blockSignals(True)
-            self.assistant_toggle.setChecked(True)
-            self.assistant_toggle.blockSignals(False)
-        self.assistant_label.setText("Переключатель ассистента пока не активен")
+    def _assistant_toggle(self, checked):
+        """Make the sidebar assistant switch control the real voice runtime."""
+        desired = bool(checked)
+        if desired == bool(self.jarvis_state):
+            return
+        self._toggle_voice_runtime()
 
     def _toggle_microphone_from_sidebar(self, checked):
         """Mute/unmute audio capture without stopping Jarvis itself."""
@@ -2147,7 +2222,7 @@ class JarvisUI(QWidget):
             return
         try:
             response = requests.post(
-                "http://127.0.0.1:8000/voice/microphone",
+                f"{API_ROOT}/voice/microphone",
                 json={"enabled": self._microphone_enabled},
                 timeout=3,
             )
@@ -2181,7 +2256,7 @@ class JarvisUI(QWidget):
         """Open with START idle even if an old backend process was left on."""
         self._microphone_enabled = True
         try:
-            requests.post("http://127.0.0.1:8000/voice/stop", timeout=3)
+            requests.post(f"{API_ROOT}/voice/stop", timeout=3)
         except requests.RequestException:
             pass
         self._set_assistant_ui(False, "Нажмите START, чтобы Jarvis начал слушать")
@@ -2194,15 +2269,16 @@ class JarvisUI(QWidget):
         try:
             if target_enabled:
                 response = requests.post(
-                    "http://127.0.0.1:8000/voice/start",
+                    f"{API_ROOT}/voice/start",
                     json={
                         "microphone_index": self._voice_microphone_index(),
                         "microphone_enabled": self._microphone_enabled,
+                        "source": "widget",
                     },
                     timeout=4,
                 )
             else:
-                response = requests.post("http://127.0.0.1:8000/voice/stop", timeout=4)
+                response = requests.post(f"{API_ROOT}/voice/stop", timeout=4)
             response.raise_for_status()
             data = response.json()
             self._set_assistant_ui(bool(data.get("enabled")), data.get("last_error") or None)
@@ -2214,6 +2290,139 @@ class JarvisUI(QWidget):
             # the terminal and show a bounded user-facing message instead.
             print(f"Voice runtime unavailable: {error}")
             self._set_assistant_ui(False, "Голосовой runtime недоступен — backend не отвечает")
+
+    def _ensure_voice_chat_session(self):
+        chat_id = str(getattr(self, "current_chat_id", "default"))
+        if chat_id.startswith("draft_"):
+            response = requests.post(
+                f"{API_ROOT}/chat/sessions",
+                json={"title": "Голосовой разговор"},
+                timeout=4,
+            )
+            response.raise_for_status()
+            chat_id = str(response.json().get("id") or "default")
+            self.current_chat_id = chat_id
+            self.chat_view.page().runJavaScript(
+                "window.setCurrentChatId && window.setCurrentChatId(" + json.dumps(chat_id) + ");"
+            )
+            self.load_history_sessions()
+            self.load_chat_history()
+        return chat_id
+
+    def toggle_voice_chat_from_composer(self):
+        """Start the shared runtime bound to the currently open ChatStore chat."""
+        try:
+            status = requests.get(f"{API_ROOT}/voice/status", timeout=3).json()
+            active = status.get("voice_session") or {}
+            if active.get("active") and active.get("source") == "chat":
+                requests.post(f"{API_ROOT}/voice/session/stop", timeout=4).raise_for_status()
+                self.composer.set_voice_chat_active(False, "Голосовой чат завершён")
+                self.assistant_label.setText("Голосовой чат сохранён в истории")
+                return
+            chat_id = self._ensure_voice_chat_session()
+            response = requests.post(
+                f"{API_ROOT}/voice/session/start",
+                json={
+                    "chat_id": chat_id,
+                    "microphone_index": self._voice_microphone_index(),
+                    "microphone_enabled": True,
+                    "replace": True,
+                },
+                timeout=5,
+            )
+            response.raise_for_status()
+            data = response.json()
+            self.composer.set_voice_chat_active(True, "Голосовой чат активен в этом диалоге")
+            self._set_assistant_ui(True, None)
+            self.assistant_label.setText("Голосовой чат слушает этот диалог")
+        except (requests.RequestException, ValueError, KeyError) as error:
+            self.composer.set_voice_chat_active(False, "Не удалось запустить голосовой чат")
+            self.assistant_label.setText(f"Голосовой чат: {str(error)[:120]}")
+
+    def stop_voice_chat_from_composer(self):
+        try:
+            requests.post(f"{API_ROOT}/voice/session/stop", timeout=4)
+        except requests.RequestException:
+            pass
+        self.composer.set_voice_chat_active(False, "Голосовой чат завершён")
+        self.assistant_label.setText("Голосовой чат завершён и сохранён")
+
+    def _stop_voice_chat_before_switch(self, next_chat_id: str):
+        """Never let a live chat session leak turns into another chat."""
+        try:
+            status = requests.get(f"{API_ROOT}/voice/status", timeout=1.5).json()
+            active = status.get("voice_session") or {}
+            if active.get("active") and active.get("source") == "chat" and str(active.get("chat_id")) != str(next_chat_id):
+                requests.post(f"{API_ROOT}/voice/session/stop", timeout=3)
+                if hasattr(self, "composer"):
+                    self.composer.set_voice_chat_active(False, "Голосовой чат остановлен при смене диалога")
+        except (requests.RequestException, ValueError, TypeError):
+            pass
+
+    def handle_composer_tool(self, tool: str):
+        messages = {
+            "control_windows": "Контроль ПК подключается через безопасные обработчики Jarvis.",
+            "browser": "Контроль браузера пока доступен как точка подключения; действующие команды не имитируются.",
+            "figma": "Подключение Figma требует OAuth/API-настройки и пока не авторизовано.",
+            "plugins": "Система плагинов находится в разработке",
+        }
+        self.show_panel_dialog("ИНСТРУМЕНТЫ", [messages.get(tool, "Инструмент недоступен")])
+
+    def toggle_fullscreen_window(self):
+        # Fullscreen/window mode belongs to the application shell, not the
+        # compact HUD presentation.  A transition from widget mode must first
+        # restore the shell so the user never gets a fullscreen transparent
+        # widget with a hidden settings/navigation layer underneath.
+        if getattr(self, "widget_mode", False):
+            self.toggle_widget_mode()
+
+        currently_fullscreen = self.isFullScreen() or self.isMaximized() or self._fullscreen_mode
+        if currently_fullscreen:
+            self._fullscreen_mode = False
+            self.showNormal()
+            if self._normal_geometry is not None:
+                self.setGeometry(self._normal_geometry)
+            self.fullscreen_button.setToolTip("Развернуть на весь экран")
+        else:
+            if not self.isMaximized():
+                self._normal_geometry = self.geometry()
+            self._fullscreen_mode = True
+            # Use a maximized application window instead of Qt's borderless
+            # full-screen state. Windows can then open the Start menu and
+            # taskbar over Jarvis instead of treating the HUD as an exclusive
+            # desktop surface.
+            self.showMaximized()
+            self.fullscreen_button.setToolTip("Вернуть размер окна")
+        self._apply_fullscreen_sidebar_layout()
+        self.raise_hud_controls()
+
+    def changeEvent(self, event):
+        """Keep the fullscreen flag and control tooltip in sync with Qt."""
+        super().changeEvent(event)
+        if event.type() != QEvent.Type.WindowStateChange:
+            return
+        actual_fullscreen = self.isFullScreen() or self.isMaximized()
+        self._fullscreen_mode = actual_fullscreen
+        button = getattr(self, "fullscreen_button", None)
+        if button is not None:
+            button.setToolTip(
+                "Вернуть размер окна" if actual_fullscreen else "Развернуть на весь экран"
+            )
+        self._apply_fullscreen_sidebar_layout()
+
+    def _apply_fullscreen_sidebar_layout(self):
+        """Give the maximized shell more room for recent chats and footer text."""
+        recent = getattr(self, "chats_list", None)
+        footer = getattr(self, "tandem_footer", None)
+        if recent is None:
+            return
+        expanded = bool(self._fullscreen_mode or self.isMaximized() or self.isFullScreen())
+        recent.setFixedHeight(320 if expanded else 120)
+        if footer is not None:
+            footer.setFixedWidth(280 if expanded else 240)
+            footer.setFixedHeight(34 if expanded else 22)
+            footer.setWordWrap(True)
+        self.load_chat_sessions()
 
     def toggle_voice_from_composer(self):
         """Start/stop one local dictation session in the active composer."""
@@ -2307,7 +2516,7 @@ class JarvisUI(QWidget):
             return
         try:
             data = requests.get(
-                "http://127.0.0.1:8000/devices/capabilities",
+                f"{API_ROOT}/devices/capabilities",
                 timeout=0.8,
             ).json()
             available = [
@@ -2328,7 +2537,7 @@ class JarvisUI(QWidget):
 
     def refresh_voice_status(self):
         try:
-            response = requests.get("http://127.0.0.1:8000/voice/status", timeout=1)
+            response = requests.get(f"{API_ROOT}/voice/status", timeout=1)
             response.raise_for_status()
             data = response.json()
             self._update_voice_debug(data)
@@ -2339,7 +2548,7 @@ class JarvisUI(QWidget):
                 # during backend/UI startup without toggling the microphone off.
                 try:
                     requests.post(
-                        "http://127.0.0.1:8000/voice/start",
+                        f"{API_ROOT}/voice/start",
                         json={
                             "microphone_index": self._voice_microphone_index(),
                             "microphone_enabled": self._microphone_enabled,
@@ -2358,8 +2567,21 @@ class JarvisUI(QWidget):
                     self.assistant_label.setText(f"Команда не подключена: {intent}")
                 elif error.startswith("conversation TTS:"):
                     self.assistant_label.setText("Голосовой синтез недоступен")
+                elif error.startswith("conversation request:"):
+                    self.assistant_label.setText("Не удалось получить ответ от модели")
                 else:
                     self.assistant_label.setText("Голосовой runtime: ошибка")
+            elif self.jarvis_state and self.assistant_label.text() in {
+                "Голосовой runtime: ошибка",
+                "Голосовой синтез недоступен",
+                "Не удалось получить ответ от модели",
+            }:
+                # Clear a transient provider/runtime error as soon as the
+                # backend reports a healthy listening state again. Otherwise
+                # the HUD keeps displaying a stale failure after Fish recovers.
+                self.assistant_label.setText(
+                    "JARVIS слушает..." if data.get("listening") else "Нажмите кнопку чтобы активировать JARVIS"
+                )
         except requests.RequestException:
             return
 
@@ -2371,6 +2593,8 @@ class JarvisUI(QWidget):
         error = str(data.get("last_error") or "—")
         if len(response) > 420:
             response = response[:420] + "…"
+        if len(error) > 240:
+            error = error.splitlines()[0][:240] + "…"
         self.status_widget.set_status_text(
             f"Состояние:  {phase}\n"
             f"Слышит:     {transcript}\n"
@@ -2450,9 +2674,30 @@ class JarvisUI(QWidget):
         buttons = []
         self.hud_panel_button_map = {}
         action_map = self.widget_settings.get("actions", {})
-        position_map = self.widget_settings.get("panel_positions", {})
+        position_map = self.widget_settings.get("panel_positions_by_mode", {}).get(
+            self.panel_calibration_profile,
+            self.widget_settings.get("panel_positions", {}),
+        )
+        if not position_map:
+            position_map = self.widget_settings.get("panel_positions", {})
+
+        def safe_position(name, default):
+            saved = position_map.get(name, {})
+            try:
+                x = float(saved.get("x", default[0]))
+                y = float(saved.get("y", default[1]))
+                # Calibration stores coordinates in the fixed 710x710 HUD.
+                # Older builds could leave screen coordinates here; discard
+                # those values instead of placing a button outside the ring.
+                if not (0 <= x <= JarvisHUD.HUD_SIZE and 0 <= y <= JarvisHUD.HUD_SIZE):
+                    raise ValueError
+                angle = float(saved.get("angle", 0))
+                return {"x": x, "y": y, "angle": angle}
+            except (AttributeError, TypeError, ValueError):
+                return {"x": default[0], "y": default[1], "angle": 0}
+
         for name, (x, y) in HUD_TOP_PANEL_BUTTONS.items():
-            saved_position = position_map.get(name, {"x": x, "y": y})
+            saved_position = safe_position(name, (x, y))
             x, y = saved_position.get("x", x), saved_position.get("y", y)
             button = RotatablePanelButton(name, parent)
             button.setObjectName("hudPanelTop")
@@ -2460,10 +2705,15 @@ class JarvisUI(QWidget):
             button.setProperty("panelName", name)
             button.setProperty("panelTextColor", self.text_color_hex)
             button.set_panel_angle(saved_position.get("angle", 0))
+            button.set_panel_font_size(
+                saved_position.get("font_size", HUD_TOP_PANEL_FONT_SIZES.get(name, 8))
+            )
             visual_width = 72 if name != "FUNCTION" else 86
             hit_width, hit_height = visual_width + 18, 44
             button.setProperty("panelAnchorX", x)
             button.setProperty("panelAnchorY", y)
+            button.setProperty("panelAnchorOffsetX", (hit_width - visual_width) // 2)
+            button.setProperty("panelAnchorOffsetY", (hit_height - 24) // 2)
             button.setGeometry(
                 x - (hit_width - visual_width) // 2,
                 y - (hit_height - 24) // 2,
@@ -2478,9 +2728,12 @@ class JarvisUI(QWidget):
             button.setFocusPolicy(Qt.FocusPolicy.NoFocus)
             if self.panel_calibration_mode:
                 button.setProperty("calibrationEnabled", True)
-                button.setToolTip(f"{name}: перетащите мышью, колесо — наклон текста")
+                button.setToolTip(
+                    f"{name}: перетащите мышью, колесо — наклон, Ctrl+колесо — размер текста"
+                )
                 button.installEventFilter(self)
                 button.angleChanged.connect(lambda angle, item=button: self.save_panel_position(item))
+                button.fontSizeChanged.connect(lambda size, item=button: self.save_panel_position(item))
             button.clicked.connect(lambda checked=False, item=button: self.handle_hud_panel_action(
                 item.property("actionKey"), item.property("panelName")
             ))
@@ -2491,16 +2744,25 @@ class JarvisUI(QWidget):
 
         icons_dir = os.path.join(BASE_DIR, "assets", "TECH-A", "panel")
         for name, (x, y) in HUD_BOTTOM_PANEL_BUTTONS.items():
-            saved_position = position_map.get(name, {"x": x, "y": y})
+            saved_position = safe_position(name, (x, y))
             x, y = saved_position.get("x", x), saved_position.get("y", y)
             button = AnimatedPanelIconButton(parent)
             button.setObjectName("hudPanelIcon")
             button.setProperty("actionKey", action_map.get(name, name))
             button.setProperty("panelName", name)
-            hit_width, hit_height = 56, 48
+            # Keep the artwork at the same visual center while giving the
+            # lower-row controls a forgiving invisible hitbox.  The cells
+            # deliberately overlap slightly; the application-level router
+            # resolves an overlap by nearest center before Qt can select a
+            # later decorative sibling. Calibration coordinates remain stable
+            # because the anchor offsets move with the larger geometry.
+            hit_width, hit_height = 84, 68
+            anchor_offset_x, anchor_offset_y = 22, 18
             button.setProperty("panelAnchorX", x)
             button.setProperty("panelAnchorY", y)
-            button.setGeometry(x - 8, y - 8, hit_width, hit_height)
+            button.setProperty("panelAnchorOffsetX", anchor_offset_x)
+            button.setProperty("panelAnchorOffsetY", anchor_offset_y)
+            button.setGeometry(x - anchor_offset_x, y - anchor_offset_y, hit_width, hit_height)
             button.setProperty("hitboxBaseX", button.x())
             button.setProperty("hitboxBaseY", button.y())
             button.setIcon(QIcon(os.path.join(icons_dir, f"{name}.svg")))
@@ -2520,6 +2782,128 @@ class JarvisUI(QWidget):
             buttons.append(button)
             self.hud_panel_button_map[name] = button
         return buttons
+
+    def handle_hud_background_release(self, event):
+        """Route near-miss clicks on the HUD background to the nearest icon."""
+        if event.button() != Qt.MouseButton.LeftButton:
+            return False
+        point = event.position().toPoint()
+        button = self._hud_panel_button_at(point)
+        if button is not None:
+            self.handle_hud_panel_action(
+                button.property("actionKey"), button.property("panelName")
+            )
+            return True
+        return False
+
+    def _hud_panel_button_at(self, point, include_top=True):
+        """Return the HUD button whose cell contains point.
+
+        The artwork is drawn by transparent/decorative siblings, so a click
+        can arrive on a sibling instead of the QToolButton itself.  Use a
+        forgiving rectangular cell around each icon, then resolve overlaps by
+        nearest center.  This keeps the hit area aligned with the visible HUD
+        cells instead of relying on a small radial approximation.
+        """
+        candidates = []
+        names = []
+        if include_top:
+            names.extend(HUD_TOP_PANEL_BUTTONS)
+        names.extend(HUD_BOTTOM_PANEL_BUTTONS)
+        for name in names:
+            button = getattr(self, "hud_panel_button_map", {}).get(name)
+            if button is None:
+                continue
+            center = button.geometry().center()
+            dx = abs(center.x() - point.x())
+            dy = abs(center.y() - point.y())
+            if name in HUD_TOP_PANEL_BUTTONS:
+                # Use the complete existing top-panel hitbox.  User-calibrated
+                # labels can overlap slightly; nearest center resolves that
+                # overlap without changing the visible text or coordinates.
+                half_width = button.width() / 2
+                half_height = button.height() / 2
+            else:
+                # 84x68 is the native invisible lower cell; the extra margin
+                # covers the transparent outline without moving artwork.
+                half_width, half_height = 48, 38
+            if dx <= half_width and dy <= half_height:
+                candidates.append((dx * dx + dy * dy, name, button))
+        if not candidates:
+            return None
+        return min(candidates, key=lambda item: item[0])[2]
+
+    def handle_hud_global_release(self, event):
+        """Route a click from any decorative HUD child to its nearest panel."""
+        if event.button() != Qt.MouseButton.LeftButton:
+            return False
+        container = getattr(self, "hud_container", None)
+        if container is None:
+            return False
+        global_pos = event.globalPosition().toPoint()
+        local = container.mapFromGlobal(global_pos)
+        if not container.rect().contains(local):
+            return False
+        target = QApplication.widgetAt(global_pos)
+        buttons = getattr(self, "hud_panel_button_map", {})
+        if target is not None and any(
+            target is button or button.isAncestorOf(target) for button in buttons.values()
+        ):
+            return False
+        button = self._hud_panel_button_at(local)
+        if button is not None:
+            self.handle_hud_panel_action(
+                button.property("actionKey"), button.property("panelName")
+            )
+            return True
+        return False
+
+    def handle_hud_global_press(self, event):
+        """Activate a HUD cell even when a decorative child owns the press."""
+        if event.button() != Qt.MouseButton.LeftButton:
+            return False
+        container = getattr(self, "hud_container", None)
+        if container is None:
+            return False
+        global_pos = event.globalPosition().toPoint()
+        local = container.mapFromGlobal(global_pos)
+        if not container.rect().contains(local):
+            return False
+        target = QApplication.widgetAt(global_pos)
+        button = self._hud_panel_button_at(local)
+        protected_children = list(getattr(self, "tech_action_buttons", []))
+        protected_children.append(getattr(self, "jarvis_button", None))
+        if target is not None and any(
+            target is child or (child is not None and child.isAncestorOf(target))
+            for child in protected_children
+        ):
+            return False
+        # In the normal widget presentation route the whole cell before Qt's
+        # child hit-test. This is important where neighboring enlarged cells
+        # or calibrated top labels overlap: the nearest visual cell, rather
+        # than child z-order, wins.
+        if button is not None and not self.panel_calibration_mode:
+            self.handle_hud_panel_action(
+                button.property("actionKey"), button.property("panelName")
+            )
+            self._hud_fallback_pressed_button = button
+            return True
+
+        clickable_children = list(getattr(self, "hud_panel_button_map", {}).values())
+        clickable_children.extend(getattr(self, "tech_action_buttons", []))
+        clickable_children.append(getattr(self, "jarvis_button", None))
+        if target is not None and any(
+            target is child or (child is not None and child.isAncestorOf(target))
+            for child in clickable_children
+        ):
+            return False
+        if button is None:
+            return False
+        self.handle_hud_panel_action(
+            button.property("actionKey"), button.property("panelName")
+        )
+        self._hud_fallback_pressed_button = button
+        return True
 
     def ensure_full_ui(self):
         """Restore the normal Jarvis chrome before opening an application page."""
@@ -2637,6 +3021,15 @@ class JarvisUI(QWidget):
         self.widget_mode = not getattr(self, "widget_mode", False)
         for widget in getattr(self, "widget_chrome_widgets", []):
             widget.setVisible(not self.widget_mode)
+        # Keep native frameless controls hidden in widget mode even after a
+        # restore/fullscreen transition recreates their visibility state.
+        for widget in (
+            getattr(self, "fullscreen_button", None),
+            getattr(self, "_window_minimize_button", None),
+            getattr(self, "_window_close_button", None),
+        ):
+            if widget is not None:
+                widget.setVisible(not self.widget_mode)
         if self.widget_mode:
             self.main_container.setStyleSheet(
                 "QFrame#container { background: transparent; border: none; }"
@@ -2870,19 +3263,22 @@ class JarvisUI(QWidget):
         return sources
 
     @staticmethod
-    def enumerate_video_sources():
-        sources = []
+    def enumerate_video_sources(preferred_index=0):
+        """Return the configured camera without probing hardware at startup.
+
+        Opening several DirectShow indices synchronously while constructing
+        the settings page delayed the first HUD and produced repeated
+        ``VideoCapture`` backend errors on machines without those devices.
+        Actual availability is checked by the on-demand device capability and
+        snapshot endpoints; the selected index remains editable here.
+        """
         try:
-            import cv2
-            for index in range(6):
-                capture = cv2.VideoCapture(index, cv2.CAP_DSHOW)
-                opened = capture.isOpened()
-                capture.release()
-                if opened:
-                    sources.append((f"Камера {index}", index))
-        except Exception as error:
-            print(f"Video device enumeration failed: {error}")
-        return sources or [("Камера по умолчанию (0)", 0)]
+            index = int(preferred_index)
+        except (TypeError, ValueError):
+            index = 0
+        if index < 0:
+            index = 0
+        return [(f"Камера {index} (проверка по запросу)", index)]
 
     def apply_hardware_settings(self):
         self.hardware_settings = {
@@ -2893,7 +3289,7 @@ class JarvisUI(QWidget):
             self.ui_settings.setValue(key, value)
         try:
             requests.post(
-                "http://127.0.0.1:8000/hardware/settings",
+                f"{API_ROOT}/hardware/settings",
                 json=self.hardware_settings,
                 timeout=2,
             )
@@ -2928,7 +3324,7 @@ class JarvisUI(QWidget):
         self.ui_settings.sync()
         try:
             response = requests.post(
-                "http://127.0.0.1:8000/voice/model",
+                f"{API_ROOT}/voice/model",
                 json={"model_id": model_id},
                 timeout=3,
             )
@@ -2958,7 +3354,7 @@ class JarvisUI(QWidget):
             self.voice_model_combo.blockSignals(False)
         try:
             response = requests.post(
-                "http://127.0.0.1:8000/voice/model",
+                f"{API_ROOT}/voice/model",
                 json={"model_id": model_id},
                 timeout=3,
             )
@@ -3028,6 +3424,37 @@ class JarvisUI(QWidget):
 
     def eventFilter(self, obj, event):
 
+        # QApplication-level fallback catches presses delivered to decorative
+        # HUD children instead of the visible panel button.  Activating on
+        # press makes the whole cell responsive in transparent widget mode;
+        # the matching release is consumed to avoid a second activation.
+        if event.type() == QEvent.Type.MouseButtonPress:
+            if self.handle_hud_global_press(event):
+                return True
+        if event.type() == QEvent.Type.MouseButtonRelease and getattr(
+            self, "_hud_fallback_pressed_button", None
+        ) is not None:
+            self._hud_fallback_pressed_button = None
+            return True
+
+        # Keep the release fallback for platforms/layers that do not deliver
+        # the press to the application filter.
+        if (
+            event.type() == QEvent.Type.MouseButtonRelease
+            and obj not in (
+                getattr(self, "hud", None),
+                getattr(self, "hud_container", None),
+            )
+            and obj not in getattr(self, "hud_panel_button_map", {}).values()
+        ):
+            if self.handle_hud_global_release(event):
+                return True
+
+        if obj in (getattr(self, "hud", None), getattr(self, "hud_container", None)):
+            if event.type() == QEvent.Type.MouseButtonRelease:
+                if self.handle_hud_background_release(event):
+                    return True
+
         if obj in (getattr(self, "chat_header", None), getattr(self, "chat_avatar", None),
                    getattr(self, "chat_title", None), getattr(self, "chat_subtitle", None)):
             if event.type() == QEvent.Type.MouseButtonRelease and event.button() == Qt.MouseButton.LeftButton:
@@ -3044,9 +3471,17 @@ class JarvisUI(QWidget):
                 dragged.move(origin + delta)
                 return True
             if event.type() == QEvent.MouseButtonRelease and self._panel_drag:
-                dragged, _, _ = self._panel_drag
+                dragged, start, _ = self._panel_drag
                 self._panel_drag = None
-                self.save_panel_position(dragged)
+                delta = event.position().toPoint() - start
+                if delta.manhattanLength() <= 6:
+                    # Calibration consumes the native press/release pair so
+                    # it can distinguish a drag. Re-emit a stationary click
+                    # explicitly; otherwise the first click only arms the
+                    # drag state and the user has to click twice.
+                    dragged.click()
+                else:
+                    self.save_panel_position(dragged)
                 return True
 
         chat_viewports = {
@@ -3090,16 +3525,34 @@ class JarvisUI(QWidget):
     def save_panel_position(self, button):
         for name, candidate in self.hud_panel_button_map.items():
             if candidate is button:
-                self.widget_settings.setdefault("panel_positions", {})[name] = {
-                    "x": button.property("panelAnchorX") if button.property("panelAnchorX") is not None else button.x(),
-                    "y": button.property("panelAnchorY") if button.property("panelAnchorY") is not None else button.y(),
+                anchor_offset_x = int(button.property("panelAnchorOffsetX") or 0)
+                anchor_offset_y = int(button.property("panelAnchorOffsetY") or 0)
+                anchor_x = int(button.x()) + anchor_offset_x
+                anchor_y = int(button.y()) + anchor_offset_y
+                button.setProperty("panelAnchorX", anchor_x)
+                button.setProperty("panelAnchorY", anchor_y)
+                # apply_hud_hitbox_offset() reapplies the stored base geometry
+                # after mode switches; keep that base in sync with calibration.
+                button.setProperty("hitboxBaseX", int(button.x()))
+                button.setProperty("hitboxBaseY", int(button.y()))
+                saved_position = {
+                    "x": anchor_x,
+                    "y": anchor_y,
                     "angle": round(getattr(button, "panel_angle", 0), 1),
                 }
+                if isinstance(button, RotatablePanelButton):
+                    saved_position["font_size"] = int(button.panel_font_size)
+                profiles = self.widget_settings.setdefault("panel_positions_by_mode", {})
+                profiles.setdefault(self.panel_calibration_profile, {})[name] = saved_position
+                # Keep the legacy key synchronized only for the accepted
+                # widget profile. Fullscreen calibration remains independent.
+                if self.panel_calibration_profile == "widget":
+                    self.widget_settings.setdefault("panel_positions", {})[name] = saved_position
                 self.ui_settings.setValue(
                     "widget_settings",
                     json.dumps(self.widget_settings, ensure_ascii=False),
                 )
-                print(f"Panel position saved: {name} -> ({button.x()}, {button.y()})")
+                print(f"Panel anchor saved: {name} -> ({anchor_x}, {anchor_y})")
                 return
 
 
@@ -3175,7 +3628,7 @@ class JarvisUI(QWidget):
 
         chat_id = str(item.data(Qt.ItemDataRole.UserRole) or "default")
         try:
-            response = requests.post(f"http://127.0.0.1:8000/chat/sessions/{chat_id}/pin", timeout=4)
+            response = requests.post(f"{API_ROOT}/chat/sessions/{chat_id}/pin", timeout=4)
             response.raise_for_status()
         except requests.HTTPError as exc:
             if exc.response is not None and exc.response.status_code == 409:
@@ -3208,7 +3661,7 @@ class JarvisUI(QWidget):
             chat_id = str(item.data(Qt.ItemDataRole.UserRole) or "default")
             try:
                 requests.patch(
-                    f"http://127.0.0.1:8000/chat/sessions/{chat_id}",
+                    f"{API_ROOT}/chat/sessions/{chat_id}",
                     json={"title": text},
                     timeout=4,
                 ).raise_for_status()
@@ -3231,12 +3684,17 @@ class JarvisUI(QWidget):
         dialog.setModal(True)
         dialog.setFixedSize(430, 190)
         dialog.setWindowFlags(Qt.WindowType.Dialog | Qt.WindowType.FramelessWindowHint)
-        dialog.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, True)
+        # This confirmation must be an opaque modal surface.  Inheriting the
+        # translucent window treatment from the HUD makes the desktop and
+        # chat list show through the delete action, reducing readability and
+        # making the modal boundary look broken.
+        dialog.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, False)
+        dialog.setAutoFillBackground(True)
         dialog.setStyleSheet(f"""
             QDialog#deleteChatDialog {{
-                background: rgba(18, 21, 28, 245);
+                background: #12151c;
                 color: {self.text_color_hex};
-                border: 1px solid rgba(255,255,255,55);
+                border: 1px solid #4b5563;
                 border-radius: 15px;
             }}
             QLabel#deleteTitle {{ color: {self.text_color_hex}; font-size: 17px; font-weight: 700; }}
@@ -3273,7 +3731,7 @@ class JarvisUI(QWidget):
         if dialog.exec() != QDialog.DialogCode.Accepted:
             return
         try:
-            requests.delete(f"http://127.0.0.1:8000/chat/sessions/{chat_id}", timeout=4).raise_for_status()
+            requests.delete(f"{API_ROOT}/chat/sessions/{chat_id}", timeout=4).raise_for_status()
         except requests.RequestException:
             return
         list_widget.takeItem(row)
@@ -3282,7 +3740,7 @@ class JarvisUI(QWidget):
         chat_id = str(item.data(Qt.ItemDataRole.UserRole) or "default")
         try:
             requests.post(
-                f"http://127.0.0.1:8000/chat/sessions/{chat_id}/archive",
+                f"{API_ROOT}/chat/sessions/{chat_id}/archive",
                 timeout=4,
             ).raise_for_status()
         except requests.RequestException:
@@ -3312,7 +3770,7 @@ class JarvisUI(QWidget):
 
     def load_chat_sessions(self):
         try:
-            response = requests.get("http://127.0.0.1:8000/chat/sessions", timeout=4)
+            response = requests.get(f"{API_ROOT}/chat/sessions", timeout=4)
             response.raise_for_status()
             sessions = response.json().get("sessions", [])
         except (requests.RequestException, ValueError, TypeError):
@@ -3320,7 +3778,10 @@ class JarvisUI(QWidget):
         self.pinned_chats_list.clear()
         self.chats_list.clear()
         pinned_sessions = [session for session in sessions if bool(session.get("pinned"))][:3]
-        recent_sessions = [session for session in sessions if not bool(session.get("pinned"))]
+        recent_limit = 8 if bool(
+            getattr(self, "_fullscreen_mode", False) or self.isMaximized() or self.isFullScreen()
+        ) else 3
+        recent_sessions = [session for session in sessions if not bool(session.get("pinned"))][:recent_limit]
 
         for session in pinned_sessions:
             self.add_chat_item(
@@ -3344,11 +3805,36 @@ class JarvisUI(QWidget):
                 item = list_widget.item(index)
                 if str(item.data(Qt.ItemDataRole.UserRole) or "") == current_chat_id:
                     list_widget.setCurrentItem(item)
-                    break
+                widget = list_widget.itemWidget(item)
+                if isinstance(widget, ChatItemWidget):
+                    widget.set_active(
+                        str(item.data(Qt.ItemDataRole.UserRole) or "") == current_chat_id,
+                        self.accent_hex,
+                    )
+
+    def _refresh_active_chat_visuals(self) -> None:
+        """Keep pinned and recent chat cards in sync with current_chat_id."""
+        current_chat_id = str(getattr(self, "current_chat_id", "default"))
+        for list_widget in (
+            getattr(self, "pinned_chats_list", None),
+            getattr(self, "chats_list", None),
+        ):
+            if list_widget is None:
+                continue
+            for index in range(list_widget.count()):
+                item = list_widget.item(index)
+                widget = list_widget.itemWidget(item)
+                if isinstance(widget, ChatItemWidget):
+                    widget.set_active(
+                        str(item.data(Qt.ItemDataRole.UserRole) or "") == current_chat_id,
+                        self.accent_hex,
+                    )
 
     def select_chat_item(self, item):
         chat_id = str(item.data(Qt.ItemDataRole.UserRole) or "default")
+        self._stop_voice_chat_before_switch(chat_id)
         self.current_chat_id = chat_id
+        self._refresh_active_chat_visuals()
         # Chat cards live outside the main navigation QListWidget.  Clear the
         # previous navigation selection so that opening a chat from the pinned
         # or recent lists cannot leave "Настройки" highlighted on top of the
@@ -3369,7 +3855,7 @@ class JarvisUI(QWidget):
             return
         try:
             response = requests.get(
-                "http://127.0.0.1:8000/chat/sessions",
+                f"{API_ROOT}/chat/sessions",
                 params={"include_archived": "true"},
                 timeout=4,
             )
@@ -3414,7 +3900,9 @@ class JarvisUI(QWidget):
 
     def open_history_chat(self, item):
         chat_id = str(item.data(Qt.ItemDataRole.UserRole) or "default")
+        self._stop_voice_chat_before_switch(chat_id)
         self.current_chat_id = chat_id
+        self._refresh_active_chat_visuals()
         self.pages.setCurrentIndex(1)
         self.chat_view.page().runJavaScript(
             "window.setCurrentChatId && window.setCurrentChatId(" + json.dumps(chat_id) + ");"
@@ -3422,7 +3910,9 @@ class JarvisUI(QWidget):
         self.load_chat_history()
 
     def create_new_chat(self):
+        self._stop_voice_chat_before_switch("draft")
         self.current_chat_id = "draft_" + uuid.uuid4().hex
+        self._refresh_active_chat_visuals()
         self.pages.setCurrentIndex(1)
         # A new chat must reflect the provider/model saved in AI settings.
         self.load_chat_model()
@@ -3439,7 +3929,7 @@ class JarvisUI(QWidget):
         """Load the active provider/model instead of showing a placeholder."""
         config = {}
         try:
-            settings = requests.get("http://127.0.0.1:8000/settings/llm", timeout=4).json()
+            settings = requests.get(f"{API_ROOT}/settings/llm", timeout=4).json()
             provider = str(settings.get("provider") or "ollama").lower()
             connection = settings.get("llm_connection") or {}
             default_model = "auto" if provider == "freellmapi" else "qwen3:8b"
@@ -3454,7 +3944,7 @@ class JarvisUI(QWidget):
             models = []
             if provider in {"ollama", "deepseek", "freellmapi"}:
                 catalog = requests.get(
-                    "http://127.0.0.1:8000/settings/llm/models",
+                    f"{API_ROOT}/settings/llm/models",
                     params={"provider": provider, "base_url": base_url},
                     timeout=6,
                 ).json()
@@ -3495,7 +3985,7 @@ class JarvisUI(QWidget):
             return
         try:
             requests.post(
-                "http://127.0.0.1:8000/settings/llm",
+                f"{API_ROOT}/settings/llm",
                 json=payload,
                 timeout=6,
             ).raise_for_status()
@@ -3529,26 +4019,35 @@ class JarvisUI(QWidget):
         header.addStretch()
 
         btn_min = QPushButton()
+        self.fullscreen_button = QPushButton()
         btn_close = QPushButton()
+        self._window_minimize_button = btn_min
+        self._window_close_button = btn_close
 
         btn_min.setFixedSize(32, 32)
+        self.fullscreen_button.setFixedSize(32, 32)
         btn_close.setFixedSize(32, 32)
         btn_min.setIcon(QIcon(str(Path(BASE_DIR) / "assets" / "chevron-down.svg")))
+        self.fullscreen_button.setIcon(QIcon(str(Path(BASE_DIR) / "assets" / "полноэкранный.svg")))
         btn_close.setIcon(QIcon(str(Path(BASE_DIR) / "assets" / "close.svg")))
         btn_min.setIconSize(QSize(24, 24))
         btn_close.setIconSize(QSize(24, 24))
         btn_min.setToolTip("Свернуть")
+        self.fullscreen_button.setToolTip("Развернуть на весь экран")
         btn_close.setToolTip("Закрыть")
         btn_min.setAccessibleName("Свернуть окно")
         btn_close.setAccessibleName("Закрыть окно")
+        self.fullscreen_button.setAccessibleName("Полноэкранный режим")
 
         btn_close.setObjectName("closeBtn")
-        self.widget_chrome_widgets.extend([btn_min, btn_close])
+        self.widget_chrome_widgets.extend([btn_min, self.fullscreen_button, btn_close])
 
         btn_min.clicked.connect(self.showMinimized)
+        self.fullscreen_button.clicked.connect(self.toggle_fullscreen_window)
         btn_close.clicked.connect(self.close)
 
         header.addWidget(btn_min)
+        header.addWidget(self.fullscreen_button)
         header.addWidget(btn_close)
 
         container_layout.addLayout(header)
@@ -3675,7 +4174,9 @@ class JarvisUI(QWidget):
         profile_identity.addWidget(self.profile_name_label)
         profile_identity.addWidget(self.profile_username_label)
         profile_layout.addLayout(profile_identity, 1)
-        profile_button.clicked.connect(self.show_user_profile)
+        # The existing profile affordance is the Account Panel entry point.
+        # The legacy local profile editor remains available from Settings.
+        profile_button.clicked.connect(self.show_account_center)
         self.profile_button = profile_button
         self.widget_chrome_widgets.append(profile_button)
         self._refresh_user_profile_card()
@@ -3689,6 +4190,9 @@ class JarvisUI(QWidget):
         tandem_footer.setCursor(Qt.CursorShape.PointingHandCursor)
         tandem_footer.setAlignment(Qt.AlignmentFlag.AlignCenter)
         tandem_footer.setFixedWidth(240)
+        tandem_footer.setFixedHeight(22)
+        tandem_footer.setWordWrap(True)
+        tandem_footer.setStyleSheet("font-size:11px;")
         self.tandem_footer = tandem_footer
         self.widget_chrome_widgets.append(tandem_footer)
 
@@ -3723,7 +4227,7 @@ class JarvisUI(QWidget):
         toggle2.setChecked(True)
         self.microphone_toggle = toggle2
         self.sidebar_toggles = [toggle1, toggle2]
-        toggle1.toggled.connect(self._assistant_toggle_stub)
+        toggle1.toggled.connect(self._assistant_toggle)
         toggle2.toggled.connect(self._toggle_microphone_from_sidebar)
 
         row2.addWidget(label2)
@@ -3851,6 +4355,9 @@ class JarvisUI(QWidget):
         self.composer.emote_requested.connect(self.open_chat_emote_picker)
         self.composer.voice_requested.connect(self.toggle_voice_from_composer)
         self.composer.voice_cancel_requested.connect(self.cancel_voice_dictation)
+        self.composer.voice_chat_requested.connect(self.toggle_voice_chat_from_composer)
+        self.composer.voice_chat_stop_requested.connect(self.stop_voice_chat_from_composer)
+        self.composer.tool_requested.connect(self.handle_composer_tool)
         chat_layout.addWidget(self.composer)
 
         # ---------- PAGES ----------
@@ -3905,7 +4412,11 @@ class JarvisUI(QWidget):
         assistant_layout.addStretch()
 
         hud_container = QWidget()
+        self.hud_container = hud_container
         hud_container.setFixedSize(JarvisHUD.HUD_SIZE, JarvisHUD.HUD_SIZE)
+        hud_container.setMinimumSize(JarvisHUD.HUD_SIZE, JarvisHUD.HUD_SIZE)
+        hud_container.setMaximumSize(JarvisHUD.HUD_SIZE, JarvisHUD.HUD_SIZE)
+        hud_container.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
         stack = QStackedLayout(hud_container)
         stack.setStackingMode(QStackedLayout.StackAll)
@@ -3927,6 +4438,11 @@ class JarvisUI(QWidget):
         # their transparent PNGs stay above the rings without covering START.
         self.tech_action_buttons = self.create_tech_action_buttons(hud_container)
         self.hud_panel_buttons = self.create_hud_panel_buttons(hud_container)
+        # Some transparent decorative layers can receive a near-miss click
+        # instead of the child button. Let the HUD itself route that click to
+        # the nearest lower panel icon.
+        self.hud.installEventFilter(self)
+        hud_container.installEventFilter(self)
         QTimer.singleShot(0, self.raise_hud_controls)
 
         assistant_layout.addWidget(hud_container, alignment=Qt.AlignCenter)
@@ -3950,6 +4466,12 @@ class JarvisUI(QWidget):
         assistant_layout.addStretch()
 
         QTimer.singleShot(900, self.refresh_device_summary)
+        # The desktop window can appear before the backend finishes binding
+        # port 8000. Keep the capability line live instead of leaving the
+        # startup error forever after a single failed request.
+        self.device_summary_timer = QTimer(self)
+        self.device_summary_timer.timeout.connect(self.refresh_device_summary)
+        self.device_summary_timer.start(5000)
 
         self.jarvis_button.clicked.connect(self._toggle_voice_runtime)
 
@@ -4204,7 +4726,9 @@ class JarvisUI(QWidget):
         runtime_layout.addRow(self.windows_autostart_check)
 
         self.video_source_combo = QComboBox()
-        for label, device_id in self.enumerate_video_sources():
+        for label, device_id in self.enumerate_video_sources(
+            self.hardware_settings.get("video_input_device", 0)
+        ):
             self.video_source_combo.addItem(label, device_id)
         video_index = self.video_source_combo.findData(self.hardware_settings["video_input_device"])
         self.video_source_combo.setCurrentIndex(max(0, video_index))
@@ -4233,7 +4757,7 @@ class JarvisUI(QWidget):
         general_layout.addWidget(runtime_card, 3, 0, 1, 2)
         settings_stack.addWidget(general_page)
         settings_stack.layout().setAlignment(general_page, Qt.AlignLeft | Qt.AlignTop)
-        section_page("УЧЁТНАЯ ЗАПИСЬ", "Аватар, имя, username, email, возраст и обращение.", self.show_user_profile, "ОТКРЫТЬ ПРОФИЛЬ", fields=(("profile_display_name", "Имя", "Данил"), ("profile_username", "Username", "sheff"), ("profile_email", "Электронная почта", ""), ("profile_age", "Возраст", ""), ("profile_address", "Как обращаться", "Данил")))
+        section_page("УЧЁТНАЯ ЗАПИСЬ", "Локальный профиль и опциональное подключение Account System.", self.show_user_profile, "ОТКРЫТЬ ПРОФИЛЬ", fields=(("profile_display_name", "Имя", "Данил"), ("profile_username", "Username", "sheff"), ("profile_email", "Электронная почта", ""), ("profile_age", "Возраст", ""), ("profile_address", "Как обращаться", "Данил")), extra_builder=self._account_section_extra)
         section_page("УВЕДОМЛЕНИЯ", "Поведение стартовой диагностики и уведомлений ответов.", fields=(), checks=(("notify_startup", "Показывать уведомления запуска", True), ("notify_chat", "Уведомления новых ответов", True)))
         def iron_inline(layout, edits):
             layer_box = QGroupBox("СЛОИ")
@@ -4399,7 +4923,7 @@ class JarvisUI(QWidget):
             def load_profiles():
                 nonlocal active_provider
                 try:
-                    data = requests.get("http://127.0.0.1:8000/settings/llm", timeout=5).json()
+                    data = requests.get(f"{API_ROOT}/settings/llm", timeout=5).json()
                     active_provider = str(data.get("provider") or "ollama")
                     current_id["value"] = active_provider
                     profiles.clear()
@@ -4437,7 +4961,7 @@ class JarvisUI(QWidget):
 
             def save_ai():
                 try:
-                    response = requests.post("http://127.0.0.1:8000/settings/llm", json=payload_for_current(), timeout=10)
+                    response = requests.post(f"{API_ROOT}/settings/llm", json=payload_for_current(), timeout=10)
                     response.raise_for_status()
                     status.setText(f"Профиль {provider_labels.get(current_id['value'], current_id['value'])} сохранён и выбран активным.")
                     load_profiles()
@@ -4446,7 +4970,7 @@ class JarvisUI(QWidget):
 
             def test_ai():
                 try:
-                    data = requests.post("http://127.0.0.1:8000/settings/llm/test", json=payload_for_current(), timeout=15).json()
+                    data = requests.post(f"{API_ROOT}/settings/llm/test", json=payload_for_current(), timeout=15).json()
                     status.setText(str(data.get("message") or "Проверка завершена."))
                 except (requests.RequestException, ValueError):
                     status.setText("Проверка провайдера не выполнена.")
@@ -4454,7 +4978,7 @@ class JarvisUI(QWidget):
             def fetch_models():
                 try:
                     data = requests.get(
-                        "http://127.0.0.1:8000/settings/llm/models",
+                        f"{API_ROOT}/settings/llm/models",
                         params={"provider": current_id["value"], "base_url": base_edit.text().strip(), "api_key": key_edit.text().strip()},
                         timeout=10,
                     ).json()
@@ -4604,7 +5128,7 @@ class JarvisUI(QWidget):
 
             def refresh_backup_status():
                 try:
-                    data = requests.get("http://127.0.0.1:8000/backups/status", timeout=3).json()
+                    data = requests.get(f"{API_ROOT}/backups/status", timeout=3).json()
                     state = "включены" if data.get("enabled") else "не запущены"
                     backup_status.setText(
                         f"Фоновые резервные копии: {state}; интервал: {data.get('interval_hours', '?')} ч. "
@@ -4615,7 +5139,7 @@ class JarvisUI(QWidget):
 
             def run_backup_now():
                 try:
-                    data = requests.post("http://127.0.0.1:8000/backups/run", timeout=30).json()
+                    data = requests.post(f"{API_ROOT}/backups/run", timeout=30).json()
                     backup_status.setText(f"Резервная копия создана: {data.get('path', '')}")
                 except (requests.RequestException, ValueError, TypeError) as error:
                     backup_status.setText(f"Backup не выполнен: {error}")
@@ -4672,7 +5196,7 @@ class JarvisUI(QWidget):
         def refresh_capabilities(deep=False):
             try:
                 data = requests.get(
-                    "http://127.0.0.1:8000/devices/capabilities",
+                    f"{API_ROOT}/devices/capabilities",
                     params={"probe": "true" if deep else "false"},
                     timeout=45 if deep else 6,
                 ).json()
@@ -4695,7 +5219,7 @@ class JarvisUI(QWidget):
         def capture_camera():
             try:
                 data = requests.post(
-                    "http://127.0.0.1:8000/devices/camera/snapshot",
+                    f"{API_ROOT}/devices/camera/snapshot",
                     params={"index": int(self.hardware_settings.get("video_input_device", 0))},
                     timeout=10,
                 ).json()
@@ -4784,6 +5308,23 @@ class JarvisUI(QWidget):
     def show_user_profile(self):
         dialog = UserProfileDialog(self.ui_settings, self.accent_hex, self, self.dialog_stylesheet())
         dialog.saved.connect(self._refresh_user_profile_card)
+        dialog.exec()
+
+    def _account_section_extra(self, layout, edits):
+        del edits
+        button = QPushButton("ОТКРЫТЬ ACCOUNT CENTER")
+        button.setObjectName("settingsTileButton")
+        button.clicked.connect(self.show_account_center)
+        layout.addWidget(button)
+
+    def show_account_center(self):
+        account_root = StoragePaths.from_backend_root(BACKEND_DIR).account_state.parent
+        try:
+            coordinator = AccountCoordinator.local_default(account_root)
+        except AccountStoreError as error:
+            self.assistant_label.setText(f"Account Layer недоступен; Local Mode продолжает работать: {error}")
+            return
+        dialog = AccountCenterDialog(coordinator, self)
         dialog.exec()
 
     # ---------------- WEATHER ----------------
@@ -5015,6 +5556,8 @@ class JarvisUI(QWidget):
 
         accent = self.accent_hex
         accent_hover = self.accent_color.lighter(120).name()
+        accent_rgb = self.accent_color.getRgb()[:3]
+        accent_soft = f"rgba({accent_rgb[0]},{accent_rgb[1]},{accent_rgb[2]},0.12)"
 
         self.setStyleSheet("""
 
@@ -5191,7 +5734,7 @@ text-align:left;
 }
 
 #profileCard:hover{
-border:1px solid #00EBF5;
+border:1px solid #2E89FF;
 background:rgba(0,235,245,0.12);
 }
 
@@ -5392,6 +5935,7 @@ background:#444;
 
 """.replace("#2E89FF", accent)
         .replace("#4aa0ff", accent_hover)
+        .replace("rgba(0,235,245,0.12)", accent_soft)
         .replace("#FFFFFF", self.text_color_hex))
 
         if hasattr(self, "chat_avatar"):
@@ -5596,7 +6140,7 @@ background:#444;
             )
         try:
             requests.post(
-                f"http://127.0.0.1:8000/chat/cancel/{requests.utils.quote(turn_id, safe='')}",
+                f"{API_ROOT}/chat/cancel/{requests.utils.quote(turn_id, safe='')}",
                 timeout=2,
             )
         except requests.RequestException:
@@ -5713,7 +6257,7 @@ background:#444;
         # message bubbles even when the attachment itself is cached correctly.
         self.chat_view.page().runJavaScript(
             "window.setBackendBaseUrl && window.setBackendBaseUrl(" +
-            json.dumps("http://127.0.0.1:8000") + ");"
+            json.dumps(API_ROOT) + ");"
         )
         self.chat_view.page().runJavaScript(
             "window.setCurrentChatId && window.setCurrentChatId(" +
@@ -5773,7 +6317,7 @@ background:#444;
         try:
             page_size = int(self.ui_settings.value("chat_history_page_size", 25))
             response = requests.get(
-                "http://127.0.0.1:8000/chat/history",
+                f"{API_ROOT}/chat/history",
                 params={
                     "chat_id": getattr(self, "current_chat_id", "default"),
                     "limit": max(10, min(100, page_size)),
@@ -5841,8 +6385,23 @@ background:#444;
             self.close()
         event.accept()
 
+    def resizeEvent(self, event):
+        """Keep the TECH-A HUD at its canonical size when the window grows."""
+        super().resizeEvent(event)
+        container = getattr(self, "hud_container", None)
+        if container is None:
+            return
+        size = JarvisHUD.HUD_SIZE
+        if container.size() != QSize(size, size):
+            container.setFixedSize(size, size)
+        hud = getattr(self, "hud", None)
+        if hud is not None and hud.size() != QSize(size, size):
+            hud.setFixedSize(size, size)
+        self.raise_hud_controls()
+
     def closeEvent(self, event):
         """Release the microphone when the Jarvis window is closed."""
+        QApplication.instance().removeEventFilter(self)
         worker = getattr(self, "_dictation_worker", None)
         thread = getattr(self, "_dictation_thread", None)
         if worker and thread and thread.isRunning():
@@ -5852,7 +6411,7 @@ background:#444;
         if hasattr(self, "status_widget"):
             self.status_widget.close()
         try:
-            requests.post("http://127.0.0.1:8000/voice/stop", timeout=2)
+            requests.post(f"{API_ROOT}/voice/stop", timeout=2)
         except requests.RequestException:
             pass
         super().closeEvent(event)
@@ -5861,14 +6420,22 @@ background:#444;
         self.oldPos = event.globalPosition().toPoint()
 
     def mouseMoveEvent(self, event):
-        delta = QPoint(event.globalPosition().toPoint() - self.oldPos)
+        current_pos = event.globalPosition().toPoint()
+        if self.oldPos is None:
+            self.oldPos = current_pos
+            return
+        delta = QPoint(current_pos - self.oldPos)
         self.move(self.x() + delta.x(), self.y() + delta.y())
-        self.oldPos = event.globalPosition().toPoint()
+        self.oldPos = current_pos
 
 def main() -> int:
     app = QApplication(sys.argv)
     window = JarvisUI()
     window.show()
+    if "--fullscreen" in sys.argv:
+        # Keep this as a launch-time option so calibration can be repeated in
+        # fullscreen without overwriting the accepted widget-mode profile.
+        QTimer.singleShot(0, window.showMaximized)
     return app.exec()
 
 

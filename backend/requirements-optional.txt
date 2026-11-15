@@ -1,5 +1,5 @@
 # Optional capabilities. Install only what the selected device/features need.
-PySide6
+PySide6==6.10.2
 PyAudio
 faster-whisper
 TTS
@@ -7,7 +7,7 @@ openwakeword
 pvporcupine
 pyautogui
 pytesseract
-GPUtil
+GPUtil==1.4.0
 Pillow
 opencv-python
 # Installed for the device adapters in backend/device_env (kept separate from

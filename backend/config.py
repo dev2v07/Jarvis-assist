@@ -89,6 +89,7 @@ for directory in REQUIRED_DIRS:
 
 from dotenv import load_dotenv
 import os
+from services.storage_registry import StoragePaths
 
 load_dotenv(BASE_DIR / "dev.env")
 
@@ -194,10 +195,20 @@ LLM_PROVIDER = os.getenv("HEL_LLM_PROVIDER", "ollama").lower()
 LLM_REQUEST_TIMEOUT = int(os.getenv("HEL_LLM_REQUEST_TIMEOUT", "45"))
 LLM_MAX_RETRIES = int(os.getenv("HEL_LLM_MAX_RETRIES", "2"))
 
+# The project environment contains both PyTorch/Silero and CTranslate2. On
+# this Windows installation their OpenMP runtimes can abort the whole Python
+# process when faster-whisper is loaded after the VAD stack. Keep the stable
+# Vosk route as the production default; faster-whisper remains an explicit,
+# diagnosable opt-in for an environment where that native conflict is solved.
+STT_ENGINE = os.getenv("JARVIS_STT_ENGINE", "vosk-silero").strip().lower()
+
 CONFIG_HOME = BASE_DIR / "config"
 CONFIG_HOME.mkdir(parents=True, exist_ok=True)
 
-STATE_DB_PATH = DATA_DIR / "jarvis_state.sqlite3"
+STATE_DB_PATH = Path(
+    os.getenv("JARVIS_STATE_DB_PATH", str(DATA_DIR / "jarvis_state.sqlite3"))
+).expanduser()
+STORAGE_PATHS = StoragePaths.from_backend_root(BASE_DIR)
 REQUEST_HISTORY_LIMIT = int(os.getenv("JARVIS_REQUEST_HISTORY_LIMIT", "100"))
 
 

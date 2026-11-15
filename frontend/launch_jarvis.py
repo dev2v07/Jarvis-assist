@@ -33,6 +33,23 @@ def _install_crash_log() -> None:
 
 _install_crash_log()
 
+
+def _write_launch_diagnostic(stage: str) -> None:
+    """Write non-secret interpreter facts for isolated runtime diagnostics."""
+    raw_path = os.getenv("JARVIS_LAUNCH_DIAGNOSTIC", "").strip()
+    if not raw_path:
+        return
+    try:
+        path = Path(raw_path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", encoding="utf-8") as stream:
+            stream.write(
+                f"stage={stage} executable={sys.executable} prefix={sys.prefix} "
+                f"base_prefix={sys.base_prefix} cwd={Path.cwd()}\n"
+            )
+    except OSError:
+        pass
+
 # PyInstaller keeps PySide6's Qt DLLs in a subdirectory. Register that
 # directory before importing QtCore so Windows cannot resolve an incompatible
 # Qt6Core.dll from another Python/Qt installation on PATH.
@@ -67,8 +84,12 @@ except Exception:
 ROOT = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parents[1]
 BACKEND = ROOT / "backend"
 FROZEN_BACKEND = ROOT / "backend_runtime"
-HEALTH_URL = "http://127.0.0.1:8000/health"
-VOICE_MODELS_URL = "http://127.0.0.1:8000/voice/models"
+API_BASE_URL = os.getenv(
+    "JARVIS_API_BASE_URL",
+    f"http://127.0.0.1:{os.getenv('JARVIS_API_PORT', '8000')}",
+).rstrip("/")
+HEALTH_URL = f"{API_BASE_URL}/health"
+VOICE_MODELS_URL = f"{API_BASE_URL}/voice/models"
 
 
 def wait_for_backend(timeout: float = 25.0) -> bool:
@@ -93,10 +114,11 @@ def backend_has_current_voice_registry() -> bool:
         return False
 
 
-def stop_backend_on_default_port() -> None:
-    """Stop only the listener occupying Jarvis' reserved local API port."""
+def default_port_listener() -> str | None:
+    """Return the PID occupying the configured local API port, if any."""
     if os.name != "nt":
-        return
+        return None
+    port = os.getenv("JARVIS_API_PORT", "8000")
     try:
         output = subprocess.check_output(
             ["netstat", "-ano", "-p", "tcp"],
@@ -105,19 +127,30 @@ def stop_backend_on_default_port() -> None:
         )
         for line in output.splitlines():
             fields = line.split()
-            if len(fields) >= 5 and fields[1].endswith(":8000") and fields[3] == "LISTENING":
-                subprocess.run(
-                    ["taskkill", "/PID", fields[4], "/T", "/F"],
-                    check=False,
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                )
-                break
+            if len(fields) >= 5 and fields[1].endswith(f":{port}") and fields[3] == "LISTENING":
+                return fields[4]
     except (OSError, subprocess.SubprocessError):
-        pass
+        return None
+    return None
 
 
 def main() -> int:
+    _write_launch_diagnostic("launcher-start")
+    # The launcher owns one interpreter for both backend and desktop UI.  A
+    # split runtime (backend venv + unrelated system Python) produces a
+    # seemingly healthy API while the Qt client fails later with a missing
+    # PySide6 import.  Fail early with an actionable diagnostic instead.
+    try:
+        import PySide6  # noqa: F401
+    except ImportError as exc:
+        print(
+            "Jarvis UI dependencies are missing in the selected Python "
+            f"interpreter ({sys.executable}): {exc}. "
+            "Install backend/requirements-optional.txt in this same environment.",
+            file=sys.stderr,
+        )
+        return 3
+
     lock_path = Path(os.getenv("LOCALAPPDATA", Path.home())) / "Jarvis Assist" / "jarvis.lock"
     lock_path.parent.mkdir(parents=True, exist_ok=True)
     instance_lock = QLockFile(str(lock_path))
@@ -140,7 +173,13 @@ def main() -> int:
             if backend_has_current_voice_registry():
                 reused_backend = True
             else:
-                stop_backend_on_default_port()
+                listener_pid = default_port_listener()
+                print(
+                    "Jarvis API port is occupied by an incompatible backend; "
+                    f"not stopping PID {listener_pid or 'unknown'}. "
+                    "Close that process or choose an explicit test port."
+                )
+                return 4
         if not reused_backend:
             backend_process = subprocess.Popen(
                 backend_command,
@@ -153,6 +192,7 @@ def main() -> int:
                 backend_process.terminate()
             return 2
         sys.path.insert(0, str(Path(__file__).resolve().parent))
+        _write_launch_diagnostic("before-ui-import")
         from jarvis_ui import main as desktop_main
         return int(desktop_main() or 0)
     finally:

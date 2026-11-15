@@ -31,6 +31,7 @@ class ProviderAdapterTests(unittest.TestCase):
             {
                 "HEL_OLLAMA_BASE_URL": "http://ollama.test",
                 "HEL_OLLAMA_MODEL": "jarvis-local",
+                "HEL_OLLAMA_KEEP_ALIVE": "-1",
             },
         )
 
@@ -48,6 +49,7 @@ class ProviderAdapterTests(unittest.TestCase):
         payload = post.call_args.kwargs["json"]
         self.assertEqual(payload["messages"][0]["role"], "system")
         self.assertFalse(payload["stream"])
+        self.assertEqual(payload["keep_alive"], -1)
 
     def test_openai_compatible_adapter_maps_chat_completion(self) -> None:
         adapter = build_provider_adapter(
@@ -148,6 +150,25 @@ class ProviderAdapterTests(unittest.TestCase):
             ]))
 
         self.assertEqual(result, "через adapter")
+
+    def test_ollama_warmup_is_single_bounded_request(self) -> None:
+        service = LocalLLMService(
+            overrides={
+                "HEL_LLM_PROVIDER": "ollama",
+                "HEL_OLLAMA_BASE_URL": "http://ollama.test",
+                "HEL_OLLAMA_MODEL": "qwen3:8b",
+            }
+        )
+        with patch("services.llm_service.build_provider_adapter") as build:
+            build.return_value.chat.return_value = SimpleNamespace(model="qwen3:8b", text="готов")
+            result = asyncio.run(service.warmup_ollama())
+
+        self.assertEqual(result["status"], "ready")
+        config = build.call_args.args[1]
+        self.assertEqual(config["HEL_LLM_MAX_RETRIES"], "0")
+        self.assertEqual(config["HEL_OLLAMA_NUM_PREDICT"], "16")
+        self.assertEqual(config["HEL_OLLAMA_KEEP_ALIVE"], "-1")
+        build.return_value.chat.assert_called_once()
 
     def test_configuration_error_is_not_silently_replaced_with_stub(self) -> None:
         service = LocalLLMService(

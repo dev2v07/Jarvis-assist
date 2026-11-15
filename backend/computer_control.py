@@ -5,12 +5,17 @@ import datetime
 import time
 import re
 import subprocess
+import json
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
 from pathlib import Path
 import yaml
 
 from rapidfuzz import fuzz
 from services.application_service import APP_ALIASES, ApplicationService
 from services.filesystem_service import AmbiguousPathError, FileSystemService
+from services.action_executor import WindowsActionExecutor
 
 
 # ---------------------------------------------
@@ -29,6 +34,7 @@ with open(COMMANDS_FILE, "r", encoding="utf-8") as f:
     COMMANDS = yaml.safe_load(f)
 FILESYSTEM = FileSystemService(Path(BASE_DIR))
 APPLICATIONS = ApplicationService(Path(BASE_DIR))
+SYSTEM_ACTIONS = WindowsActionExecutor()
 COMMAND_FEEDBACK = ""
 
 
@@ -79,8 +85,60 @@ def open_music():
         webbrowser.open("https://music.yandex.ru")
 
 
+def open_cubase():
+    """Launch only the discovered Cubase application, never a shell string."""
+    global COMMAND_FEEDBACK
+    try:
+        item = APPLICATIONS.launch("cubase")
+        COMMAND_FEEDBACK = f"Запускаю {item['name']}."
+    except FileNotFoundError:
+        COMMAND_FEEDBACK = "Cubase не найден среди установленных приложений."
+
+
+def _runtime_env_value(name: str) -> str:
+    """Read a non-secret runtime value without logging its contents."""
+    value = str(os.getenv(name, "")).strip()
+    if value:
+        return value
+    env_path = Path(BASE_DIR) / "dev.env"
+    try:
+        for line in env_path.read_text(encoding="utf-8").splitlines():
+            key, separator, item = line.partition("=")
+            if separator and key.strip() == name:
+                return item.strip().strip('"').strip("'")
+    except OSError:
+        pass
+    return ""
+
+
+def get_weather_report() -> str:
+    """Return current weather for the configured city through OpenWeather."""
+    api_key = _runtime_env_value("OPENWEATHER_API_KEY")
+    city = _runtime_env_value("WEATHER_CITY") or "Мурино"
+    if not api_key:
+        return "OpenWeather API не настроен для города Мурино."
+    query = urlencode({"q": city, "appid": api_key, "units": "metric", "lang": "ru"})
+    request = Request(
+        f"https://api.openweathermap.org/data/2.5/weather?{query}",
+        headers={"User-Agent": "Jarvis/Phase4"},
+    )
+    try:
+        with urlopen(request, timeout=8) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+        actual_city = str(payload.get("name") or city).strip()
+        main = payload.get("main") or {}
+        weather = (payload.get("weather") or [{}])[0]
+        temperature = round(float(main["temp"]))
+        description = str(weather.get("description") or "условия не указаны").strip()
+        return f"Сейчас в городе {actual_city}: {temperature} градусов, {description}."
+    except (HTTPError, URLError, TimeoutError, KeyError, TypeError, ValueError, json.JSONDecodeError):
+        return f"Не удалось получить погоду для города {city} через OpenWeather."
+
+
 def open_weather():
-    webbrowser.open("https://yandex.ru/pogoda")
+    global COMMAND_FEEDBACK
+    COMMAND_FEEDBACK = get_weather_report()
+    return True
 
 
 def open_dollar():
@@ -206,11 +264,11 @@ def make_screenshot():
 
 
 def shutdown_pc():
-    os.system("shutdown /s /t 1")
+    SYSTEM_ACTIONS.execute_power("shutdown", confirmed=True)
 
 
 def reboot_pc():
-    os.system("shutdown /r /t 1")
+    SYSTEM_ACTIONS.execute_power("reboot", confirmed=True)
 
 
 def set_system_mute(muted):
@@ -250,6 +308,7 @@ ACTIONS = {
     "open_youtube": open_youtube,
     "music": open_music,
     "open_music_service": open_music,
+    "open_cubase": open_cubase,
 
     "open_telegram": open_telegram,
     "open_discord": open_discord,

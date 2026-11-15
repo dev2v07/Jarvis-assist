@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: jarvis_account
+      POSTGRES_USER: jarvis_account
+      POSTGRES_PASSWORD: change-me-local-only
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - account_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jarvis_account -d jarvis_account"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:v1.21
+    ports:
+      - "127.0.0.1:8025:8025"
+      - "127.0.0.1:1025:1025"
+    restart: unless-stopped
+
+  account-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      ACCOUNT_ENVIRONMENT: development
+      ACCOUNT_DATABASE_URL: postgresql+psycopg://jarvis_account:change-me-local-only@postgres:5432/jarvis_account
+      ACCOUNT_SMTP_HOST: mailpit
+      ACCOUNT_SMTP_PORT: 1025
+      ACCOUNT_SMTP_USERNAME: ""
+      ACCOUNT_SMTP_PASSWORD: ""
+      ACCOUNT_SMTP_FROM_EMAIL: no-reply@jarvis.local
+      ACCOUNT_SMTP_FROM_NAME: JARVIS ASSIST
+      ACCOUNT_SMTP_USE_SSL: "false"
+      ACCOUNT_SMTP_USE_STARTTLS: "false"
+      ACCOUNT_SMTP_TIMEOUT: 10
+      ACCOUNT_EMAIL_DELIVERY_ENABLED: "true"
+      ACCOUNT_PUBLIC_BASE_URL: http://127.0.0.1:8080
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
+    command: ["sh", "-c", "alembic upgrade head && uvicorn account_server.main:app --host 0.0.0.0 --port 8080"]
+    restart: unless-stopped
+
+volumes:
+  account_postgres_data:
+

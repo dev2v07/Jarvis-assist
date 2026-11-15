@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-LIBRARY = ROOT / "data" / "voice_responses"
+LIBRARY = ROOT / "data" / "Bible" / "materials" / "voice_responses"
 QUESTIONS = LIBRARY / "questions.json"
 MANIFEST = LIBRARY / "manifest.json"
 

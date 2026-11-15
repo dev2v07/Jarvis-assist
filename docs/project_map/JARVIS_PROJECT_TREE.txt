@@ -1,0 +1,1279 @@
+Jarvis/
+│  Generated from the current workspace on 2026-11-15 20:29
+Phase 4 delta: data/Bible физически consolidated и manifest имеет статус PHYSICALLY_CONSOLIDATED; 5,833 source files проверены по SHA-256, 5,832 unique canonical files сохранены; originals находятся в rollback-архиве `data/archive/bible_legacy_sources_20261115`; пользовательская навигация теперь единая через `data/Bible/library` с отдельными `CPU` и `Computer`; provenance и аудио убраны во внутренний `data/Bible/.internal`; runtime knowledge services используют Bible и resolver поддерживает archive-era aliases; добавлен единый human-facing catalog `data/Bible/index/library_catalog.json`; launcher не останавливает несовместимый listener; backend освобождает agent/lifecycle tasks; Account Server engine закрывается при shutdown; email.py переименован в email_provider.py; Alembic import path устойчив к рабочему каталогу.
+│  Excluded: .git, Python virtual environments, node_modules, caches, compiled dependencies, large audio/binary files and database WAL/SHM files.
+│
+├── .github/
+│   └── workflows/
+│       └── jarvis-check.yml  # project source/resource
+├── backend/  # FastAPI backend, agents, services, voice and account modules
+│   ├── account/  # local account/domain/application/infrastructure boundary
+│   │   ├── application/
+│   │   │   ├── __init__.py  # project source/resource
+│   │   │   ├── account_context.py  # project source/resource
+│   │   │   ├── account_coordinator.py  # Local account context and auth boundary
+│   │   │   ├── auth_client.py  # project source/resource
+│   │   │   ├── canonical_mapper.py  # project source/resource
+│   │   │   ├── google_oauth.py  # project source/resource
+│   │   │   ├── import_preview_service.py  # project source/resource
+│   │   │   ├── inventory_service.py  # project source/resource
+│   │   │   ├── local_data_adapter.py  # project source/resource
+│   │   │   └── mode_coordinator.py  # project source/resource
+│   │   ├── domain/
+│   │   │   ├── __init__.py  # project source/resource
+│   │   │   ├── contracts.py  # project source/resource
+│   │   │   ├── enums.py  # project source/resource
+│   │   │   ├── ids.py  # project source/resource
+│   │   │   └── models.py  # project source/resource
+│   │   ├── infrastructure/
+│   │   │   ├── __init__.py  # project source/resource
+│   │   │   ├── dpapi_credentials.py  # project source/resource
+│   │   │   ├── local_sqlite_reader.py  # project source/resource
+│   │   │   └── persistent_store.py  # Local account/device/session SQLite store
+│   │   ├── ports/
+│   │   │   ├── __init__.py  # project source/resource
+│   │   │   ├── credential_store.py  # project source/resource
+│   │   │   ├── identity_store.py  # project source/resource
+│   │   │   ├── mapping_store.py  # project source/resource
+│   │   │   └── outbox_store.py  # project source/resource
+│   │   └── __init__.py  # project source/resource
+│   ├── account_server/  # optional cloud account API and PostgreSQL integration
+│   │   ├── migrations/
+│   │   │   ├── versions/
+│   │   │   │   ├── 0001_initial.py  # project source/resource
+│   │   │   │   └── 0002_external_identities.py  # project source/resource
+│   │   │   ├── env.py  # project source/resource
+│   │   │   └── script.py.mako  # project source/resource
+│   │   ├── tests/
+│   │   │   ├── test_auth_flow.py  # test source
+│   │   │   ├── test_email_provider.py  # test source
+│   │   │   ├── test_google_oauth.py  # test source
+│   │   │   └── test_http_client_boundary.py  # test source
+│   │   ├── .env  # runtime configuration; secrets not reproduced
+│   │   ├── .env.example  # runtime configuration; secrets not reproduced
+│   │   ├── __init__.py  # project source/resource
+│   │   ├── alembic.ini  # project source/resource
+│   │   ├── api.py  # project source/resource
+│   │   ├── app.py  # Optional cloud account FastAPI application
+│   │   ├── config.py  # project source/resource
+│   │   ├── database.py  # project source/resource
+│   │   ├── docker-compose.yml  # project source/resource
+│   │   ├── Dockerfile  # project source/resource
+│   │   ├── email_provider.py  # SMTP/email delivery provider interface
+│   │   ├── google_identity.py  # project source/resource
+│   │   ├── ids.py  # project source/resource
+│   │   ├── main.py  # project source/resource
+│   │   ├── models.py  # project source/resource
+│   │   ├── requirements.txt  # dependency declaration
+│   │   ├── schemas.py  # project source/resource
+│   │   ├── security.py  # project source/resource
+│   │   └── service.py  # project source/resource
+│   ├── agents/  # Planner, executor and specialized agents
+│   │   ├── backup_agent.py  # project source/resource
+│   │   ├── critic_agent.py  # project source/resource
+│   │   ├── executor_agent.py  # project source/resource
+│   │   ├── file_agent.py  # project source/resource
+│   │   ├── game_coach_agent.py  # project source/resource
+│   │   ├── main_agent.py  # project source/resource
+│   │   ├── memory_agent.py  # project source/resource
+│   │   ├── network_agent.py  # project source/resource
+│   │   ├── performance_agent.py  # project source/resource
+│   │   ├── planner_agent.py  # project source/resource
+│   │   ├── policy_manager.py  # project source/resource
+│   │   ├── selfcheck_agent.py  # project source/resource
+│   │   ├── social_agent.py  # project source/resource
+│   │   ├── vision_agent.py  # project source/resource
+│   │   ├── voice_agent.py  # project source/resource
+│   │   └── web_agent.py  # project source/resource
+│   ├── config/
+│   │   └── .env  # runtime configuration; secrets not reproduced
+│   ├── core/
+│   │   ├── agent_base.py  # project source/resource
+│   │   ├── contracts.py  # project source/resource
+│   │   ├── message_bus.py  # project source/resource
+│   │   └── modes.py  # project source/resource
+│   ├── data/
+│   │   ├── account_system/
+│   │   │   └── credentials.dpapi  # project source/resource
+│   │   ├── chroma/
+│   │   │   └── documents.json  # structured data, metadata or configuration
+│   │   ├── facts/
+│   │   │   └── facts.json  # structured data, metadata or configuration
+│   │   ├── jarvis_state.sqlite3-shm  # project source/resource
+│   │   └── jarvis_state.sqlite3-wal  # project source/resource
+│   ├── knowledge/  # knowledge adapters and generation utilities
+│   │   ├── migrate_bible.py  # copy-only physical Bible migration with SHA-256 manifest
+│   │   ├── build_bible_catalog.py  # one canonical Bible catalog and domain views
+│   │   ├── apply_bible_physical_consolidation.py  # reversible archive-and-repath migration gate
+│   │   ├── reorganize_bible_user_view.py  # builds one user-facing Bible/library taxonomy without data copies
+│   │   ├── rewrite_bible_references.py  # rewrite canonical JSON file references
+│   │   ├── build_offline_catalog.py  # project source/resource
+│   │   ├── generate_offline_text_library.py  # project source/resource
+│   │   ├── generate_offline_voice_library.py  # project source/resource
+│   │   ├── merge_reviewed_materials.py  # project source/resource
+│   │   └── validate_offline_catalog.py  # project source/resource
+│   ├── knowledge3/  # structured knowledge material and import/index tooling
+│   │   ├── _apply_carnegie_worry.py  # project source/resource
+│   │   ├── bible_paths.py  # canonical Bible write locations for Knowledge 3 tools
+│   │   ├── audit_environment.py  # project source/resource
+│   │   ├── audit_unified_wav.py  # project source/resource
+│   │   ├── build_knowledge_index.py  # project source/resource
+│   │   ├── build_plugin_registry.py  # project source/resource
+│   │   ├── generate_audio_cards.py  # project source/resource
+│   │   ├── generate_audio_material.py  # project source/resource
+│   │   ├── generate_guitar_audio.py  # project source/resource
+│   │   ├── generate_literature_audio.py  # project source/resource
+│   │   ├── generate_programming_audio.py  # project source/resource
+│   │   ├── generate_psychology_audio.py  # project source/resource
+│   │   ├── generate_voice_material.py  # project source/resource
+│   │   ├── normalize_metadata.py  # project source/resource
+│   │   ├── seed_programming_curriculum.py  # project source/resource
+│   │   ├── verify_audio_library.py  # project source/resource
+│   ├── scripts/  # diagnostic utilities
+│   │   ├── audit_storage.py  # read-only SQLite schema and row inventory
+│   │   └── storage_migration_harness.py  # isolated SQLite backup/integrity/rollback gate
+│   ├── module/
+│   │   ├── authenticator.py  # project source/resource
+│   │   ├── awesome_chat.py  # project source/resource
+│   │   ├── models_server.py  # project source/resource
+│   │   ├── project_manager.py  # project source/resource
+│   │   └── token_utils.py  # project source/resource
+│   ├── services/  # application/service layer
+│   │   ├── action_executor.py  # Controlled Windows action execution boundary
+│   │   ├── app_server.py  # project source/resource
+│   │   ├── application_service.py  # project source/resource
+│   │   ├── chat_store.py  # Local chat SQLite repository
+│   │   ├── coding_sandbox_service.py  # project source/resource
+│   │   ├── config_service.py  # project source/resource
+│   │   ├── conversation_resolver.py  # Deterministic contextual response rules
+│   │   ├── daw_control_service.py  # project source/resource
+│   │   ├── device_capabilities.py  # project source/resource
+│   │   ├── filesystem_service.py  # project source/resource
+│   │   ├── guitar_encyclopedia_service.py  # project source/resource
+│   │   ├── knowledge_index_service.py  # project source/resource
+│   │   ├── knowledge_search_service.py  # Logical knowledge search and contextual answer facade
+│   │   ├── bible_paths.py  # canonical Bible path resolver for runtime services
+│   │   ├── literature_service.py  # project source/resource
+│   │   ├── llm_service.py  # LLM adapter and one-shot startup Ollama warmup
+│   │   ├── local_response_service.py  # project source/resource
+│   │   ├── mixing_service.py  # project source/resource
+│   │   ├── music_intelligence_service.py  # project source/resource
+│   │   ├── music_production_service.py  # project source/resource
+│   │   ├── offline_knowledge_service.py  # project source/resource
+│   │   ├── ollama_task_contract.py  # project source/resource
+│   │   ├── programming_mentor_service.py  # project source/resource
+│   │   ├── provider_adapters.py  # provider adapters; Ollama numeric keep_alive contract
+│   │   ├── psychology_service.py  # project source/resource
+│   │   ├── response_router.py  # Command versus conversation route selection
+│   │   ├── runtime_service.py  # project source/resource
+│   │   ├── storage_registry.py  # canonical local storage path contract
+│   │   ├── state_store.py  # project source/resource
+│   │   ├── storage_service.py  # project source/resource
+│   │   ├── tool_router.py  # project source/resource
+│   │   ├── voice_production_service.py  # project source/resource
+│   │   ├── voice_runtime.py  # Voice session, capture, STT route, active chat context and command handoff
+│   │   └── voice_session_manager.py  # Single active voice-session ownership
+│   ├── voice_engine/
+│   │   ├── generate_news_wavs.py  # Fish generator for ten exact «что нового» replies
+│   │   ├── generate_model_acknowledgements.py  # Fish WAV generator for model-wait notices
+│   │   └── model_acknowledgements.py  # seven model-route acknowledgement texts and paths
+│   ├── tests/
+│   │   ├── test_account_foundation.py  # test source
+│   │   ├── test_account_persistent.py  # test source
+│   │   ├── test_action_executor.py  # test source
+│   │   ├── test_app_server.py  # test source
+│   │   ├── test_chat_store.py  # test source
+│   │   ├── test_cors_policy.py  # explicit local file UI CORS policy regression
+│   │   ├── test_conversation_resolver.py  # test source
+│   │   ├── test_core_contracts.py  # test source
+│   │   ├── test_knowledge_integrity.py  # test source
+│   │   ├── test_knowledge_variations.py  # test source
+│   │   ├── test_launcher_contract.py  # launcher interpreter/API safety regression
+│   │   ├── test_provider_adapters.py  # test source
+│   │   ├── test_response_router.py  # test source
+│   │   ├── test_runtime_service.py  # test source
+│   │   ├── test_stt_route_selection.py  # stable live STT route selection regression
+│   │   ├── test_tts_routing.py  # Fish profile routing guard
+│   │   ├── test_voice_models.py  # test source
+│   │   ├── test_voice_knowledge_tts.py  # conversational Knowledge answers use selected TTS
+│   │   ├── test_voice_status_fresh_turn.py  # HUD does not show stale answer during model wait
+│   │   ├── test_model_acknowledgements.py  # cached Fish model-wait acknowledgement routing
+│   │   ├── test_bible_physical_consolidation.py  # SHA-256 verification and reversible Bible move-plan gate
+│   │   ├── test_voice_runtime_lifecycle.py  # voice STOP queue cleanup regression
+│   │   ├── test_voice_runtime_isolated.py  # test source; active widget bypass, small-talk and ten-news-WAV routes
+│   │   ├── test_weather_command.py  # OpenWeather voice-command contract
+│   │   └── test_storage_registry.py  # isolated storage registry and rollback tests
+│   ├── uploads/
+│   │   ├── chat-media/
+│   │   │   ├── att_01f27233603f4db98772e56cae513ab5.gif  # project source/resource
+│   │   │   ├── att_09c5796b7cac456bba99e7d95e3e299d.gif  # project source/resource
+│   │   │   ├── att_0b88cec867374d0099bc1af7011fb880.png  # project source/resource
+│   │   │   ├── att_0b94b5e09f334e71befe1294d2d88fb2.gif  # project source/resource
+│   │   │   ├── att_19585e75456d4ee0b740a3e5e3547170.gif  # project source/resource
+│   │   │   ├── att_1db772b84dbc4d3d967b233b2417de1f.gif  # project source/resource
+│   │   │   ├── att_1e962830ff854c20a1ce550a0a135007.md  # project source/resource
+│   │   │   ├── att_1edb9b70d6bc41fdb611b23ee9326e0c.gif  # project source/resource
+│   │   │   ├── att_2411335795224bb28f4223f8ec689f5e.gif  # project source/resource
+│   │   │   ├── att_32741337c40e4f788df9888b51164dda.json  # structured data, metadata or configuration
+│   │   │   ├── att_3886c46d4d5b4b558e16cd331bb06a6e.gif  # project source/resource
+│   │   │   ├── att_3e7eb6783eac4d459c8178fa28f428a8.gif  # project source/resource
+│   │   │   ├── att_43a288d149714281934fd948e81998f6.gif  # project source/resource
+│   │   │   ├── att_4660aaa357ae4b619d7f5deb93fcfd82.gif  # project source/resource
+│   │   │   ├── att_4960453a13614eeba47f669e3befd441.gif  # project source/resource
+│   │   │   ├── att_4e00b8a41129491495e156bfdc2ea7e5.json  # structured data, metadata or configuration
+│   │   │   ├── att_514df96995994b1ca8854f1cff07f5a2.json  # structured data, metadata or configuration
+│   │   │   ├── att_535cb29c08014e01abce6e2f4ccc28d7.gif  # project source/resource
+│   │   │   ├── att_5538aa44b6174ac09c77490aa2f5f333.gif  # project source/resource
+│   │   │   ├── att_563dd632456f4b4987dd5265fca5cb84.gif  # project source/resource
+│   │   │   ├── att_591c84c5904541569179fba0531853ed.gif  # project source/resource
+│   │   │   ├── att_593da59b9e9d4926b4482c1b435a40f7.md  # project source/resource
+│   │   │   ├── att_5e499905e1ca4ec2830920aa94d5de9f.webp  # project source/resource
+│   │   │   ├── att_6442674765a04a71a46b4429baba4020.svg  # project source/resource
+│   │   │   ├── att_64ddef1dde4744e7afc8fd5ee3906fc1.json  # structured data, metadata or configuration
+│   │   │   ├── att_66d681e60ff8467fa8b05def1a7f5cdb.gif  # project source/resource
+│   │   │   ├── att_66e583e823284f9981ff927a1666024b.gif  # project source/resource
+│   │   │   ├── att_698afd3480ea401eb56fee09c2ef3180.gif  # project source/resource
+│   │   │   ├── att_6fde2002624d4bed88c048ef831569d5.gif  # project source/resource
+│   │   │   ├── att_789e2a563de7462da2aede48a85abb34.gif  # project source/resource
+│   │   │   ├── att_88e26e3c51174792b6e5e41a62ecf1a1.gif  # project source/resource
+│   │   │   ├── att_91386a3ad3294375a521377c07eea6b5.json  # structured data, metadata or configuration
+│   │   │   ├── att_91d819c02b6e4c04b684f12cb6518603.gif  # project source/resource
+│   │   │   ├── att_988402d1967a4559876d8abad273e4f3.webp  # project source/resource
+│   │   │   ├── att_9b22277c47224bed8b08e19d977f8657.gif  # project source/resource
+│   │   │   ├── att_9b8edb3b8aef4c178399fafcfcb27e40.gif  # project source/resource
+│   │   │   ├── att_9fe9b61b419b4dd08a5fba7c375a8abe.json  # structured data, metadata or configuration
+│   │   │   ├── att_a8d680792b6e46c48029887b0642027e.gif  # project source/resource
+│   │   │   ├── att_af57cc8064bf4545b799b1cd4daef96f.json  # structured data, metadata or configuration
+│   │   │   ├── att_bc9febc30f0c430d89564f50c2c070f9.gif  # project source/resource
+│   │   │   ├── att_bcd9c08e5944426dafeff2c7c3b0797d.gif  # project source/resource
+│   │   │   ├── att_c0bc523a067b44ca9c41afebebfb6ada.gif  # project source/resource
+│   │   │   ├── att_c246fec637d34f9d95c9d86ff8d6e3f8.gif  # project source/resource
+│   │   │   ├── att_c542f4ec6b354f37a62837b2256e6ff1.gif  # project source/resource
+│   │   │   ├── att_c58c52e04ad8439f942518aafb77d1ad.gif  # project source/resource
+│   │   │   ├── att_c5bee2752e304c1fbadd102bf6c4e99a.gif  # project source/resource
+│   │   │   ├── att_c62b2b81acd84b70a21a8df0cd33382b.gif  # project source/resource
+│   │   │   ├── att_caaca4dd8ea14a6f84fd28a871c1b894.png  # project source/resource
+│   │   │   ├── att_d1f03b02b2f649338b7977858eb9e8ac.gif  # project source/resource
+│   │   │   ├── att_d4a863e45859476aa399ee4431a2da7b.gif  # project source/resource
+│   │   │   ├── att_d4c6fa5b0b7949fa8cfc8cdd3892e93b.gif  # project source/resource
+│   │   │   ├── att_d613fad51f0149b590850bdf4154b0f1.gif  # project source/resource
+│   │   │   ├── att_d85b7a9c9d9949249a3e4e06518dbc9e.gif  # project source/resource
+│   │   │   ├── att_d8ddfc316aa84657a9f0cfd37f314102.json  # structured data, metadata or configuration
+│   │   │   ├── att_daf1fb7dba6b41bd9119b7a039a23f86.gif  # project source/resource
+│   │   │   ├── att_dd2fabcb0a7e47ca92900387a9573081.gif  # project source/resource
+│   │   │   ├── att_ddc52a8c4c3740e089a482ac3584a6b1.gif  # project source/resource
+│   │   │   ├── att_df7adc0d940c4a3592a021231da681c0.gif  # project source/resource
+│   │   │   ├── att_e3f25b2135874d3ab9fa50d868e034e6.gif  # project source/resource
+│   │   │   ├── att_e76e16e7f42143acafc337e75db918e0.gif  # project source/resource
+│   │   │   ├── att_ef4d5ad091264eb69888d401e694c4ca.gif  # project source/resource
+│   │   │   ├── att_f5af59abda0a42aa97b6fe73eb2acc0f.svg  # project source/resource
+│   │   │   ├── att_fdc45f1553ff48d7968cba1a682c4e43.svg  # project source/resource
+│   │   │   └── att_ff3d97762b5a4f499cf3399a92d2a37a.gif  # project source/resource
+│   │   ├── camera_1793206017962.jpg  # project source/resource
+│   │   └── camera_1793206024631.jpg  # project source/resource
+│   ├── utils/
+│   │   ├── __init__.py  # project source/resource
+│   │   ├── logging_setup.py  # project source/resource
+│   │   └── tooling.py  # project source/resource
+│   ├── voice_engine/  # STT, VAD, TTS and voice assets/adapters
+│   │   ├── .idea/
+│   │   │   ├── inspectionProfiles/
+│   │   │   │   ├── profiles_settings.xml  # project source/resource
+│   │   │   │   └── Project_Default.xml  # project source/resource
+│   │   │   ├── .gitignore  # project source/resource
+│   │   │   ├── jarvis.iml  # project source/resource
+│   │   │   ├── misc.xml  # project source/resource
+│   │   │   ├── modules.xml  # project source/resource
+│   │   │   └── vcs.xml  # project source/resource
+│   │   ├── custom-commands/
+│   │   │   ├── Next music.ahk  # project source/resource
+│   │   │   ├── Prev music.ahk  # project source/resource
+│   │   │   ├── Run browser.ahk  # project source/resource
+│   │   │   ├── Run google.ahk  # project source/resource
+│   │   │   ├── Run music.ahk  # project source/resource
+│   │   │   ├── Run youtube.ahk  # project source/resource
+│   │   │   ├── Save music.ahk  # project source/resource
+│   │   │   ├── Stop music.ahk  # project source/resource
+│   │   │   ├── Switch back to workspace.ahk  # project source/resource
+│   │   │   ├── Switch to dynamics.ahk  # project source/resource
+│   │   │   ├── Switch to gaming mode.ahk  # project source/resource
+│   │   │   └── Switch to headphones.ahk  # project source/resource
+│   │   ├── model_small/
+│   │   │   ├── am/
+│   │   │   ├── conf/
+│   │   │   │   ├── mfcc.conf  # project source/resource
+│   │   │   │   └── model.conf  # project source/resource
+│   │   │   ├── graph/
+│   │   │   │   ├── phones/
+│   │   │   │   │   └── word_boundary.int  # project source/resource
+│   │   │   │   └── disambig_tid.int  # project source/resource
+│   │   │   ├── ivector/
+│   │   │   │   ├── final.dubm  # project source/resource
+│   │   │   │   ├── final.mat  # project source/resource
+│   │   │   │   ├── global_cmvn.stats  # project source/resource
+│   │   │   │   ├── online_cmvn.conf  # project source/resource
+│   │   │   │   └── splice.conf  # project source/resource
+│   │   │   └── README  # project source/resource
+│   │   ├── sound/
+│   │   │   └── cache/  # existing cached voice WAVs, including news_01.wav..news_10.wav
+│   │   ├── utils/
+│   │   │   ├── benchmark.py  # project source/resource
+│   │   │   └── time.py  # project source/resource
+│   │   └── venv/  # excluded Python virtual environment
+│   │   ├── voice/
+│   │   ├── .gitignore  # project source/resource
+│   │   ├── build_voice_library.py  # project source/resource
+│   │   ├── commands.yaml  # project source/resource
+│   │   ├── generate_voice_library.py  # project source/resource
+│   │   ├── LICENSE.txt  # project source/resource
+│   │   ├── prepare_core_variations.py  # project source/resource
+│   │   ├── README.md  # project source/resource
+│   │   ├── refresh_pending_semantic_text.py  # project source/resource
+│   │   ├── repair_voice_library_paths.py  # project source/resource
+│   │   ├── requirements — копия.txt  # dependency declaration
+│   │   ├── requirements.txt  # dependency declaration
+│   │   ├── seed_semantic_variation_queue.py  # project source/resource
+│   │   ├── stt.py  # faster-whisper adapter, lazy model loading
+│   │   ├── tts.py  # project source/resource
+│   │   ├── tts_queue.py  # project source/resource
+│   │   ├── vad.py  # Silero VAD adapter
+│   │   ├── voice_models.py  # project source/resource
+│   │   ├── voice_player.py  # project source/resource
+│   │   ├── voice_variation_audit.py  # project source/resource
+│   │   └── wakeword_engine.py  # Independent legacy wakeword/VAD implementation
+│   ├── .env.example  # runtime configuration; secrets not reproduced
+│   ├── computer_control.py  # Registered command intent detection and execution
+│   ├── config.py  # project source/resource
+│   ├── dev.env  # runtime configuration; secrets not reproduced
+│   ├── health.py  # project source/resource
+│   ├── main.py  # FastAPI composition root, startup warmup and API entry point
+│   ├── requirements-core.txt  # dependency declaration
+│   ├── requirements-device.txt  # dependency declaration
+│   ├── requirements-optional.txt  # dependency declaration
+│   ├── requirements.txt  # dependency declaration
+│   ├── startup_check.py  # project source/resource
+│   └── tools.py  # project source/resource
+├── core/
+│   ├── api.py  # project source/resource
+│   └── jarvis_api.py  # project source/resource
+├── data/  # knowledge, voice response, indexes and application data
+│   ├── Bible/  # canonical physical knowledge root, unified catalog and source registry
+│   │   ├── README.md  # human navigation rules for the single Bible
+│   │   ├── index/catalog.json  # canonical source registry and cutover status
+│   │   ├── index/library_catalog.json  # unified catalog aligned with API: 7,250 records
+│   │   ├── index/domain_map.json  # thematic domain map
+│   │   ├── index/physical_manifest.json  # source-to-canonical paths and SHA-256
+│   │   ├── library/  # единственная пользовательская навигация по Bible
+│   │   │   ├── CPU/  # процессоры и CPU
+│   │   │   ├── Computer/  # компьютеры, IT и технологии
+│   │   │   ├── Audio/  # звук, DAW и голосовые материалы
+│   │   │   ├── Music/  # музыка и музыкальные справочники
+│   │   │   ├── Responses/  # быстрые разговорные ответы
+│   │   │   └── Literature/, Psychology/  # остальные категории
+│   │   ├── .internal/  # техническое provenance-хранилище, не пользовательская библиотека
+│   │   │   ├── sources/{knowledge3,offline_knowledge,voice_responses}/  # внутренние владельцы файлов
+│   │   │   └── audio/{library,responses}/  # внутреннее каноническое аудио, включая Fish WAV
+│   ├── archive/bible_legacy_sources_20261115/  # reversible archive of former source roots
+│   ├── archive/bible_reorganization_20261115/  # reversible archive of old generated views and metadata backup
+│   └── applications.json  # structured data, metadata or configuration
+├── docs/  # documentation, handoffs, audits and specifications
+│   ├── account/
+│   │   ├── api/
+│   │   │   ├── ACCOUNT_SYSTEM_API_CONTRACTS_V1.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_AUTH_CLIENT_CONTRACT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── ACCOUNT_SYSTEM_PHASE2_API_IMPLEMENTATION.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── architecture/
+│   │   │   ├── ACCOUNT_SYSTEM_APPROVED_DECISIONS.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_ARCHITECTURE_PROPOSAL.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_DATA_MODEL.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE2_SERVER_ARCHITECTURE.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_SERVER_FOUNDATION.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── ACCOUNT_SYSTEM_TECHNICAL_DESIGN.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── migration/
+│   │   │   ├── ACCOUNT_SYSTEM_IMPLEMENTATION_ROADMAP.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_IMPORT_SPEC.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_LOCAL_ADAPTER_IMPLEMENTATION.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── ACCOUNT_SYSTEM_LOCAL_DATA_ADAPTER.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── oauth/
+│   │   │   └── ACCOUNT_SYSTEM_PHASE2_2_GOOGLE_OAUTH.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── reports/
+│   │   │   ├── ACCOUNT_SYSTEM_AUDIT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE0_5_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE0_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE1A_FINAL_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE1A_GAP_ANALYSIS.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE1B_FINAL_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE1B_IMPLEMENTATION.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE1B_TEST_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE1C_FINAL_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE1C_IMPLEMENTATION.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE1C_TEST_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE2_1_EMAIL_DELIVERY_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE2_FINAL_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE2_LOCAL_DEPLOYMENT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_TEST_STRATEGY.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── ACCOUNT_SYSTEM_UI.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── security/
+│   │   │   ├── ACCOUNT_SYSTEM_AUTH_DEVICE_SPEC.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_CREDENTIAL_SECURITY.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── ACCOUNT_SYSTEM_PHASE2_SECURITY.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── ACCOUNT_SYSTEM_SECURITY_AND_PRIVACY.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── sync/
+│   │   │   └── ACCOUNT_SYSTEM_SYNC_ENGINE_SPEC.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   └── README.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── architecture/
+│   │   ├── audits/
+│   │   │   ├── ARCHITECTURE_BASELINE.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── JARVIS_ARCHITECTURE_AUDIT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── JARVIS_FULL_SYSTEM_AUDIT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── dependency_maps/
+│   │   │   ├── JARVIS_DEPENDENCY_MAP.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── JARVIS_PROJECT_TREE.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── migration/
+│   │   │   ├── JARVIS_MIGRATION_PLAN.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── JARVIS_OPTIMIZATION_PLAN.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── target_design/
+│   │   │   ├── CANONICAL_STRUCTURE.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── JARVIS_TARGET_ARCHITECTURE.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   └── README.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── archive/
+│   │   ├── KNOWLEDGE_LIBRARY_QUALITY_JOURNAL_2026-11-15.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   └── UNIFIED_KNOWLEDGE_LIBRARY_JOURNAL_2026-11-15.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── guides/
+│   │   ├── APP_SERVER.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── CODING_DEVELOPER.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── DAW_CONTROL.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── MUSIC_PRODUCTION_ENGINEER.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── OLLAMA_TASK_DELEGATION.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── PROGRAMMING_MENTOR.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   └── README.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── images/
+│   │   └── jarvis-preview.jpg  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── knowledge/
+│   │   ├── architecture/
+│   │   │   ├── KNOWLEDGE_ARCHITECTURE.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── UNIFIED_KNOWLEDGE_LIBRARY_SPEC.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── audits/
+│   │   │   ├── JARVIS_KNOWLEDGE_LIBRARY_3_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── OFFLINE_KNOWLEDGE_LIBRARY_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── migration/
+│   │   │   └── KNOWLEDGE_DISCOVERY_PLAN.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── quality/
+│   │   │   └── README.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── research/
+│   │   │   └── KNOWLEDGE_RESEARCH_PIPELINE.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   └── README.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── references/
+│   │   ├── JARVIS_TZ.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   └── README.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── runtime/
+│   │   ├── audits/
+│   │   │   └── RELEASE_AUDIT_20261113.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── bug_registry/
+│   │   │   ├── JARVIS_BUG_REGISTRY.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── JARVIS_RUNTIME_BUG_REGISTRY.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── diagnostics/
+│   │   │   └── JARVIS_PHASE3_IMPLEMENTATION_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   └── README.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── storage/
+│   │   ├── databases/
+│   │   │   ├── JARVIS_STORAGE_INVENTORY_20261115.md  # current read-only database inventory
+│   │   │   └── ACCOUNT_SYSTEM_PERSISTENT_STORAGE.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   └── README.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── testing/
+│   │   ├── acceptance/
+│   │   │   ├── JARVIS_PHASE3_1_LIVE_RUNTIME_ACCEPTANCE.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── JARVIS_PHASE3_2_STABILIZATION_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── JARVIS_RUNTIME_ACCEPTANCE_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   └── README.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── ui/
+│   │   ├── HUD_CALIBRATION_LAYOUT_20261115.json  # accepted widget-mode HUD x/y/angle snapshot
+│   │   └── HUD_CALIBRATION_LAYOUT_FULLSCREEN_20261115.json  # separate fullscreen calibration profile
+│   │   ├── audits/
+│   │   │   ├── JARVIS_UI_UX_AUDIT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── PERFORMANCE_AUDIT_20261028.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── REDESIGN_AUDIT_20261028.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   └── README.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── voice/
+│   │   ├── architecture/
+│   │   │   └── KESHA_INTEGRATION_AUDIT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── audits/
+│   │   │   ├── ASSISTANT_UX_VOICE_2_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   ├── COMMANDS_AUDIT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   │   └── VOICE_RESPONSE_VARIATIONS_REPORT.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── providers/
+│   │   │   └── GPT_SOVITS_DATASET_WORKFLOW.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   ├── runtime/
+│   │   │   └── HANDOFF_ASSISTANT_UX_VOICE_2.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   │   └── README.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── cpu_calibration.json  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── DOCUMENTATION_REGISTER.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── HANDOFF.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── HANDOFF_ASSIST.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   ├── HANDOFF_BIBLE.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+│   └── README.md  # documentation; see docs/README.md and DOCUMENTATION_REGISTER.md
+├── frontend/  # PySide6 UI, launcher, chat and account dialogs
+│   ├── assets/
+│   │   ├── CHAT/
+│   │   │   ├── assets/
+│   │   │   │   └── crazy_tad_default_wallpaper.jpg  # project source/resource
+│   │   │   ├── emoji/
+│   │   │   │   ├── retro/
+│   │   │   │   │   ├── 001.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 002.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 003.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 004.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 005.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 006.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 007.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 008.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 009.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 010.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 011.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 012.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 013.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 014.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 015.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 016.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 017.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 018.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 019.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 020.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 021.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 022.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 023.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 024.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 025.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 026.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 027.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 028.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 029.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 030.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 031.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 032.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 033.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 034.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 035.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 036.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 037.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 038.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 039.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 040.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 041.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 042.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 043.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 044.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 045.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 046.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 047.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 048.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 049.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 050.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 051.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 052.json  # structured data, metadata or configuration
+│   │   │   │   │   ├── 053.json  # structured data, metadata or configuration
+│   │   │   │   │   └── 054.json  # structured data, metadata or configuration
+│   │   │   │   └── lottie.min.js  # project source/resource
+│   │   │   ├── icons/
+│   │   │   │   ├── attachments/
+│   │   │   │   │   ├── svg/
+│   │   │   │   │   │   ├── application.svg  # project source/resource
+│   │   │   │   │   │   ├── archive.svg  # project source/resource
+│   │   │   │   │   │   ├── audio.svg  # project source/resource
+│   │   │   │   │   │   ├── code.svg  # project source/resource
+│   │   │   │   │   │   ├── document.svg  # project source/resource
+│   │   │   │   │   │   ├── image.svg  # project source/resource
+│   │   │   │   │   │   ├── other.svg  # project source/resource
+│   │   │   │   │   │   └── video.svg  # project source/resource
+│   │   │   │   │   └── thrash.svg  # project source/resource
+│   │   │   │   ├── audio_player/
+│   │   │   │   │   ├── close.svg  # project source/resource
+│   │   │   │   │   ├── doeload.svg  # project source/resource
+│   │   │   │   │   ├── next.svg  # project source/resource
+│   │   │   │   │   ├── pause.svg  # project source/resource
+│   │   │   │   │   ├── play.svg  # project source/resource
+│   │   │   │   │   ├── prev.svg  # project source/resource
+│   │   │   │   │   ├── shuffle.svg  # project source/resource
+│   │   │   │   │   ├── volume.svg  # project source/resource
+│   │   │   │   │   └── панель длительности.svg  # project source/resource
+│   │   │   │   ├── app_icon.ico  # project source/resource
+│   │   │   │   ├── app_icon.png  # project source/resource
+│   │   │   │   ├── chat_settings.svg  # project source/resource
+│   │   │   │   ├── incoming_message_texture.png  # project source/resource
+│   │   │   │   ├── logo.ico  # project source/resource
+│   │   │   │   ├── logo.png  # project source/resource
+│   │   │   │   ├── logo_light.png  # project source/resource
+│   │   │   │   ├── menu_hover_texture.png  # project source/resource
+│   │   │   │   ├── notifications.svg  # project source/resource
+│   │   │   │   ├── search.svg  # project source/resource
+│   │   │   │   ├── settings.svg  # project source/resource
+│   │   │   │   ├── wizard.bmp  # project source/resource
+│   │   │   │   ├── wizard_small.bmp  # project source/resource
+│   │   │   │   ├── добавить файл.svg  # project source/resource
+│   │   │   │   ├── закреп.svg  # project source/resource
+│   │   │   │   ├── микрофон.svg  # project source/resource
+│   │   │   │   ├── отправка.svg  # project source/resource
+│   │   │   │   ├── плюсик.svg  # project source/resource
+│   │   │   │   ├── стоп.svg  # project source/resource
+│   │   │   │   └── эмодзи.svg  # project source/resource
+│   │   │   ├── stickers/
+│   │   │   │   ├── crazy_tad/
+│   │   │   │   │   ├── блиин.png  # project source/resource
+│   │   │   │   │   ├── в атаку.png  # project source/resource
+│   │   │   │   │   ├── давай.png  # project source/resource
+│   │   │   │   │   ├── женя.png  # project source/resource
+│   │   │   │   │   ├── и.png  # project source/resource
+│   │   │   │   │   ├── металл.png  # project source/resource
+│   │   │   │   │   ├── нет.png  # project source/resource
+│   │   │   │   │   └── обида.png  # project source/resource
+│   │   │   │   ├── mailru/
+│   │   │   │   │   ├── koloboks/
+│   │   │   │   │   │   ├── air_kiss.gif  # project source/resource
+│   │   │   │   │   │   ├── bad.gif  # project source/resource
+│   │   │   │   │   │   ├── biggrin.gif  # project source/resource
+│   │   │   │   │   │   ├── blum1.gif  # project source/resource
+│   │   │   │   │   │   ├── blush.gif  # project source/resource
+│   │   │   │   │   │   ├── bomb.gif  # project source/resource
+│   │   │   │   │   │   ├── bye2.gif  # project source/resource
+│   │   │   │   │   │   ├── cool.gif  # project source/resource
+│   │   │   │   │   │   ├── crazy.gif  # project source/resource
+│   │   │   │   │   │   ├── cry.gif  # project source/resource
+│   │   │   │   │   │   ├── dance.gif  # project source/resource
+│   │   │   │   │   │   ├── diablo.gif  # project source/resource
+│   │   │   │   │   │   ├── drinks.gif  # project source/resource
+│   │   │   │   │   │   ├── gamer.gif  # project source/resource
+│   │   │   │   │   │   ├── girl_angel.gif  # project source/resource
+│   │   │   │   │   │   ├── give_heart.gif  # project source/resource
+│   │   │   │   │   │   ├── give_rose.gif  # project source/resource
+│   │   │   │   │   │   ├── good.gif  # project source/resource
+│   │   │   │   │   │   ├── hang1.gif  # project source/resource
+│   │   │   │   │   │   ├── hi.gif  # project source/resource
+│   │   │   │   │   │   ├── i_am_so_happy.gif  # project source/resource
+│   │   │   │   │   │   ├── ireful.gif  # project source/resource
+│   │   │   │   │   │   ├── kiss.gif  # project source/resource
+│   │   │   │   │   │   ├── kiss3.gif  # project source/resource
+│   │   │   │   │   │   ├── lol.gif  # project source/resource
+│   │   │   │   │   │   ├── mad.gif  # project source/resource
+│   │   │   │   │   │   ├── man_in_love.gif  # project source/resource
+│   │   │   │   │   │   ├── mocking.gif  # project source/resource
+│   │   │   │   │   │   ├── music.gif  # project source/resource
+│   │   │   │   │   │   ├── nea.gif  # project source/resource
+│   │   │   │   │   │   ├── pardon.gif  # project source/resource
+│   │   │   │   │   │   ├── rofl.gif  # project source/resource
+│   │   │   │   │   │   ├── sad.gif  # project source/resource
+│   │   │   │   │   │   ├── scratch_one-s_head.gif  # project source/resource
+│   │   │   │   │   │   ├── shok.gif  # project source/resource
+│   │   │   │   │   │   ├── shout.gif  # project source/resource
+│   │   │   │   │   │   ├── smile.gif  # project source/resource
+│   │   │   │   │   │   ├── sorry.gif  # project source/resource
+│   │   │   │   │   │   ├── unknown.gif  # project source/resource
+│   │   │   │   │   │   ├── wacko1.gif  # project source/resource
+│   │   │   │   │   │   ├── wink.gif  # project source/resource
+│   │   │   │   │   │   ├── yahoo.gif  # project source/resource
+│   │   │   │   │   │   └── yes.gif  # project source/resource
+│   │   │   │   │   ├── set03/
+│   │   │   │   │   │   ├── angel.gif  # project source/resource
+│   │   │   │   │   │   ├── bad.gif  # project source/resource
+│   │   │   │   │   │   ├── biggrin.gif  # project source/resource
+│   │   │   │   │   │   ├── blum.gif  # project source/resource
+│   │   │   │   │   │   ├── blush.gif  # project source/resource
+│   │   │   │   │   │   ├── cray.gif  # project source/resource
+│   │   │   │   │   │   ├── crazy.gif  # project source/resource
+│   │   │   │   │   │   ├── dance.gif  # project source/resource
+│   │   │   │   │   │   ├── diablo.gif  # project source/resource
+│   │   │   │   │   │   ├── dirol.gif  # project source/resource
+│   │   │   │   │   │   ├── drinks.gif  # project source/resource
+│   │   │   │   │   │   ├── facepalm.gif  # project source/resource
+│   │   │   │   │   │   ├── fool.gif  # project source/resource
+│   │   │   │   │   │   ├── give_rose.gif  # project source/resource
+│   │   │   │   │   │   ├── good.gif  # project source/resource
+│   │   │   │   │   │   ├── kiss_mini.gif  # project source/resource
+│   │   │   │   │   │   ├── man_in_love.gif  # project source/resource
+│   │   │   │   │   │   ├── mocking.gif  # project source/resource
+│   │   │   │   │   │   ├── music.gif  # project source/resource
+│   │   │   │   │   │   ├── nea.gif  # project source/resource
+│   │   │   │   │   │   ├── pardon.gif  # project source/resource
+│   │   │   │   │   │   ├── rofl.gif  # project source/resource
+│   │   │   │   │   │   ├── rolleyes.gif  # project source/resource
+│   │   │   │   │   │   ├── sad.gif  # project source/resource
+│   │   │   │   │   │   ├── scratch_one-s_head.gif  # project source/resource
+│   │   │   │   │   │   ├── shok.gif  # project source/resource
+│   │   │   │   │   │   ├── shout.gif  # project source/resource
+│   │   │   │   │   │   ├── smile.gif  # project source/resource
+│   │   │   │   │   │   ├── unknw.gif  # project source/resource
+│   │   │   │   │   │   ├── wacko2.gif  # project source/resource
+│   │   │   │   │   │   ├── wink.gif  # project source/resource
+│   │   │   │   │   │   └── yahoo.gif  # project source/resource
+│   │   │   │   │   ├── set04/
+│   │   │   │   │   │   ├── s001.gif  # project source/resource
+│   │   │   │   │   │   ├── s002.gif  # project source/resource
+│   │   │   │   │   │   ├── s003.gif  # project source/resource
+│   │   │   │   │   │   ├── s004.gif  # project source/resource
+│   │   │   │   │   │   ├── s005.gif  # project source/resource
+│   │   │   │   │   │   ├── s006.gif  # project source/resource
+│   │   │   │   │   │   ├── s007.gif  # project source/resource
+│   │   │   │   │   │   ├── s008.gif  # project source/resource
+│   │   │   │   │   │   ├── s009.gif  # project source/resource
+│   │   │   │   │   │   ├── s010.gif  # project source/resource
+│   │   │   │   │   │   ├── s011.gif  # project source/resource
+│   │   │   │   │   │   ├── s012.gif  # project source/resource
+│   │   │   │   │   │   ├── s013.gif  # project source/resource
+│   │   │   │   │   │   ├── s014.gif  # project source/resource
+│   │   │   │   │   │   ├── s015.gif  # project source/resource
+│   │   │   │   │   │   └── s016.gif  # project source/resource
+│   │   │   │   │   ├── set05/
+│   │   │   │   │   │   ├── s001.gif  # project source/resource
+│   │   │   │   │   │   ├── s002.gif  # project source/resource
+│   │   │   │   │   │   ├── s003.gif  # project source/resource
+│   │   │   │   │   │   ├── s004.gif  # project source/resource
+│   │   │   │   │   │   ├── s005.gif  # project source/resource
+│   │   │   │   │   │   ├── s006.gif  # project source/resource
+│   │   │   │   │   │   ├── s007.gif  # project source/resource
+│   │   │   │   │   │   ├── s008.gif  # project source/resource
+│   │   │   │   │   │   ├── s009.gif  # project source/resource
+│   │   │   │   │   │   ├── s010.gif  # project source/resource
+│   │   │   │   │   │   ├── s011.gif  # project source/resource
+│   │   │   │   │   │   ├── s012.gif  # project source/resource
+│   │   │   │   │   │   ├── s013.gif  # project source/resource
+│   │   │   │   │   │   ├── s014.gif  # project source/resource
+│   │   │   │   │   │   ├── s015.gif  # project source/resource
+│   │   │   │   │   │   ├── s016.gif  # project source/resource
+│   │   │   │   │   │   ├── s017.gif  # project source/resource
+│   │   │   │   │   │   ├── s018.gif  # project source/resource
+│   │   │   │   │   │   ├── s019.gif  # project source/resource
+│   │   │   │   │   │   └── s020.gif  # project source/resource
+│   │   │   │   │   ├── set06/
+│   │   │   │   │   │   ├── s001.gif  # project source/resource
+│   │   │   │   │   │   ├── s002.gif  # project source/resource
+│   │   │   │   │   │   ├── s003.gif  # project source/resource
+│   │   │   │   │   │   ├── s004.gif  # project source/resource
+│   │   │   │   │   │   ├── s006.gif  # project source/resource
+│   │   │   │   │   │   ├── s008.gif  # project source/resource
+│   │   │   │   │   │   ├── s009.gif  # project source/resource
+│   │   │   │   │   │   ├── s010.gif  # project source/resource
+│   │   │   │   │   │   ├── s011.gif  # project source/resource
+│   │   │   │   │   │   ├── s012.gif  # project source/resource
+│   │   │   │   │   │   ├── s013.gif  # project source/resource
+│   │   │   │   │   │   ├── s014.gif  # project source/resource
+│   │   │   │   │   │   ├── s015.gif  # project source/resource
+│   │   │   │   │   │   ├── s016.gif  # project source/resource
+│   │   │   │   │   │   ├── s017.gif  # project source/resource
+│   │   │   │   │   │   ├── s018.gif  # project source/resource
+│   │   │   │   │   │   ├── s019.gif  # project source/resource
+│   │   │   │   │   │   └── s020.gif  # project source/resource
+│   │   │   │   │   ├── smiles/
+│   │   │   │   │   │   ├── aaa.gif  # project source/resource
+│   │   │   │   │   │   ├── amazed.gif  # project source/resource
+│   │   │   │   │   │   ├── angry.gif  # project source/resource
+│   │   │   │   │   │   ├── ass.gif  # project source/resource
+│   │   │   │   │   │   ├── bazilio.gif  # project source/resource
+│   │   │   │   │   │   ├── bee.gif  # project source/resource
+│   │   │   │   │   │   ├── biganger.gif  # project source/resource
+│   │   │   │   │   │   ├── biggrin.gif  # project source/resource
+│   │   │   │   │   │   ├── blink.gif  # project source/resource
+│   │   │   │   │   │   ├── bullshit.gif  # project source/resource
+│   │   │   │   │   │   ├── coolguy.gif  # project source/resource
+│   │   │   │   │   │   ├── crocodile.gif  # project source/resource
+│   │   │   │   │   │   ├── cry.gif  # project source/resource
+│   │   │   │   │   │   ├── detzl.gif  # project source/resource
+│   │   │   │   │   │   ├── devil.gif  # project source/resource
+│   │   │   │   │   │   ├── die.gif  # project source/resource
+│   │   │   │   │   │   ├── disappointed.gif  # project source/resource
+│   │   │   │   │   │   ├── fist.gif  # project source/resource
+│   │   │   │   │   │   ├── fuck.gif  # project source/resource
+│   │   │   │   │   │   ├── heart.gif  # project source/resource
+│   │   │   │   │   │   ├── hm.gif  # project source/resource
+│   │   │   │   │   │   ├── kiss.gif  # project source/resource
+│   │   │   │   │   │   ├── koza_left.gif  # project source/resource
+│   │   │   │   │   │   ├── koza_right.gif  # project source/resource
+│   │   │   │   │   │   ├── kukes.gif  # project source/resource
+│   │   │   │   │   │   ├── laughter.gif  # project source/resource
+│   │   │   │   │   │   ├── live.gif  # project source/resource
+│   │   │   │   │   │   ├── ok.gif  # project source/resource
+│   │   │   │   │   │   ├── oo.gif  # project source/resource
+│   │   │   │   │   │   ├── pig.gif  # project source/resource
+│   │   │   │   │   │   ├── plug.gif  # project source/resource
+│   │   │   │   │   │   ├── really.gif  # project source/resource
+│   │   │   │   │   │   ├── rrr.gif  # project source/resource
+│   │   │   │   │   │   ├── sceptic.gif  # project source/resource
+│   │   │   │   │   │   ├── shy.gif  # project source/resource
+│   │   │   │   │   │   ├── sleepy.gif  # project source/resource
+│   │   │   │   │   │   ├── smile.gif  # project source/resource
+│   │   │   │   │   │   ├── tears.gif  # project source/resource
+│   │   │   │   │   │   ├── think.gif  # project source/resource
+│   │   │   │   │   │   ├── vampire.gif  # project source/resource
+│   │   │   │   │   │   ├── victory.gif  # project source/resource
+│   │   │   │   │   │   └── zloradstvo.gif  # project source/resource
+│   │   │   │   │   ├── manifest.json  # structured data, metadata or configuration
+│   │   │   │   │   └── s008.gif  # project source/resource
+│   │   │   │   ├── smiles/
+│   │   │   │   │   ├── angry.gif  # project source/resource
+│   │   │   │   │   ├── attack.gif  # project source/resource
+│   │   │   │   │   ├── bablo.gif  # project source/resource
+│   │   │   │   │   ├── bed.gif  # project source/resource
+│   │   │   │   │   ├── beee.gif  # project source/resource
+│   │   │   │   │   ├── blatnoi.gif  # project source/resource
+│   │   │   │   │   ├── bye.gif  # project source/resource
+│   │   │   │   │   ├── dance.gif  # project source/resource
+│   │   │   │   │   ├── devil.gif  # project source/resource
+│   │   │   │   │   ├── dragon.gif  # project source/resource
+│   │   │   │   │   ├── eda.gif  # project source/resource
+│   │   │   │   │   ├── fuu.gif  # project source/resource
+│   │   │   │   │   ├── help.gif  # project source/resource
+│   │   │   │   │   ├── hi.gif  # project source/resource
+│   │   │   │   │   ├── hmm.gif  # project source/resource
+│   │   │   │   │   ├── hz.gif  # project source/resource
+│   │   │   │   │   ├── in_love.gif  # project source/resource
+│   │   │   │   │   ├── jump.gif  # project source/resource
+│   │   │   │   │   ├── kiss.gif  # project source/resource
+│   │   │   │   │   ├── kissed.gif  # project source/resource
+│   │   │   │   │   ├── liscot.gif  # project source/resource
+│   │   │   │   │   ├── lol.gif  # project source/resource
+│   │   │   │   │   ├── love.gif  # project source/resource
+│   │   │   │   │   ├── mir.gif  # project source/resource
+│   │   │   │   │   ├── muzon.gif  # project source/resource
+│   │   │   │   │   ├── ninja.gif  # project source/resource
+│   │   │   │   │   ├── no.gif  # project source/resource
+│   │   │   │   │   ├── o_O.gif  # project source/resource
+│   │   │   │   │   ├── op.gif  # project source/resource
+│   │   │   │   │   ├── roza.gif  # project source/resource
+│   │   │   │   │   ├── sorry.gif  # project source/resource
+│   │   │   │   │   ├── tired.gif  # project source/resource
+│   │   │   │   │   ├── ura.gif  # project source/resource
+│   │   │   │   │   ├── wall.gif  # project source/resource
+│   │   │   │   │   ├── yazik.gif  # project source/resource
+│   │   │   │   │   └── yes.gif  # project source/resource
+│   │   │   │   ├── smiles_import/
+│   │   │   │   │   └── smiles/
+│   │   │   │   │       ├── angry.gif  # project source/resource
+│   │   │   │   │       ├── attack.gif  # project source/resource
+│   │   │   │   │       ├── bablo.gif  # project source/resource
+│   │   │   │   │       ├── bed.gif  # project source/resource
+│   │   │   │   │       ├── beee.gif  # project source/resource
+│   │   │   │   │       ├── blatnoi.gif  # project source/resource
+│   │   │   │   │       ├── bye.gif  # project source/resource
+│   │   │   │   │       ├── dance.gif  # project source/resource
+│   │   │   │   │       ├── devil.gif  # project source/resource
+│   │   │   │   │       ├── dragon.gif  # project source/resource
+│   │   │   │   │       ├── eda.gif  # project source/resource
+│   │   │   │   │       ├── fuu.gif  # project source/resource
+│   │   │   │   │       ├── help.gif  # project source/resource
+│   │   │   │   │       ├── hi.gif  # project source/resource
+│   │   │   │   │       ├── hmm.gif  # project source/resource
+│   │   │   │   │       ├── hz.gif  # project source/resource
+│   │   │   │   │       ├── in_love.gif  # project source/resource
+│   │   │   │   │       ├── jump.gif  # project source/resource
+│   │   │   │   │       ├── kiss.gif  # project source/resource
+│   │   │   │   │       ├── kissed.gif  # project source/resource
+│   │   │   │   │       ├── liscot.gif  # project source/resource
+│   │   │   │   │       ├── lol.gif  # project source/resource
+│   │   │   │   │       ├── love.gif  # project source/resource
+│   │   │   │   │       ├── mir.gif  # project source/resource
+│   │   │   │   │       ├── muzon.gif  # project source/resource
+│   │   │   │   │       ├── ninja.gif  # project source/resource
+│   │   │   │   │       ├── no.gif  # project source/resource
+│   │   │   │   │       ├── o_O.gif  # project source/resource
+│   │   │   │   │       ├── op.gif  # project source/resource
+│   │   │   │   │       ├── roza.gif  # project source/resource
+│   │   │   │   │       ├── sorry.gif  # project source/resource
+│   │   │   │   │       ├── tired.gif  # project source/resource
+│   │   │   │   │       ├── ura.gif  # project source/resource
+│   │   │   │   │       ├── wall.gif  # project source/resource
+│   │   │   │   │       ├── yazik.gif  # project source/resource
+│   │   │   │   │       └── yes.gif  # project source/resource
+│   │   │   │   ├── telegram/
+│   │   │   │   │   ├── 001.tgs  # project source/resource
+│   │   │   │   │   ├── 002.tgs  # project source/resource
+│   │   │   │   │   ├── 003.tgs  # project source/resource
+│   │   │   │   │   ├── 004.tgs  # project source/resource
+│   │   │   │   │   ├── 005.tgs  # project source/resource
+│   │   │   │   │   ├── 006.tgs  # project source/resource
+│   │   │   │   │   ├── 007.tgs  # project source/resource
+│   │   │   │   │   ├── 008.tgs  # project source/resource
+│   │   │   │   │   ├── 009.tgs  # project source/resource
+│   │   │   │   │   ├── 010.tgs  # project source/resource
+│   │   │   │   │   ├── 011.tgs  # project source/resource
+│   │   │   │   │   ├── 012.tgs  # project source/resource
+│   │   │   │   │   ├── 013.tgs  # project source/resource
+│   │   │   │   │   ├── 014.tgs  # project source/resource
+│   │   │   │   │   ├── 015.tgs  # project source/resource
+│   │   │   │   │   ├── 016.tgs  # project source/resource
+│   │   │   │   │   ├── 017.tgs  # project source/resource
+│   │   │   │   │   ├── 018.tgs  # project source/resource
+│   │   │   │   │   ├── 019.tgs  # project source/resource
+│   │   │   │   │   ├── 020.tgs  # project source/resource
+│   │   │   │   │   ├── 021.tgs  # project source/resource
+│   │   │   │   │   ├── 022.tgs  # project source/resource
+│   │   │   │   │   ├── 023.tgs  # project source/resource
+│   │   │   │   │   ├── 024.tgs  # project source/resource
+│   │   │   │   │   ├── 025.tgs  # project source/resource
+│   │   │   │   │   ├── 026.tgs  # project source/resource
+│   │   │   │   │   ├── 027.tgs  # project source/resource
+│   │   │   │   │   ├── 028.tgs  # project source/resource
+│   │   │   │   │   ├── 029.tgs  # project source/resource
+│   │   │   │   │   ├── 030.tgs  # project source/resource
+│   │   │   │   │   ├── 031.tgs  # project source/resource
+│   │   │   │   │   ├── 032.tgs  # project source/resource
+│   │   │   │   │   ├── 033.tgs  # project source/resource
+│   │   │   │   │   ├── 034.tgs  # project source/resource
+│   │   │   │   │   ├── 035.tgs  # project source/resource
+│   │   │   │   │   ├── 036.tgs  # project source/resource
+│   │   │   │   │   ├── 037.tgs  # project source/resource
+│   │   │   │   │   ├── 038.tgs  # project source/resource
+│   │   │   │   │   ├── 039.tgs  # project source/resource
+│   │   │   │   │   ├── 040.tgs  # project source/resource
+│   │   │   │   │   ├── 041.tgs  # project source/resource
+│   │   │   │   │   ├── 042.tgs  # project source/resource
+│   │   │   │   │   ├── 043.tgs  # project source/resource
+│   │   │   │   │   ├── 044.tgs  # project source/resource
+│   │   │   │   │   ├── 045.tgs  # project source/resource
+│   │   │   │   │   ├── 046.tgs  # project source/resource
+│   │   │   │   │   ├── 047.tgs  # project source/resource
+│   │   │   │   │   ├── 048.tgs  # project source/resource
+│   │   │   │   │   ├── 049.tgs  # project source/resource
+│   │   │   │   │   ├── 050.tgs  # project source/resource
+│   │   │   │   │   ├── 051.tgs  # project source/resource
+│   │   │   │   │   ├── 052.tgs  # project source/resource
+│   │   │   │   │   ├── 053.tgs  # project source/resource
+│   │   │   │   │   └── 054.tgs  # project source/resource
+│   │   │   │   └── telegram_import/
+│   │   │   │       └── RetroEmoji/
+│   │   │   │           ├── 001.tgs  # project source/resource
+│   │   │   │           ├── 002.tgs  # project source/resource
+│   │   │   │           ├── 003.tgs  # project source/resource
+│   │   │   │           ├── 004.tgs  # project source/resource
+│   │   │   │           ├── 005.tgs  # project source/resource
+│   │   │   │           ├── 006.tgs  # project source/resource
+│   │   │   │           ├── 007.tgs  # project source/resource
+│   │   │   │           ├── 008.tgs  # project source/resource
+│   │   │   │           ├── 009.tgs  # project source/resource
+│   │   │   │           ├── 010.tgs  # project source/resource
+│   │   │   │           ├── 011.tgs  # project source/resource
+│   │   │   │           ├── 012.tgs  # project source/resource
+│   │   │   │           ├── 013.tgs  # project source/resource
+│   │   │   │           ├── 014.tgs  # project source/resource
+│   │   │   │           ├── 015.tgs  # project source/resource
+│   │   │   │           ├── 016.tgs  # project source/resource
+│   │   │   │           ├── 017.tgs  # project source/resource
+│   │   │   │           ├── 018.tgs  # project source/resource
+│   │   │   │           ├── 019.tgs  # project source/resource
+│   │   │   │           ├── 020.tgs  # project source/resource
+│   │   │   │           ├── 021.tgs  # project source/resource
+│   │   │   │           ├── 022.tgs  # project source/resource
+│   │   │   │           ├── 023.tgs  # project source/resource
+│   │   │   │           ├── 024.tgs  # project source/resource
+│   │   │   │           ├── 025.tgs  # project source/resource
+│   │   │   │           ├── 026.tgs  # project source/resource
+│   │   │   │           ├── 027.tgs  # project source/resource
+│   │   │   │           ├── 028.tgs  # project source/resource
+│   │   │   │           ├── 029.tgs  # project source/resource
+│   │   │   │           ├── 030.tgs  # project source/resource
+│   │   │   │           ├── 031.tgs  # project source/resource
+│   │   │   │           ├── 032.tgs  # project source/resource
+│   │   │   │           ├── 033.tgs  # project source/resource
+│   │   │   │           ├── 034.tgs  # project source/resource
+│   │   │   │           ├── 035.tgs  # project source/resource
+│   │   │   │           ├── 036.tgs  # project source/resource
+│   │   │   │           ├── 037.tgs  # project source/resource
+│   │   │   │           ├── 038.tgs  # project source/resource
+│   │   │   │           ├── 039.tgs  # project source/resource
+│   │   │   │           ├── 040.tgs  # project source/resource
+│   │   │   │           ├── 041.tgs  # project source/resource
+│   │   │   │           ├── 042.tgs  # project source/resource
+│   │   │   │           ├── 043.tgs  # project source/resource
+│   │   │   │           ├── 044.tgs  # project source/resource
+│   │   │   │           ├── 045.tgs  # project source/resource
+│   │   │   │           ├── 046.tgs  # project source/resource
+│   │   │   │           ├── 047.tgs  # project source/resource
+│   │   │   │           ├── 048.tgs  # project source/resource
+│   │   │   │           ├── 049.tgs  # project source/resource
+│   │   │   │           ├── 050.tgs  # project source/resource
+│   │   │   │           ├── 051.tgs  # project source/resource
+│   │   │   │           ├── 052.tgs  # project source/resource
+│   │   │   │           ├── 053.tgs  # project source/resource
+│   │   │   │           └── 054.tgs  # project source/resource
+│   │   │   ├── styles/
+│   │   │   └── chat.html  # project source/resource
+│   │   ├── fonts/
+│   │   │   ├── bitdust2.ttf  # project source/resource
+│   │   │   ├── GOODTIME.ttf  # project source/resource
+│   │   │   ├── HandelGotD.ttf  # project source/resource
+│   │   │   ├── imagine_font.ttf  # project source/resource
+│   │   │   └── nasaliza.ttf  # project source/resource
+│   │   ├── profile/
+│   │   │   ├── user_danil_1793062249413731200.png  # project source/resource
+│   │   │   ├── user_danil_1794749430650207500.png  # project source/resource
+│   │   │   └── user_danil_1794749439248467500.png  # project source/resource
+│   │   ├── TECH-A/
+│   │   │   ├── panel/
+│   │   │   │   ├── MOD.svg  # project source/resource
+│   │   │   │   ├── OUT.svg  # project source/resource
+│   │   │   │   ├── PROV.svg  # project source/resource
+│   │   │   │   ├── SET.svg  # project source/resource
+│   │   │   │   └── VID.svg  # project source/resource
+│   │   │   ├── rotator/
+│   │   │   │   ├── 1x.png  # project source/resource
+│   │   │   │   ├── 1xx.png  # project source/resource
+│   │   │   │   ├── 1xxx.png  # project source/resource
+│   │   │   │   ├── 2x.png  # project source/resource
+│   │   │   │   ├── 3x.png  # project source/resource
+│   │   │   │   ├── pozition.png  # project source/resource
+│   │   │   │   └── rotator.ini  # project source/resource
+│   │   │   ├── 1x.png  # project source/resource
+│   │   │   ├── 1xx.png  # project source/resource
+│   │   │   ├── 1xxx.png  # project source/resource
+│   │   │   ├── 2cpucore1.png  # project source/resource
+│   │   │   ├── 2cpucore1str.png  # project source/resource
+│   │   │   ├── 2cpucore2.png  # project source/resource
+│   │   │   ├── 2cpucore2str.png  # project source/resource
+│   │   │   ├── 2x.png  # project source/resource
+│   │   │   ├── 3cpucore1.png  # project source/resource
+│   │   │   ├── 3cpucore1str.png  # project source/resource
+│   │   │   ├── 3cpucore2.png  # project source/resource
+│   │   │   ├── 3cpucore2str.png  # project source/resource
+│   │   │   ├── 3cpucore3.png  # project source/resource
+│   │   │   ├── 3cpucore3str.png  # project source/resource
+│   │   │   ├── 4cpucore1.png  # project source/resource
+│   │   │   ├── 4cpucore1str.png  # project source/resource
+│   │   │   ├── 4cpucore2.png  # project source/resource
+│   │   │   ├── 4cpucore2str.png  # project source/resource
+│   │   │   ├── 4cpucore3.png  # project source/resource
+│   │   │   ├── 4cpucore3str.png  # project source/resource
+│   │   │   ├── 4cpucore4.png  # project source/resource
+│   │   │   ├── 4cpucore4str.png  # project source/resource
+│   │   │   ├── 6cpucore1.png  # project source/resource
+│   │   │   ├── 6cpucore1str.png  # project source/resource
+│   │   │   ├── 6cpucore2.png  # project source/resource
+│   │   │   ├── 6cpucore2str.png  # project source/resource
+│   │   │   ├── 6cpucore3.png  # project source/resource
+│   │   │   ├── 6cpucore3str.png  # project source/resource
+│   │   │   ├── 6cpucore4.png  # project source/resource
+│   │   │   ├── 6cpucore4str.png  # project source/resource
+│   │   │   ├── 6cpucore5.png  # project source/resource
+│   │   │   ├── 6cpucore5str.png  # project source/resource
+│   │   │   ├── 6cpucore6.png  # project source/resource
+│   │   │   ├── 6cpucore6str.png  # project source/resource
+│   │   │   ├── animationdots1.png  # project source/resource
+│   │   │   ├── animationdots2.png  # project source/resource
+│   │   │   ├── animationdotsbig.png  # project source/resource
+│   │   │   ├── animationstring.png  # project source/resource
+│   │   │   ├── BG000.png  # project source/resource
+│   │   │   ├── BG1.png  # project source/resource
+│   │   │   ├── BG2.png  # project source/resource
+│   │   │   ├── BG3.png  # project source/resource
+│   │   │   ├── BG4.png  # project source/resource
+│   │   │   ├── BG5.png  # project source/resource
+│   │   │   ├── BG6.png  # project source/resource
+│   │   │   ├── BigAnimation.png  # project source/resource
+│   │   │   ├── CFG.png  # project source/resource
+│   │   │   ├── CHRM.png  # project source/resource
+│   │   │   ├── COMP.png  # project source/resource
+│   │   │   ├── CTRL.png  # project source/resource
+│   │   │   ├── DESK.png  # project source/resource
+│   │   │   ├── DOCS.png  # project source/resource
+│   │   │   ├── GAME.png  # project source/resource
+│   │   │   ├── Group.png  # project source/resource
+│   │   │   ├── TECH-A 1 CPU.ini  # project source/resource
+│   │   │   ├── TECH-A 2 CPU.ini  # project source/resource
+│   │   │   ├── TECH-A 3 CPU.ini  # project source/resource
+│   │   │   ├── TECH-A 4 CPU.ini  # project source/resource
+│   │   │   ├── TECH-A 6 CPU.ini  # project source/resource
+│   │   │   └── XPLR.png  # project source/resource
+│   │   ├── WEATHER/
+│   │   │   ├── 0.png  # project source/resource
+│   │   │   ├── 1.png  # project source/resource
+│   │   │   ├── 10.png  # project source/resource
+│   │   │   ├── 11.png  # project source/resource
+│   │   │   ├── 12.png  # project source/resource
+│   │   │   ├── 13.png  # project source/resource
+│   │   │   ├── 14.png  # project source/resource
+│   │   │   ├── 15.png  # project source/resource
+│   │   │   ├── 16.png  # project source/resource
+│   │   │   ├── 17.png  # project source/resource
+│   │   │   ├── 18.png  # project source/resource
+│   │   │   ├── 19.png  # project source/resource
+│   │   │   ├── 2.png  # project source/resource
+│   │   │   ├── 20.png  # project source/resource
+│   │   │   ├── 21.png  # project source/resource
+│   │   │   ├── 22.png  # project source/resource
+│   │   │   ├── 23.png  # project source/resource
+│   │   │   ├── 24.png  # project source/resource
+│   │   │   ├── 25.png  # project source/resource
+│   │   │   ├── 26.png  # project source/resource
+│   │   │   ├── 27.png  # project source/resource
+│   │   │   ├── 28.png  # project source/resource
+│   │   │   ├── 29.png  # project source/resource
+│   │   │   ├── 3.png  # project source/resource
+│   │   │   ├── 30.png  # project source/resource
+│   │   │   ├── 31.png  # project source/resource
+│   │   │   ├── 32.png  # project source/resource
+│   │   │   ├── 33.png  # project source/resource
+│   │   │   ├── 34.png  # project source/resource
+│   │   │   ├── 35.png  # project source/resource
+│   │   │   ├── 36.png  # project source/resource
+│   │   │   ├── 37.png  # project source/resource
+│   │   │   ├── 38.png  # project source/resource
+│   │   │   ├── 39.png  # project source/resource
+│   │   │   ├── 4.png  # project source/resource
+│   │   │   ├── 40.png  # project source/resource
+│   │   │   ├── 41.png  # project source/resource
+│   │   │   ├── 42.png  # project source/resource
+│   │   │   ├── 43.png  # project source/resource
+│   │   │   ├── 44.png  # project source/resource
+│   │   │   ├── 45.png  # project source/resource
+│   │   │   ├── 46.png  # project source/resource
+│   │   │   ├── 47.png  # project source/resource
+│   │   │   ├── 5.png  # project source/resource
+│   │   │   ├── 6.png  # project source/resource
+│   │   │   ├── 7.png  # project source/resource
+│   │   │   ├── 8.png  # project source/resource
+│   │   │   ├── 9.png  # project source/resource
+│   │   │   └── na.png  # project source/resource
+│   │   ├── Заставка/
+│   │   │   ├── 01/
+│   │   │   │   ├── 0.png  # project source/resource
+│   │   │   │   ├── 1.png  # project source/resource
+│   │   │   │   ├── 10.png  # project source/resource
+│   │   │   │   ├── 11.png  # project source/resource
+│   │   │   │   ├── 12.png  # project source/resource
+│   │   │   │   ├── 13.png  # project source/resource
+│   │   │   │   ├── 14.png  # project source/resource
+│   │   │   │   ├── 15.png  # project source/resource
+│   │   │   │   ├── 16.png  # project source/resource
+│   │   │   │   ├── 17.png  # project source/resource
+│   │   │   │   ├── 18.png  # project source/resource
+│   │   │   │   ├── 19.png  # project source/resource
+│   │   │   │   ├── 2.png  # project source/resource
+│   │   │   │   ├── 20.png  # project source/resource
+│   │   │   │   ├── 21.png  # project source/resource
+│   │   │   │   ├── 22.png  # project source/resource
+│   │   │   │   ├── 23.png  # project source/resource
+│   │   │   │   ├── 24.png  # project source/resource
+│   │   │   │   ├── 25.png  # project source/resource
+│   │   │   │   ├── 26.png  # project source/resource
+│   │   │   │   ├── 27.png  # project source/resource
+│   │   │   │   ├── 3.png  # project source/resource
+│   │   │   │   ├── 4.png  # project source/resource
+│   │   │   │   ├── 5.png  # project source/resource
+│   │   │   │   ├── 6.png  # project source/resource
+│   │   │   │   ├── 7.png  # project source/resource
+│   │   │   │   ├── 8.png  # project source/resource
+│   │   │   │   └── 9.png  # project source/resource
+│   │   │   ├── Anim/
+│   │   │   │   ├── 0.png  # project source/resource
+│   │   │   │   ├── 1.png  # project source/resource
+│   │   │   │   ├── 2.png  # project source/resource
+│   │   │   │   ├── 3.png  # project source/resource
+│   │   │   │   ├── 4.png  # project source/resource
+│   │   │   │   ├── 5.png  # project source/resource
+│   │   │   │   ├── 6.png  # project source/resource
+│   │   │   │   ├── 7.png  # project source/resource
+│   │   │   │   ├── 8.png  # project source/resource
+│   │   │   │   ├── 9.png  # project source/resource
+│   │   │   │   └── assets - Ярлык.lnk  # project source/resource
+│   │   │   ├── 001.png  # project source/resource
+│   │   │   └── 01.png  # project source/resource
+│   │   ├── chevron-down.svg  # project source/resource
+│   │   ├── close.svg  # project source/resource
+│   │   ├── jarvis.ico  # project source/resource
+│   │   ├── jarvis_off.png  # project source/resource
+│   │   ├── jarvis_on.png  # project source/resource
+│   │   ├── jarvis_on.svg  # project source/resource
+│   │   ├── pencil.svg  # project source/resource
+│   │   ├── pin.svg  # project source/resource
+│   │   ├── trash.svg  # project source/resource
+│   │   └── полноэкранный.svg  # project source/resource
+│   ├── tests/
+│   │   ├── __init__.py  # makes frontend tests discoverable by unittest
+│   │   ├── test_assistant_toggle_contract.py  # verifies sidebar assistant switch controls real voice runtime
+│   │   ├── test_voice_error_recovery_contract.py  # stale voice error label recovery regression
+│   │   └── test_voice_input.py  # test source
+│   ├── account_ui.py  # project source/resource
+│   ├── autostart.py  # project source/resource
+│   ├── chat_composer.py  # project source/resource
+│   ├── index.html  # project source/resource
+│   ├── jarvis_hud.py  # project source/resource
+│   ├── jarvis_ui.py  # PySide6 main window, HUD, chat, active-chat accent state, opaque delete confirmation and lazy camera selection
+│   ├── launch_jarvis.py  # Normal launcher/backend lifecycle owner; supports --calibrate-panels and --fullscreen
+│   ├── profile_dialog.py  # project source/resource
+│   ├── styles.css  # project source/resource
+│   ├── tech_a_animation.py  # project source/resource
+│   ├── toggle_switch.py  # project source/resource
+│   └── voice_input.py  # Separate Vosk push-to-talk dictation adapter
+├── jarvis_voice/
+│   ├── run-March-12-2026_01+13AM-0000000/
+│   │   ├── config.json  # structured data, metadata or configuration
+│   │   ├── events.out.tfevents.1773267226.DANIEL.22192.0  # project source/resource
+│   │   ├── train_tts.py  # project source/resource
+│   │   └── trainer_0_log.txt  # project source/resource
+│   ├── run-March-12-2026_01+16AM-0000000/
+│   │   ├── config.json  # structured data, metadata or configuration
+│   │   ├── events.out.tfevents.1773267377.DANIEL.37424.0  # project source/resource
+│   │   ├── events.out.tfevents.1793041128.DANIEL.34388.0  # project source/resource
+│   │   ├── events.out.tfevents.1793041160.DANIEL.41500.0  # project source/resource
+│   │   ├── events.out.tfevents.1793042093.DANIEL.32832.0  # project source/resource
+│   │   ├── events.out.tfevents.1793042143.DANIEL.39968.0  # project source/resource
+│   │   ├── events.out.tfevents.1793042951.DANIEL.43708.0  # project source/resource
+│   │   ├── train_tts.py  # project source/resource
+│   │   ├── train_vits.py  # project source/resource
+│   │   └── trainer_0_log.txt  # project source/resource
+│   └── run-March-12-2026_01+19AM-0000000/
+│       └── trainer_0_log.txt  # project source/resource
+├── packaging/
+│   ├── build_windows.ps1  # project source/resource
+│   ├── Jarvis-Assistant.iss  # project source/resource
+│   ├── jarvis-preview-small.bmp  # project source/resource
+│   ├── jarvis-preview.bmp  # project source/resource
+│   └── pyi_qt_runtime_hook.py  # project source/resource
+├── tools/
+│   ├── cloudflared/
+│   ├── audit_clean_audio_quality.py  # project source/resource
+│   ├── audit_dataset_with_whisper.py  # project source/resource
+│   ├── audit_gpt_sovits_storage.py  # project source/resource
+│   ├── audit_s1_labels.py  # project source/resource
+│   ├── build_augmented_s2_dataset.py  # project source/resource
+│   ├── build_whisper_filtered_datasets.py  # project source/resource
+│   ├── make_semantic_config.py  # project source/resource
+│   ├── prepare_clean_s1_dataset.py  # project source/resource
+│   ├── prepare_clean_s2_from_s1.py  # project source/resource
+│   ├── prepare_gpt_sovits_dataset.ps1  # project source/resource
+│   ├── prepare_online_voice_candidates.py  # project source/resource
+│   ├── prepare_s2_clean.ps1  # project source/resource
+│   ├── remove_old_training_artifacts.py  # project source/resource
+│   ├── remove_old_voice_training_artifacts.ps1  # project source/resource
+│   ├── remove_replaced_training_artifacts.py  # project source/resource
+│   ├── run_augmented_s2_training.cmd  # project source/resource
+│   ├── run_clean_s1_training.cmd  # project source/resource
+│   ├── run_online_feature_prepare.cmd  # project source/resource
+│   ├── run_online_sv_prepare.cmd  # project source/resource
+│   ├── run_online_text_prepare.cmd  # project source/resource
+│   ├── run_s1_aligned_with_s2_test.py  # project source/resource
+│   ├── run_s2_filtered_final_test.py  # project source/resource
+│   ├── run_s2_final_phrase_suite.py  # project source/resource
+│   ├── run_s2_final_test.py  # project source/resource
+│   ├── run_s2_seen_phrase_test.py  # project source/resource
+│   ├── summarize_whisper_audit.py  # project source/resource
+│   ├── test_s2_checkpoints.py  # project source/resource
+│   ├── transcribe_s2_final_test.py  # project source/resource
+│   ├── transcribe_s2_with_whisper.py  # project source/resource
+│   ├── transcribe_test_outputs.py  # project source/resource
+│   └── watch_gpt_sovits_s2.ps1  # project source/resource
+├── .gitignore  # project source/resource
+├── CHANGELOG.md  # project source/resource
+├── CONTRIBUTING.md  # project source/resource
+├── FIGMA_CHANGELOG.md  # project source/resource
+├── hey_jarvis.md  # project source/resource
+├── JarvisAssistant.spec  # project source/resource
+├── JarvisBackend.spec  # project source/resource
+├── LICENSE  # project source/resource
+├── README.md  # project source/resource
+└── ROADMAP.md  # project source/resource
+└── docs/project_map/  # generated technical passport and machine-readable tree; excluded from self-reference
+
+Excluded artifact summary:
+- backend/: 216 excluded large/dependency/generated files
+- data/: 12 excluded large/dependency/generated files
+- docs/: 1 excluded large/dependency/generated files
+- jarvis_voice/: 2 excluded large/dependency/generated files
+- root/: 3 excluded large/dependency/generated files
+- tools/: 1 excluded large/dependency/generated files

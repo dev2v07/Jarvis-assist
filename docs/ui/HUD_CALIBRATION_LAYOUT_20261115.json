@@ -1,0 +1,19 @@
+{
+  "status": "WIDGET_ACCEPTED",
+  "mode": "widget",
+  "source": "QSettings Jarvis/Jarvis Assist widget_settings.panel_positions",
+  "captured_at": "2026-11-15",
+  "coordinate_space": "fixed 710x710 HUD canvas",
+  "panels": {
+    "CHAT": {"x": 249, "y": 140, "angle": -22.0, "font_size": 8},
+    "AGENTS": {"x": 302, "y": 128, "angle": -4.0, "font_size": 8},
+    "FUNCTION": {"x": 351, "y": 129, "angle": 8.0, "font_size": 7},
+    "HISTORY": {"x": 411, "y": 143, "angle": 22.0},
+    "PROV": {"x": 232, "y": 548, "angle": 0.0},
+    "MOD": {"x": 291, "y": 548, "angle": 0.0},
+    "VID": {"x": 341, "y": 560, "angle": 0.0},
+    "SET": {"x": 391, "y": 549, "angle": 0.0},
+    "OUT": {"x": 468, "y": 548, "angle": 0.0}
+  },
+  "note": "Расстановка подтверждена пользователем для режима виджета. Верхние текстовые панели поддерживают перемещение и наклон колесом мыши. Нижние SVG-иконки поддерживают перемещение; угол для них текущей реализацией не меняется."
+}

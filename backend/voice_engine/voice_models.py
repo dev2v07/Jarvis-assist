@@ -143,6 +143,7 @@ class VoiceModelManager:
                 profile = "dean" if spec.model_id == "fish_dean" else "jarvis"
                 fish_ready, fish_config_error = self._fish_availability(profile)
                 profile_verified = fish_verified.get(profile, False)
+                profile_error = fish_error.get(profile, "")
                 item.update(
                     ready=fish_ready and profile_verified,
                     available=fish_ready,
@@ -152,9 +153,10 @@ class VoiceModelManager:
                     message=(
                         "Fish Audio API проверен в текущем процессе"
                         if profile_verified
-                        else "API-ключ найден; первый синтез проверит доступность Fish Audio"
-                        if fish_ready
-                        else fish_config_error or fish_error or "Fish Audio недоступен"
+                        else profile_error
+                        or ("API-ключ найден; первый синтез проверит доступность Fish Audio" if fish_ready else "")
+                        or fish_config_error
+                        or "Fish Audio недоступен"
                     ),
                 )
             item["selected"] = spec.model_id == selected_id
@@ -178,6 +180,11 @@ class VoiceModelManager:
         try:
             import requests
 
+            try:
+                fish_timeout = max(5, min(90, int(os.getenv("JARVIS_FISH_TTS_TIMEOUT", "20"))))
+            except (TypeError, ValueError):
+                fish_timeout = 20
+
             response = requests.post(
                 "https://api.fish.audio/v1/tts",
                 headers={
@@ -190,7 +197,10 @@ class VoiceModelManager:
                     "reference_id": reference_id,
                     "format": "wav",
                 },
-                timeout=(10, 90),
+                # Keep a provider outage from blocking the voice worker for
+                # the general LLM timeout. The selected Fish profile remains
+                # authoritative; this is only a bounded failure window.
+                timeout=(8, fish_timeout),
             )
             response.raise_for_status()
             if not response.content:
@@ -202,6 +212,11 @@ class VoiceModelManager:
         except Exception as error:
             with self._lock:
                 self._fish_error[profile] = str(error)
+                # A previous successful inference must not keep the profile
+                # advertised as ready after the current request failed.
+                # The selected profile remains Fish; this only makes health
+                # status factual until the next successful inference.
+                self._fish_verified[profile] = False
             raise RuntimeError(f"Fish Audio synthesis failed: {error}") from error
 
     def close(self) -> None:

@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "data" / "voice_responses"
+OUT = ROOT / "data" / "Bible" / "materials" / "voice_responses"
 
 
 def phrases(*items: str) -> list[str]:

@@ -133,6 +133,7 @@ class LocalLLMService:
             "HEL_OLLAMA_BASE_URL": self.ollama_base_url,
             "HEL_OLLAMA_MODEL": self.ollama_model,
             "HEL_OLLAMA_THINK": str(self.ollama_think).lower(),
+            "HEL_OLLAMA_KEEP_ALIVE": self._getenv("HEL_OLLAMA_KEEP_ALIVE", "-1"),
             "HEL_OPENAI_BASE_URL": self.openai_base_url,
             "HEL_OPENAI_MODEL": self.openai_model,
             "HEL_OPENAI_API_KEY": self.openai_api_key,
@@ -253,6 +254,53 @@ class LocalLLMService:
         _cache[key] = response
 
         return response
+
+    async def warmup_ollama(self) -> dict[str, str | bool]:
+        """Load the configured Ollama model once without writing chat history."""
+        if self.provider != "ollama":
+            return {"ok": False, "status": "skipped", "provider": self.provider}
+
+        config = self._provider_config()
+        config.update(
+            {
+                "HEL_LLM_MAX_RETRIES": "0",
+                "HEL_LLM_REQUEST_TIMEOUT": "20",
+                "HEL_OLLAMA_NUM_PREDICT": "16",
+                "HEL_OLLAMA_KEEP_ALIVE": self._getenv("HEL_OLLAMA_KEEP_ALIVE", "-1"),
+            }
+        )
+        adapter = build_provider_adapter("ollama", config)
+        try:
+            response = await asyncio.to_thread(
+                adapter.chat,
+                [{"role": "user", "content": "Ответь одним словом: готов."}],
+                "Ответь одним словом и не добавляй объяснений.",
+            )
+        except ProviderError as exc:
+            logger.warning("ollama_warmup_failed", extra={"error_type": type(exc).__name__})
+            return {
+                "ok": False,
+                "status": "failed",
+                "provider": "ollama",
+                "model": self.ollama_model,
+                "error_type": type(exc).__name__,
+            }
+        except Exception as exc:
+            logger.warning("ollama_warmup_failed", extra={"error_type": type(exc).__name__})
+            return {
+                "ok": False,
+                "status": "failed",
+                "provider": "ollama",
+                "model": self.ollama_model,
+                "error_type": type(exc).__name__,
+            }
+
+        return {
+            "ok": True,
+            "status": "ready",
+            "provider": "ollama",
+            "model": response.model or self.ollama_model,
+        }
 
     async def chat_stream(
         self,

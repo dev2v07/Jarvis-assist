@@ -1,0 +1,19 @@
+{
+  "status": "DRAFT_TEXT_SIZE_REVIEW",
+  "mode": "fullscreen",
+  "source": "QSettings Jarvis/Jarvis Assist widget_settings.panel_positions_by_mode.fullscreen",
+  "captured_at": "2026-11-15",
+  "coordinate_space": "fixed 710x710 HUD canvas; fullscreen validation pending",
+  "panels": {
+    "AGENTS": {"x": 301, "y": 127, "angle": -4.0, "font_size": 7},
+    "CHAT": {"x": 250, "y": 139, "angle": 0.0, "font_size": 11},
+    "FUNCTION": {"x": 351, "y": 128, "angle": 8.0, "font_size": 8},
+    "HISTORY": {"x": 411, "y": 143, "angle": 22.0, "font_size": 8},
+    "MOD": {"x": 283, "y": 553, "angle": 0.0},
+    "OUT": {"x": 445, "y": 534, "angle": 0.0},
+    "PROV": {"x": 233, "y": 529, "angle": 0.0},
+    "SET": {"x": 393, "y": 555, "angle": 0.0},
+    "VID": {"x": 339, "y": 560, "angle": 0.0}
+  },
+  "note": "Текущий снимок fullscreen-профиля синхронизирован с QSettings. Пользовательская проверка размера текста ещё не завершена; MOD и OUT используют базовые координаты до отдельной фиксации. Координаты виджетного режима сюда не копируются."
+}

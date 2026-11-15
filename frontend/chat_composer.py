@@ -275,7 +275,10 @@ class ChatComposer(QWidget):
     reply_cleared = Signal()
     voice_requested = Signal()
     voice_cancel_requested = Signal()
+    voice_chat_requested = Signal()
+    voice_chat_stop_requested = Signal()
     emote_requested = Signal()
+    tool_requested = Signal(str)
 
     def __init__(self, asset_root: Path, accent: str, parent=None):
         super().__init__(parent)
@@ -298,9 +301,10 @@ class ChatComposer(QWidget):
             f"QWidget#chatComposer {{ background: transparent; }}"
             f"QFrame#attachmentsPreview {{ background: transparent; border: none; }}"
             f"QWidget#attachmentsContent {{ background: transparent; }}"
-            f"QToolButton#attachBtn, QToolButton#emojiBtn, QToolButton#voiceBtn {{ background: transparent; border: none; color: #9aa4b2; padding: 0; border-radius: 6px; }}"
-            f"QToolButton#attachBtn:hover, QToolButton#emojiBtn:hover, QToolButton#voiceBtn:hover {{ background: rgba(255,255,255,0.08); color: #e0e0e0; }}"
+            f"QToolButton#attachBtn, QToolButton#emojiBtn, QToolButton#voiceBtn, QToolButton#voiceChatBtn {{ background: transparent; border: none; color: #9aa4b2; padding: 0; border-radius: 6px; }}"
+            f"QToolButton#attachBtn:hover, QToolButton#emojiBtn:hover, QToolButton#voiceBtn:hover, QToolButton#voiceChatBtn:hover {{ background: rgba(255,255,255,0.08); color: #e0e0e0; }}"
             f"QToolButton#voiceBtn[recording=\"true\"] {{ background: {self.accent}; color: #071116; border-radius: 8px; font-size: 16px; font-weight: 700; }}"
+            f"QToolButton#voiceChatBtn[active=\"true\"] {{ background: {self.accent}; color: #071116; border-radius: 8px; font-weight: 700; }}"
         )
         root = QVBoxLayout(self)
         root.setContentsMargins(0, 0, 0, 0)
@@ -412,6 +416,14 @@ class ChatComposer(QWidget):
         self._voice_pulse.setDuration(620)
         self._voice_pulse.setLoopCount(-1)
         self._voice_pulse.valueChanged.connect(self._set_voice_icon_size)
+        self.voice_chat_button = QToolButton()
+        self.voice_chat_button.setObjectName("voiceChatBtn")
+        self.voice_chat_button.setText("◉")
+        self.voice_chat_button.setFixedSize(34, 44)
+        self.voice_chat_button.setAccessibleName("Голосовой чат")
+        self.voice_chat_button.setToolTip("Голосовой чат в этом диалоге")
+        self.voice_chat_button.clicked.connect(self._toggle_voice_chat)
+        layout.addWidget(self.voice_chat_button)
         self.send_button = QPushButton("➤")
         self.send_button.setObjectName("sendBtn")
         self.send_button.setText("")
@@ -437,6 +449,7 @@ class ChatComposer(QWidget):
         self._normal_send_icon = QIcon(str(self.asset_root / "icons" / "отправка.svg"))
         self._sending = False
         self._voice_recording = False
+        self._voice_chat_active = False
         self.installEventFilter(self)
         self.voice_visualizer.installEventFilter(self)
 
@@ -509,6 +522,21 @@ class ChatComposer(QWidget):
             self._voice_glow.setBlurRadius(0)
             self._voice_glow.setEnabled(False)
             self.voice_button.setIconSize(QSize(22, 22))
+
+    def _toggle_voice_chat(self):
+        if self._voice_chat_active:
+            self.voice_chat_stop_requested.emit()
+        else:
+            self.voice_chat_requested.emit()
+
+    def set_voice_chat_active(self, active: bool, status: str = ""):
+        self._voice_chat_active = bool(active)
+        self.voice_chat_button.setProperty("active", self._voice_chat_active)
+        self.voice_chat_button.style().unpolish(self.voice_chat_button)
+        self.voice_chat_button.style().polish(self.voice_chat_button)
+        self.voice_chat_button.setText("■" if self._voice_chat_active else "◉")
+        self.voice_chat_button.setToolTip(status or ("Завершить голосовой чат" if self._voice_chat_active else "Голосовой чат в этом диалоге"))
+        self.voice_button.setEnabled(not self._voice_chat_active)
 
     def _set_voice_icon_size(self, value):
         if self._voice_recording:
@@ -587,6 +615,12 @@ class ChatComposer(QWidget):
         photo_action = menu.addAction(QIcon(str(icon_root / "image.svg")), "Фото или видео")
         document_action = menu.addAction(QIcon(str(icon_root / "document.svg")), "Документ")
         music_action = menu.addAction(QIcon(str(icon_root / "audio.svg")), "Музыка")
+        menu.addSeparator()
+        tools_label = menu.addSection("ИНСТРУМЕНТЫ И ИНТЕГРАЦИИ")
+        control_action = menu.addAction("Контроль ПК")
+        browser_action = menu.addAction("Контроль браузера")
+        figma_action = menu.addAction("Подключение к Figma")
+        plugins_action = menu.addAction("Плагины")
         menu.adjustSize()
         anchor = self.attach_button.mapToGlobal(self.attach_button.rect().topLeft())
         chosen = menu.exec(anchor - QPoint(0, menu.sizeHint().height() + 8))
@@ -597,6 +631,15 @@ class ChatComposer(QWidget):
         elif chosen is music_action:
             filter_text = "Аудио (*.mp3 *.wav *.flac *.ogg *.m4a *.aac)"
         else:
+            tool_map = {
+                control_action: "control_windows",
+                browser_action: "browser",
+                figma_action: "figma",
+                plugins_action: "plugins",
+            }
+            tool = tool_map.get(chosen)
+            if tool:
+                self.tool_requested.emit(tool)
             return
         paths, _ = QFileDialog.getOpenFileNames(self, "Прикрепить файлы", "", filter_text)
         for path in paths:

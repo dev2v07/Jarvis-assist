@@ -14,6 +14,7 @@ class Agent:
         self.bus.register_agent(name)
 
         self._task: asyncio.Task | None = None
+        self._lifecycle_task: asyncio.Task | None = None
         self._running = False
 
 
@@ -46,6 +47,17 @@ class Agent:
                 await self._task
             except asyncio.CancelledError:
                 pass
+            finally:
+                self._task = None
+
+        if self._lifecycle_task:
+            self._lifecycle_task.cancel()
+            try:
+                await self._lifecycle_task
+            except asyncio.CancelledError:
+                pass
+            finally:
+                self._lifecycle_task = None
 
         on_stop = getattr(self, "on_stop", None)
         if on_stop:

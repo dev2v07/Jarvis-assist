@@ -142,6 +142,12 @@ class OllamaAdapter(_HttpAdapter):
     provider_name = "ollama"
 
     @property
+    def keep_alive(self) -> str | int:
+        """Return Ollama's duration or numeric indefinite keep-alive value."""
+        raw = str(self.config.get("HEL_OLLAMA_KEEP_ALIVE") or "15m").strip()
+        return -1 if raw == "-1" else raw
+
+    @property
     def base_url(self) -> str:
         return str(self.config.get("HEL_OLLAMA_BASE_URL") or self.config.get("base_url") or "").strip()
 
@@ -189,7 +195,7 @@ class OllamaAdapter(_HttpAdapter):
                 "messages": self._messages(messages, system_prompt),
                 "stream": False,
                 "think": think,
-                "keep_alive": "15m",
+                "keep_alive": self.keep_alive,
                 "options": options,
             },
             timeout=self.timeout,
@@ -225,7 +231,7 @@ class OllamaAdapter(_HttpAdapter):
                     "messages": self._messages(messages, system_prompt),
                     "stream": True,
                     "think": think,
-                    "keep_alive": "15m",
+                    "keep_alive": self.keep_alive,
                     "options": options,
                 },
                 timeout=self.timeout,
