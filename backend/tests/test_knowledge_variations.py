@@ -13,23 +13,19 @@ BACKEND_DIR = Path(__file__).resolve().parents[1]
 
 class KnowledgeVariationsTest(unittest.TestCase):
     def setUp(self):
-        state = tempfile.NamedTemporaryFile(prefix="knowledge-variation-", suffix=".json", dir=Path(__file__).parent, delete=False)
-        state.close()
-        self.state_path = Path(state.name)
-        voice_state = tempfile.NamedTemporaryFile(prefix="voice-variation-", suffix=".json", dir=Path(__file__).parent, delete=False)
-        voice_state.close()
-        self.voice_state_path = Path(voice_state.name)
-        fixture = tempfile.NamedTemporaryFile(prefix="knowledge-reviewed-", suffix=".json", dir=Path(__file__).parent, delete=False)
-        fixture.close()
-        self.fixture_path = Path(fixture.name)
+        # Keep fixtures in a temporary directory instead of the test package:
+        # a failed assertion used to leave empty JSON files in backend/tests.
+        self._tmp = tempfile.TemporaryDirectory(prefix="knowledge-variations-")
+        self.addCleanup(self._tmp.cleanup)
+        root = Path(self._tmp.name)
+        self.state_path = root / "knowledge-variation-state.json"
+        self.voice_state_path = root / "voice-variation-state.json"
+        self.fixture_path = root / "knowledge-reviewed-fixture.json"
+        for path in (self.state_path, self.voice_state_path, self.fixture_path):
+            path.write_text("", encoding="utf-8")
         self.search = KnowledgeSearchService(BACKEND_DIR)
         self.search.variant_state_path = self.state_path
         self.search._local_responses.state_path = self.voice_state_path
-
-    def tearDown(self):
-        self.state_path.unlink(missing_ok=True)
-        self.voice_state_path.unlink(missing_ok=True)
-        self.fixture_path.unlink(missing_ok=True)
 
     def test_bible_manifest_is_the_canonical_source_registry(self):
         self.assertTrue(self.search.bible_manifest_path.is_file())
