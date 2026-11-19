@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -58,6 +59,11 @@ class ConversationalGroupsTest(unittest.TestCase):
 
     def test_good_morning_group_matches_with_regenerated_audio(self):
         service = LocalResponseService(ROOT / "backend")
+        # match() persists the rotation state; keep it out of the real runtime
+        # directory so running the suite never rewrites user state.
+        tmp = tempfile.TemporaryDirectory(prefix="conversational-groups-")
+        self.addCleanup(tmp.cleanup)
+        service.state_path = Path(tmp.name) / "selection_state.json"
         match = service.match("Доброе утро")
         self.assertIsNotNone(match)
         self.assertEqual(match.intent_id, "greetings_002")
