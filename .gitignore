@@ -96,3 +96,6 @@ data/*.sqlite3-shm
 
 # Generated full-library export (reproducible from data/Bible)
 docs/knowledge/quality/export/
+
+# Runtime rotation state (rewritten while the assistant talks)
+data/Bible/index/runtime/
