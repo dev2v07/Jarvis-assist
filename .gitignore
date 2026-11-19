@@ -75,3 +75,18 @@ data/applications.json
 .vscode/
 Thumbs.db
 .DS_Store
+
+# Local safety copies, runtime traces and temp lock files
+*.bak
+*.env.bak
+~$*
+docs/project_map/*.pre-*.docx
+docs/runtime/diagnostics/phase5-backups/
+docs/runtime/diagnostics/*.log
+docs/runtime/diagnostics/*.jsonl
+docs/runtime/diagnostics/*.png
+
+# Temporary state files left behind by test_knowledge_variations.py
+backend/tests/knowledge-reviewed-*.json
+backend/tests/knowledge-variation-*.json
+backend/tests/voice-variation-*.json

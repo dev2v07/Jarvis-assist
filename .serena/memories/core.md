@@ -1,0 +1,21 @@
+# Jarvis project map
+
+- Product: local Windows AI assistant with PySide6 desktop UI, FastAPI backend, text chat, voice runtime, agents, knowledge catalogs, and optional account/cloud boundary.
+- Composition root: backend/main.py; HTTP app is FastAPI("Jarvis Backend"), default local bind 127.0.0.1:8000, run via uvicorn.
+- Desktop entry: frontend/launch_jarvis.py; owns one interpreter, starts or reuses compatible backend, waits on /health, then imports frontend/jarvis_ui.py.
+- Core flow: UI -> HTTP/WebSocket -> FastAPI -> services/agents -> ChatStore and knowledge/LLM/voice paths.
+- Major source areas:
+  - backend/agents/: planner, executor, critic, file/network/web/vision/voice/memory/backup/performance/game/social/policy/self-check agents.
+  - backend/services/: chat, runtime/provider, knowledge, voice, storage, account-adjacent and device/application services.
+  - backend/voice_engine/: STT/VAD/TTS/wakeword and voice-library tooling.
+  - backend/account/: local account/domain/sync client boundary.
+  - backend/account_server/: separately constructible FastAPI/PostgreSQL auth service; not imported by normal backend/main.py.
+  - frontend/: PySide6 HUD/window, chat composer, voice input/overlay, account UI, autostart.
+  - core/: legacy/simple API files plus shared contracts/message bus.
+  - data/: voice responses, offline knowledge, structured knowledge3, filesystem index/cache.
+- Knowledge invariant: KnowledgeSearchService is the logical facade over voice_responses, offline_knowledge, and knowledge3; physical roots must not be merged casually.
+- Storage invariant: jarvis_state.sqlite3 (chat/application state), jarvis.sqlite3 (request/history or legacy store), account_system/account_state.sqlite3 (account/device/session metadata), and data/filesystem_index.db are separate bounded contexts.
+- Voice invariant: command route precedes conversation/knowledge route; preferred live path is faster-whisper + Silero VAD when available, with Vosk fallback; TTS is serialized through the voice queue.
+- Current risk boundaries: live microphone/STT/TTS acceptance, port-8000 process ownership, database overlap audit, account server deployment/auth lifecycle, and legacy wakeword/UI Vosk contract are not fully proven.
+- Detailed architecture decisions: docs/architecture/audits/JARVIS_ARCHITECTURE_AUDIT.md. Current work queues: docs/HANDOFF_ASSIST.md and docs/HANDOFF.md.
+- Related focused memories: mem:tech_stack, mem:suggested_commands, mem:conventions, mem:task_completion, mem:backend/core, mem:frontend/core.

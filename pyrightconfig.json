@@ -1,0 +1,23 @@
+{
+  "include": [
+    "backend",
+    "frontend",
+    "core"
+  ],
+  "exclude": [
+    "**/__pycache__",
+    "**/build",
+    "**/dist",
+    "**/node_modules",
+    "**/.venv",
+    "**/venv",
+    "backend/jarvis_env",
+    "backend/device_env",
+    ".tmp_*",
+    "_docx_render_overlay"
+  ],
+  "venvPath": "backend",
+  "venv": "jarvis_env",
+  "pythonVersion": "3.11",
+  "typeCheckingMode": "basic"
+}
