@@ -20,10 +20,10 @@ class BiblePhysicalConsolidationTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[2]
         library = root / "data" / "Bible" / "library"
         catalog = json.loads((root / "data" / "Bible" / "index" / "library_catalog.json").read_text(encoding="utf-8"))
-        self.assertEqual(catalog["record_count"], 7250)
+        self.assertEqual(catalog["record_count"], 7233)
         self.assertEqual(json.loads((library / "CPU" / "catalog.json").read_text(encoding="utf-8"))["record_count"], 52)
         self.assertEqual(json.loads((library / "Computer" / "catalog.json").read_text(encoding="utf-8"))["record_count"], 384)
-        self.assertEqual(json.loads((library / "Responses" / "catalog.json").read_text(encoding="utf-8"))["record_count"], 246)
+        self.assertEqual(json.loads((library / "Responses" / "catalog.json").read_text(encoding="utf-8"))["record_count"], 229)
         self.assertFalse((root / "data" / "Bible" / "knowledge").exists())
         self.assertFalse((root / "data" / "Bible" / "sources").exists())
 

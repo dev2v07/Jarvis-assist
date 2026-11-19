@@ -83,6 +83,9 @@ class KnowledgeSearchService:
         self.audio_lessons_path = source_path("knowledge3_audio_lessons", "data/knowledge3/audio/lessons.json")
         self.mixing_path = source_path("knowledge3_mixing", "data/knowledge3/mixing/catalog.json")
         self.daw_path = source_path("knowledge3_daw", "data/knowledge3/daw/catalog.json")
+        self.self_learning_path = source_path(
+            "self_learning", "data/Bible/.internal/sources/self_learning/catalog.json"
+        )
         self.variant_state_path = runtime_path(Path(backend_dir), "variant_selection_state.json")
         self.legacy_variant_state_path = root / "data" / "knowledge3" / "variant_selection_state.json"
         # Keep the last three choices blocked. This prevents immediate and
@@ -130,6 +133,7 @@ class KnowledgeSearchService:
             (self.mixing_path, "cards", "knowledge3", "mixing", "title"),
             (self.daw_path, "cards", "knowledge3", "daw", "title"),
             (self.music_reference_path, "artists", "knowledge3", "music_reference", "name"),
+            (self.self_learning_path, "entries", "self_learning", "self_learning", "title"),
         )
         project_root = self.project_root
         for path, key, namespace, kind, title_key in specs:
@@ -250,7 +254,8 @@ class KnowledgeSearchService:
         else:
             key = {"topic": "topics", "intent": "intents", "guitar": "models",
                    "psychology": "cards", "literature": "works", "plugin": "products",
-                   "mixing": "cards", "daw": "cards", "music_reference": "artists"}.get(record["kind"])
+                   "mixing": "cards", "daw": "cards", "music_reference": "artists",
+                   "self_learning": "entries"}.get(record["kind"])
             rows = payload.get(key, []) if key and isinstance(payload, dict) else []
         index = record["source_index"]
         return {"record": record, "content": rows[index]} if 0 <= index < len(rows) else None
@@ -333,6 +338,12 @@ class KnowledgeSearchService:
         self._append_cards(results, needle, mixing.get("cards", []) if isinstance(mixing, dict) else [], "mixing", ("title", "summary", "topics", "text", "variant_kind"), 0.88)
         daw = self._read(self.daw_path, {})
         self._append_cards(results, needle, daw.get("cards", []) if isinstance(daw, dict) else [], "daw", ("title", "summary", "topics"), 0.87)
+        self_learning = self._read(self.self_learning_path, {})
+        self._append_cards(
+            results, needle,
+            self_learning.get("entries", []) if isinstance(self_learning, dict) else [],
+            "self_learning", ("title", "summary", "content", "facts", "steps"), 0.72,
+        )
         results.sort(key=lambda item: item.get("score", 0), reverse=True)
         # For multi-topic requests, keep the strongest result from each module
         # visible before filling the remaining slots by score.
@@ -568,20 +579,7 @@ class KnowledgeSearchService:
 
     def _conversational_answer(self, query: str) -> dict | None:
         """Resolve instant speech through the existing, rotation-aware matcher."""
-        # The curated source currently has a ``mood_010`` row for "что
-        # нового", but its ready responses are copied from the separate
-        # "как дела" intent.  Keep the source untouched while it is curated
-        # manually and prevent that stale row from returning a wrong answer.
-        # These queries continue through the normal conversational/LLM path.
         normalized = normalize(query)
-        if normalized in {
-            "что нового",
-            "что у тебя нового",
-            "у тебя что нового",
-            "что нового у тебя",
-            "какие новости",
-        }:
-            return None
         match = self._local_responses.match(query, {"instant"})
         if match is None:
             return None
@@ -591,7 +589,7 @@ class KnowledgeSearchService:
             "title": match.intent_id,
             "answer": match.text,
             "score": match.score,
-            "audio_path": str(match.audio_path),
+            "audio_path": str(match.audio_path) if match.audio_path else None,
             "audio_variant": None,
             "sources": [str(self.conversational_path.relative_to(self.project_root)).replace("\\", "/")],
         }

@@ -16,7 +16,7 @@ class LocalResponseMatch:
     intent_id: str
     intent_class: str
     text: str
-    audio_path: Path
+    audio_path: Path | None
     score: float
 
 
@@ -134,13 +134,21 @@ class LocalResponseService:
             if best_intent is None or best_score < 0.72:
                 return None
             previous = self._state.get(best_intent["id"], [])
+            # Text-only entries (restructured conversational groups) have no
+            # pre-generated WAV yet; they still answer through the selected
+            # TTS voice. Audio-backed entries keep the existing readiness gate.
             ready = [
                 item for item in best_intent.get("responses", [])
                 if item.get("status") == "ready"
-                and item.get("generation_status", "AUDIO_READY") == "AUDIO_READY"
                 and item.get("enabled", True) is not False
+                and (
+                    item.get("text_only") is True
+                    or (
+                        item.get("generation_status", "AUDIO_READY") == "AUDIO_READY"
+                        and self._audio_path(str(item.get("wav", ""))).is_file()
+                    )
+                )
             ]
-            ready = [item for item in ready if self._audio_path(str(item.get("wav", ""))).is_file()]
             if not ready:
                 return None
             # Prefer a full-cycle rotation.  The old two-item window still
@@ -166,7 +174,7 @@ class LocalResponseService:
                 intent_id=best_intent["id"],
                 intent_class=str(best_intent.get("class", "instant")),
                 text=str(selected.get("text", "")),
-                audio_path=self._audio_path(str(selected["wav"])),
+                audio_path=self._audio_path(str(selected["wav"])) if selected.get("wav") else None,
                 score=best_score,
             )
 

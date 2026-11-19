@@ -85,7 +85,11 @@ class KnowledgeVariationsTest(unittest.TestCase):
         self.assertEqual(offline["record"]["source_location"], "data/Bible/.internal/sources/offline_knowledge/catalog.json")
         self.assertEqual(offline["content"]["id"], "offline_0002_intel_8086")
         legacy = self.search.get("offline:topic:offline_0001_topic_0001")
-        self.assertEqual(legacy["record"]["recorded_status"], "VERIFIED")
+        # Source-less legacy topics were normalized on 2026-11-18: the old
+        # VERIFIED label is preserved as legacy_status, the effective status
+        # is RESEARCH_REQUIRED.
+        self.assertEqual(legacy["record"]["recorded_status"], "RESEARCH_REQUIRED")
+        self.assertEqual(legacy["content"]["legacy_status"], "VERIFIED")
         if not legacy["content"].get("sources"):
             self.assertEqual(legacy["record"]["content_status"], "RESEARCH_REQUIRED")
         voice = self.search.get("voice:intent:greetings_001")
@@ -106,9 +110,15 @@ class KnowledgeVariationsTest(unittest.TestCase):
         self.assertFalse(unsourced.get("sources"))
         self.assertIsNone(self.search.answer(unsourced["title"]))
 
-    def test_news_question_does_not_reuse_how_are_you_response(self):
+    def test_news_question_uses_dedicated_news_group(self):
+        # The six restructured conversational groups replaced the old
+        # copy-pasted "what's new" block; the answer must come from the news
+        # group and must not reuse a "how are you" reply.
         answer = self.search.answer("Что нового?")
-        self.assertIsNone(answer)
+        self.assertIsNotNone(answer)
+        self.assertEqual(answer["id"], "mood_010")
+        self.assertEqual(answer["source"], "conversational")
+        self.assertNotIn("как дела", str(answer["answer"]).lower())
 
     def test_model_context_excludes_unsourced_legacy_cards(self):
         bundle = self.search.context_bundle("что такое Intel 8086", 6)

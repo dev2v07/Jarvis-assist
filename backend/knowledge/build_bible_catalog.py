@@ -13,11 +13,12 @@ ROOT = Path(__file__).resolve().parents[2]
 BIBLE = ROOT / "data" / "Bible"
 
 GROUP_BY_KIND = {
-    "topic": "Computer", "conversational": "Responses",
+    "topic": "Computer", "conversational": "Responses", "intent": "Responses",
     "programming_lesson": "Programming", "voice_production": "Audio",
     "guitar": "Music", "psychology": "Psychology", "literature": "Literature",
     "audio_lesson": "Audio", "plugin": "Audio", "mixing": "Audio", "daw": "Audio",
     "local_track": "Music", "local_artist": "Music", "local_album": "Music",
+    "self_learning": "Self Learning",
 }
 
 
