@@ -3,6 +3,39 @@
 Этот файл относится только к аудиту и стабилизации голосового Assist. Основной
 `docs/HANDOFF.md` не изменяется в рамках Assist-задач.
 
+## Контрольная точка 2026-11-19 — команды, конец речи и chat routing
+
+- исправлен ложный маршрут текстового запроса «составь мне контент план по теме
+  музыка»: планировщик открывает медиасервисы только при явном глаголе действия;
+- устранён конфликт `music` / `open_music_service` для команды «открой яндекс
+  музыку»; добавлен отдельный `close_browser` с фактическим закрытием известных
+  Windows-браузеров и пользовательским результатом;
+- «выключи пк» подтверждён как `shutdown` и по-прежнему требует отдельного
+  голосового «да»; smoke-проверка не выполняла выключение компьютера;
+- добавлены фразы «открой проводник» для открытия «Этот компьютер» и
+  «закрой проводник/компьютер» для закрытия только окон Explorer через
+  `Shell.Application`; процесс оболочки и панель задач не завершаются;
+- Vosk/Silero теперь ждёт около 1 секунды тишины вместо 0,5 секунды, чтобы не
+  отправлять в модель недослушанную фразу; добавлена узкая контекстная коррекция
+  двух фактически наблюдавшихся вариантов «процессоры пинбол/игнатову» в
+  «процессоры интел»;
+- отдельно произнесённое «Jarvis» теперь всегда получает WAV «Да, сэр», даже
+  внутри уже открытого follow-up окна; режим включается только из `SLEEP`, а в
+  `ACTIVE` лишь обновляется окно следующей реплики. Наблюдавшееся Vosk-слово
+  «обвес» принимается только как отдельная wake-фраза, но не внутри предложения;
+- ограничивающая grammar Vosk не использована: она заужает свободный словарь и
+  может вернуть `[unk]` для обычного разговора;
+- текущий `/voice/status` активного backend: `vosk-silero`, выбран
+  `fish_jarvis`, `tts_available=true`, Fish inference verified, `last_error` пуст;
+  историческую ошибку генерации без текста/лога воспроизвести не удалось,
+  автоматический повтор платного Fish-запроса не добавлялся;
+- проверка: 116 backend unittest — OK; отдельные function-regressions для
+  response router/planner — OK. Общий `compileall backend frontend core`
+  блокируют существующие несвязанные `IndentationError` в двух генераторах
+  Knowledge 3.0 и повреждённый vendor test в `backend/device_env`.
+- ручная проверка реального микрофона после перезапуска остаётся обязательной:
+  «процессоры Интел», три команды из отчёта и один ответ Fish Audio.
+
 ## Очередь 0249 — семантические вариации voice_responses
 
 Дата: 2026-11-15
@@ -4424,7 +4457,7 @@ Documentation Update:
 Documentation Update:
 - HANDOFF: **UPDATED**
 - PROJECT MAP DOCX: **PENDING CURRENT TURN**
-- PROJECT TREE TXT: **NO STRUCTURAL CHANGE**
+- PROJECT TREE TXT: **UPDATED**
 
 ## Phase 4 — Bible maintenance freeze by owner — 2026-11-16
 
@@ -4436,7 +4469,499 @@ Documentation Update:
 - HANDOFF: **UPDATED**
 - PROJECT MAP DOCX: **NO CHANGE**
 - PROJECT TREE TXT: **NO CHANGE**
-- Причина: зафиксировано ограничение работ; дерево и архитектура не изменялись.
+
+## Phase 4 — waveform, speaking pulse, glow и стилизованный rename — 2026-11-16
+
+Waveform сделан компактным центральным индикатором `170×56`, с выраженной формой и реакцией на VAD. Пульсация ответа Ollama/Fish замедлена ещё на 50% (`2880 ms`), добавлено радиальное акцентное свечение вокруг Orb. Диалог переименования заменён на стилизованный `QInputDialog` в теме Jarvis. Для fullscreen restore после реального `show()` захватывается фактическая normal-геометрия окна.
+
+Проверка: frontend **20/20 PASS**, `py_compile` PASS, `git diff --check` PASS. Требуется ручной voice/fullscreen smoke.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+
+## Phase 4 — исправлены открепление и переименование закреплённых чатов — 2026-11-16
+
+Операции `Открепить` и `Переименовать` теперь работают с фактическим `QListWidget`, которому принадлежит выбранный item. Ранее обе функции обращались только к `chats_list`, поэтому для элемента из `pinned_chats_list` виджет не находился и API не вызывался.
+
+Проверка: frontend **20/20 PASS**, `py_compile` PASS, `git diff --check` PASS.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+
+## Phase 4 — зелёный индикатор ответов локальной библиотеки — 2026-11-16
+
+Status-dot теперь различает источник активного ответа: локальные маршруты `knowledge`, `library`, `conversational` и `instant` показываются зелёным `#32c875`, обычная активность — акцентным синим, ошибка — красным, offline — белым.
+
+Проверка: frontend **20/20 PASS**, `py_compile` PASS. Требуется ручной тест ответа из библиотеки и обычного ответа.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+
+## Phase 4 — синхронизация Voice Mode при fullscreen и компактный waveform — 2026-11-16
+
+Voice Mode теперь принудительно следует геометрии `chatFrame` при изменении размера shell, что устраняет старый полноэкранный размер Overlay после возврата в окно. Waveform над строкой диалога ограничен компактным центральным размером 220×48 и продолжает получать реальный уровень аудио/VAD.
+
+Проверка: frontend **20/20 PASS**, `py_compile` PASS, `git diff --check` PASS. Требуется ручной fullscreen/voice smoke.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+
+## Phase 4 — waveform речи, расширенные кольца и исходный размер окна — 2026-11-16
+
+Кольца вокруг Orb увеличены и отодвинуты, точки сделаны крупнее, сохранены три направления вращения и HUD-детали. Добавлено мягкое свечение шара. Над строкой текущего диалога появился акцентный waveform: backend передаёт уровень входного аудио из VAD, а Voice Mode меняет высоту палочек в реальном времени. Заголовок чата больше не фиксируется узкой шириной и отображает полное `JARVIS CHAT`. Fullscreen теперь всегда возвращает исходную launch-геометрию окна.
+
+Проверка: frontend **20/20 PASS**, backend voice runtime **10/10 PASS**, `py_compile` PASS, `git diff --check` PASS. Требуется ручной визуальный и голосовой smoke.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+
+## Phase 4 — доработка HUD-колец и восстановление нормального размера окна — 2026-11-16
+
+Status-dot закреплён непосредственно после текста `JARVIS CHAT` через фиксированный title-row. HUD-кольца расширены и отодвинуты от Orb; добавлены три акцентные точки, незамкнутый внутренний круг, утолщённые дуги среднего круга и пунктирная внешняя орбита. Восстановление после fullscreen теперь использует сохранённую нормальную геометрию и не принимает fullscreen-rectangle за обычный размер.
+
+Проверка: frontend **20/20 PASS**, `py_compile` PASS, `git diff --check` PASS. Нужен ручной визуальный smoke в окне пользователя.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+
+## Phase 4 — вращающиеся кольца Voice Mode — 2026-11-16
+
+Вокруг Orb добавлен отдельный прозрачный `_OrbRings`-слой с тремя акцентными кольцами. Направления вращения: внешнее — влево, среднее — вправо, внутреннее — влево. Кольца работают постоянно только пока открыт Voice Mode, скрываются при закрытии и не блокируют наведение/управление шаром.
+
+Проверка: `py_compile` PASS, frontend **20/20 PASS**, `git diff --check` PASS. Требуется ручная визуальная проверка композиции в Voice Mode.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+
+## Phase 4 — дополнительное замедление hover и speaking pulse — 2026-11-16
+
+Поворот Orb при наведении замедлен ещё вдвое до коэффициента `0.125`. Пульсация в состоянии `speaking` замедлена вдвое: длительность цикла увеличена с `720` до `1440 ms`; амплитуда и привязка к фактическому speaking-состоянию сохранены.
+
+Проверка: frontend contract suite и `py_compile` выполнены после изменения. Полный визуальный голосовой smoke требует ручной проверки в запущенном UI.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+ - Причина: зафиксировано ограничение работ; дерево и архитектура не изменялись.
+
+## Phase 4 — persistent SELF_LEARNING chat mode — 2026-11-16
+
+The existing chat `Самообучение` was resolved and bound by ID to
+`draft_be9284887ed24d029f02a611285f36e9` (the newer exact-title session with
+existing messages; an older empty duplicate was not selected). The binding is
+stored in the existing `data/jarvis_state.sqlite3` through the
+`chat_session_modes` table, so renaming the chat does not remove the mode and
+ordinary chats do not receive its instructions.
+
+`SELF_LEARNING` requests are handled by
+`backend/services/self_learning_service.py`. The service asks the configured
+LLM for a structured draft, preserves `user_provided` provenance, detects the
+same material by a stable content ID, writes only to the canonical Bible source
+tree at `data/Bible/.internal/sources/self_learning/catalog.json`, and invokes
+the existing `build_bible_catalog.py` path for the shared index. Drafts remain
+`NEEDS_REVIEW`; a provider failure or failed index rebuild is reported rather
+than presented as successful training. `KnowledgeSearchService` reads this
+source through the same catalog/search mechanism.
+
+The session API now exposes the persisted mode and the desktop chat list shows
+an actual `SELF-LEARNING` marker for that session. No second search service,
+database, model provider, or parallel library was introduced.
+
+Verification: temporary SQLite mode persistence and rename isolation — PASS;
+temporary Bible writer duplicate check — PASS (1 create, then 1 duplicate/update);
+Python compilation — PASS. A live provider-backed learning turn and the final
+production index rebuild still require a manual runtime check; no demonstration
+record was written to the production Bible.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- KNOWLEDGE ARCHITECTURE: **UPDATED**
+- PROJECT MAP DOCX: **UPDATED CURRENT TURN**
+- PROJECT TREE TXT: **UPDATED**
+
+## Phase 4 — fullscreen Orb, speaking latch и замедление вращения — 2026-11-16
+
+Исправлены текущие замечания Voice Mode/UI: fullscreen теперь использует `QScreen.availableGeometry()`, поэтому не перекрывает taskbar/Start и при выходе возвращает ограниченную исходную геометрию окна. В fullscreen Orb игнорирует сохранённые координаты калибровки и центрируется внутри `chatFrame`; при возврате к оконному режиму снова используются зафиксированные координаты. Заголовок чата получил компактный `status-dot` рядом с названием, а указатель поворота Orb замедлен ещё на 50% (`delta * 0.25`). Backend публикует время завершения последнего TTS/WAV, поэтому frontend удерживает состояние `speaking` 1.25 секунды и не пропускает статичный кадр `03 - говорит (2).png` при коротком ответе.
+
+Проверка: `py_compile` PASS; frontend suite **20/20 PASS** после обновления контрактного теста; backend voice runtime **10/10 PASS**; `git diff --check` PASS. Полный ручной fullscreen/voice smoke после перезапуска требует проверки в окне пользователя.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+
+## Voice Mode Orb — calibration and frame animation — 2026-11-16
+
+Добавлен отдельный launch-time режим `--calibrate-voice-orb`. В этом режиме Orb можно перетаскивать мышью и менять его квадратный размер за нижний правый угол; кнопка `Зафиксировать Orb` сохраняет положение и размер в `QSettings` (`voice_orb_x`, `voice_orb_y`, `voice_orb_size`) относительно `chatFrame`. При обычном запуске сохранённая геометрия восстанавливается и ограничивается границами контейнера чата.
+
+Покадровая анимация PNG снова включена: `PROCESSING` циклически использует 5 кадров `02 - обработка`, `SPEAKING` — 4 кадра `03 - говорит`, переходы выполняются crossfade. Самопроизвольное дыхание/перемещение отключено (`_MOTION_ENABLED = False`), чтобы после калибровки Orb оставался на зафиксированной точке. Существующая маршрутизация runtime phase в `_sync_voice_mode_overlay()` используется без отдельной голосовой системы.
+
+Проверено: `py_compile` PASS; frontend suite **20/20 PASS**. UI запускается task-owned с `--calibrate-voice-orb` для ручной настройки владельцем. Backend не изменялся и оставлен работающим на текущем task-owned endpoint.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+- Причина: изменено поведение существующих Voice Mode модулей, новые файлы не добавлялись.
+
+## Voice Mode Orb — ping-pong animation and hover treatment — 2026-11-16
+
+Анимация Orb переведена на заданные пользователем ping-pong-последовательности: `PROCESSING` использует индексы `1-2-3-4-5-4-3-2`, `SPEAKING` — `1-4-3-2-3-4`, после чего цикл повторяется. Переключение выполняется через более мягкий crossfade с увеличенным интервалом кадров.
+
+В `WAITING` добавлены медленная пульсация масштаба и акцентное cyan-свечение. При наведении Orb плавно увеличивается внутри фиксированного canvas и получает дополнительное свечение; сохранённая калибровочная позиция не меняется. Статусные надписи используют accent-цвет, радиус кнопки завершения диалога установлен в 15 px.
+
+Проверено: `py_compile` PASS; frontend suite **20/20 PASS**; `git diff --check` без ошибок содержимого. Требуется ручная визуальная проверка трёх состояний и hover.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+- Причина: изменены существующие Voice Mode-анимации и стили, новые файлы не добавлялись.
+
+## Voice Mode Orb — hover rotation, slower motion, and real speaking phase — 2026-11-16
+
+Добавлены требования последующей UI-проверки: в `WAITING` Orb остаётся увеличенным, пока курсор находится над ним; круговое движение мыши вокруг Orb накапливает плавный поворот изображения, а после ухода курсора поворот мягко возвращается к нулю. Пульсация и свечение теперь работают во всех трёх состояниях с разными темпами: ожидание медленное, обработка средняя, ответ активнее.
+
+Кадровые интервалы увеличены (`PROCESSING` 360 ms, `SPEAKING` 420 ms), crossfade между кадрами и между статусами сделан плавнее. В `SPEAKING` пульсация привязана к фактическому периоду голосового воспроизведения через backend-флаг `speaking`; frontend опрашивает `/voice/status` каждые 350 ms и приоритетно использует этот флаг. Backend теперь не возвращает фазу `слушаю` до завершения TTS, поэтому Orb не должен оставаться в ожидании во время фактического ответа. Статусная надпись использует только `#00aaff`, без жирности.
+
+Проверено: `py_compile` PASS; frontend suite **20/20 PASS**; backend `tests.test_voice_runtime_isolated` **10/10 PASS**; `git diff --check` без ошибок содержимого. Актуальный UI/backend перезапускаются после изменения для ручной проверки.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+- Причина: изменены существующие Voice Mode и voice runtime модули, новые файлы не добавлялись.
+
+## Chat status dot and Orb hover behavior — 2026-11-16
+
+В шапку `JARVIS CHAT` добавлена маленькая точка справа от названия. Она обновляется из `/voice/status`: `#00aaff` — Jarvis активен, `#ff3b4d` — backend сообщает ошибку, белый — backend недоступен или Jarvis выключен. У точки есть tooltip с пояснением состояния.
+
+Поворот Orb возвращён на обычное движение мыши при hover, без обязательного клика; скорость поворота снижена ещё на 50%. Увеличение при hover сохраняется до ухода курсора и не сбрасывается status polling. `SPEAKING` использует статичный `03 - говорит (2).png`, а голосовое состояние отображается pulse/glow-анимацией. Обработка продолжает работать с замедленным ping-pong циклом.
+
+Проверено: frontend suite **20/20 PASS**, `py_compile` PASS, `git diff --check` без ошибок содержимого. Требуется ручной smoke test точки статуса, hover и реального TTS.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+- Причина: изменены существующие Chat header и Voice Mode модули, новые файлы не добавлялись.
+
+## Voice Mode Orb — click-drag rotation and stable speaking state — 2026-11-16
+
+Поворот Orb в ожидании теперь активируется только удержанием левой или правой кнопки мыши; без клика движение курсора не вращает изображение. Hover сохраняет увеличенный размер до ухода курсора и больше не сбрасывается повторными status-poll вызовами. Обработка замедлена до 480 ms между кадрами.
+
+Для `SPEAKING` оставлен статичный кадр `03 - говорит (2).png`; голосовая активность продолжает отображаться плавной пульсацией масштаба и accent-свечением. Для стабильности `set_state()` больше не переинициализирует тот же статус на каждом `/voice/status` poll, а backend `speaking`/TTS-фаза остаются источником фактического периода ответа.
+
+Проверено: frontend suite **20/20 PASS**, backend voice runtime **10/10 PASS**, `py_compile` и Orb runtime smoke — PASS. После изменений UI/backend требуется штатный ручной голосовой smoke test.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+- Причина: изменены существующие Voice Mode и voice runtime модули, новые файлы не добавлялись.
+
+## Voice Mode Overlay с анимированным Orb — 2026-11-16
+
+Реализована визуальная оболочка голосового режима поверх существующего главного окна чата. Новый компонент `frontend/voice_mode_overlay.py` является дочерним `QFrame`, а не отдельным окном и не создаёт отдельную историю сообщений. Он открывается при запуске voice chat из composer и скрывается через тот же обработчик штатной остановки голосовой сессии.
+
+Подключены все 10 предоставленных PNG-кадров в `frontend/assets/CHAT/orb/`: один кадр ожидания, пять кадров обработки и четыре кадра речи. Переключение состояния использует реальные значения `voice_runtime.phase`, а не искусственные таймеры: `WAITING` отображает ожидание, фазы распознавания/уточнения/выполнения — `PROCESSING`, фазы TTS/речи — `SPEAKING`. Таймеры применяются только для покадровой анимации. Между кадрами используются два слоя с crossfade; добавлены дыхание, свечение и hover-усиление без остановки основной анимации.
+
+Overlay сохраняет общую сессию и ChatStore: кнопка «Завершить диалог» вызывает существующий `stop_voice_chat_from_composer`, поэтому новый storage или параллельный voice runtime не создаются. Backend и Knowledge/Bible в этой задаче не изменялись.
+
+Проверки: `py_compile` для overlay и `jarvis_ui.py` — PASS; offscreen smoke `ORB_SMOKE=PASS`; frontend contract suite — **19/19 PASS**. Реальное ручное прохождение микрофонного цикла и визуальная проверка всех переходов в живом окне пока не объявляются PASS и требуют отдельной проверки владельцем.
+
+Созданные файлы:
+- `frontend/voice_mode_overlay.py` — overlay и state-to-frame mapping;
+- `frontend/tests/test_voice_mode_overlay_contract.py` — контрактная проверка 10 ресурсов, состояний и интеграции;
+- `frontend/assets/CHAT/orb/` — 10 предоставленных PNG-файлов.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **UPDATED** — добавлены Voice Mode Overlay и ресурсы Orb
+- PROJECT TREE TXT: **UPDATED** — отражены новый модуль, тест и 10 PNG
+- JARVIS_RUNTIME_BUG_REGISTRY: **UPDATED**
+- Следующий шаг: ручной UI smoke с запуском voice chat, проверкой WAITING → PROCESSING → SPEAKING и остановкой без утечки микрофона.
+
+## Voice Mode Overlay — исправление геометрии и качества Orb — 2026-11-16
+
+Исправлена причина обрезанного и смещённого Orb. Ранее `orb_canvas` одновременно управлялся `QVBoxLayout` и вручную через `setGeometry()`, из-за чего layout и анимация геометрии конфликтовали. Дополнительно кадры повторно масштабировались из уже уменьшенного `QPixmap`, что ухудшало качество.
+
+Теперь layout управляет только выделенной областью Orb, а отдельный внутренний `orb_stage` центрируется внутри неё и используется для дыхательной анимации. Все кадры хранятся как исходные `QPixmap` и масштабируются заново от оригинала при каждом изменении размера. Сохранено ограничение максимального размера `560x560` и `KeepAspectRatio`, поэтому шар не выходит за границы и не обрезается.
+
+Проверки: frontend suite **19/19 PASS**; `py_compile` — PASS; offscreen layout smoke — PASS, фактический stage `560x560`, центрирован внутри canvas. UI перезапущен на актуальном коде; ручное открытие Voice Mode и визуальная оценка владельцем всё ещё нужны для окончательного визуального PASS.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE** — изменена реализация позиционирования внутри уже отражённого модуля, структура проекта не менялась
+- PROJECT TREE TXT: **NO CHANGE** — новых файлов и папок нет
+- Следующий шаг: открыть Voice Mode в живом UI и подтвердить центрирование, отсутствие обрезки и качество на текущем разрешении.
+
+## Voice Mode Overlay — восстановление видимости Orb и скругление окна — 2026-11-16
+
+После предыдущего исправления в живом окне был зафиксирован новый визуальный дефект: Orb не отображался, а фон Overlay оставался прямоугольным. Добавлен явный `_refresh_current_frame()` после показа Overlay, который повторно выставляет исходный кадр и pixmap после завершения layout-прохода. Добавлена offscreen-проверка непустого видимого pixmap.
+
+Фон Overlay теперь рисуется через `paintEvent` с антиалиасингом и скруглённым прямоугольником радиусом 24 px. Прозрачность оставлена на уровне окна, поэтому углы показывают существующий чат, а содержимое Overlay не получает прямоугольную чёрную подложку.
+
+Проверки: frontend suite **19/19 PASS**; `py_compile` — PASS; `ORB_VISIBLE_SMOKE=PASS`, stage `560x560`, pixmap непустой и видимый. Живая ручная оценка скругления и отображения шара после очередного запуска остаётся обязательной.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE** — новые файлы и архитектурные связи не появились
+- PROJECT TREE TXT: **NO CHANGE** — дерево проекта не изменилось
+- Следующий шаг: повторно открыть Voice Mode в живом окне и проверить Orb/скругление визуально.
+
+## Voice Mode Overlay — восстановление отрисовки целого Orb — 2026-11-16
+
+Дополнительно устранена причина, из-за которой в живом Overlay отображалась только часть либо не отображался весь шар. `QGraphicsDropShadowEffect` снят с родительского `orb_stage`: на некоторых Qt/Windows paint paths эффект скрывал дочерние QLabel-слои прозрачного контейнера. Свечение уже входит в предоставленные PNG, поэтому отдельный эффект на контейнере не нужен.
+
+Положение и размер сохраняются через центрированный `orb_stage`; кадры берутся из оригинальных PNG и масштабируются только для вписывания в доступную область, без повторного масштабирования уже уменьшенного изображения. Offscreen render smoke подтвердил отрисовку голубых пикселей в полном stage `560x560`.
+
+Проверки: `py_compile` — PASS; frontend suite **19/19 PASS**; `ORB_RENDER_SMOKE=PASS`.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE** — структура и публичные связи не изменились
+- PROJECT TREE TXT: **NO CHANGE**
+- Следующий шаг: ручная проверка владельцем на том же разрешении, что на референсном скриншоте.
+
+## Voice Mode Overlay — размер Orb 30% от исходного PNG — 2026-11-16
+
+По визуальному референсу размер Orb зафиксирован на 30% от исходной ширины кадра: `1254 × 0.30 = 376 px`. Шар остаётся центрированным внутри выделенной области, целиком видимым и сохраняет исходные пропорции. При уменьшении окна размер может быть ограничен доступной областью, но в обычном разрешении используется целевой размер `376x376`.
+
+Проверки: frontend suite **19/19 PASS**; `py_compile` — PASS; `ORB_30_PERCENT_SMOKE` подтвердил размер `376x376`.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE** — изменился только параметр визуального размера существующего Overlay
+- PROJECT TREE TXT: **NO CHANGE**
+- Следующий шаг: ручная проверка владельцем размера и положения Orb в живом Voice Mode.
+
+## Voice Mode Overlay — устранено перекрытие QWebEngineView — 2026-11-16
+
+По живому скриншоту подтверждено, что заголовок и кнопка Overlay были видны, а Orb в центральной области отсутствовал. Причина: Overlay был дочерним элементом всего `JarvisUI`, тогда как чат отображается в отдельной native-поверхности `QWebEngineView` внутри `chatFrame`; центральная webview перекрывала Qt-слой Orb.
+
+Исправление: `chat_frame` сохранён как `self.chat_frame`, а `VoiceModeOverlay` теперь создаётся дочерним элементом `chatFrame`. Overlay поднимается через `raise_()` над содержимым чата, сохраняя единую сессию, ChatStore и существующую остановку voice runtime. Целевой размер Orb остаётся 30% исходного кадра (`376x376`).
+
+Проверки: `py_compile` — PASS; frontend suite **19/19 PASS**; UI перезапущен на актуальном коде. Открытие реального voice chat с микрофоном отдельно владельцем ещё не выполнено в этом цикле.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE** — новый файл не добавлен, изменена только точка родителя существующего Overlay
+- PROJECT TREE TXT: **NO CHANGE**
+- Следующий шаг: открыть голосовой режим и подтвердить, что Orb виден поверх центрального чата.
+
+## Voice Mode Overlay — исправлено смещение при повторном открытии — 2026-11-16
+
+Найдена точная причина фрагмента Orb на втором открытии. Анимация дыхания меняла геометрию `orb_canvas`, но получала стартовый прямоугольник от внутреннего `orb_stage`, чьи координаты всегда начинались с `(0, 0)`. Из-за этого после запуска canvas переносился в левый верхний угол и частично обрезался.
+
+Исправление: дыхательная анимация теперь использует геометрию самого `orb_canvas`, а `orb_stage` остаётся внутренним слоем `(0, 0, 376, 376)`. Проверка повторного открытия подтвердила одинаковую геометрию: `(612, 312, 376, 376)` на первом и втором показе.
+
+Проверки: `py_compile` — PASS; frontend suite **19/19 PASS**; `ORB_REOPEN_SMOKE` — PASS.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+- Следующий шаг: ручная проверка первого и повторного открытия Voice Mode владельцем.
+
+## Voice Mode Overlay — полный chatFrame и статичный Orb — 2026-11-16
+
+По ручной проверке подтверждено, что уменьшенный Overlay не соответствовал контейнеру чата, а оставшаяся дыхательная анимация снова могла менять геометрию и обрезать шар. Реализация изменена:
+
+- `VoiceModeOverlay` снова занимает весь `chatFrame`;
+- `orb_canvas` размещается отдельным дочерним слоем поверх `QWebEngineView` через `set_orb_host(self.chat_view)`;
+- Orb временно зафиксирован: `_ANIMATION_ENABLED = False`, остановлены дыхание, crossfade и покадровая смена кадров;
+- размер остаётся `376x376` (30% от исходного `1254x1254`), позиция вычисляется по размеру host и не зависит от старой геометрии;
+- первое и повторное открытие используют одинаковую геометрию.
+
+Проверки: `py_compile` — PASS; frontend suite **19/19 PASS**; `ORB_STATIC_SMOKE` — PASS, первый и второй показ совпали, timers/дыхание остановлены.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE** — файловая структура не изменилась
+- PROJECT TREE TXT: **NO CHANGE**
+- Следующий шаг: ручная проверка полного chatFrame и статичного Orb в живом UI.
+
+## Voice Mode Overlay — Orb не остаётся в обычном чате — 2026-11-16
+
+Исправлен путь остановки voice chat через кнопку composer. Ранее `toggle_voice_chat_from_composer()` останавливал backend-сессию, но не вызывал `hide_mode()`, поэтому вынесенный поверх `QWebEngineView` `orb_canvas` оставался видимым после закрытия Voice Mode.
+
+Теперь активная ветка использует единый `stop_voice_chat_from_composer()`, который завершает backend-сессию, сбрасывает состояние composer и скрывает Overlay вместе с orb host. В Overlay добавлено прозрачное окно вокруг статичного Orb, чтобы затемняющий фон chatFrame не приглушал изображение.
+
+Проверки: `py_compile` — PASS; frontend suite **20/20 PASS**; `ORB_VISIBILITY_REOPEN_SMOKE` — PASS: canvas виден в Voice Mode, скрывается после stop и появляется снова с той же геометрией.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE** — структура файлов не менялась
+- PROJECT TREE TXT: **NO CHANGE**
+- Следующий шаг: ручная проверка закрытия Voice Mode и отсутствия Orb в обычном чате.
+
+## Voice Mode Overlay — удалён ошибочный transparent-hole workaround — 2026-11-16
+
+Ручной скриншот показал артефакт большой круглой вырезанной области в фоне. Причина — попытка вырезать прозрачное окно через `mapTo()` между Overlay в `chatFrame` и Orb-host внутри `QWebEngineView`; эти разные ветви Qt-иерархии давали некорректную геометрию.
+
+Workaround удалён. Overlay снова рисует обычный равномерный затемнённый фон без вырезов, а видимость Orb контролируется только штатным `show_mode()`/`hide_mode()`. Скрытие Orb после stop проверено отдельно.
+
+Проверки: `py_compile` — PASS; frontend suite **20/20 PASS**; `ORB_HIDE_NO_ARTIFACT_SMOKE` — PASS.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+- Следующий шаг: ручная проверка, что после закрытия Voice Mode Orb отсутствует в обычном чате.
+
+## Voice Mode Overlay — Orb скрыт после reparenting — 2026-11-16
+
+После привязки `orb_canvas` к `QWebEngineView` Qt/Windows мог автоматически показать дочерний QWidget во время `setParent()`, даже когда сам Overlay ещё скрыт. Это объясняло появление Orb в обычном диалоге сразу после запуска UI.
+
+В `set_orb_host()` добавлено принудительное `orb_canvas.hide()`. Теперь жизненный цикл проверен: после создания и привязки Orb скрыт; `show_mode()` показывает его; `hide_mode()` снова скрывает.
+
+Проверки: `py_compile` — PASS; frontend suite **20/20 PASS**; `ORB_LIFECYCLE_SMOKE` — PASS.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+- Следующий шаг: ручная проверка обычного чата после запуска и Voice Mode после открытия.
+
+## Voice Mode Overlay — Orb поднят перед Overlay — 2026-11-16
+
+По ручному скриншоту подтверждено, что после предыдущего исправления Orb стал виден, но оказался позади затемняющего окна Voice Mode. Причина — Orb был дочерним `QWebEngineView`, а сам Overlay находился выше в иерархии `chatFrame`.
+
+Исправление: Overlay снова занимает весь `chatFrame`, а `orb_canvas` теперь является дочерним слоем верхнего `JarvisUI`, поднятым через `raise_()`. Позиция Orb вычисляется по границам `chatFrame`, преобразованным в координаты верхнего окна. В обычном чате canvas скрыт, при открытии Voice Mode показывается поверх Overlay.
+
+Проверки: `ORB_FRONT_LIFECYCLE=PASS`, геометрия `376x376` центрирована по `chatFrame`; frontend suite **20/20 PASS**; `py_compile` — PASS.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE** — структура проекта не менялась
+- PROJECT TREE TXT: **NO CHANGE**
+- Следующий шаг: ручная проверка, что Orb виден спереди только в Voice Mode и исчезает после закрытия.
+
+## Phase 4 — отклонена collapsible right sidebar и устранён лишний runtime — 2026-11-16
+
+По результату ручной проверки владельца реализация `COLLAPSIBLE RIGHT SIDEBAR` признана непринятой и удалена. Из `frontend/jarvis_ui.py` убраны `ChatSidebarPanel`, `QSplitter`, кнопка контекстной панели, сохранение sidebar-состояния и фоновые запросы sidebar к backend. Удалены созданные для этой функции `frontend/chat_sidebar.py` и `frontend/tests/test_chat_sidebar_contract.py`.
+
+При диагностике подтверждены лишние task-owned процессы: дополнительный backend слушал старый порт `8000`, пока актуальный backend работал на `18084`. Лишний backend и связанные с ним UI-процессы остановлены; порт `8000` освобождён. Основной backend на `18084` сохранён.
+
+Проверки после удаления: `py_compile frontend/jarvis_ui.py frontend/chat_composer.py` — PASS; frontend suite — **14/14 PASS**. Голос, ChatComposer и библиотека Bible не изменялись.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **PENDING CURRENT TURN**
+- PROJECT TREE TXT: **UPDATED**
+- Причина: sidebar-компоненты удалены, фактическая структура frontend изменена.
+
+## Phase 4 — STOP icon и остановка записи при смене чата — 2026-11-16
+
+Иконка активной записи в `frontend/chat_composer.py` заменена на предоставленный владельцем `frontend/assets/CHAT/icons/stop.svg`; SHA-256 исходного и проектного файла совпадает. Иконка наушников для неактивного состояния сохранена.
+
+Исправлена утечка голосовой сессии при переключении чата. Ранее обработчик сначала ждал ответа `/voice/status`; при задержке или ошибке backend переключение продолжалось, а запись могла остаться активной. Теперь при смене `chat_id` локально активный composer немедленно вызывает `/voice/session/stop`, сбрасывает кнопку STOP и только затем переключает чат. Добавлен frontend regression contract.
+
+Проверки: frontend suite **15/15 PASS**, `py_compile` — PASS, `git diff --check` — PASS. Реальный микрофон в этой правке не запускался.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **PENDING CURRENT TURN**
+- PROJECT TREE TXT: **UPDATED**
+- Причина: добавлен новый asset `stop.svg` и изменены связи UI composer → voice session stop.
+
+## Phase 4 — STOP icon применён ко всем активным кнопкам composer — 2026-11-16
+
+Уточнено по ручному скриншоту: первая замена затронула только `voice_chat_button`, а отдельная кнопка диктовки `voice_button` продолжала показывать старый квадрат. Теперь предоставленный `stop.svg` используется в состояниях остановки голосового ввода, голосового чата и отправки сообщения. Неактивные состояния сохраняют свои исходные иконки.
+
+Проверка: frontend contract suite **15/15 PASS**, `py_compile` — PASS. UI требует перезапуска для отображения новой иконки.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **PENDING CURRENT TURN**
+- PROJECT TREE TXT: **NO CHANGE**
+- Причина: новых файлов и папок нет; изменено использование существующего `stop.svg`.
+
+## Phase 4 — остановка локальной диктовки при смене чата — 2026-11-16
+
+Уточнена причина продолжающейся записи: на скриншоте была активна локальная диктовка `voice_button`, а не backend voice-chat. В обработчик переключения чата добавлена отмена `VoiceDictationWorker`, остановка его `QThread`, сброс composer и запрет автосохранения отменённой записи. Нажатие STOP для обычной диктовки по-прежнему выставляет `_dictation_auto_send=True`; после успешного финального Vosk transcript он автоматически передаётся в `composer.submit()`.
+
+Проверки: frontend suite **16/16 PASS**, `py_compile` — PASS, `git diff --check` — PASS. Полный физический микрофонный цикл и ручное переключение чата после новой сборки требуют проверки владельцем.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **PENDING CURRENT TURN**
+- PROJECT TREE TXT: **NO CHANGE**
+- Причина: изменены runtime-связи переключения чата и локального dictation worker; новых файлов нет.
+
+## Phase 4 — локальный маршрут «открой компьютер» — 2026-11-16
+
+Во время живого голосового теста подтверждено, что фраза «открой компьютер» распознавалась, но не выполняла действие. Причина установлена в таблице команд: intent `open_computer` отсутствовал, поэтому существующий alias `мой компьютер` из `FileSystemService` не достигался. Добавлены intent и локальный обработчик `open_computer`, открывающий `shell:MyComputerFolder`, а также варианты «открой мой компьютер», «открой этот компьютер» и «покажи компьютер». Обратная связь команды теперь проходит через существующий voice runtime без обращения к Ollama.
+
+Проверки: `py_compile` для изменённых модулей — PASS; прямой контракт `ResponseRouter` — PASS; `computer_control.find_intent("открой компьютер")` возвращает `open_computer` — PASS. В штатном Python 3.11 окружении `pytest` отсутствует, поэтому pytest-коллекция не запускалась; unittest voice suite **10/10 PASS**. Физический live-повтор после исправления ещё не выполнен.
+
+Отдельно зафиксировано сообщение о задержке команды «Джарвис, открой браузер». Текущий production STT route — `vosk-silero`; команда проходит примерно через 512 мс VAD silence window и Vosk. Уменьшение окна без метрики пока не применялось, чтобы не ухудшить точность речи.
+
+Изменённые исходники: `backend/computer_control.py`, `backend/voice_engine/commands.yaml`, `backend/services/voice_runtime.py`, `backend/tests/test_response_router.py`. Пользовательские данные, Bible, `.env`, WAV и базы не изменялись.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **PENDING CURRENT TURN**
+- PROJECT TREE TXT: **NO STRUCTURAL CHANGE**
+- Причина: изменились командный intent и backend voice-связь; новых файлов и папок не добавлено.
+
+## Phase 4 — проверка командного маршрута и метрики задержки — 2026-11-16
+
+Подтверждённая причина сбоя команды «открой компьютер» исправлена: добавлен локальный intent `open_computer`, явный обработчик `shell:MyComputerFolder` и четыре русских варианта фразы. `VoiceRuntime` теперь записывает для командных реплик `route_decision_ms`, `command_action_ms` и `response_ready_ms`, чтобы следующий физический тест отделил задержку STT/VAD от задержки действия или TTS. Окно VAD не уменьшалось без доказательства: текущий стабильный маршрут `vosk-silero` ждёт около 512 мс тишины для завершения сегмента.
+
+Проверки: полный backend unittest suite **94/94 PASS**; изолированный voice suite **10/10 PASS**; frontend suite **16/16 PASS**; `py_compile` изменённых модулей — PASS; контракты `ResponseRouter`, `find_intent`, `run_command` для `open_computer` и быстрый запуск браузера — PASS; `/health` после перезапуска — PASS; `git diff --check` — PASS. В тестах системные действия были замоканы, поэтому Explorer и браузер не запускались автоматически.
+
+Во время этой работы пользователь дополнительно сообщил о задержке «Джарвис, открой браузер». Она зарегистрирована как отдельный диагностический пункт: фактический live-прогон с новыми метриками ещё нужен, поэтому ускорение не объявлено завершённым.
+
+Корректировка статуса PH4-VOICE-022: перед контролируемым перезапуском warmed-процесс показывал `ready=true`, но текущий чистый task-owned backend `18084` после старта показывает выбранный `fish_jarvis` с `available=true`, `ready=false`, `inference_verified=false` до первого синтеза. Источник фактически услышанного пользователем аудио всё ещё не зафиксирован, поэтому это не объявлено подтверждением слышимого Fish-голоса.
+
+Задержка команды «открой браузер» получила адресный фикс: `computer_control.open_browser()` использует `os.startfile("https://google.com")` на Windows, а `webbrowser.open()` оставлен fallback только при ошибке запуска. Контракт запуска с замоканным `os.startfile` — PASS. Текущий listener `18084` не перезапускался в этой операции, поэтому live-проверка новой реализации отложена до штатного перезапуска task-owned backend.
+
+После этого выполнен контролируемый перезапуск только task-owned backend `18084`: parent использует `backend/jarvis_env/Scripts/python.exe`, child выполняет `backend/main.py`, listener снова поднялся и `/health` вернул HTTP 200. Новый runtime пока не запускал voice session автоматически; `/voice/status` показывает `vosk-silero`, `fish_jarvis available=true/ready=false/inference_verified=false` до первого синтеза. Чужие процессы не останавливались.
+
+По запросу пользователя обновлена кнопка голосового чата в `frontend/chat_composer.py`: вместо `◉` подключён точный переданный asset `frontend/assets/CHAT/icons/headphones.svg`. Активное состояние по-прежнему показывает остановку, после завершения возвращается иконка гарнитуры. SHA-256 исходного и проектного SVG совпадает; QIcon offscreen smoke — PASS; реальный offscreen `ChatComposer` smoke (icon → stop → icon) — PASS; frontend suite после правки — **18/18 PASS**; `py_compile` и `git diff --check` — PASS. Живая визуальная проверка работающего окна ещё не выполнена: текущий UI process не перезапускался.
+
+Добавлены в карту проекта: `frontend/assets/CHAT/icons/headphones.svg` и `frontend/tests/test_chat_composer_contract.py`. `JARVIS_PROJECT_MAP.docx` и `JARVIS_PROJECT_TREE.txt` синхронизированы. DOCX structural open остаётся PASS, визуальный render невозможен в текущем окружении из-за отсутствия `soffice.exe`.
+
+Изменены: `backend/computer_control.py`, `backend/voice_engine/commands.yaml`, `backend/services/voice_runtime.py`, `backend/tests/test_response_router.py`, `backend/tests/test_voice_runtime_isolated.py`, `docs/runtime/bug_registry/JARVIS_RUNTIME_BUG_REGISTRY.md`, `docs/HANDOFF_ASSIST.md`, `docs/project_map/JARVIS_PROJECT_MAP.docx`. Bible, пользовательские БД, `.env`, секреты и WAV не изменялись; commit/push/reset не выполнялись.
+
+По collapsible sidebar выполнен дополнительный live accessibility smoke: в главном окне фактически присутствуют `chatSplitter`, `chatFrame`, `chatHeader` и `chatSidebarToggle`, отдельного плавающего окна нет. Screenshot capture получил `FrameArrived timed out`, а UI-мост не получил геометрию Qt-кнопки; поэтому интерактивное открытие/закрытие и изменение ширины остаются **PARTIAL / UNVERIFIED**, несмотря на контрактные тесты.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **UPDATED** — добавлен фактический маршрут `open_computer` и диагностические метрики command route.
+- PROJECT TREE TXT: **NO CHANGE** — новых файлов и папок нет.
+- DOCX structural open: PASS; визуальный render не выполнен, так как в окружении отсутствует `soffice.exe`.
+
+## Phase 4 — live sidebar accessibility smoke и расхождение голосового источника — 2026-11-16
+
+На task-owned backend `127.0.0.1:18084` и запущенном окне `Jarvis Assist` accessibility-дерево подтвердило актуальную интеграцию чата: `chatSplitter`, `chatFrame`, `chatHeader` и `chatSidebarToggle` присутствуют в одном главном окне. Контекстная панель не создаётся как отдельный `QDialog`. Попытка выполнить клик через текущий Windows UI bridge остановилась на отсутствии доступной геометрии координат, поэтому открытие/закрытие и drag-размер не объявляются PASS.
+
+Одновременно зафиксировано пользовательское наблюдение о женском голосе. Read-only проверка текущего backend показала: выбран `fish_jarvis`, движок `fish_audio_s2_1_pro_free`, `available=true`, но `ready=false` и `inference_verified=false`; XTTS автоматически не включается. В коде `voice_engine.tts.speak()` для `fish_jarvis` есть только маршрут `VoiceModelManager.synthesize_fish()`. Источник услышанного аудио пока не подтверждён; возможны ранее созданный WAV/другой runtime-процесс, поэтому это остаётся отдельной voice acceptance-проблемой, а не PASS.
+
+Проверки текущего изменения: frontend contract suite **16/16 PASS**, `py_compile frontend/chat_sidebar.py frontend/jarvis_ui.py` — PASS. Ничего в `data/Bible`, `.env`, секретах, базах или WAV не изменялось.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **NO CHANGE**
+- PROJECT TREE TXT: **NO CHANGE**
+- Причина: добавлена фактическая запись live smoke и voice discrepancy; файловая структура sidebar не менялась после предыдущей синхронизации карты.
 
 ## Phase 4 — восстановление контекста голосового диалога по chat_id — 2026-11-16
 
@@ -4525,6 +5050,18 @@ Documentation Update:
 ## Git checkpoint — 2026-11-16
 
 По запросу владельца текущее состояние исходников, тестов и документации сохранено локальным коммитом `27df757` (`chore: checkpoint Jarvis Phase 4 stabilization`). Push не выполнялся. В коммит вошли 259 файлов; `data/Bible` и `data/archive` намеренно не включались из-за ручного freeze библиотеки и большого объёма пользовательских данных. Эти каталоги сохранены локально без удаления или перезаписи.
+
+## Collapsible right chat sidebar — 2026-11-16
+
+Добавлена правая контекстная панель непосредственно в существующую страницу чата. `frontend/chat_sidebar.py` содержит `ChatSidebarPanel`; `frontend/jarvis_ui.py` соединяет `chat_frame` и панель через `QSplitter`, добавляет кнопку в шапку чата и сохраняет `chat_sidebar/open` и `chat_sidebar/width` в `QSettings`. При выборе/создании/открытии чата панель получает актуальный `chat_id`; периодически читает только существующие read-only endpoints `/voice/status`, `/settings/llm` и `/knowledge/integrity`. Цель сессии и список операций агентов пока явно помечаются как неподключённые, без фиктивных данных.
+
+Проверки: frontend contract suite **16/16 PASS**, `py_compile` PASS. Живой smoke-тест открытия, закрытия, изменения ширины и восстановления после перезапуска требует отдельной визуальной проверки.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **PENDING CURRENT TURN**
+- PROJECT TREE TXT: **PENDING CURRENT TURN**
+- Причина: добавлен новый UI-модуль и изменена структура chat page.
 
 Уточнён общий механизм контекста, а не только сценарий сна. Перед модельным ответом `VoiceRuntime` теперь передаёт последние bounded-реплики и явно выделяет последнюю пользовательскую тему. Prompt требует сначала связать текущий вопрос с предыдущей репликой и продолжать её, если это уточнение. Это применяется к любым темам; локальные быстрые правила остаются оптимизацией для коротких известных сценариев.
 
@@ -5072,3 +5609,545 @@ Documentation Update:
 - PROJECT MAP DOCX: **NO CHANGE**
 - PROJECT TREE TXT: **NO CHANGE**
 - Причина: зафиксировано ограничение работ; дерево и архитектура не изменялись.
+
+## Phase 4 — восстановление UI и архитектурного контура — 2026-11-16
+
+Проверен фактический runtime-контур Jarvis. Штатный desktop launcher запускает или безопасно переиспользует один локальный backend `backend/main.py` на `127.0.0.1:8000`; `core/api.py`, `core/jarvis_api.py` и `backend/account_server` остаются legacy/optional границами и не создают второй production-контур при обычном запуске. Текущий listener PID `1636` обслуживает `/health`, выбранный provider `ollama` и модель `qwen3-coder:30b`.
+
+Исправлены две подтверждённые UI-регрессии в `frontend/jarvis_ui.py`:
+
+- скрытые settings pages больше не запрашивают у фиксированного shell геометрию `1600x1063`: убраны чрезмерные minimum/maximum size hints и добавлено ограничение settings stack;
+- закреплённый sidebar layout повторно активируется после первого `showEvent` и переключения widget mode;
+- операции AI provider dialog переведены на существующий `ProviderOperationWorker`/`QThread`, чтобы GET/POST/проверка/модели не блокировали GUI;
+- повторное открытие AI dialog переиспользует уже открытое окно.
+
+Проверка: backend `96/96 PASS` с `PYTHONPATH=backend`, frontend `20/20 PASS`, `py_compile` и `git diff --check` — PASS. Живой UI открыл страницу настроек и показал закреплённые/недавние чаты; после исправления stderr больше не содержит `Unable to set geometry`. Полный ручной AI-click acceptance ограничен нестабильным Windows screenshot/bounds capture и не объявляется пройденным.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- PROJECT MAP DOCX: **UPDATED**; создана резервная копия `JARVIS_PROJECT_MAP.pre-ui-regression-20261116.docx`
+- PROJECT TREE TXT: **UPDATED** with current UI/runtime checkpoint
+- BUG REGISTRY: **UPDATED**
+- Отчёт: `docs/runtime/diagnostics/JARVIS_UI_ARCHITECTURE_RECOVERY_20261116.md`
+
+## Phase 4.1 — повторное восстановление UI-регрессий — 2026-11-16
+
+Предыдущие PASS по зависанию Settings и начальному положению pinned chats пересмотрены после повторного cold-start теста. Команда `cd C:\projects\Jarvis; python frontend\launch_jarvis.py` корректна; фактический интерпретатор на хосте — `C:\Python314\python.exe`. Один ранний запуск был подавлен занятым `Jarvis Assist/jarvis.lock`, поэтому при диагностике нужно различать корректный запуск и молчаливый отказ singleton-lock.
+
+В `frontend/jarvis_ui.py` переход в Settings из main menu теперь также явно вызывает `ensure_full_ui()`. Sidebar после загрузки чатов, `showEvent`, перехода widget mode и resize заново активирует собственный layout и item layout без искусственных задержек. Opt-in трасса `JARVIS_UI_TRACE` подтвердила `pages_index=2` и стабильную геометрию pinned list `31,238,240,125` в shell `1280x850`.
+
+ Фактические проверки этого этапа: launcher/import path, Settings state transition и pinned geometry — PASS; frontend 20/20, `py_compile`, `git diff --check` — PASS. Native screenshot capture timed out, поэтому визуальная pixel-level приемка и полный AI click flow требуют ручной проверки владельца. Подробный отчёт: `docs/JARVIS_PHASE4_1_UI_RECOVERY.md`.
+
+## Full UI audit — единый shell и Settings lifecycle — 2026-11-16
+
+Runtime-аудит выявил архитектурную причину позднего расширения окна: общий
+`QStackedWidget` учитывал minimum sizeHint фиксированного HUD и длинной AI-страницы,
+а Settings не имел единого scroll-хоста. После fullscreen shell мог вырасти с
+`1280x850` до `1280x1090`.
+
+В `frontend/jarvis_ui.py` введён единый `settingsScroll`, top-level pages и
+container больше не поднимают minimum size shell, а normal geometry восстанавливается
+одним контроллером после native window-state/layout события. Runtime smoke подтвердил
+normal `1280x850`, fullscreen `2752x1122`, delayed restore `1280x850`; Provider worker
+получил HTTP 200 и callback получил 7 профилей. Frontend suite — **24/24 PASS**.
+Native screenshot capture timeout, поэтому visual acceptance остаётся ручным этапом.
+Backend suite в этом запуске не завершился за отведённое время и не объявляется PASS.
+
+Documentation Update: HANDOFF UPDATED; BUG REGISTRY UPDATED with PH4.1-UI-044;
+PROJECT TREE UPDATED; PROJECT MAP DOCX UPDATED with backup
+`JARVIS_PROJECT_MAP.pre-full-ui-audit-20261116.docx`. Render QA DOCX BLOCKED:
+bundled renderer не нашёл `soffice.exe`.
+
+## Phase 5 — восстановление единой UI темы — 2026-11-16
+
+Статический аудит последних UI-изменений подтвердил конкурирующие stylesheet-
+слои: глобальный `JarvisUI.apply_styles()`, отдельный stylesheet у
+`main_container`, отдельные правила Settings/sidebar и локальные динамические
+переопределения. При переключении widget-mode/fullscreen эти слои заменяли друг
+друга. Дополнительной причиной светлых контейнеров были глобальные правила
+`QComboBox` и `QLineEdit` со светлым фоном.
+
+Исправление выполнено в существующей архитектуре: `apply_styles()` снова является
+единственным владельцем shell-темы; фон `#container` выбирается из текущего
+Glass/widget состояния внутри этого stylesheet. Локальные stylesheet-слои
+`main_container` удалены. Общие `QComboBox`, `QLineEdit`, `QSpinBox`,
+`QPlainTextEdit` и `QTextEdit` переведены на единый тёмный Glass-контракт.
+Белый hover в `UserProfileDialog` устранён.
+
+Qt runtime smoke: 13 страниц Settings создаются и переключаются; normal
+`1280x850`, тестовый large `1920x1080`, delayed restore `1280x850`; Settings
+viewport `341x388`, горизонтального overflow нет; в root stylesheet отсутствуют
+placeholder и `background:white`; launcher проходит `launcher-start ->
+before-ui-import` на `C:\Python314\python.exe`.
+
+Frontend contract suite: **26/26 PASS**. Windows capture остаётся **BLOCKED**
+(`window capture timed out`, `coordinate input geometry unavailable`), поэтому
+визуальный PASS не заявляется.
+
+Резервные копии: `docs/runtime/diagnostics/phase5-backups/jarvis_ui.phase5-current.bak`
+и `profile_dialog.phase5-current.bak`.
+
+## Full recovery — начальный аудит и AI state contract — 2026-11-17
+
+Текущая карта причин и открытых проверок: `docs/JARVIS_FULL_RECOVERY_AUDIT.md`.
+Установлены синхронные backend-запросы в GUI-потоке `load_chat_model()` и
+`load_chat_sessions()`, а также оптимистический `ON/OFF` карточек AI до ответа
+`POST /settings/llm`. Последнее исправлено в существующем `ai_inline`:
+переключатели отражают только подтверждённый bundle backend, блокируются на
+время save, ошибка сохраняет прежний выбор и даёт видимую возможность повтора.
+До первой успешной загрузки переключатели отключены. Резервная копия UI:
+`docs/runtime/diagnostics/phase5-backups/jarvis_ui.pre-full-recovery-20261117.bak`.
+Кнопка «ПОЛУЧИТЬ МОДЕЛИ» теперь только читает каталог и не подменяет
+выбранную модель первым элементом ответа.
+
+Текущие проверки: `py_compile` PASS, frontend suite 26/26 PASS,
+`git diff --check` PASS. Реальный цикл смены провайдера, GUI responsiveness,
+fullscreen/Glass и остальные пункты полного восстановления ещё не приняты.
+Основной listener PID 1636 на 8000 не останавливался; пользовательская БД,
+ключи, `.env` и модели не изменялись.
+
+### Продолжение — устранено ожидание backend в GUI-потоке
+
+`load_chat_sessions()`, `load_chat_model()` и выбор модели чата теперь используют
+существующий `ProviderOperationWorker`/`ProviderOperationBridge` через QThread.
+Сессии применяются только после корректного ответа; сетевой сбой не заменяет
+историю фиктивным чатом. Модель чата берётся из backend bundle; каталог моделей
+загружается отдельно, сохранение выбора подтверждается backend или откатывается.
+Потоки удерживаются до завершения, закрытие окна откладывается через Qt event
+loop, если bounded read ещё выполняется. Перед правкой сохранена копия
+`docs/runtime/diagnostics/phase5-backups/jarvis_ui.pre-async-reads-20261117.bak`.
+Новый `frontend/tests/test_backend_read_worker.py` проверил GUI responsiveness,
+GUI-thread callback, завершение worker и rollback выбора модели. Frontend
+**28/28 PASS**, `py_compile` и `git diff --check` PASS. Живой PID 55880 был
+запущен до этой правки и не подтверждает новый UI; его не останавливали.
+
+### Продолжение — асинхронный опрос голосового состояния
+
+17.11.2026 старый тестовый UI PID 55880 закрыт штатно; backend PID 1636 на
+`127.0.0.1:8000` не останавливался. Launcher заново открыл UI PID 43360,
+`/health` вернул HTTP 200, Windows сообщает `Responding=True`. Этот процесс
+стартовал **до** описанной ниже правки; визуальная готовность не подтверждена:
+Windows capture завершился по timeout, accessibility показала только root pane.
+
+В `frontend/jarvis_ui.py` обнаружен периодический синхронный GET
+`/voice/status` из GUI-потока каждые 350 мс с timeout 1 с. Он заменён на
+один `VoiceStatusClient` с `QNetworkAccessManager`, одним запросом в полёте
+и bounded timeout. Recovery POST `/voice/start` также неблокирующий и не
+дублируется, пока ответ не получен. Логика отображения перенесена в
+`_apply_voice_status` без изменения backend-контракта. Перед правкой создана
+`docs/runtime/diagnostics/phase5-backups/jarvis_ui.pre-voice-poll-20261117.bak`.
+
+Изолированный тест с локальным HTTP-сервером задерживал ответ на 250 мс:
+GUI-таймер продолжал срабатывать, два poll дали один GET, два recovery вызова
+дали один POST. Frontend suite **29/29 PASS**, `py_compile` и
+`git diff --check` PASS. Это не является runtime или visual acceptance;
+для неё требуется перезапуск UI после этой правки и ручной осмотр окна.
+
+`docs/project_map/JARVIS_PROJECT_MAP.docx` дополнен картой voice polling и
+backend reads; pre-edit копия:
+`docs/project_map/JARVIS_PROJECT_MAP.pre-voice-poll-20261117.docx`.
+DOCX повторно открылся через python-docx; render QA **BLOCKED**, поскольку
+bundled `render_docx.py` не нашёл `soffice.exe` в PATH.
+
+### Продолжение — погодные запросы вне GUI-потока
+
+`JarvisUI.load_weather()` ранее вызывался при создании окна и каждые 10 минут,
+мог последовательно ждать геолокацию до 5 с и OpenWeather до 8 с. Обе кнопки
+проверки погоды (inline Settings и `WeatherSettingsDialog`) также выполняли
+синхронный OpenWeather GET до 8 с. Эти операции переведены в существующий
+`ProviderOperationWorker`/`ProviderOperationBridge`; город, температура и
+иконка применяются в GUI-потоке после ответа. Оба Settings-пути используют
+один `_validate_and_save_weather`: данные QSettings записываются только после
+успешной проверки, ошибка оставляет прежние значения и доступную кнопку.
+При закрытии окна voice/weather таймеры останавливаются до ожидания активных
+worker, чтобы скрытое окно не запускало новые задания. Перед правкой сохранён
+`docs/runtime/diagnostics/phase5-backups/jarvis_ui.pre-weather-async-20261117.bak`.
+
+Изолированный тест задержки OpenWeather на 200 мс подтвердил GUI tick,
+структуру результата и cleanup worker; отдельный тест подтвердил отсутствие
+записи настроек при ошибке и запись после успеха. Frontend **31/31 PASS**,
+`py_compile`, `git diff --check` PASS. Реальная проверка окна с этой версией
+ещё не выполнена: UI PID 43360 был запущен до правки и оставлен для ручного
+осмотра владельца. В рабочей пользовательской QSettings тесты не писали.
+`docs/project_map/JARVIS_PROJECT_MAP.docx` дополнен погодным сетевым путём;
+предыдущая версия сохранена как
+`docs/project_map/JARVIS_PROJECT_MAP.pre-weather-async-20261117.docx`.
+Файл повторно открылся и прошёл ZIP integrity; render QA по-прежнему
+**BLOCKED**, так как `soffice.exe` отсутствует.
+
+### Продолжение — единый worker для сетевых операций Settings
+
+При создании Settings `data_inline` запускал GUI-thread GET `/backups/status`
+с timeout 3 с, а devices page — GET `/devices/capabilities` с timeout 6 с.
+Явные кнопки выполняли POST `/backups/run` до 30 с, deep capabilities GET
+до 45 с и camera snapshot POST до 10 с в том же GUI-потоке. Это
+подтверждённый механизм задержек при открытии Settings и нажатии кнопок,
+но он не доказывает единственную причину всех ранее наблюдавшихся зависаний.
+
+Существующий Qt worker/bridge расширен этими endpoint-операциями и назван
+`NetworkOperationWorker`/`NetworkOperationBridge`; общий запуск теперь
+`JarvisUI._run_network_operation()`. Все вызовы сохраняют исходные маршруты,
+параметры и timeout, а UI показывает загрузку, успех или ошибку и отключает
+кнопку на время соответствующей операции. `backup-run` и `camera-snapshot`
+остаются только по явному нажатию пользователя. Проверены задержанные
+одновременные status GET с GUI tick и маппинг двух POST через mock без записи
+в пользовательскую БД и без создания снимка. Frontend **33/33 PASS**,
+`py_compile` PASS. Перед изменением сохранён
+`docs/runtime/diagnostics/phase5-backups/jarvis_ui.pre-settings-http-20261117.bak`.
+Живой UI PID 43360 всё ещё содержит код до этих правок; runtime/visual
+acceptance открыты.
+`docs/project_map/JARVIS_PROJECT_MAP.docx` обновлён для общего
+Settings/Provider/Chat/Weather worker. Pre-edit копия:
+`docs/project_map/JARVIS_PROJECT_MAP.pre-settings-http-20261117.docx`.
+DOCX повторно открыт, ZIP integrity PASS; визуальный render QA остаётся
+**BLOCKED** из-за отсутствия `soffice.exe`.
+
+### Продолжение — асинхронная история чатов и повторная runtime-проверка
+
+`load_history_sessions()` при открытии страницы «ИСТОРИЯ ЧАТОВ» и
+`load_chat_history()` при переключении чатов ещё выполняли синхронные
+`/chat/sessions?include_archived=true` и `/chat/history` GET в GUI-потоке
+до 4–5 с. При ошибке второе чтение подменяло историю пустым списком.
+Обе операции добавлены в `NetworkOperationWorker`. Страница истории
+показывает загрузку/ошибку и сохраняет прежние строки при сбое. История
+чата игнорирует ответ старого `chat_id` после быстрого переключения; ошибка
+показывает существующее chat notification и не выдаётся за пустую историю.
+Перед правкой сохранён
+`docs/runtime/diagnostics/phase5-backups/jarvis_ui.pre-history-async-20261117.bak`.
+Изолированные тесты проверили stale-response и сохранение списка при ошибке;
+frontend **35/35 PASS**, `py_compile` и `git diff --check` PASS.
+
+Владелец вручную подтвердил **FAIL** открытия Settings в UI PID 43360,
+запущенном до этих сетевых исправлений. Этот UI закрыт штатным Alt+F4;
+backend PID 1636 остался на 8000. Launcher заново открыл UI PID 43344 с
+актуальным кодом и opt-in трассой; текущий процесс `Responding=True`,
+трасса дошла до chat/history и AI provider load. Результат ручного нажатия
+Settings в новом процессе ещё ожидается. Windows capture снова завершился
+timeout, accessibility показала только root pane — visual PASS нет.
+`docs/project_map/JARVIS_PROJECT_MAP.docx` дополнен async chat-history
+связями и текущей границей runtime-проверки. Pre-edit копия:
+`docs/project_map/JARVIS_PROJECT_MAP.pre-history-async-20261117.docx`.
+DOCX повторно открылся и прошёл ZIP integrity; render QA **BLOCKED** из-за
+отсутствия `soffice.exe`.
+
+### Продолжение — подтверждённые UI-регрессии и единый Settings shell
+
+Ручная проверка владельца пересмотрела прежние PASS: Settings зависали в
+UI PID 43360. После обновления сетевых операций и перезапуска через штатный
+`frontend/launch_jarvis.py` Settings открылись в PID 43344. Backend PID 1636
+на порту 8000 всё время оставался прежним; новых backend-контуров не запускали.
+
+Скриншот владельца подтвердил белый Settings viewport. Причина в том, что
+`QScrollArea.setWidget()` включает светлую palette fill у viewport/child, а
+General дополнительно имела единственный локальный тёмный QSS. Viewport и
+stack теперь не заливают фон; оформление `settingsCard`, заголовков и Glass
+tiles перенесено в root theme, с одинаковыми отступами для Settings pages.
+AI provider panel использует тот же тон/прозрачность; его внутренний layout
+теперь растягивает панель по доступной ширине и высоте. Общий стиль
+`QListWidget` убирает белую палитру страницы «Возможности».
+
+В PID 30892 владелец подтвердил исчезновение белой области, но fullscreen →
+windowed ещё терял клики. Лог показал конфликт нескольких `setFixedSize`,
+`resize`, отложенного constraint и fullscreen-высоты Recent Chats: окно
+переходило 850→1090→850→882→850. Фиксированные/повторные constraints удалены;
+Recent Chats занимает доступное место через Sidebar layout. В PID 37068
+владелец вручную подтвердил, что клики после возврата работают. На PID 2248
+он повторно подтвердил работающие клики по навигации и AI после fullscreen →
+windowed.
+
+Лишняя прокрутка на коротких страницах имела отдельную причину:
+`QStackedWidget.heightForWidth()` использовал высоту скрытой AI page при
+текущей странице с `wordWrap`. `CurrentPageStack` берёт size hints и
+height-for-width только текущей страницы. Изолированный Qt-тест воспроизвёл
+ложный scrollbar и подтвердил short → tall → short. В live PID 39240 trace
+показал `scroll_max=0` на всех 13 страницах при normal 1280×850; владелец
+визуально принял остальные страницы и уточнил требования к размерам.
+Settings body поднят на 32 логических пикселя и расширен за счёт общих
+отступов: навигация и карточка совпали с красной разметкой владельца в
+PID 39240. AI в нём оставалась уже остальных: `layout.addWidget(panel, 0,
+AlignLeft|AlignTop)` сохранял sizeHint вместо растяжения. Выравнивание
+удалено в следующем исходнике. В live PID 2248 владелец подтвердил, что AI
+совпадает с «Общие» по ширине и высоте, без лишней полосы прокрутки. Трасса
+AI показала `scroll_max=0`. Другие страницы и границы в PID 39240 владелец
+ранее принял; это ручная визуальная приёмка для указанных сценариев.
+
+Frontend suite **36/36 PASS**, `py_compile`, `git diff --check` PASS после
+последней правки. Это не заменяет полного runtime/visual acceptance. Рабочую
+SQLite, QSettings/ключи и процессы backend не меняли. Резервные копии
+критичного UI и документов находятся в
+`docs/runtime/diagnostics/phase5-backups/`; отдельно сохранена pre-edit
+копия DOCX Project Map. Следующий шаг: проверить страницу «Возможности»,
+состояния provider-кнопок и больший размер окна, затем продолжить полный
+аудит. UI PID 2248 и существующий backend PID 1636 оставлены запущенными.
+
+### Продолжение — профили AI, Glass-настройки и Account email — 2026-11-17
+
+В `AIProviderDialog.payload()` найдено массовое копирование одной модели во все
+поля провайдеров. Диалог теперь отправляет только выбранный профиль, а
+`save_llm_settings()` сохраняет отсутствующие поля из текущей конфигурации.
+FreeLLMAPI восстановлен через основной backend в модель `AUTO`; Ollama сохранил
+`qwen3-coder:30b`. Встроенный AI раздел получил явный цикл `SAVE` → подтверждённый
+`SAVED`; переключатель провайдера расширен до 78 px, чтобы ON/OFF читались.
+
+В «Общие» исправлены три связи: Glass/Blur теперь меняет фон основного
+контейнера и подпись состояния, быстрые переходы используют единый
+`open_settings_section`, а палитра «Акценты прозрачности» хранится как
+`glass_tint` и больше не меняет `accent_color`. Frontend suite после этих
+изменений: 39/39 PASS; backend discovery: 97/97 PASS; py_compile и
+`git diff --check` PASS.
+
+Account Store текущего проекта содержит подтверждённую Google identity
+`managment2v@gmail.com` (`email_verified=True`). Ранее Settings и `Мой профиль`
+читали только пустой локальный `profile_email`. JarvisUI теперь синхронизирует
+подтверждённый email через один AccountCoordinator в оба экрана. Runtime нового
+UI ещё ожидает штатного завершения старого PID 49748; backend PID 1636 не
+останавливался.
+
+### Продолжение — lifecycle, capability cards и полный актуальный runtime
+
+Старый UI PID 49748 удалось закрыть штатным Alt+F4. Причина зависшего процесса
+была в registry `_network_jobs`: завершённый/deleted QThread мог не удалиться
+по `self.sender()` и навсегда блокировал `closeEvent`. Общий prune теперь
+оставляет только `isRunning()` workers, bridge удаляется через `deleteLater`.
+Runtime-проверка актуального UI PID 3848: `CloseMainWindow=True`, процесс
+завершился сам. Следующий launcher корректно завершил UI PID 28632 вместе с
+его дочерним backend PID 62688. Это runtime PASS lifecycle, а не только unit.
+
+Страница «Устройства и возможности» больше не использует текстовый список:
+восемь реальных backend capabilities показаны тёмными Glass-карточками в
+QGridLayout по две в ряд. Карточки кликабельны: camera запускает существующий
+snapshot, gesture/streaming/CUDA открывают соответствующие Settings, а
+vision/printer/CAD/LAN ведут в существующий chat entry point. Отдельные
+параллельные функции не создавались. Кнопки статусов/снимка и все QPushButton
+в Settings используют общий outline-визуальный язык AI actions. Визуальная
+приёмка этой новой сетки владельцем ещё ожидается.
+
+При полном перезапуске обнаружено, что одной изоляции payload в UI было
+недостаточно: `LLMSettingsRequest.model_dump(exclude_none=True)` добавлял
+Pydantic defaults для отсутствующих provider fields. Backend route теперь
+использует `exclude_unset=True`; FreeLLMAPI нормализует пустую модель в
+`AUTO` на чтении, сохранении и test override. После штатного запуска UI
+PID 41128 + единственного backend PID 55412 `/health` PASS и Ollama доступна.
+GET и безопасный partial POST подтвердили: Ollama=`qwen3:8b`, enabled/active;
+FreeLLMAPI=`AUTO`, disabled/inactive; профили не переносят модели друг другу.
+
+Account email синхронизация активна: после перезапуска локальный
+`QSettings("Jarvis", "Jarvis Assist")/profile_email` заполнен подтверждённым
+Gmail из Account Store. Внешний OAuth повторно не выполнялся и секреты не
+читались. Визуальное отображение на двух экранах ещё подтверждает владелец.
+
+Frontend discovery: **43/43 PASS**. Provider isolation/normalization:
+**3/3 PASS**. Voice overlay hover signal: **4/4 PASS**; tracked connection
+устраняет shutdown RuntimeWarning без изменения voice architecture.
+`py_compile` и `git diff --check` PASS. Резервные копии backend route и
+config service находятся в `docs/runtime/diagnostics/phase5-backups/`.
+
+### Продолжение — единый UI lifecycle, Voice Mode и нижние действия Settings
+
+Текущий UI checkpoint устраняет связанные проблемы без создания второго окна,
+backend или навигации. Страница «Устройства и возможности» использует
+кликабельные двухколоночные `CapabilityCard`: заголовок и мелкий backend-статус
+разделены. Активная карточка закреплённого чата рисует контур внутри viewport,
+поэтому левая граница больше не обрезается. В chat header индикатор расположен
+через 15 px после модели и остаётся синим при подтверждённой готовности модели;
+красный зарезервирован для ошибок.
+
+Оконный Voice Mode получил отдельный bounded layout: Orb 240–320 px и кольца
+не перекрывают текст/кнопку; fullscreen сохраняет прежний масштаб. Переход в
+другой раздел или чат сначала скрывает overlay и сбрасывает локальное состояние,
+затем асинхронно вызывает существующий `/voice/session/stop`, не блокируя GUI.
+Widget mode больше не рисует внешний outline. Для chat WebEngine добавлена
+непрозрачная поверхность `#121212`, закрывающая однопиксельный прозрачный шов
+при дробном Windows DPI.
+
+Все Settings pages, кроме уникальной «Общие», используют один нижний action row
+с прозрачными cyan-outline кнопками как в AI. Список «Команды» растягивается до
+этого ряда; Voice и History используют тот же lifecycle. Frontend discovery:
+**51/51 PASS**, `py_compile` PASS. `/health` текущего launcher/backend PASS.
+Владелец ранее подтвердил сохранение кликов после fullscreen → windowed и
+принял геометрию AI/Settings. В текущей ручной проверке владелец дополнительно
+принял исправление закреплённых чатов, постоянный синий readiness status,
+оконный Voice Mode, закрытие voice session при навигации и отсутствие рамки в
+widget mode. Нижние Settings buttons приняты частично: кнопки верны, но обычный
+контент не должен растягиваться по высоте; content alignment исправлен отдельно.
+Пункт chat seam явно не принят после первой подложки: фактической причиной был
+прозрачный WebEngine scrollbar track поверх wallpaper. Track/corner теперь
+используют непрозрачный `var(--bg-main)`; повторная visual acceptance открыта.
+
+Команды получили 3 px между элементами списка. Capability cards увеличены до
+128 px, при этом статус перемещён сразу под заголовок, а свободное место оставлено
+ниже для будущей иконки. Device actions ограничены 220×38 и разделены 12 px.
+History rows перенесены с локального QSS на общую Glass-тему и имеют 6 px между
+карточками. Актуальный runtime: UI PID 19164, один backend PID 53416, `/health`
+PASS; trace-файлы используют suffix `checkpoint5`.
+
+Rollback: `docs/runtime/diagnostics/phase5-backups/` содержит
+`jarvis_ui.pre-ui-checkpoint-20261117-015714.py.bak` и
+`voice_mode_overlay.pre-windowed-layout-20261117-015714.py.bak`. Текущие
+runtime traces: `jarvis-ui-runtime-20261117-checkpoint3.jsonl` и
+`jarvis-launch-runtime-20261117-checkpoint3.log`.
+
+### Продолжение — capability imagery, history acceptance и безопасный HTTP lifecycle
+
+Восемь предоставленных владельцем PNG добавлены в
+`frontend/assets/capabilities/` и сопоставлены существующим восьми backend
+capability IDs. `CapabilityCard` остаётся одной двухколоночной карточкой:
+изображение находится в фиксированном slot справа и плавно увеличивается
+только в его пределах при hover (170 ms), поэтому QGridLayout не меняет
+геометрию и не создаётся отдельная страница/функция. Владелец принял этот
+пункт вручную.
+
+History chat cards получили 12 px запас справа внутри viewport: прежде item
+size hint был равен полной ширине viewport и при fractional DPI обрезал
+закруглённую правую грань. Владелец принял новый результат вручную. Команды
+получили 5 px межстрочного интервала; текст статуса возможностей отделён от
+нижних действий на 12 px. Для оставшегося WebEngine шва `chatWebSurface`
+получил реальный styled opaque backing/palette и однопиксельный inset справа;
+его visual retest остаётся открытым.
+
+В ходе этой проверки зафиксирован новый настоящий UI crash: `shiboken6.abi3.dll`
+`0xc0000005` после `chat-history` callback. Причина — lifecycle `QObject`
+в одноразовых `QThread`, а не backend. Новый единый `start_network_operation`
+выполняет HTTP в bounded Python thread и возвращает результат в GUI строго
+queued Qt signal; он заменяет три прежних QThread-варианта (JarvisUI, inline
+AI panel, AIProviderDialog) без изменения API/SQLite/провайдеров. UI PID 30708
+после запуска завершил jobs и остался Responding; 30 targeted frontend tests и
+`py_compile` PASS. Нужны длинная ручная runtime-проверка и визуальный retest
+шва, кнопок возможностей и интервалов команд.
+
+Rollback: `docs/runtime/diagnostics/phase5-backups/jarvis_ui.before-capability-images-20261117.py`.
+Текущие traces: `jarvis-ui-runtime-20261117-checkpoint9.jsonl` и
+`jarvis-launch-runtime-20261117-checkpoint9.log`.
+
+Ручная приёмка после checkpoint9: владелец принял capability cards с
+предоставленными изображениями и hover-анимацией, а также размеры/разделение
+двух device action-кнопок и 12 px зазор между текстом статуса и кнопками.
+Владелец также принял 5 px spacing списка команд. Открыты только повторная
+длинная runtime-сессия после замены lifecycle HTTP workers. Правый WebEngine
+seam принят вручную после добавления opaque styled backing, palette, inset и
+непрозрачной scrollbar track/corner.
+
+### Контрольная точка — 2026-11-17 (сохранена по запросу владельца)
+
+Текущее состояние сохранено без commit, остановки процессов или изменений
+данных. Контрольный набор frontend-тестов: **51/51 PASS**; последний короткий
+runtime-smoke зафиксировал responding UI, нулевое число незавершённых сетевых
+jobs и успешный `/health` основного backend. Владелец вручную принял пункты
+1, 4, 8, 9, 10, 11 и 12 текущего UI recovery: capability cards, статусный
+индикатор, WebEngine seam, интервалы команд, нижние Settings actions, device
+actions и History cards. Постоянное решение crash `shiboken6` зафиксировано в
+`mem:frontend/core`: HTTP результаты доставляются из Python thread через
+очередь GUI, без одноразовых QObject/QThread.
+
+При возобновлении сначала выполнить длительную runtime-проверку этого
+lifecycle, затем продолжить общий backend/контрактный аудит и только после
+этого готовить итоговый отчёт. Проверка Project Map выполнена на ZIP/`python-docx`
+уровне; визуальный render-QA остаётся BLOCKED, поскольку в окружении нет
+`soffice.exe`. Резервная копия карты:
+`docs/project_map/JARVIS_PROJECT_MAP.pre-checkpoint9-20261117.docx`.
+
+### UI follow-up — выбор модели из backend-каталога
+
+`AIProviderDialog` больше не принимает модель через свободный текст: поле —
+нередактируемый `QComboBox`, который сначала показывает сохранённую модель,
+затем асинхронно получает каталог `/settings/llm/models` и сохраняет только
+выбранный элемент. После `POST /settings/llm` диалог повторно применяет
+подтверждённый backend bundle и показывает подтверждённую активную модель.
+Изолированные проверки UI payload и `config_service` прошли; live idempotent
+save активного Ollama-профиля подтвердил одинаковую модель в ответе save и
+последующем GET. Визуальная приёмка требует перезапуска уже работающего UI.
+
+### Critical chat recovery — owner live PASS
+
+Ручной тест выявил регрессию текстового чата: пользовательское сообщение
+оставалось в `[Processing...]`, а при смене чата не появлялось в истории.
+Первопричина подтверждена в `ChatRequestWorker.run()`: до блока `try` он
+обращался к несуществующему `self.operation`, поэтому `POST /chat` не
+выполнялся и backend/ChatStore не получали turn. Отдельный request-specific
+QThread удалён: отправка/отмена чата теперь используют общий
+`start_network_operation` с Python thread и queued GUI delivery; завершение
+result/error снимает composer in-flight state. Runtime-delta polling тоже
+переведён на Python thread с generation guard, чтобы завершение старого turn
+не очищало worker следующего. Новый тест проверяет реальный маршрут `/chat` в
+общем bridge без пользовательской БД; текущий frontend suite **58/58 PASS**.
+После штатного перезапуска пользователь подтвердил в основном приложении:
+сообщение получает ответ, а история сохраняется при переключении чатов.
+
+### Sidebar unread + recent activity — source/test PASS, live retest pending
+
+`ChatItemWidget` теперь имеет единый unread marker: если ответ завершился,
+пока открыт другой чат, исходная карточка показывает синюю точку; выбор чата
+очищает её. Последний чат, куда пользователь отправил сообщение, получает
+локальный activity rank и немедленно поднимается в начало «Недавних», тогда как
+остальные записи сохраняют стабильный backend-порядок. Это не отдельное
+хранилище и не новый polling-контур: источник sessions остаётся ChatStore.
+Live-проверка выявила две точки из-за одновременного QLabel и ручной отрисовки;
+ручной marker удалён, оставлен один `chatUnreadDot`.
+
+Chat header также получил фиксированный identity host шириной 430 px, поэтому
+длина выбранной модели больше не сдвигает `JARVIS CHAT`. Динамический Qt-тест
+проверил сортировку и unread lifecycle, полный frontend suite **59/59 PASS**,
+`compileall` и `git diff --check` PASS. Для визуальной приёмки требуется
+штатный перезапуск UI и сценарий: отправить запрос, перейти в другой чат до
+ответа, увидеть точку, открыть исходный чат и проверить её исчезновение; затем
+переключить модели с коротким и длинным именем и сравнить позицию заголовка.
+
+### Chat click routing and WebEngine seam — source/test PASS, live retest pending
+
+Последующая ручная проверка обнаружила два связанных runtime-симптома:
+переключение модели могло неожиданно открыть Settings, а клик по поверхности
+чата — включить widget mode. Причина была общей: application-wide fallback
+прозрачных HUD-кнопок маршрутизировал координаты даже при активной Chat page.
+Теперь fallback разрешён только на `pages.currentIndex() == 0`, поэтому скрытые
+ячейки `SET`/`VID` не могут перехватывать клики диалога.
+
+Нижняя кромка `chatWebSurface` получила собственный непрозрачный фон
+`#121212`; прозрачный 20 px layout-gap заменён непрозрачным
+`chatComposerGuard`. Live-проверка доказала, что нижний 1 px inset создавал
+горизонтальную полосу, поэтому он удалён. Правый scrollbar gutter закрыт на
+WebEngine-уровне непрозрачным `html` и `.messages` background.
+
+Заголовок `JARVIS CHAT` остаётся в фиксированном identity host, но теперь
+остаток `title_row` забирает stretch: текст закреплён непосредственно после
+avatar и не зависит от длины модели. Двойная unread-точка устранена удалением
+второго marker из `paintEvent`. Полный frontend suite **59/59 PASS**,
+`compileall` и `git diff --check` PASS. Свежий UI запущен штатным launcher;
+визуальная приёмка трёх деталей остаётся открыта, так как автоматический захват
+прозрачного Qt-окна завершился timeout. Основной backend не останавливался.
+
+### Контрольная точка — 2026-11-17 15:26 MSK (работа приостановлена владельцем)
+
+Состояние сохранено без commit/push/reset/clean и без изменения пользовательской
+БД, `.env`, Ollama или локальных моделей. Штатный launcher остаётся запущен:
+PID **35728** (`C:\Python314\python.exe frontend\launch_jarvis.py`); его единственный
+backend-child — PID **51604** (`backend\main.py`). `GET /health` — **PASS**,
+в ответе `ollama: true`.
+
+Последняя очередь исходников:
+
+- удалён второй unread marker из `ChatItemWidget.paintEvent`; оставлена одна
+  доступная QLabel-точка `chatUnreadDot`;
+- устранён нижний прозрачный WebEngine inset; root `html`, `.messages`, scrollbar
+  track/corner и native guard имеют непрозрачный `#121212`/`var(--bg-main)` фон;
+- `JARVIS CHAT` остаётся в identity host фиксированной ширины, но остаток
+  `title_row` теперь забирает stretch, поэтому заголовок должен начинаться сразу
+  после avatar и не смещаться при смене модели.
+
+Проверки текущей очереди: frontend discovery **59/59 PASS**, `compileall -q
+frontend` — **PASS**, `git diff --check` — **PASS** (только уведомления Git о
+будущем LF→CRLF). Резервные копии:
+`phase5-backups/jarvis_ui.pre-seam-unread-dedupe-20261117.py.bak` и
+`phase5-backups/chat.pre-root-surface-20261117.html.bak`.
+
+Не объявлять последние три визуальные детали принятыми без ручного retest в
+уже запущенном окне: одна unread-точка, отсутствие нижней/правой прозрачной
+полосы, расстояние avatar → `JARVIS CHAT`. Общая цель Full Recovery также не
+завершена: остаются итоговый backend/test-backend contract audit, полный
+изолированный backend suite, `docs/JARVIS_FULL_RECOVERY_REPORT.md` и
+requirement-by-requirement completion audit.
+
+Documentation Update:
+- HANDOFF: **UPDATED**
+- Runtime Bug Registry: **UPDATED**
+- PROJECT MAP / PROJECT TREE: **NO CHANGE** — структура файлов этой очередью не
+  менялась.

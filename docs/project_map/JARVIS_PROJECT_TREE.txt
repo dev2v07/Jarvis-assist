@@ -1,4 +1,10 @@
 Jarvis/
+│  Recovery audit: docs/JARVIS_FULL_RECOVERY_AUDIT.md — текущие причины UI/API регрессий и план проверки (2026-11-17).
+│  Async backend read regression: frontend/tests/test_backend_read_worker.py — GUI event loop и worker cleanup.
+│  Voice status polling: frontend/jarvis_ui.py/VoiceStatusClient — QtNetwork GET/POST без ожидания GUI; test_backend_read_worker.py покрывает coalescing.
+│  Weather I/O: frontend/jarvis_ui.py/NetworkOperationWorker — внешние GET вне GUI; inline Settings и WeatherSettingsDialog делят validation/save path.
+│  Settings I/O: frontend/jarvis_ui.py/NetworkOperationWorker — один Qt worker для provider/chat/weather/backup/devices; explicit backup/camera only by button.
+│  Chat history I/O: frontend/jarvis_ui.py/NetworkOperationWorker — async archived sessions/history with stale-response guard.
 │  Generated from the current workspace on 2026-11-15 20:29
 Phase 4 delta: data/Bible физически consolidated и manifest имеет статус PHYSICALLY_CONSOLIDATED; 5,833 source files проверены по SHA-256, 5,832 unique canonical files сохранены; originals находятся в rollback-архиве `data/archive/bible_legacy_sources_20261115`; пользовательская навигация теперь единая через `data/Bible/library` с отдельными `CPU` и `Computer`; provenance и аудио убраны во внутренний `data/Bible/.internal`; runtime knowledge services используют Bible и resolver поддерживает archive-era aliases; добавлен единый human-facing catalog `data/Bible/index/library_catalog.json`; launcher не останавливает несовместимый listener; backend освобождает agent/lifecycle tasks; Account Server engine закрывается при shutdown; email.py переименован в email_provider.py; Alembic import path устойчив к рабочему каталогу.
 │  Excluded: .git, Python virtual environments, node_modules, caches, compiled dependencies, large audio/binary files and database WAL/SHM files.
@@ -599,6 +605,7 @@ Phase 4 delta: data/Bible физически consolidated и manifest имеет
 │   │   │   │   ├── app_icon.ico  # project source/resource
 │   │   │   │   ├── app_icon.png  # project source/resource
 │   │   │   │   ├── chat_settings.svg  # project source/resource
+│   │   │   │   ├── headphones.svg  # supplied voice-chat icon used by ChatComposer
 │   │   │   │   ├── incoming_message_texture.png  # project source/resource
 │   │   │   │   ├── logo.ico  # project source/resource
 │   │   │   │   ├── logo.png  # project source/resource
@@ -607,6 +614,7 @@ Phase 4 delta: data/Bible физически consolidated и manifest имеет
 │   │   │   │   ├── notifications.svg  # project source/resource
 │   │   │   │   ├── search.svg  # project source/resource
 │   │   │   │   ├── settings.svg  # project source/resource
+│   │   │   │   ├── stop.svg  # supplied STOP icon for active voice chat
 │   │   │   │   ├── wizard.bmp  # project source/resource
 │   │   │   │   ├── wizard_small.bmp  # project source/resource
 │   │   │   │   ├── добавить файл.svg  # project source/resource
@@ -615,7 +623,18 @@ Phase 4 delta: data/Bible физически consolidated и manifest имеет
 │   │   │   │   ├── отправка.svg  # project source/resource
 │   │   │   │   ├── плюсик.svg  # project source/resource
 │   │   │   │   ├── стоп.svg  # project source/resource
-│   │   │   │   └── эмодзи.svg  # project source/resource
+│   │   │   │   ├── эмодзи.svg  # project source/resource
+│   │   │   │   ├── orb/
+│   │   │   │   │   ├── 01 - ждет.png  # voice mode WAITING frame
+│   │   │   │   │   ├── 02 - обработка (1).png  # voice mode PROCESSING frame
+│   │   │   │   │   ├── 02 - обработка (2).png  # voice mode PROCESSING frame
+│   │   │   │   │   ├── 02 - обработка (3).png  # voice mode PROCESSING frame
+│   │   │   │   │   ├── 02 - обработка (4).png  # voice mode PROCESSING frame
+│   │   │   │   │   ├── 02 - обработка (5).png  # voice mode PROCESSING frame
+│   │   │   │   │   ├── 03 - говорит (1).png  # voice mode SPEAKING frame
+│   │   │   │   │   ├── 03 - говорит (2).png  # voice mode SPEAKING frame
+│   │   │   │   │   ├── 03 - говорит (3).png  # voice mode SPEAKING frame
+│   │   │   │   │   └── 03 - говорит (4).png  # voice mode SPEAKING frame
 │   │   │   ├── stickers/
 │   │   │   │   ├── crazy_tad/
 │   │   │   │   │   ├── блиин.png  # project source/resource
@@ -1186,6 +1205,7 @@ Phase 4 delta: data/Bible физически consolidated и manifest имеет
 │   ├── tests/
 │   │   ├── __init__.py  # makes frontend tests discoverable by unittest
 │   │   ├── test_assistant_toggle_contract.py  # verifies sidebar assistant switch controls real voice runtime
+│   │   ├── test_chat_composer_contract.py  # supplied headphones icon and voice-chat state contract
 │   │   ├── test_voice_error_recovery_contract.py  # stale voice error label recovery regression
 │   │   └── test_voice_input.py  # test source
 │   ├── account_ui.py  # project source/resource
@@ -1277,3 +1297,87 @@ Excluded artifact summary:
 - jarvis_voice/: 2 excluded large/dependency/generated files
 - root/: 3 excluded large/dependency/generated files
 - tools/: 1 excluded large/dependency/generated files
+
+SELF_LEARNING additions:
+- backend/services/self_learning_service.py  # structured Bible draft writer and shared-index refresh
+- backend/tests/test_self_learning_mode.py  # isolated persistence and deduplication tests
+- data/Bible/.internal/sources/self_learning/catalog.json  # created on the first real learning turn
+
+UI/runtime checkpoint 2026-11-16:
+- frontend/jarvis_ui.py  # fixed settings size-hint expansion, sidebar layout activation and async AI provider dialog I/O
+- docs/runtime/diagnostics/JARVIS_UI_ARCHITECTURE_RECOVERY_20261116.md  # recovery report
+- docs/project_map/JARVIS_PROJECT_MAP.docx  # architecture map updated; pre-edit backup retained beside it
+- docs/JARVIS_PHASE4_1_UI_RECOVERY.md  # repeat cold-start UI recovery report
+- frontend/tests/test_ui_shell_contract.py  # shared shell, Settings scroll and fullscreen restore contracts
+- docs/project_map/JARVIS_PROJECT_MAP.pre-full-ui-audit-20261116.docx  # pre-edit backup for current map update
+
+UI architecture checkpoint 2026-11-16 (historical, superseded below):
+- frontend/jarvis_ui.py  # initial Settings scroll host and fixed normal-shell constraint
+- Later manual runtime checks found the fixed-size restore still lost clicks; see Phase 5 current checkpoint
+- AI provider profile loading remains on ProviderOperationWorker and returned seven profiles from the main backend in runtime smoke
+
+Phase 5 additions:
+- frontend/profile_dialog.py  # profile dialog hover follows accent theme
+- frontend/tests/test_ui_shell_contract.py  # root stylesheet and dark input contracts
+- docs/runtime/diagnostics/phase5-backups/  # backups of critical UI files before follow-up edits
+- docs/runtime/diagnostics/phase5-backups/jarvis_ui.pre-voice-poll-20261117.bak  # pre-QtNetwork UI rollback copy
+- docs/runtime/diagnostics/phase5-backups/jarvis_ui.pre-weather-async-20261117.bak  # pre-weather-worker UI rollback copy
+- docs/runtime/diagnostics/phase5-backups/jarvis_ui.pre-settings-http-20261117.bak  # pre-Settings HTTP worker rollback copy
+- docs/runtime/diagnostics/phase5-backups/jarvis_ui.pre-history-async-20261117.bak  # pre-chat-history async rollback copy
+- docs/project_map/JARVIS_PROJECT_MAP.pre-voice-poll-20261117.docx  # pre-edit Project Map rollback copy
+- docs/project_map/JARVIS_PROJECT_MAP.pre-weather-async-20261117.docx  # pre-weather Project Map rollback copy
+- docs/project_map/JARVIS_PROJECT_MAP.pre-settings-http-20261117.docx  # pre-Settings HTTP Project Map rollback copy
+- docs/project_map/JARVIS_PROJECT_MAP.pre-history-async-20261117.docx  # pre-chat-history Project Map rollback copy
+- docs/project_map/JARVIS_PROJECT_MAP.docx  # updated UI/backend read and voice polling map; render QA blocked by missing soffice.exe
+
+Phase 5 current UI checkpoint 2026-11-17:
+- frontend/jarvis_ui.py  # CurrentPageStack uses visible-page height-for-width; shared Settings Glass QSS and responsive shell/Sidebar layout
+- frontend/tests/test_ui_shell_contract.py  # Qt runtime short/tall/short scrollbar regression test and shell architecture guard
+- docs/JARVIS_FULL_RECOVERY_AUDIT.md  # current recovery findings and evidence boundaries
+- docs/runtime/bug_registry/JARVIS_RUNTIME_BUG_REGISTRY.md  # REC-UI-007 through REC-UI-010 manual and trace results
+- docs/runtime/diagnostics/phase5-backups/  # includes pre-glass-viewport, pre-shell-layout, pre-settings-theme/geometry and pre-AI-panel copies
+- docs/project_map/JARVIS_PROJECT_MAP.pre-ui-theme-20261117.docx  # Project Map pre-edit rollback copy
+- docs/project_map/JARVIS_PROJECT_MAP.docx  # Settings shell/theme dependency map (runtime evidence and remaining gates)
+- docs/ui/README.md  # shared Settings shell contract and links to current acceptance evidence
+- backend/services/config_service.py  # provider profile save preserves unrelated provider fields
+- frontend/account_ui.py  # Account Center reads authenticated coordinator identity
+- backend/tests/test_provider_profile_isolation.py  # provider save isolation and FreeLLMAPI AUTO regression tests
+- docs/runtime/diagnostics/phase5-backups/jarvis-config.pre-provider-isolation-20261117.env.bak  # configuration rollback copy
+- backend/main.py  # partial provider payloads use exclude_unset so omitted profiles remain intact
+- frontend/voice_mode_overlay.py  # tracked one-shot hover signal avoids disconnect warnings during shutdown
+- docs/runtime/diagnostics/phase5-backups/backend-main.pre-provider-partial-20261117.py.bak  # backend route rollback copy
+- docs/runtime/diagnostics/phase5-backups/config-service.pre-freellm-auto-20261117.py.bak  # provider normalization rollback copy
+
+Phase 5 interaction checkpoint 2026-11-17:
+- frontend/jarvis_ui.py  # capability cards, stable chat readiness/outline, opaque WebEngine backing, unified Settings bottom actions and async Voice Mode navigation stop
+- frontend/voice_mode_overlay.py  # bounded windowed Orb/rings with accepted fullscreen scale preserved
+- frontend/tests/test_ui_shell_contract.py  # Settings action row, command expansion, chat seam/readiness, capability/sidebar/widget contracts
+- frontend/tests/test_voice_mode_overlay_contract.py  # windowed/fullscreen geometry regression coverage
+- frontend/tests/test_assistant_toggle_contract.py  # navigation stop remains non-blocking in Qt GUI thread
+- docs/runtime/diagnostics/phase5-backups/jarvis_ui.pre-ui-checkpoint-20261117-015714.py.bak  # UI rollback copy
+- docs/runtime/diagnostics/phase5-backups/voice_mode_overlay.pre-windowed-layout-20261117-015714.py.bak  # Voice Mode rollback copy
+- docs/runtime/diagnostics/jarvis-ui-runtime-20261117-checkpoint3.jsonl  # current UI runtime trace
+- docs/runtime/diagnostics/jarvis-launch-runtime-20261117-checkpoint3.log  # current launcher/backend trace
+- frontend/assets/CHAT/chat.html  # opaque scrollbar gutter prevents wallpaper seam at fractional DPI
+- docs/project_map/JARVIS_PROJECT_MAP.pre-ui-interaction-checkpoint-20261117.docx  # rollback copy before current map append
+- docs/runtime/diagnostics/jarvis-ui-runtime-20261117-checkpoint5.jsonl  # crashed UI trace retained for diagnosis
+- docs/runtime/diagnostics/jarvis-launch-runtime-20261117-checkpoint5.log  # crashed launcher trace retained for diagnosis
+- docs/runtime/diagnostics/jarvis-ui-runtime-20261117-checkpoint6.jsonl  # current faulthandler UI trace
+- docs/runtime/diagnostics/jarvis-launch-runtime-20261117-checkpoint6.log  # current launcher trace
+- frontend discovery  # 51/51 PASS for current checkpoint
+
+Phase 5 checkpoint9 — 2026-11-17:
+- frontend/assets/capabilities/01_camera_video_capture.png  # owner-provided camera capability image
+- frontend/assets/capabilities/02_object_recognition.png  # owner-provided vision capability image
+- frontend/assets/capabilities/03_gesture_control.png  # owner-provided gesture capability image
+- frontend/assets/capabilities/04_3d_printer.png  # owner-provided printer capability image
+- frontend/assets/capabilities/05_cad_3d_generation.png  # owner-provided CAD capability image
+- frontend/assets/capabilities/06_streaming_audio_video.png  # owner-provided streaming capability image
+- frontend/assets/capabilities/07_cuda_gpu.png  # owner-provided GPU capability image
+- frontend/assets/capabilities/08_external_devices_lan.png  # owner-provided LAN capability image
+- frontend/jarvis_ui.py  # fixed history right gutter; stable opaque WebEngine host; visual capability cards; Python-thread HTTP delivery
+- frontend/tests/test_ui_shell_contract.py  # card assets/hover, history gutter, opaque host and lifecycle contracts
+- docs/runtime/diagnostics/jarvis-ui-runtime-20261117-checkpoint9.jsonl  # post-lifecycle runtime evidence
+- docs/runtime/diagnostics/jarvis-launch-runtime-20261117-checkpoint9.log  # launcher output for post-lifecycle runtime
+- docs/runtime/diagnostics/phase5-backups/jarvis_ui.before-capability-images-20261117.py  # rollback copy
+- docs/project_map/JARVIS_PROJECT_MAP.pre-checkpoint9-20261117.docx  # rollback copy before checkpoint9 map update

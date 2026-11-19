@@ -26,3 +26,20 @@
 Knowledge 3.0 (например, Programming Mentor), и только после этого передаёт запрос
 динамическому Ollama/LLM маршруту. Пустые, отсутствующие или незавершённые WAV не
 считаются готовым ответом. `/knowledge/answer` используется для проверки этой цепочки.
+
+## SELF_LEARNING chat mode
+
+The existing chat `Самообучение` is bound by its persistent chat ID to the
+`SELF_LEARNING` mode. Mode metadata is stored in the same Jarvis state database
+as chat sessions, so a rename does not detach it and ordinary chat IDs remain
+on the normal planner path.
+
+Learning turns are processed by `backend/services/self_learning_service.py`.
+The service requests a structured draft from the configured LLM, records
+`user_provided` provenance and uncertainty, deduplicates by a stable content
+identifier, and writes to the single Bible source
+`data/Bible/.internal/sources/self_learning/catalog.json`. It then uses the
+existing `build_bible_catalog.py` generator and `KnowledgeSearchService`; no
+second index or search implementation is created. New drafts are explicitly
+marked `NEEDS_REVIEW` and are not treated as verified facts. The chat reports
+created, updated, duplicate, source, save, and index states to the user.

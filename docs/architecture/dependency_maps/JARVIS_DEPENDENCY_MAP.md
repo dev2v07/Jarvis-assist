@@ -117,4 +117,12 @@ sequenceDiagram
 - `KnowledgeSearchService` is the current unifying read facade; source files and generated audio remain owned by their original catalogs.
 - The account server is a second application boundary, not a proven dependency of the default desktop launcher.
 - Windows control is not a pure service abstraction: `computer_control.py`, UI callbacks and selected services call `subprocess`/`os.system` directly or via guarded adapters.
-- The desktop client uses hard-coded loopback URLs instead of a shared typed client, so endpoint drift can occur between UI and backend.
+- The desktop client uses one configurable `API_ROOT` (`JARVIS_API_BASE_URL`), but direct `requests` calls and timeout/error handling remain spread across `jarvis_ui.py`; there is no shared typed client. Chat model, session lists, chat history, weather, backup status/run and device capability/camera Settings paths use the shared `NetworkOperationWorker`/`NetworkOperationBridge` Qt path. High-frequency voice-status polling uses `VoiceStatusClient` with QtNetwork and one in-flight GET/POST. These paths have isolated tests (2026-11-17); live UI retest and other direct GUI-thread calls remain open.
+- Settings layout (2026-11-17): `JarvisUI.build_ui()` owns one `settings_scroll`
+  and `CurrentPageStack`. The stack computes `sizeHint`, `minimumSizeHint` and
+  `heightForWidth` for the visible page so a hidden AI page cannot force a
+  scrollbar on Notifications/IRON. The root `JarvisUI.apply_styles()` owns the
+  common dark `settingsCard`/Glass tile/provider panel theme. The left Sidebar
+  Recent Chats list uses available layout height in normal and fullscreen;
+  top-level resize no longer invokes queued fixed-size constraints. This is
+  one UI shell and does not introduce another Settings window or backend.

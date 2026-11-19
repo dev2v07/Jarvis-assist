@@ -579,3 +579,650 @@ Owner decision: manual UI interaction and subjective audible-playback confirmati
 - Change: перед модельным ответом VoiceRuntime формирует bounded context anchor из последней пользовательской реплики и добавляет общую инструкцию продолжать тему для любых follow-up, а не только для сна.
 - Дополнение: если данных недостаточно, модель получает инструкцию задать один короткий уточняющий вопрос по текущей теме вместо догадки или смены темы.
 - Evidence: `test_voice_knowledge_tts` **2/2 PASS**; `py_compile` PASS. Реальный voice → STT → Ollama multi-turn retest ещё требуется.
+
+### PH4-UI-012 — отсутствовала рабочая collapsible-панель контекста чата
+
+- Status: **IMPLEMENTED / CONTRACT VERIFIED; LIVE UI SMOKE IN PROGRESS**
+- Priority: P2 UI usability
+- Root cause: чат занимал всю центральную область, а существующие панели были либо страницами навигации, либо плавающими диалогами; отдельного контекстного состояния справа не было.
+- Change: добавлен `frontend/chat_sidebar.py` с `ChatSidebarPanel`; chat page теперь использует `QSplitter`, кнопка в заголовке открывает/закрывает панель, ширина и открытое состояние сохраняются через `QSettings`. Панель показывает только реальные данные backend и явно сообщает о недоступности источника.
+- Evidence: frontend suite **16/16 PASS**, `py_compile` PASS. Live accessibility smoke подтвердил `chatSplitter`, `chatFrame`, `chatHeader` и `chatSidebarToggle` внутри одного главного окна. Внешний screenshot capture завершился `FrameArrived timed out`, а UI-мост не предоставил координаты Qt-кнопки; открытие/закрытие, drag-размер и восстановление после перезапуска остаются **PARTIAL / LIVE INPUT UNVERIFIED**.
+
+### PH4-UI-013 — кнопка голосового чата использовала символ вместо утверждённой иконки
+
+- Status: **FIXED IN SOURCE / CONTRACT VERIFIED; LIVE UI RETEST REQUIRED**
+- Priority: P2 UI consistency
+- Symptom: в composer кнопка голосового чата отображала текстовый символ `◉`, а не переданную пользователем иконку гарнитуры.
+- Change: добавлен точный asset `frontend/assets/CHAT/icons/headphones.svg`; `ChatComposer` подключает его через `QIcon`, а при активном голосовом чате сохраняет stop-state и восстанавливает иконку после остановки.
+- Evidence: SHA-256 asset совпадает с `C:\Users\Данил\Downloads\headphones.svg`; QIcon offscreen smoke PASS; реальный offscreen `ChatComposer` smoke (icon → stop → icon) PASS; frontend suite **18/18 PASS**; `py_compile` PASS. Живой UI после перезапуска ещё не проверен.
+
+### PH4-VOICE-022 — пользователь услышал женский голос вместо подтверждённого Jarvis Fish voice
+
+- Status: **UNCONFIRMED SOURCE / LIVE RETEST REQUIRED**
+- Priority: P1 voice identity
+- Symptom: владелец сообщил, что текущий ответ Jarvis звучит женским голосом.
+- Current evidence: before the controlled restart a warmed process reported `ready=true`, but the current clean task-owned backend `18084` reports selected `fish_jarvis`, engine `fish_audio_s2_1_pro_free`, `available=true`, `ready=false`, `inference_verified=false` until a first synthesis. The exact played artifact/process is still not captured, so the user's heard voice cannot be attributed to Fish or another provider from status alone.
+- Next gate: run one controlled phrase with runtime status and audio artifact/source captured, then compare against the owner-approved Fish Jarvis sample. Do not change the Fish reference ID or secrets speculatively.
+
+### PH4-VOICE-023 — «открой компьютер» не имела локального маршрута
+
+- Status: **FIXED IN SOURCE / CONTRACT VERIFIED; LIVE RETEST REQUIRED**
+- Priority: P1 voice command routing
+- Symptom: после распознавания фразы «открой компьютер» Jarvis не открывал Windows Explorer и показывал ошибку/непрофильный ответ.
+- Root cause: `open_computer` отсутствовал в `backend/voice_engine/commands.yaml` и в `computer_control.ACTIONS`; существующий alias `мой компьютер` внутри `FileSystemService` не достигался из общего маршрута команд.
+- Change: добавлен отдельный intent `open_computer` с вариантами «открой компьютер», «открой мой компьютер», «открой этот компьютер», «покажи компьютер». Обработчик вызывает `shell:MyComputerFolder`, возвращает локальную обратную связь и не передаёт запрос в общий диалог.
+- Evidence: `ResponseRouter` и `computer_control.find_intent` возвращают `open_computer`; `py_compile` PASS; live execution через микрофон ещё не повторялся после исправления.
+
+### PH4-VOICE-024 — задержка ответа на «открой браузер» требует раздельной live-метрики
+
+- Status: **FIXED IN SOURCE / LIVE RETEST REQUIRED**
+- Priority: P1 voice responsiveness
+- Symptom: пользователь сообщил, что команда «Джарвис, открой браузер» сработала, но с большой задержкой.
+- Root cause: `open_browser()` вызывал `webbrowser.open()` прямо внутри command action; на Windows зарегистрированный browser controller мог задерживать возврат управления голосовому runtime.
+- Change: Windows-путь теперь использует неблокирующий `os.startfile("https://google.com")`; `webbrowser.open()` оставлен только как fallback при `AttributeError/OSError`. Добавлены метрики `route_decision_ms`, `command_action_ms` и `response_ready_ms`.
+- Remaining: production backend `18084` нужно штатно перезапустить, затем повторить живую фразу. Окно Silero около 512 мс не изменялось, чтобы не ухудшить точность STT.
+- Evidence: fast browser launch contract PASS; `py_compile` PASS; live retest after backend restart pending.
+### PH4-UI-014 — Collapsible right sidebar отклонён и удалён
+
+- Статус: **CLOSED — REJECTED / REMOVED**
+- Причина: ручная проверка владельца подтвердила зависания после добавления sidebar; реализация не принята.
+- Действие: удалены `frontend/chat_sidebar.py`, `frontend/tests/test_chat_sidebar_contract.py` и интеграция `QSplitter`/sidebar из `frontend/jarvis_ui.py`.
+- Дополнительный runtime-фактор: во время диагностики обнаружен лишний task-owned backend на `8000`; он остановлен. Актуальный backend оставлен на `18084`.
+- Проверка: `py_compile` и frontend suite **14/14 PASS**.
+
+### PH4-UI-015 — голосовой режим не имел визуального Overlay с реальными состояниями
+
+- Статус: **IMPLEMENTED / CONTRACT VERIFIED; LIVE UI SMOKE REQUIRED**
+- Приоритет: P2 UI/voice observability
+- Симптом: запуск voice chat оставлял пользователя только в основном чате; не было единого визуального слоя, показывающего ожидание, обработку и речь Jarvis.
+- Исправление: добавлен дочерний `VoiceModeOverlay` поверх существующего окна. Он использует 10 утверждённых PNG-кадров, crossfade между слоями, дыхание/свечение/hover и карту реальных `voice_runtime.phase` в три состояния. Остановка подключена к существующему voice-session stop handler.
+- Проверка: `py_compile` PASS; offscreen `ORB_SMOKE=PASS`; frontend suite **19/19 PASS**.
+- Ограничение: фактический микрофонный цикл, слышимое воспроизведение и ручная оценка визуальных переходов в живом окне ещё не проверены.
+
+### PH4-UI-016 — Orb обрезался, смещался влево и терял качество
+
+- Статус: **FIXED IN SOURCE / OFFSCREEN VERIFIED; LIVE VISUAL RETEST REQUIRED**
+- Приоритет: P2 UI presentation
+- Причина: `orb_canvas` был одновременно дочерним элементом `QVBoxLayout` и объектом ручного `setGeometry()`. Кроме того, resize повторно масштабировал уже уменьшенный pixmap.
+- Исправление: добавлен внутренний `orb_stage`, который центрируется layout-областью и отдельно анимируется; исходные PNG сохраняются в `_layer_sources` и масштабируются заново от оригинала с `KeepAspectRatio`.
+- Проверка: frontend suite **19/19 PASS**, `py_compile` PASS, offscreen layout smoke PASS (`orb_stage=560x560`, центрирован).
+- Ограничение: визуальное подтверждение в живом окне владельцем ещё требуется.
+
+### PH4-UI-017 — Orb не отображался после layout-исправления, Overlay был прямоугольным
+
+- Статус: **FIXED IN SOURCE / OFFSCREEN VERIFIED; LIVE VISUAL RETEST REQUIRED**
+- Приоритет: P2 UI presentation
+- Причина: кадр мог быть установлен до финального layout-прохода; фон Overlay рисовался стандартной прямоугольной подложкой.
+- Исправление: добавлен явный refresh текущего кадра после `show()`, а фон Overlay переведён на собственную отрисовку с антиалиасингом и радиусом скругления 24 px.
+- Проверка: frontend suite **19/19 PASS**, `py_compile` PASS, `ORB_VISIBLE_SMOKE=PASS`.
+- Ограничение: итоговый визуальный PASS в живом окне ещё не подтверждён владельцем.
+
+### PH4-UI-018 — QGraphicsEffect на родительском Orb-контейнере скрывал дочерние слои
+
+- Статус: **FIXED IN SOURCE / OFFSCREEN RENDER VERIFIED; LIVE VISUAL RETEST REQUIRED**
+- Приоритет: P2 UI presentation
+- Причина: эффект тени был установлен на прозрачный `orb_stage`, содержащий два QLabel со слоями crossfade; на Windows/Qt это могло отрисовать только родительский контейнер.
+- Исправление: эффект снят с родителя. PNG уже содержит свечение; центрирование и crossfade сохранены.
+- Проверка: `py_compile` PASS, frontend suite **19/19 PASS**, `ORB_RENDER_SMOKE=PASS` с видимыми пикселями внутри stage.
+
+### PH4-UI-019 — требовался меньший размер Orb по визуальному референсу
+
+- Статус: **FIXED IN SOURCE / OFFSCREEN VERIFIED; LIVE VISUAL RETEST REQUIRED**
+- Приоритет: P2 UI presentation
+- Исправление: целевой размер Orb установлен в 30% от исходного кадра `1254x1254`, то есть `376x376`, с сохранением пропорций и центрированием.
+- Проверка: frontend suite **19/19 PASS**, `py_compile` PASS, `ORB_30_PERCENT_SMOKE=PASS`.
+
+### PH4-UI-020 — QWebEngineView перекрывал Orb в центральной области Voice Mode
+
+- Статус: **FIXED IN SOURCE / CONTRACT VERIFIED; LIVE VOICE UI RETEST REQUIRED**
+- Приоритет: P1 UI/voice mode visibility
+- Симптом: заголовок и кнопка Voice Mode были видны, но сам Orb отсутствовал на фоне центрального чата.
+- Причина: `VoiceModeOverlay` был дочерним `JarvisUI`, а `QWebEngineView` внутри `chatFrame` отрисовывался поверх Qt-слоя Overlay.
+- Исправление: Overlay перепривязан к `self.chat_frame` и поднимается над содержимым chat frame; голосовая сессия и ChatStore не изменены.
+- Проверка: `py_compile` PASS, frontend suite **19/19 PASS**; живой voice UI retest ещё требуется.
+
+### PH4-UI-021 — дыхательная анимация переносила Orb в левый верхний угол
+
+- Статус: **FIXED IN SOURCE / REOPEN SMOKE VERIFIED; LIVE VISUAL RETEST REQUIRED**
+- Приоритет: P1 UI/voice mode visibility
+- Причина: `QPropertyAnimation` для `orb_canvas` использовала локальную геометрию `orb_stage` как глобальный стартовый прямоугольник.
+- Исправление: анимация теперь строится от геометрии самого `orb_canvas`; внутренний stage остаётся локальным и не меняет позицию canvas.
+- Проверка: первый и второй показ имеют одинаковую геометрию `(612,312,376,376)`; frontend suite **19/19 PASS**.
+
+### PH4-UI-022 — Overlay занимал только webview, а анимация снова обрезала Orb
+
+- Статус: **FIXED IN SOURCE / STATIC REOPEN SMOKE VERIFIED; LIVE VISUAL RETEST REQUIRED**
+- Приоритет: P1 UI/voice mode visibility
+- Исправление: Overlay возвращён на полный `chatFrame`; только `orb_canvas` вынесен в host `QWebEngineView` для отображения поверх HTML-чата. Временная анимация Orb отключена полностью. Размер закреплён `376x376`.
+- Проверка: `ORB_STATIC_SMOKE` PASS; первый и второй показ совпадают; frontend suite **19/19 PASS**.
+
+### PH4-UI-023 — вынесенный Orb оставался видимым после закрытия Voice Mode
+
+- Статус: **FIXED IN SOURCE / VISIBILITY SMOKE VERIFIED; LIVE VISUAL RETEST REQUIRED**
+- Приоритет: P1 UI state leakage
+- Причина: toggle-stop путь завершал backend voice session напрямую и не скрывал `orb_canvas`, вынесенный в `QWebEngineView`.
+- Исправление: toggle-stop использует единый `stop_voice_chat_from_composer`; добавлена прозрачная область вокруг Orb для сохранения яркости изображения внутри Overlay.
+- Проверка: `py_compile` PASS, frontend suite **20/20 PASS**, `ORB_VISIBILITY_REOPEN_SMOKE` PASS.
+
+### PH4-UI-024 — неправильный transparent-hole workaround создавал большой круглый артефакт
+
+- Статус: **REMOVED / REGRESSION VERIFIED; LIVE VISUAL RETEST REQUIRED**
+- Приоритет: P1 UI rendering
+- Причина: `mapTo()` между Overlay и Orb-host в разных ветвях Qt-иерархии давал неверную координату.
+- Действие: workaround удалён; фон снова равномерный, без прозрачного выреза. Видимость Orb управляется только stop/show lifecycle.
+- Проверка: frontend suite **20/20 PASS**, `ORB_HIDE_NO_ARTIFACT_SMOKE` PASS.
+
+### PH4-UI-025 — Qt reparenting автоматически показывал Orb в обычном чате
+
+- Статус: **FIXED IN SOURCE / LIFECYCLE SMOKE VERIFIED; LIVE VISUAL RETEST REQUIRED**
+- Приоритет: P1 UI state leakage
+- Причина: `setParent(self.chat_view)` мог автоматически показать `orb_canvas` после привязки к webview.
+- Исправление: `set_orb_host()` принудительно скрывает canvas; показывание разрешено только из `show_mode()`.
+- Проверка: `ORB_LIFECYCLE_SMOKE` PASS; frontend suite **20/20 PASS**.
+
+### PH4-UI-026 — Orb находился позади затемняющего Voice Mode Overlay
+
+- Статус: **FIXED IN SOURCE / FRONT LIFECYCLE VERIFIED; LIVE VISUAL RETEST REQUIRED**
+- Приоритет: P1 UI layering
+- Причина: Orb был дочерним `QWebEngineView`, а Overlay — более верхним sibling внутри `chatFrame`.
+- Исправление: Orb reparented в верхний `JarvisUI`, позиция рассчитывается по `chatFrame`, canvas поднимается `raise_()` только при открытии Voice Mode.
+- Проверка: `ORB_FRONT_LIFECYCLE` PASS, frontend suite **20/20 PASS**.
+
+### PH4-UI-027 — Orb требовал ручной подгонки и не переключал PNG-кадры
+
+- Статус: **FIXED IN SOURCE / CONTRACT VERIFIED; LIVE MANUAL CALIBRATION REQUIRED**
+- Приоритет: P1 Voice Mode presentation
+- Исправление: добавлен запуск с `--calibrate-voice-orb`; Orb перетаскивается и изменяет размер мышью, а кнопка `Зафиксировать Orb` сохраняет геометрию в QSettings относительно `chatFrame`. Для `processing` и `speaking` включён циклический crossfade по всем подготовленным PNG-кадрам. Автодвижение и дыхание оставлены выключенными, чтобы зафиксированная точка не менялась.
+- Проверка: `py_compile` PASS, frontend suite **20/20 PASS**; требуется ручная настройка и визуальная проверка владельцем.
+
+### PH4-UI-028 — Orb-анимация не соответствовала ping-pong-порядку и не имела мягкого hover
+
+- Статус: **FIXED IN SOURCE / CONTRACT VERIFIED; LIVE VISUAL RETEST REQUIRED**
+- Приоритет: P2 Voice Mode presentation
+- Исправление: добавлены явные последовательности `1-2-3-4-5-4-3-2` для обработки и `1-4-3-2-3-4` для ответа, crossfade сделан длиннее; ожидание получило пульсацию и акцентное свечение, hover — плавное увеличение изображения внутри зафиксированного canvas.
+- Проверка: `py_compile` PASS, frontend suite **20/20 PASS**; ручная проверка кадров и hover ещё требуется.
+
+### PH4-UI-029 — быстрые переходы, отсутствие hover-поворота и рассинхрон SPEAKING
+
+- Статус: **FIXED IN SOURCE / TEST VERIFIED; LIVE VOICE UI RETEST REQUIRED**
+- Приоритет: P1 Voice Mode state/animation
+- Исправление: добавлены более медленные интервалы и crossfade между статусами, пульсация/свечение для всех состояний, удержание увеличения при hover, поворот Orb по круговому движению курсора и возврат поворота при уходе. Backend status теперь публикует `speaking`, а фаза TTS остаётся говорящей до окончания воспроизведения; frontend опрашивает status чаще и приоритетно использует фактический speaking flag.
+- Проверка: frontend **20/20 PASS**, backend voice runtime **10/10 PASS**, `py_compile` PASS; требуется ручная проверка голосового ответа и hover-жеста.
+
+### PH4-UI-030 — поворот срабатывал от обычного hover, hover сбрасывал размер, speaking прерывался poll-ами
+
+- Статус: **FIXED IN SOURCE / TEST VERIFIED; LIVE VOICE UI RETEST REQUIRED**
+- Приоритет: P1 Voice Mode interaction/state
+- Исправление: вращение переведено на click-drag левой/правой кнопкой; увеличенный hover удерживается до Leave; обработка замедлена до 480 ms; speaking зафиксирован на `03 - говорит (2)` с отдельной pulse/glow-анимацией; одинаковый статус больше не сбрасывает Orb при каждом опросе.
+- Проверка: frontend **20/20 PASS**, backend voice runtime **10/10 PASS**, runtime smoke PASS.
+
+### PH4-UI-031 — отсутствовал индикатор активности чата и hover-rotation был переведён в click-only
+
+- Статус: **FIXED IN SOURCE / CONTRACT VERIFIED; LIVE UI RETEST REQUIRED**
+- Приоритет: P2 Chat/Voice Mode UI
+- Исправление: добавлена status-dot рядом с `JARVIS CHAT` с цветами active/error/offline; rotation снова работает при hover, замедлена на 50%, увеличение удерживается до Leave; speaking frame зафиксирован на `03 - говорит (2).png`.
+- Проверка: frontend **20/20 PASS**, `py_compile` PASS, `git diff --check` PASS.
+
+### PH4-UI-032 — fullscreen смещал Orb, перекрывал taskbar и пропускал speaking frame
+
+- Статус: **FIXED IN SOURCE / TEST VERIFIED; LIVE UI RETEST REQUIRED**
+- Приоритет: P1 Voice Mode geometry/state
+- Исправление: fullscreen переведён с `showMaximized()` на геометрию `QScreen.availableGeometry()` с безопасным восстановлением исходного окна; Orb в fullscreen принудительно центрируется в `chatFrame`; status-dot рядом с названием получил фиксированную ширину и компактный layout; вращение hover замедлено с `0.5` до `0.25`; backend публикует `last_speaking_finished_at`, а frontend удерживает `speaking` после короткого TTS/WAV, чтобы был виден `03 - говорит (2).png`.
+- Проверка: `py_compile` PASS, frontend **20/20 PASS**, backend voice runtime **10/10 PASS**, `git diff --check` PASS; требуется ручной fullscreen и голосовой визуальный smoke.
+
+### PH4-UI-033 — вращение hover и speaking-пульсация оставались слишком быстрыми
+
+- Статус: **FIXED IN SOURCE / CONTRACT VERIFIED; LIVE UI RETEST REQUIRED**
+- Исправление: коэффициент вращения при наведении снижен с `0.25` до `0.125`; длительность speaking-пульса увеличена с `720` до `1440 ms`, то есть частота снижена вдвое без отключения визуальной реакции на голос.
+- Проверка: `py_compile` и frontend contract suite после изменения.
+
+### PH4-UI-034 — вокруг Orb отсутствовали постоянные вращающиеся кольца
+
+- Статус: **FIXED IN SOURCE / CONTRACT VERIFIED; LIVE UI RETEST REQUIRED**
+- Исправление: в Voice Mode добавлен прозрачный слой `_OrbRings` с тремя акцентными кольцами. Внешнее и внутреннее кольца вращаются влево, среднее — вправо; слой запускается только при открытии Voice Mode, не перехватывает мышь и скрывается вместе с режимом.
+- Проверка: `py_compile`, frontend **20/20 PASS**, `git diff --check` PASS.
+
+### PH4-UI-041 — fullscreen увеличивал normal-окно, текстовый ответ не менял Orb и status-dot
+
+- Статус: **FIXED IN SOURCE / TEST VERIFIED; LIVE UI RETEST REQUIRED**
+- Исправление: нормальный размер после запуска фиксируется по пользовательскому эталону `1687×1182` с пересчётом через DPI монитора и больше не зависит от последней fullscreen-геометрии. Обычный текстовый запрос теперь переводит открытый Voice Mode в `processing`, затем в `speaking`; status-dot получает локальный override на время запроса и различает обычный ответ, ошибку и локальную библиотеку. Backend публикует время начала озвучивания, поэтому короткие WAV/TTS-переходы Ollama/Fish не теряются polling-ом.
+- Проверка: `py_compile`, frontend **20/20 PASS**; backend suite запускается из каталога `backend`.
+
+### PH4-UI-042 — очистка истории отсутствовала, startup-размер был увеличен, fullscreen скрывал taskbar
+
+- Статус: **FIXED IN SOURCE / CONTRACT VERIFIED; LIVE UI RETEST REQUIRED**
+- Исправление: в меню обычных и закреплённых чатов добавлена «Очистить историю» с подтверждением; endpoint удаляет сообщения, строки вложений и локальные кэшированные файлы, сохраняя сессию. Нормальная геометрия снова берётся из стартового `1280×850`, а fullscreen получает явный нижний резерв под taskbar при некорректном ответе Windows `availableGeometry`.
+- Проверка: `py_compile`, frontend **20/20 PASS**, backend `/health` отвечает после перезапуска.
+
+### PH4-UI-035 — точка статуса и нормальная геометрия окна оставались смещёнными
+
+- Статус: **FIXED IN SOURCE / TEST VERIFIED; LIVE UI RETEST REQUIRED**
+- Исправление: строка заголовка получила фиксированную ширину текста и `SetFixedSize`, поэтому status-dot располагается непосредственно после `JARVIS CHAT`. Кольца расширены и отодвинуты от Orb; добавлены три точки, незамкнутый сегмент, утолщённые дуги и пунктирная внешняя орбита. Нормальная геометрия окна теперь сохраняется до fullscreen и не заменяется экранной геометрией при выходе.
+- Проверка: `py_compile`, frontend **20/20 PASS**, `git diff --check` PASS.
+
+### PH4-UI-036 — доработка колец, waveform и восстановление исходного размера
+
+- Статус: **FIXED IN SOURCE / TEST VERIFIED; LIVE UI RETEST REQUIRED**
+- Исправление: точки колец увеличены, радиус HUD увеличен; добавлено мягкое свечение Orb. В Voice Mode появился акцентный waveform над строкой диалога, который получает реальный `audio_level` от backend VAD и анимирует палочки при речи. Заголовок `JARVIS CHAT` возвращён к естественной ширине без принудительного обрезания. Для выхода из fullscreen используется неизменяемая launch-геометрия окна.
+- Проверка: frontend **20/20 PASS**, backend voice runtime **10/10 PASS**, `py_compile`, `git diff --check` PASS.
+
+### PH4-UI-037 — Voice Mode не следовал размеру chatFrame после fullscreen, waveform растягивался
+
+- Статус: **FIXED IN SOURCE / CONTRACT VERIFIED; LIVE UI RETEST REQUIRED**
+- Исправление: Overlay теперь синхронизирует собственную геометрию с `chatFrame` при Resize, поэтому при входе/выходе fullscreen не остаётся старый размер. Waveform сделан компактным фиксированным индикатором 220×48 по центру, ближе к референсу.
+- Проверка: `py_compile`, frontend **20/20 PASS**, `git diff --check` PASS.
+
+### PH4-UI-038 — статусный индикатор не различал ответы локальной библиотеки
+
+- Статус: **FIXED IN SOURCE / CONTRACT VERIFIED; LIVE UI RETEST REQUIRED**
+- Исправление: status-dot теперь учитывает `last_turn_metrics.route`. При активном runtime и маршруте `knowledge`/`library`/`conversational` точка становится зелёной (`#32c875`), при обычной активности остаётся акцентной синей, при ошибке — красной, при offline — белой.
+- Проверка: `py_compile`, frontend **20/20 PASS**.
+
+### PH4-UI-039 — закреплённый чат нельзя было открепить или переименовать
+
+- Статус: **FIXED IN SOURCE / TEST VERIFIED**
+- Причина: `pin_chat()` и `rename_chat()` всегда искали виджет в `chats_list`, хотя закреплённый элемент находится в `pinned_chats_list`; из-за `None` обработчики завершались без запроса к API.
+- Исправление: обе операции используют `item.listWidget()` и корректно работают для обычного и закреплённого списка.
+- Проверка: `py_compile`, frontend **20/20 PASS**, `git diff --check` PASS.
+
+### PH4-UI-040 — waveform растягивался, rename использовал системный диалог, fullscreen restore был расчётным
+
+- Статус: **FIXED IN SOURCE / TEST VERIFIED; LIVE UI RETEST REQUIRED**
+- Исправление: waveform уменьшен до компактного центрального индикатора `170×56` с более выраженной базовой формой и VAD-активностью; speaking pulse замедлен ещё на 50% до `2880 ms`; добавлено мягкое радиальное свечение вокруг Orb. `QInputDialog` переименования получил Jarvis-стилизацию. После фактического показа окна сохраняется измеренная normal-геометрия для восстановления после fullscreen.
+- Проверка: `py_compile`, frontend **20/20 PASS**, `git diff --check` PASS.
+
+### PH4-UI-043 — settings page расширял fixed shell и provider dialog блокировал GUI
+
+- Статус: **FIXED IN SOURCE / LIVE SETTINGS SMOKE PASS; AI CLICK ACCEPTANCE BLOCKED**
+- Приоритет: P1 UI stability
+- Причины: скрытая settings page имела minimum width `720` и devices page minimum width `900`, поэтому Qt формировал size hint около `1600x1063` для фиксированного окна `1280x850`; `AIProviderDialog` выполнял provider GET/POST непосредственно в GUI-потоке с timeout до 20 секунд.
+- Исправление: settings pages/stack ограничены размерами fixed shell; sidebar layout активируется после native `showEvent` и widget-mode transition; AI provider operations используют существующий `ProviderOperationWorker` через `QThread`; открытый AI dialog переиспользуется.
+- Проверка предыдущего этапа: живое открытие Settings прошло, но полный пользовательский cold-start сценарий владельцем не принят. Статус и широкий PASS пересмотрены в PH4.1 ниже.
+
+### PH4.1-UI-001 — повторная проверка Settings и pinned-chat cold start
+
+- Статус: **SOURCE/RUNTIME BOUNDED PASS; VISUAL OWNER RETEST REQUIRED**.
+- Причина Settings: в отдельном запуске deadlock не воспроизведён; фактический путь `row=3 -> ensure_full_ui -> pages index 2` завершается примерно за 0.4 секунды. Оставался риск, что прямой переход из main menu не восстанавливал shell, поэтому этот переход теперь явно вызывает `ensure_full_ui()`.
+- Причина pinned-chat симптома: normal chrome стартует через `startup_widget_mode=True` и меняет видимость после первого native show; для frameless окна последующий resize/activation мог визуально исправлять sidebar. Дублирующего списка или второго backend не найдено.
+- Изменение: после загрузки сессий, `showEvent`, widget-mode transition и `resizeEvent` активируются sidebar layout и `QListWidget` item layout. Это не использует искусственные задержки.
+- Доказательства: штатный `frontend/launch_jarvis.py` импортировал `frontend/jarvis_ui.py` в `C:\Python314\python.exe`; trace подтвердил `pages_index=2` и стабильную pinned geometry `31,238,240,125` на shell `1280x850`. Frontend 20/20, `py_compile`, `git diff --check` — PASS.
+- Ограничение: CUA native screenshot timed out, поэтому pixel-level visual PASS и полный AI click flow остаются ручной проверкой владельца.
+
+### PH4.1-UI-044 — общий Settings sizeHint расширял shell после fullscreen restore
+
+- Статус: **SOURCE/RUNTIME BOUNDED PASS; VISUAL OWNER RETEST REQUIRED**.
+- Причина: общий `QStackedWidget` наследовал minimum size от фиксированного HUD
+  и длинных settings pages; отдельного scroll-контракта для Settings не было.
+  После native restore Qt повторно применял content minimum и расширял окно до
+  `1280x1090`.
+- Исправление: один `settingsScroll` с resizable viewport и отключённым
+  horizontal overflow; `container` и top-level pages не поднимают minimum size;
+  normal geometry восстанавливается единым queued shell constraint после native
+  transition. Provider worker сохраняется до завершения callback.
+- Доказательства: bounded Qt runtime smoke — normal `1280x850`, fullscreen
+  `2752x1122`, delayed restore `1280x850`; provider callback получил 7 профилей,
+  HTTP 200. Frontend **24/24 PASS**, `py_compile` и `git diff --check` — PASS.
+- Ограничение: native screenshot capture timeout; visual acceptance и полный
+  ручной click-flow требуют проверки владельцем.
+
+### PH5-UI-001 — конкурирующие stylesheet-слои возвращали белые/неоформленные контейнеры
+
+- Статус: **SOURCE/RUNTIME BOUNDED PASS; VISUAL OWNER RETEST REQUIRED**.
+- Причина: после глобального `apply_styles()` `main_container` и Settings
+  получали независимые stylesheet-слои. При widget-mode/fullscreen они
+  заменяли наследуемую тему; общие `QComboBox` и `QLineEdit` также имели светлый
+  фон.
+- Исправление: один root-owned stylesheet с динамическим Glass/widget фоном;
+  удалены `main_container.setStyleSheet(...)`; общие поля ввода переведены на
+  тёмный Glass-контракт; белый hover профиля заменён на accent-состояние.
+- Доказательства: 13 Settings pages переключаются, root stylesheet не содержит
+  `background:white`; normal `1280x850`, large `1920x1080`, delayed restore
+  `1280x850`; frontend **26/26 PASS**.
+- Ограничение: Windows screenshot/input capture timeout, visual acceptance
+  требует ручной проверки.
+
+### REC-UI-001 — AI provider toggle менял состояние до подтверждения backend
+
+- Статус: **SOURCE FIXED; RUNTIME ACCEPTANCE OPEN** (2026-11-17).
+- Причина: `ai_inline.toggle_provider` и `select_active` меняли `active`,
+  `enabled` и карточки до завершения `POST /settings/llm`; error callback не
+  восстанавливал последнюю подтверждённую конфигурацию.
+- Исправление: save payload отправляется без оптимистической смены карточек;
+  toggles недоступны в pending и до первой загрузки; успешный ответ backend
+  целиком обновляет карточки, ошибка сохраняет старое состояние и показывает
+  retry/error.
+- Проверка: `py_compile`, frontend 26/26, `git diff --check` — PASS.
+  Реальный click-flow с ошибкой сети и успешным переключением ещё не пройден.
+- Связанные причины: `REC-03` исправлена в исходнике (GET каталога больше не
+  меняет модель); `REC-01` и `REC-04` остаются открытыми в
+  `docs/JARVIS_FULL_RECOVERY_AUDIT.md`.
+
+### REC-UI-002 — загрузка модели и чатов блокировала Qt event loop
+
+- Статус: **SOURCE + ISOLATED WORKER PASS; LIVE UI RETEST OPEN** (2026-11-17).
+- Причина: `load_chat_model()` выполнял до двух синхронных GET, а
+  `load_chat_sessions()` — один GET в GUI-потоке. Выбор модели синхронно
+  отправлял POST и показывал его как сохранённый до ответа.
+- Исправление: эти операции перенесены на существующий Qt worker/bridge;
+  модель и список чатов обновляются из ответов backend, ошибка сохраняет
+  предыдущее подтверждённое состояние. Закрытие учитывает работающие threads.
+- Проверка: реальный QThread с 200 ms HTTP wait не задержал GUI tick; callback
+  пришёл в GUI thread, worker освободился; rollback выбора модели проверен.
+  Frontend **28/28 PASS**, `py_compile` PASS. Старый live UI PID 55880 не
+  содержит эти правки; перезапуск и visual acceptance ещё требуются.
+
+### REC-UI-003 — периодический voice-status GET блокировал GUI-поток
+
+- Статус: **SOURCE + ISOLATED Qt TEST PASS; LIVE UI RETEST OPEN** (2026-11-17).
+- Причина: `refresh_voice_status()` каждые 350 мс синхронно вызывал
+  `/voice/status` с timeout 1 с и при recovery мог синхронно отправить
+  `/voice/start` с timeout 2 с. Сбой или задержка backend удерживали GUI.
+- Исправление: один `VoiceStatusClient` использует `QNetworkAccessManager`,
+  coalescing запросов и bounded timeout; полученное состояние применяется в
+  GUI-потоке, recovery POST не дублируется в ожидании ответа.
+- Проверка: локальный HTTP-сервер с задержкой 250 мс, GUI tick, один GET и
+  один POST при повторных вызовах — PASS; frontend **29/29 PASS**,
+  `py_compile`, `git diff --check` PASS. Живой UI PID 43360 запущен до правки;
+  runtime/visual acceptance новой версии остаётся открытой.
+
+### REC-UI-004 — погода блокировала запуск и страницы Settings
+
+- Статус: **SOURCE + ISOLATED WORKER PASS; LIVE UI RETEST OPEN** (2026-11-17).
+- Причина: стартовый и периодический `load_weather()` выполнял в GUI-потоке
+  геолокацию до 5 с и OpenWeather GET до 8 с. Inline Settings и отдельный
+  погодный диалог синхронно проверяли ключ/город до 8 с.
+- Исправление: существующий Qt worker выполняет внешние GET; обе кнопки
+  используют один путь проверки и сохраняют QSettings только при успехе.
+  Закрытие окна прекращает таймеры до ожидания текущих workers.
+- Проверка: изолированный delayed HTTP worker и ошибочный/успешный save —
+  PASS; frontend **31/31 PASS**, `py_compile`, `git diff --check` PASS.
+  Настоящий OpenWeather и визуальная приёмка не проверялись; текущий UI
+  PID 43360 загружен до исправления.
+
+### REC-UI-005 — синхронные Settings GET и действия блокировали Qt
+
+- Статус: **SOURCE + ISOLATED WORKER PASS; LIVE UI RETEST OPEN** (2026-11-17).
+- Причина: после создания Settings два `QTimer.singleShot(0, ...)` запускали
+  синхронные `/backups/status` и `/devices/capabilities` GET в GUI-потоке.
+  Явные backup/deep-probe/camera действия также использовали sync HTTP с
+  timeout до 30–45 с.
+- Исправление: один `NetworkOperationWorker`/`NetworkOperationBridge` обслуживает
+  provider/chat/weather/settings I/O; status и кнопки показывают
+  loading/success/error, повторные действия блокируются до ответа.
+- Проверка: два delayed GET не остановили GUI tick, POST paths/params проверены
+  mock без побочных эффектов; frontend **33/33 PASS**, `py_compile` PASS.
+  Настоящие backup/camera действия и visual acceptance не выполнялись.
+
+### REC-UI-006 — история чатов блокировала переключение и маскировала ошибку
+
+- Статус: **SOURCE + ISOLATED TEST PASS; LIVE UI RETEST OPEN** (2026-11-17).
+- Причина: `load_history_sessions()` и `load_chat_history()` делали sync GET
+  в Qt thread до 4–5 с. Ошибка истории чата выглядела как пустой чат.
+- Исправление: общий `NetworkOperationWorker`, generation/chat-id guard,
+  сохранение прежнего списка при ошибке и явное chat notification.
+- Проверка: stale-result и error-preservation tests, frontend **35/35 PASS**;
+  backend не изменялся.
+
+### REC-UI-007 — Settings зависали в ранее запущенном UI
+
+- Статус: **FAIL на PID 43360; ручной PASS открытия Settings на PID 43344**
+  (2026-11-17). Это проверка открытия и навигации, не всех операций настроек.
+- Владелец подтвердил зависание на PID 43360, запущенном до переноса
+  Settings/Weather/History HTTP в Qt workers. После штатного закрытия этого UI
+  и запуска того же `frontend/launch_jarvis.py` с обновлённым кодом Settings
+  открылись и реагировали. Backend PID 1636 не останавливался.
+
+### REC-UI-008 — белая поверхность и разный Glass у страниц Settings
+
+- Статус: **ручной PASS оформления остальных страниц на PID 39240 и
+  соответствия AI размеру «Общие» на PID 2248** (2026-11-17).
+- Причина 1: `QScrollArea.setWidget()` включал `autoFillBackground` у
+  `settings_stack` и viewport, что заливало правую область светлой системной
+  палитрой. Оба флага выключены после `setWidget()`.
+- Причина 2: только General имела локальный тёмный `QFrame#settingsCard` QSS,
+  остальные страницы наследовали светлый полупрозрачный root `#settingsCard`.
+  Общая тёмная поверхность, заголовки и Glass tiles теперь заданы root QSS;
+  локальные стили General удалены. History/AI/Voice/Devices и шаблонные
+  страницы приведены к общей ширине и отступам. У списка возможностей
+  устранена системная белая палитра общим стилем `QListWidget`.
+- Причина отличия AI: `layout.addWidget(panel, 0, AlignLeft|AlignTop)` оставлял
+  панель в размере `sizeHint`. Теперь она растягивается общим layout.
+- Граница: отдельная страница «Возможности», точность пикселей в других
+  разрешениях и все действия внутри страниц не проходили визуальную приёмку.
+
+### REC-UI-009 — потеря кликов после fullscreen → windowed
+
+- Статус: **ручной FAIL на PID 30892; ручной PASS кликов после возврата на
+  PID 37068 и повторный PASS навигации/AI на PID 2248** (2026-11-17).
+- Причина: нормальный shell был `setFixedSize(1280x850)`, fullscreen задавал
+  Recent Chats высоту 320 px, а возврат одновременно вызывал `showNormal`,
+  `setGeometry`, `setFixedSize`, `resize` и отложенный повторный constraint.
+  Трасса показала скачки высоты 850→1090→850→882→850 и расхождение
+  визуальной области с hit testing. Удалены конкурирующие constraints и
+  фиксированная fullscreen-высота Recent Chats; список занимает пространство
+  Sidebar через layout. Переход использует один сохранённый normal rect.
+- Runtime: владелец подтвердил, что в PID 2248 после fullscreen → windowed
+  клики по AI и навигации работают. Это не доказывает все кнопки и длительную
+  стабильность.
+
+### REC-UI-010 — ложная прокрутка почти всех страниц Settings
+
+- Статус: **источник и исправление проверены Qt-тестом; runtime trace PID 39240:
+  `scroll_max=0` для всех 13 страниц при normal 1280x850**.
+- Причина: стандартный `QStackedWidget.heightForWidth()` для страниц с
+  переносом текста использовал высоту самой высокой скрытой страницы AI.
+  Поэтому короткие страницы оставались на 9 px выше viewport. Общий
+  `CurrentPageStack` теперь берёт `sizeHint`, `minimumSizeHint` и
+  `heightForWidth` только текущей страницы. Qt-тест проверяет short wrapped
+  page → tall page → short page и реальный диапазон scrollbar.
+- Runtime: владелец подтвердил отсутствие лишней прокрутки на AI в PID 2248.
+  В трассе этого процесса AI `scroll_max=0`; полный перечень размеров окон и
+  визуальная оценка всех страниц на них ещё открыты.
+
+### REC-UI-011 — AI provider profiles наследовали модель выбранного провайдера
+
+- Статус: **backend integration PASS; visual SAVE/ON/OFF acceptance ожидает
+  владельца** (2026-11-17).
+- Причина: `AIProviderDialog.payload()` отправлял одно значение `model` сразу
+  в `ollama_model`, `openai_model`, `codex_model`, `claude_model` и
+  `freellmapi_model`. Сохранение Ollama поэтому переносило её в FreeLLMAPI.
+- Исправление: диалог формирует payload только для выбранного провайдера;
+  FastAPI использует `model_dump(exclude_unset=True)`, поэтому Pydantic defaults
+  отсутствующих полей больше не превращаются в команды очистки;
+  `save_llm_settings()` сохраняет остальные профили из текущей конфигурации.
+  Встроенный AI раздел теперь показывает `SAVE` после изменения и `SAVED`
+  только после подтверждённого ответа backend.
+- Контракт переключателя расширен до 78 px: ON рисуется тёмным текстом на
+  светлом треке, OFF получает отдельную ширину текста и не обрезается.
+- Runtime: резервная копия конфигурации сохранена в
+  `docs/runtime/diagnostics/phase5-backups/jarvis-config.pre-provider-isolation-20261117.env.bak`.
+  После полного штатного перезапуска основной backend PID 55412 вернул
+  FreeLLMAPI=`AUTO`, Ollama=`qwen3:8b`, active/enabled только Ollama. Реальный
+  partial POST с теми же текущими значениями сохранил обе модели без переноса.
+  Три изолированных regression-теста PASS.
+- Граница: визуальная проверка нового ON/OFF и цикла SAVE пользователем ещё
+  требуется; значения провайдеров при проверке не переключались.
+
+### REC-UI-012 — подтверждённый Google email не отображался в профиле
+
+- Статус: **runtime data synchronization PASS; visual acceptance ожидает
+  владельца** (2026-11-17).
+- Причина: AccountCoordinator восстанавливал подтверждённую identity из
+  `account_state.sqlite3`, но Settings «Учётная запись» и `UserProfileDialog`
+  читали только отдельный `QSettings` ключ `profile_email`. Эти источники не
+  синхронизировались.
+- Проверка состояния: текущий локальный Account Store возвращает
+  `email_verified=True` и email `managment2v@gmail.com`; секреты не выводились.
+- Исправление: JarvisUI создаёт один существующий AccountCoordinator при
+  запуске, и если локальный email пуст, переносит подтверждённый email в
+  `profile_email`. Оба экрана используют это значение; фиктивная почта не
+  создаётся.
+- Runtime: актуальный UI PID 41128 после полного перезапуска записал
+  подтверждённый Gmail в `QSettings/Jarvis Assist/profile_email`; проверка
+  подтвердила заполненное значение. Внешний Google OAuth повторно не запускался.
+- Граница: визуальное отображение строки в двух окнах ещё подтверждает владелец.
+
+### REC-UI-013 — завершившиеся network jobs удерживали закрытие UI
+
+- Статус: **runtime PASS** (2026-11-17).
+- Причина: cleanup удалял job только сравнением `self.sender()` с сохранённым
+  QThread. При queued delivery/deletion wrapper мог не совпасть или уже быть
+  удалён, и завершённая запись навсегда оставалась в `_network_jobs`.
+- Исправление: единый `_prune_network_jobs()` оставляет только реально
+  `isRunning()` threads, удалённые Qt wrappers безопасно отбрасываются; bridge
+  получает `deleteLater`. CloseEvent выполняет prune до решения об ожидании.
+- Runtime: актуальный UI PID 3848 получил `CloseMainWindow=True` и завершился
+  самостоятельно. Затем launcher завершил UI PID 28632 и дочерний backend
+  PID 62688 без принудительной остановки.
+
+### REC-UI-014 — Voice Mode перекрывал оконный UI и переживал навигацию
+
+- Статус: **SOURCE + ISOLATED QT PASS; OWNER VISUAL PASS** (2026-11-17).
+- Причина: один fullscreen-oriented scale применялся и в оконном режиме, а
+  смена раздела/чата не владела lifecycle overlay и backend voice session.
+- Исправление: windowed Orb ограничен 240–320 px и расположен в выделенной
+  центральной зоне; fullscreen scale сохранён. Единый navigation helper сразу
+  скрывает overlay и асинхронно останавливает voice session через основной
+  backend без HTTP wait в GUI-потоке.
+- Проверка: offscreen Qt проверил windowed bounds и сохранённый fullscreen
+  scale; владелец принял оконную геометрию и закрытие сессии при переходе в
+  другой раздел/чат.
+
+### REC-UI-015 — прозрачный шов справа от WebEngine chat surface
+
+- Статус: **OWNER VISUAL PASS** (2026-11-17).
+- Причина: непрозрачная native backing surface была необходима, но не являлась
+  полной причиной. Узкая полоса была прозрачным WebEngine scrollbar track,
+  через который был виден chat wallpaper, совпадающий с фоном рабочего стола.
+- Исправление: сохранены opaque `chatWebSurface`, palette и page background;
+  host получил styled backing и 1 px безопасный inset справа, а scrollbar
+  track/corner в `chat.html` используют `var(--bg-main)`.
+- Проверка: владелец не принял первую версию только с backing surface. После
+  полного исправления владелец визуально принял отсутствие шва. Frontend suite
+  **51/51 PASS**.
+
+### REC-UI-016 — действия Settings не имели единой нижней зоны
+
+- Статус: **OWNER VISUAL PASS** (2026-11-17).
+- Причина: каждая page добавляла кнопки прямо в поток content layout;
+  «Команды» также не отдавала списку остаток высоты.
+- Исправление: `section_page` разделяет expanding content и общий bottom action
+  row. Account, IRON, Weather, Commands, Data, Chat, Voice и History используют
+  нижний ряд и общий AI-style outline. Command list имеет expanding policy.
+- Проверка: владелец принял стиль и нижнее положение кнопок, но отклонил
+  растянутые промежутки между обычными controls. Ordinary content layouts
+  теперь `AlignTop`; Commands/AI сохраняют осмысленное расширение. Владелец
+  принял итоговое размещение и 5 px spacing списка команд. Frontend suite
+  **51/51 PASS**.
+
+### REC-UI-017 — готовая модель временно показывала неготовый цвет
+
+- Статус: **SOURCE + FRONTEND TEST PASS** (2026-11-17).
+- Причина: успешный local/library route временно менял readiness dot на зелёный,
+  хотя индикатор должен отражать готовность модели, а не тип ответа.
+- Исправление: любой успешный маршрут сохраняет синий `#00aaff`; красный
+  используется только для ошибки, нейтральный — пока модель не подтверждена.
+- Проверка: regression contract запрещает transient green в success path;
+  тест входит в frontend **51/51 PASS**; владелец принял синий статус.
+
+### REC-UI-018 — строки истории чатов сливались и имели отдельный стиль
+
+- Статус: **SOURCE + FRONTEND TEST PASS; OWNER VISUAL PASS** (2026-11-17).
+- Причина: `historyRow` содержал локальный полупрозрачный stylesheet, а
+  `QListWidget` не задавал spacing между item widgets. Размер item, равный
+  ширине viewport, дополнительно обрезал правую скруглённую сторону при
+  дробном Windows DPI.
+- Исправление: `historyRow` использует общий тёмный Glass token и cyan hover
+  из root theme; карточки имеют внутренние отступы, 6 px между строками и
+  безопасный 12 px правый gutter внутри viewport.
+- Проверка: regression contract и целевые frontend tests PASS; владелец на
+  актуальном UI вручную подтвердил полноценные активные/неактивные карточки
+  без обрезания справа.
+
+### REC-UI-019 — native crash во время teardown сетевых workers
+
+- Статус: **ROOT CAUSE FIXED IN SOURCE; SHORT RUNTIME PASS; LONG-RUN OPEN**
+  (2026-11-17).
+- Факт: UI PID 19164 завершился через секунды после старта (`ucrtbase.dll`,
+  `0xc0000409`); следующий воспроизводимый crash PID 39696 произошёл в
+  `shiboken6.abi3.dll` с `0xc0000005` после queued результата `chat-history`.
+  Backend PID 53416 оставался единственным listener на 8000.
+- Причина: `NetworkOperationWorker` переносился в одноразовый `QThread`, а
+  `worker.deleteLater`, `thread.quit`, queued bridge callbacks и удаление
+  Python wrapper пересекались. Qt мог завершить thread до доставки queued
+  callback, что оставляло Shiboken с небезопасным lifetime.
+- Исправление: весь requests I/O переведён на единый `start_network_operation`:
+  обычный bounded `threading.Thread` выполняет HTTP, а только результат/error
+  доставляется в GUI через queued Qt signal. Это покрывает JarvisUI, встроенную
+  AI panel и AIProviderDialog; backend API и данные не менялись.
+- Проверка: `py_compile` и 30 targeted frontend/worker tests PASS. Новый UI
+  PID 30708 штатно стартовал, завершил стартовые jobs и переход к возможностям;
+  после 20+ секунд нет нового Application Error/WER. Долгая интерактивная
+  сессия остаётся отдельным runtime gate.
+
+### REC-UI-020 — текстовый чат оставался в состоянии обработки, история не появлялась
+
+- Статус: **OWNER LIVE PASS** (2026-11-17).
+- Причина: устаревший `ChatRequestWorker.run()` обращался к отсутствующему
+  `self.operation` до `try` и до HTTP `POST /chat`. Исключение не попадало в
+  `failed` signal, поэтому request не уходил в основной backend, UI оставался
+  с `[Processing...]`, а ChatStore не мог создать user message для выбранного
+  chat ID.
+- Исправление: удалён отдельный QThread/`ChatRequestWorker`. Отправка и отмена
+  чата используют тот же `start_network_operation` (bounded Python thread +
+  queued GUI callback), что и остальные запросы UI. Runtime-delta polling
+  также переведён с одноразового QThread на Python thread с generation guard;
+  старый poller не может очистить состояние следующего turn. После result/error
+  гарантированно снимается in-flight state composer.
+- Проверка: новый frontend worker-test доказал `POST /chat`, GUI-safe callback
+  и освобождение job; suite frontend **58/58 PASS**. После штатного перезапуска
+  пользователь подтвердил в основном UI, что сообщение получает ответ и
+  история сохраняется после переключения чатов.
+
+### REC-UI-021 — фоновые ответы не отмечались, недавний чат не поднимался вверх
+
+- Статус: **FIXED IN SOURCE; FRONTEND TEST PASS; LIVE UI RETEST PENDING**
+  (2026-11-17).
+- Причина: карточка `ChatItemWidget` не имела состояния unread, а sidebar
+  полностью полагался на порядок backend sessions и не отражал локальную
+  активность сразу после отправки сообщения.
+- Исправление: ответ, завершившийся после перехода пользователя в другой чат,
+  добавляет исходный chat ID в единое множество unread и показывает синюю
+  точку на закреплённой или недавней карточке. Открытие чата очищает маркер.
+  Отправка сообщения присваивает чату локальный activity rank; стабильная
+  сортировка сохраняет backend-порядок для остальных записей и немедленно
+  поднимает написанный чат в начало «Недавних».
+- Дополнительно: блок identity в chat header получил фиксированную ширину,
+  поэтому длина выбранной модели больше не меняет положение `JARVIS CHAT`.
+  После live-проверки устранена двойная отрисовка unread: оставлен один
+  дочерний `chatUnreadDot`, второй marker из `paintEvent` удалён.
+- Проверка: динамический Qt-тест подтвердил порядок карточек и жизненный цикл
+  unread marker; contract tests проверяют фоновые ответы и фиксированный
+  header; полный frontend suite **59/59 PASS**, `compileall` и
+  `git diff --check` PASS. Визуальная приёмка требует перезапуска UI.
+
+### REC-UI-022 — клики чата запускали скрытые HUD-команды; WebEngine показывал кромку desktop
+
+- Статус: **ROOT CAUSE FIXED IN SOURCE; FRONTEND TEST PASS; LIVE UI RETEST PENDING**
+  (2026-11-17).
+- Причина кликов: application-wide fallback для прозрачных HUD-ячеек проверял
+  только глобальные координаты `hud_container`, но не активную страницу.
+  Поэтому клик по модели или поверхности чата мог совпасть со скрытой HUD
+  ячейкой и выполнить `SET` (настройки) либо `VID` (widget mode).
+- Исправление кликов: `_hud_fallback_enabled()` разрешает глобальный HUD
+  hit-test только при `pages.currentIndex() == 0`; на Chat, Settings и других
+  страницах события остаются у фактического интерактивного элемента.
+- Причина полосы: нижняя compositor-кромка QtWebEngine при дробном Windows DPI
+  и стандартный прозрачный 20 px layout-gap перед composer оставляли видимую
+  desktop-кромку. `chatWebSurface` получил явный `#121212` background, а общий
+  spacing заменён отдельным непрозрачным `chatComposerGuard` высотой 20 px.
+  Live-проверка показала, что нижний 1 px inset сам создавал горизонтальный
+  просвет; inset удалён. Правый просвет находился в root/scrollbar слое:
+  `html` и `.messages` теперь имеют непрозрачный `var(--bg-main)` background.
+- Проверка: contract test запрещает HUD fallback вне HUD page; Qt test
+  проверяет unread state; frontend **59/59 PASS**, `compileall` и
+  `git diff --check` PASS. Требуется визуальный retest после перезапуска UI.
+- Уточнение по header: фиксированная ширина identity устранила зависимость от
+  длины модели, но свободное место `title_row` всё ещё доставалось QLabel. Для
+  постоянного расстояния 10 px от круглого avatar заголовок явно выровнен
+  `AlignLeft | AlignVCenter`, остаток строки забирает `title_row.addStretch(1)`.
