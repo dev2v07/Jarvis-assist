@@ -60,6 +60,32 @@ class AssistantToggleContractTests(unittest.TestCase):
         method_end = self.SOURCE.index("    def apply_hardware_settings", method_start)
         self.assertNotIn("cv2.VideoCapture", self.SOURCE[method_start:method_end])
 
+    def test_switching_chat_stops_local_voice_session_without_gui_network_wait(self) -> None:
+        method_start = self.SOURCE.index("def _stop_voice_chat_before_switch")
+        method_end = self.SOURCE.index("    def handle_composer_tool", method_start)
+        method = self.SOURCE[method_start:method_end]
+        self.assertIn('_stop_voice_mode_for_navigation("смене диалога")', method)
+        self.assertNotIn("requests.get(", method)
+        self.assertNotIn("requests.post(", method)
+        self.assertIn("_dictation_worker", method)
+        self.assertIn("request_cancel()", method)
+        self.assertIn("Запись остановлена при смене диалога", method)
+
+        helper_start = self.SOURCE.index("def _stop_voice_mode_for_navigation")
+        helper_end = self.SOURCE.index("    def _sync_voice_mode_overlay", helper_start)
+        helper = self.SOURCE[helper_start:helper_end]
+        self.assertIn("_voice_chat_active", helper)
+        self.assertIn('"voice-session-stop"', helper)
+        self.assertIn("overlay.hide_mode()", helper)
+
+    def test_dictation_stop_marks_the_completed_transcript_for_auto_send(self) -> None:
+        self.assertIn("self._dictation_auto_send = True", self.SOURCE)
+        recognized_start = self.SOURCE.index("def _dictation_recognized")
+        recognized_end = self.SOURCE.index("    def _dictation_failed", recognized_start)
+        recognized = self.SOURCE[recognized_start:recognized_end]
+        self.assertIn("self.composer.submit()", recognized)
+        self.assertIn("_dictation_auto_send", recognized)
+
 
 if __name__ == "__main__":
     unittest.main()

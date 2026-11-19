@@ -151,7 +151,7 @@ class UserProfileDialog(QDialog):
                 border: 1px solid rgba(255,255,255,0.24); border-radius: 8px; padding: 8px; }}
             QPushButton, QDialogButtonBox QPushButton {{ background: {self.accent};
                 color: #071018; border: none; border-radius: 8px; padding: 8px 14px; }}
-            QPushButton:hover, QDialogButtonBox QPushButton:hover {{ background: white; }}
+            QPushButton:hover, QDialogButtonBox QPushButton:hover {{ background: {self.accent}; color: #071018; }}
         """
         self.setStyleSheet(self.glass_stylesheet or default_style)
         root = QVBoxLayout(self)

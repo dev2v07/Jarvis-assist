@@ -12,9 +12,19 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         *::-webkit-scrollbar { width: 5px; height: 5px; }
-        *::-webkit-scrollbar-track { background: transparent; }
+        /* Keep the chat wallpaper out of the narrow scrollbar gutter. At
+           fractional Windows DPI the transparent track looked like a slit
+           through the native WebEngine surface. */
+        *::-webkit-scrollbar-track { background: var(--bg-main); }
+        *::-webkit-scrollbar-corner { background: var(--bg-main); }
         *::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 5px; }
         *::-webkit-scrollbar-thumb:hover { background: var(--accent-hover); }
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg-main);
+        }
         :root {
             /* Dark theme (default) */
             --bg-main: #121212;
@@ -244,7 +254,7 @@
             z-index: -1;
             pointer-events: none;
         }
-        .messages { flex: 1; overflow-y: auto; padding: var(--space-4) 20px 12px; display: flex; flex-direction: column; gap: 14px; }
+        .messages { flex: 1; overflow-y: auto; padding: var(--space-4) 20px 12px; display: flex; flex-direction: column; gap: 14px; background: var(--bg-main); }
         .message { display: flex; gap: 10px; animation: fadeIn 0.2s ease; max-width: 82%; position: relative; }
         /* Long histories use the same visual design, but avoid expensive
            per-bubble compositor work in Qt WebEngine's software mode. */

@@ -394,7 +394,7 @@ class ChatComposer(QWidget):
         self.voice_button = QToolButton()
         self.voice_button.setObjectName("voiceBtn")
         self._normal_voice_icon = QIcon(str(self.asset_root / "icons" / "микрофон.svg"))
-        self._recording_voice_icon = QIcon(str(self.asset_root / "icons" / "стоп.svg"))
+        self._voice_stop_icon = QIcon(str(self.asset_root / "icons" / "stop.svg"))
         self.voice_button.setIcon(self._normal_voice_icon)
         self.voice_button.setIconSize(QSize(22, 22))
         self.voice_button.setText("")
@@ -418,7 +418,10 @@ class ChatComposer(QWidget):
         self._voice_pulse.valueChanged.connect(self._set_voice_icon_size)
         self.voice_chat_button = QToolButton()
         self.voice_chat_button.setObjectName("voiceChatBtn")
-        self.voice_chat_button.setText("◉")
+        self._voice_chat_icon = QIcon(str(self.asset_root / "icons" / "headphones.svg"))
+        self.voice_chat_button.setIcon(self._voice_chat_icon)
+        self.voice_chat_button.setIconSize(QSize(22, 22))
+        self.voice_chat_button.setText("")
         self.voice_chat_button.setFixedSize(34, 44)
         self.voice_chat_button.setAccessibleName("Голосовой чат")
         self.voice_chat_button.setToolTip("Голосовой чат в этом диалоге")
@@ -463,7 +466,7 @@ class ChatComposer(QWidget):
         if sending:
             self.send_button.setToolTip("Jarvis обрабатывает сообщение…")
             self.send_button.setText("")
-            self.send_button.setIcon(QIcon(str(self.asset_root / "icons" / "стоп.svg")))
+            self.send_button.setIcon(self._voice_stop_icon)
             self.send_button.setIconSize(QSize(22, 22))
         else:
             self._send_press_anim.stop()
@@ -502,11 +505,8 @@ class ChatComposer(QWidget):
             self.voice_visualizer.show()
             self.voice_visualizer.start()
             self.setFocus(Qt.FocusReason.OtherFocusReason)
-            # Use a literal square instead of the legacy SVG: that asset is a
-            # power symbol and is easy to mistake for a non-actionable state.
-            # The stop affordance must remain obvious while the input is live.
-            self.voice_button.setIcon(QIcon())
-            self.voice_button.setText("■")
+            self.voice_button.setIcon(self._voice_stop_icon)
+            self.voice_button.setText("")
             self.voice_button.setAccessibleName("Остановить запись")
             self._voice_glow.setEnabled(True)
             if self._voice_pulse.state() != QAbstractAnimation.State.Running:
@@ -534,7 +534,12 @@ class ChatComposer(QWidget):
         self.voice_chat_button.setProperty("active", self._voice_chat_active)
         self.voice_chat_button.style().unpolish(self.voice_chat_button)
         self.voice_chat_button.style().polish(self.voice_chat_button)
-        self.voice_chat_button.setText("■" if self._voice_chat_active else "◉")
+        if self._voice_chat_active:
+            self.voice_chat_button.setIcon(self._voice_stop_icon)
+            self.voice_chat_button.setText("")
+        else:
+            self.voice_chat_button.setText("")
+            self.voice_chat_button.setIcon(self._voice_chat_icon)
         self.voice_chat_button.setToolTip(status or ("Завершить голосовой чат" if self._voice_chat_active else "Голосовой чат в этом диалоге"))
         self.voice_button.setEnabled(not self._voice_chat_active)
 
