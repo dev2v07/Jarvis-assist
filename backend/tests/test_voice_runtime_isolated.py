@@ -11,6 +11,23 @@ from services.voice_session_manager import VoiceSessionManager
 
 
 class IsolatedVoiceRuntimeTests(unittest.TestCase):
+    def test_vosk_waits_for_a_full_second_of_trailing_silence(self) -> None:
+        self.assertEqual(VoiceRuntime.VOSK_TRAILING_SILENCE_BLOCKS, 32)
+
+    def test_vosk_intel_confusions_are_corrected_only_in_processor_context(self) -> None:
+        self.assertEqual(
+            VoiceRuntime._normalize_recognized_text("процессоры пинбол"),
+            "процессоры интел",
+        )
+        self.assertEqual(
+            VoiceRuntime._normalize_recognized_text("процессоры игнатову"),
+            "процессоры интел",
+        )
+        self.assertEqual(
+            VoiceRuntime._normalize_recognized_text("игра пинбол"),
+            "игра пинбол",
+        )
+
     def test_existing_smalltalk_uses_instant_cached_wav(self) -> None:
         runtime = VoiceRuntime(Path(__file__).resolve().parents[1])
 
@@ -22,8 +39,8 @@ class IsolatedVoiceRuntimeTests(unittest.TestCase):
 
     def test_news_phrases_are_separate_from_how_are_you(self) -> None:
         runtime = VoiceRuntime(Path(__file__).resolve().parents[1])
-        self.assertEqual(len(runtime.NEWS_WAVS), 10)
-        self.assertEqual(len({text for _filename, text in runtime.NEWS_WAVS}), 10)
+        self.assertEqual(len(runtime.NEWS_WAVS), 9)
+        self.assertEqual(len({text for _filename, text in runtime.NEWS_WAVS}), 9)
         self.assertIsNone(runtime._news_wav_for("как дела"))
         selected = runtime._news_wav_for("что нового?")
         self.assertIsNotNone(selected)
@@ -155,6 +172,10 @@ class IsolatedVoiceRuntimeTests(unittest.TestCase):
             runtime._handle_transcript("открой браузер")
 
         runtime._say_wav.assert_called_once_with(runtime.COMMAND_WAVS["open_browser"])
+        self.assertEqual(runtime._last_turn_metrics["route"], "command")
+        self.assertIn("route_decision_ms", runtime._last_turn_metrics)
+        self.assertIn("command_action_ms", runtime._last_turn_metrics)
+        self.assertIn("response_ready_ms", runtime._last_turn_metrics)
 
 
 if __name__ == "__main__":

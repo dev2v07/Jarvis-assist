@@ -144,7 +144,9 @@ class LocalLLMService:
             "HEL_LLM_REQUEST_TIMEOUT": str(self.request_timeout),
             # Keep spoken replies short by default; users can override this
             # without changing the runtime code.
-            "HEL_OLLAMA_NUM_PREDICT": self._getenv("HEL_OLLAMA_NUM_PREDICT", "64"),
+            # 64 tokens clipped ordinary chat answers in the middle of
+            # markdown lists. Voice runtime supplies its own shorter override.
+            "HEL_OLLAMA_NUM_PREDICT": self._getenv("HEL_OLLAMA_NUM_PREDICT", "256"),
             "HEL_CODEX_API_KEY": self._getenv("HEL_CODEX_API_KEY"),
             "HEL_CODEX_MODEL": self._getenv("HEL_CODEX_MODEL"),
             "HEL_ANTHROPIC_API_KEY": self._getenv("HEL_ANTHROPIC_API_KEY"),

@@ -34,6 +34,20 @@ from services.provider_adapters import (
 _ALLOWED_PROVIDERS = set(SUPPORTED_PROVIDERS)
 
 
+def _enabled_providers(raw_config: dict[str, Any]) -> list[str]:
+    """Read the per-profile enablement state from the existing runtime config."""
+    raw = str(raw_config.get("HEL_LLM_ENABLED_PROVIDERS") or "").strip()
+    if not raw:
+        active = normalize_provider_name(raw_config.get("HEL_LLM_PROVIDER") or LLM_PROVIDER)
+        return [active] if active in _ALLOWED_PROVIDERS and active != "stub" else ["ollama"]
+    values = []
+    for item in raw.split(","):
+        provider = normalize_provider_name(item)
+        if provider in _ALLOWED_PROVIDERS and provider != "stub" and provider not in values:
+            values.append(provider)
+    return values
+
+
 def _normalize_provider(provider: str | None) -> str:
 
     value = normalize_provider_name(provider or LLM_PROVIDER)
@@ -153,7 +167,7 @@ def _build_settings_from_runtime() -> dict[str, Any]:
 
         "freellmapi_base_url": data.get("HEL_FREELLMAPI_BASE_URL", ""),
 
-        "freellmapi_model": data.get("HEL_FREELLMAPI_MODEL", ""),
+        "freellmapi_model": str(data.get("HEL_FREELLMAPI_MODEL", "") or "").strip() or "AUTO",
 
         "freellmapi_api_key_masked": _mask_secret(data.get("HEL_FREELLMAPI_API_KEY", "")),
 
@@ -196,7 +210,10 @@ def get_settings_bundle() -> dict[str, Any]:
         ("freellmapi", "FreeLLMAPI", "freellmapi_base_url", "freellmapi_model", "freellmapi_api_key_masked"),
     )
     settings = _build_settings_from_runtime()
+    enabled_providers = _enabled_providers(raw_config)
     for provider_id, label, base_key, model_key, secret_key in profile_specs:
+        status_provider = "openai" if provider_id == "openai_compatible" else provider_id
+        profile_status = _quick_connection_status(status_provider, raw_config)
         profiles.append({
             "id": provider_id,
             "label": label,
@@ -204,6 +221,8 @@ def get_settings_bundle() -> dict[str, Any]:
             "model": settings.get(model_key, ""),
             "api_key_masked": settings.get(secret_key, "") if secret_key else "",
             "active": provider_id == provider,
+            "enabled": provider_id in enabled_providers,
+            "status": profile_status,
         })
 
     return {
@@ -223,6 +242,7 @@ def get_settings_bundle() -> dict[str, Any]:
         # Safe, non-secret connection profiles for the desktop settings UI.
         # API keys are masked and never returned in plaintext.
         "profiles": profiles,
+        "enabled_providers": enabled_providers,
 
         "needs_onboarding": needs_onboarding,
 
@@ -238,51 +258,72 @@ def get_settings_bundle() -> dict[str, Any]:
 
 def save_llm_settings(payload: dict[str, Any]) -> dict[str, Any]:
 
-    provider = _normalize_provider(payload.get("provider", LLM_PROVIDER))
+    current_config = read_runtime_config(mask_secrets=False)
+    provider = _normalize_provider(payload.get("provider", current_config.get("HEL_LLM_PROVIDER", LLM_PROVIDER)))
+
+    def persisted_value(payload_key: str, env_key: str, default: str = "") -> str:
+        """Keep unrelated provider profiles intact when a dialog saves one provider."""
+        if payload_key in payload:
+            return str(payload.get(payload_key) or "").strip()
+        return str(current_config.get(env_key, default) or default).strip()
+
+    enabled_payload = payload.get("enabled_providers")
+    enabled_providers = None
+    if isinstance(enabled_payload, (list, tuple)):
+        enabled_providers = []
+        for item in enabled_payload:
+            normalized = normalize_provider_name(str(item))
+            if normalized in _ALLOWED_PROVIDERS and normalized != "stub" and normalized not in enabled_providers:
+                enabled_providers.append(normalized)
+        if not enabled_providers:
+            raise ValueError("At least one provider must remain enabled")
+        if provider not in enabled_providers:
+            provider = enabled_providers[-1]
+        enabled_providers = [provider]
 
     updates = {
 
         "HEL_LLM_PROVIDER": provider,
 
         "HEL_OPENAI_BASE_URL":
-            str(payload.get("openai_base_url", OPENAI_BASE_URL)).strip() or OPENAI_BASE_URL,
+            persisted_value("openai_base_url", "HEL_OPENAI_BASE_URL", OPENAI_BASE_URL) or OPENAI_BASE_URL,
 
         "HEL_OPENAI_MODEL":
-            str(payload.get("openai_model", OPENAI_MODEL)).strip() or OPENAI_MODEL,
+            persisted_value("openai_model", "HEL_OPENAI_MODEL", OPENAI_MODEL) or OPENAI_MODEL,
 
         "HEL_DEEPSEEK_BASE_URL":
-            str(payload.get("deepseek_base_url", "https://api.deepseek.com")).strip() or "https://api.deepseek.com",
+            persisted_value("deepseek_base_url", "HEL_DEEPSEEK_BASE_URL", "https://api.deepseek.com") or "https://api.deepseek.com",
 
         "HEL_DEEPSEEK_MODEL":
-            str(payload.get("deepseek_model", "deepseek-flash")).strip() or "deepseek-flash",
+            persisted_value("deepseek_model", "HEL_DEEPSEEK_MODEL", "deepseek-flash") or "deepseek-flash",
 
         "HEL_OLLAMA_BASE_URL":
-            str(payload.get("ollama_base_url", OLLAMA_BASE_URL)).strip() or OLLAMA_BASE_URL,
+            persisted_value("ollama_base_url", "HEL_OLLAMA_BASE_URL", OLLAMA_BASE_URL) or OLLAMA_BASE_URL,
 
         "HEL_OLLAMA_MODEL":
-            str(payload.get("ollama_model", OLLAMA_MODEL)).strip() or OLLAMA_MODEL,
+            persisted_value("ollama_model", "HEL_OLLAMA_MODEL", OLLAMA_MODEL) or OLLAMA_MODEL,
 
         "HEL_OLLAMA_THINK":
-            str(payload.get("ollama_think", "false")).strip().lower() or "false",
+            persisted_value("ollama_think", "HEL_OLLAMA_THINK", "false").lower() or "false",
 
         "HEL_CODEX_BASE_URL":
-            str(payload.get("codex_base_url", "")).strip(),
+            persisted_value("codex_base_url", "HEL_CODEX_BASE_URL"),
 
         "HEL_CODEX_MODEL":
-            str(payload.get("codex_model", "")).strip(),
+            persisted_value("codex_model", "HEL_CODEX_MODEL"),
 
         "HEL_ANTHROPIC_BASE_URL":
-            str(payload.get("claude_base_url", "https://api.anthropic.com/v1")).strip()
+            persisted_value("claude_base_url", "HEL_ANTHROPIC_BASE_URL", "https://api.anthropic.com/v1")
             or "https://api.anthropic.com/v1",
 
         "HEL_ANTHROPIC_MODEL":
-            str(payload.get("claude_model", "")).strip(),
+            persisted_value("claude_model", "HEL_ANTHROPIC_MODEL"),
 
         "HEL_FREELLMAPI_BASE_URL":
-            str(payload.get("freellmapi_base_url", "")).strip(),
+            persisted_value("freellmapi_base_url", "HEL_FREELLMAPI_BASE_URL"),
 
         "HEL_FREELLMAPI_MODEL":
-            str(payload.get("freellmapi_model", "")).strip(),
+            persisted_value("freellmapi_model", "HEL_FREELLMAPI_MODEL", "AUTO") or "AUTO",
 
         "HEL_LLM_REQUEST_TIMEOUT":
             str(int(payload.get("llm_request_timeout", LLM_REQUEST_TIMEOUT) or LLM_REQUEST_TIMEOUT)),
@@ -296,6 +337,8 @@ def save_llm_settings(payload: dict[str, Any]) -> dict[str, Any]:
         "HEL_NETWORK_MAX_RETRIES":
             str(int(payload.get("network_max_retries", NETWORK_MAX_RETRIES) or NETWORK_MAX_RETRIES)),
     }
+    if enabled_providers is not None:
+        updates["HEL_LLM_ENABLED_PROVIDERS"] = ",".join(enabled_providers)
 
     api_key = payload.get("openai_api_key")
 
@@ -381,7 +424,7 @@ async def test_llm_settings(payload: dict[str, Any]) -> dict[str, Any]:
             str(payload.get("freellmapi_base_url", "")).strip(),
 
         "HEL_FREELLMAPI_MODEL":
-            str(payload.get("freellmapi_model", "")).strip(),
+            str(payload.get("freellmapi_model", "AUTO")).strip() or "AUTO",
 
         "HEL_OPENAI_API_KEY":
             str(payload.get("openai_api_key", "")).strip() or OPENAI_API_KEY,

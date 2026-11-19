@@ -30,12 +30,20 @@ class CriticAgent(Agent):
         # Conversational replies should reach the user as one answer.  Running
         # a second LLM pass over a greeting made small local models emit three
         # competing rewrites and invented commentary.
-        conversational = not artifacts and len(goal.strip()) <= 120 and not any(
+        command_request = any(
             token in goal.lower()
-            for token in ("создай", "сделай", "открой", "найди", "проверь", "прочитай", "удали", "запиши")
+            for token in (
+                "создай", "сделай", "открой", "найди", "проверь", "прочитай",
+                "удали", "запиши", "перейди", "запусти", "выполни",
+            )
+        )
+        conversational = not artifacts and len(goal.strip()) <= 120 and not command_request
+        command_result = command_request or any(
+            token in goal.lower()
+            for token in ("команд", "браузер", "сайт", "приложен")
         )
 
-        if not conversational:
+        if not conversational and not command_result:
             try:
                 improved = await llm_service.chat(
                     [{"role": "user", "content": f"""

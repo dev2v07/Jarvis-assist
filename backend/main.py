@@ -83,6 +83,7 @@ from services.daw_control_service import DawControlService
 from services.mixing_service import MixingService
 from services.config_service import get_settings_bundle, save_llm_settings, test_llm_settings
 from services.llm_service import LocalLLMService
+from services.self_learning_service import SelfLearningService
 from utils.tooling import backup_data
 
 # -----------------------------
@@ -117,6 +118,12 @@ print("Startup check:", check())
 
 bus = MessageBus()
 chat_store = ChatStore()
+# The binding is persisted by chat ID.  The title lookup is only a one-time
+# migration for the existing user-created chat; renaming it later does not
+# remove the mode or leak it into ordinary sessions.
+for _learning_title in ("Самообучение Jarvis", "Самообучение"):
+    if chat_store.bind_session_mode_by_title(_learning_title, "SELF_LEARNING"):
+        break
 app_server = AppServer(chat_store, runtime_registry)
 voice_sessions = VoiceSessionManager()
 filesystem_service = FileSystemService(Path(__file__).resolve().parent)
@@ -141,6 +148,7 @@ psychology_service = PsychologyService(Path(__file__).resolve().parent)
 literature_service = LiteratureService(Path(__file__).resolve().parent)
 daw_control_service = DawControlService(Path(__file__).resolve().parent)
 mixing_service = MixingService()
+self_learning_service = SelfLearningService(Path(__file__).resolve().parent.parent)
 active_chat_tasks: dict[str, asyncio.Task] = {}
 
 # -----------------------------
@@ -274,6 +282,7 @@ class RuntimeEventRequest(BaseModel):
 
 class LLMSettingsRequest(BaseModel):
     provider: str = "ollama"
+    enabled_providers: list[str] | None = None
     openai_base_url: str = ""
     openai_model: str = ""
     openai_api_key: str | None = None
@@ -339,12 +348,15 @@ def llm_settings():
 
 @app.post("/settings/llm/test")
 async def llm_settings_test(payload: LLMSettingsRequest):
-    return await test_llm_settings(payload.model_dump())
+    return await test_llm_settings(payload.model_dump(exclude_none=True, exclude_unset=True))
 
 
 @app.post("/settings/llm")
 def llm_settings_save(payload: LLMSettingsRequest):
-    return save_llm_settings(payload.model_dump(exclude_none=True))
+    # Provider dialogs submit one profile at a time.  Pydantic defaults for
+    # omitted fields must not be mistaken for intentional empty values, or a
+    # FreeLLMAPI save can erase Ollama (and vice versa).
+    return save_llm_settings(payload.model_dump(exclude_none=True, exclude_unset=True))
 
 
 @app.get("/settings/llm/models")
@@ -428,6 +440,13 @@ def delete_chat_session(chat_id: str):
     if not chat_store.delete_session(chat_id):
         raise HTTPException(status_code=400, detail="Default or missing chat cannot be deleted")
     return {"ok": True, "chat_id": chat_id}
+
+
+@app.delete("/chat/sessions/{chat_id}/messages")
+def clear_chat_history(chat_id: str):
+    if not chat_store.clear_history(chat_id):
+        raise HTTPException(status_code=404, detail="Chat session not found")
+    return {"ok": True, "chat_id": chat_id, "cleared": True}
 
 
 @app.post("/hardware/settings")
@@ -1012,6 +1031,7 @@ async def chat(req: ChatRequest):
         attachments=req.attachments[:12],
         reply_to=req.reply_to,
         message_id=msg_id,
+        source="chat",
     )
     # Copying user-selected files can block on slow disks, network mounts or
     # large media. Keep that work out of FastAPI's event loop.
@@ -1026,12 +1046,57 @@ async def chat(req: ChatRequest):
     # Keep a small, ordered context window for conversational replies.  The
     # current message is stored separately below, so only earlier turns are
     # sent to the agents.
-    context_messages = chat_store.list_messages(req.chat_id, limit=12, latest=True)
+    context_messages = chat_store.list_messages(
+        req.chat_id, limit=12, latest=True, source="chat"
+    )
     context_messages = [
         {"role": item.get("role", "user"), "content": item.get("content", "")}
         for item in context_messages
         if item.get("id") != msg_id and item.get("content")
     ]
+
+    if chat_store.get_session_mode(req.chat_id) == SelfLearningService.mode:
+        try:
+            learning_result = await self_learning_service.process(req.message, cached_attachments)
+            result = self_learning_service.format_report(learning_result)
+        except Exception as exc:
+            result = (
+                "SELF-LEARNING: обучение не завершено. Материал не подтверждён и не сохранён. "
+                f"Причина: {type(exc).__name__}."
+            )
+        assistant_message = chat_store.add_message(
+            chat_id=req.chat_id,
+            role="assistant",
+            content=result,
+            source="chat",
+        )
+        runtime_registry.publish_event(
+            event_type="item.completed",
+            source="chat",
+            request_id=msg_id,
+            payload={
+                "chat_id": req.chat_id,
+                "turn_id": turn_id,
+                "item_type": "self_learning_result",
+                "message_id": assistant_message.get("id"),
+                "content": result,
+            },
+        )
+        runtime_registry.publish_event(
+            event_type="turn.completed",
+            source="chat",
+            request_id=msg_id,
+            payload={"chat_id": req.chat_id, "turn_id": turn_id},
+        )
+        active_chat_tasks.pop(turn_id, None)
+        return {
+            "response": result,
+            "turn_id": turn_id,
+            "message_id": assistant_message.get("id"),
+            "user_message_id": user_message.get("id"),
+            "attachments": user_message.get("attachments", []),
+            "mode": SelfLearningService.mode,
+        }
 
     loop = asyncio.get_event_loop()
 
@@ -1084,55 +1149,9 @@ async def chat(req: ChatRequest):
             "не запускай операции с диском без отдельной команды."
         )
 
-    # Resolve verified local knowledge before waking the planner/LLM. This
-    # keeps the normal chat path fast and preserves the same source order as
-    # the voice runtime. Dynamic questions continue through the existing
-    # planner unchanged.
-    local_answer = None
-    if original_goal and not safe_attachments:
-        local_answer = knowledge_search_service.answer(original_goal, context_messages)
-    if local_answer is not None:
-        result_text = str(local_answer.get("answer") or "").strip()
-        assistant_message = chat_store.add_message(
-            chat_id=req.chat_id,
-            role="assistant",
-            content=result_text,
-        )
-        runtime_registry.publish_event(
-            event_type="item.completed",
-            source="knowledge3",
-            request_id=msg_id,
-            payload={
-                "chat_id": req.chat_id,
-                "turn_id": turn_id,
-                "item_type": "knowledge_answer",
-                "message_id": assistant_message.get("id"),
-                "source": local_answer.get("source"),
-            },
-        )
-        runtime_registry.publish_event(
-            event_type="turn.completed",
-            source="knowledge3",
-            request_id=msg_id,
-            payload={"chat_id": req.chat_id, "turn_id": turn_id, "source": local_answer.get("source")},
-        )
-        main_agent.pending.pop(msg_id, None)
-        active_chat_tasks.pop(turn_id, None)
-        return {
-            "response": result_text,
-            "turn_id": turn_id,
-            "message_id": assistant_message.get("id"),
-            "user_message_id": user_message.get("id"),
-            "attachments": user_message.get("attachments", []),
-            "knowledge": local_answer,
-        }
-
-    knowledge_bundle = knowledge_search_service.context_bundle(original_goal, 6) if original_goal and not safe_attachments else {"multi_source": False}
-    if knowledge_bundle.get("multi_source"):
-        context_lines = []
-        for item in knowledge_bundle.get("sources", []):
-            context_lines.append(f"[{item['module']}] {item['title']}: {item['answer']}")
-        goal = goal + "\n\nПроверенный локальный контекст Knowledge 3.0. Используй его, не выдумывай источники:\n" + "\n".join(context_lines)
+    # The text chat is intentionally limited to commands and the selected AI
+    # model. Knowledge 3.0 remains available to Voice Mode, but its indexed
+    # cards must not hijack ordinary requests such as content planning.
 
     await bus.send(
         "planner",
@@ -1169,6 +1188,7 @@ async def chat(req: ChatRequest):
         chat_id=req.chat_id,
         role="assistant",
         content=str(result),
+        source="chat",
     )
     runtime_registry.publish_event(
         event_type="item.completed",

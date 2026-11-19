@@ -70,6 +70,7 @@ class ChatStore:
                     content TEXT NOT NULL DEFAULT '',
                     attachments_json TEXT NOT NULL DEFAULT '[]',
                     reply_to TEXT,
+                    source TEXT NOT NULL DEFAULT 'chat',
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
                 CREATE TABLE IF NOT EXISTS chat_sessions (
@@ -79,6 +80,12 @@ class ChatStore:
                     archived INTEGER NOT NULL DEFAULT 0,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
                     updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+                );
+                CREATE TABLE IF NOT EXISTS chat_session_modes (
+                    chat_id TEXT PRIMARY KEY,
+                    mode TEXT NOT NULL,
+                    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY(chat_id) REFERENCES chat_sessions(id) ON DELETE CASCADE
                 );
                 CREATE TABLE IF NOT EXISTS chat_reactions (
                     message_id TEXT NOT NULL,
@@ -116,6 +123,9 @@ class ChatStore:
             columns = {row[1] for row in conn.execute("PRAGMA table_info(chat_sessions)").fetchall()}
             if "archived" not in columns:
                 conn.execute("ALTER TABLE chat_sessions ADD COLUMN archived INTEGER NOT NULL DEFAULT 0")
+            message_columns = {row[1] for row in conn.execute("PRAGMA table_info(chat_messages)").fetchall()}
+            if "source" not in message_columns:
+                conn.execute("ALTER TABLE chat_messages ADD COLUMN source TEXT NOT NULL DEFAULT 'chat'")
 
     def create_session(self, title: str | None = None, chat_id: str | None = None) -> dict[str, Any]:
         session_id = str(chat_id or uuid.uuid4())
@@ -129,27 +139,87 @@ class ChatStore:
 
     def get_session(self, chat_id: str) -> dict[str, Any] | None:
         with self._lock, self._connect() as conn:
-            row = conn.execute("SELECT * FROM chat_sessions WHERE id=?", (str(chat_id),)).fetchone()
+            row = conn.execute(
+                """SELECT sessions.*, modes.mode AS mode
+                   FROM chat_sessions AS sessions
+                   LEFT JOIN chat_session_modes AS modes ON modes.chat_id=sessions.id
+                   WHERE sessions.id=?""",
+                (str(chat_id),),
+            ).fetchone()
         return dict(row) if row else None
 
     def list_sessions(self, include_archived: bool = False) -> list[dict[str, Any]]:
-        archive_clause = "1=1" if include_archived else "archived=0"
+        archive_clause = "1=1" if include_archived else "sessions.archived=0"
         with self._lock, self._connect() as conn:
             rows = conn.execute(
                 f"""
-                SELECT * FROM chat_sessions
+                SELECT sessions.*, modes.mode AS mode
+                FROM chat_sessions AS sessions
+                LEFT JOIN chat_session_modes AS modes ON modes.chat_id=sessions.id
                 WHERE {archive_clause}
                   AND (
                       id='default'
                       OR EXISTS (
                           SELECT 1 FROM chat_messages
-                          WHERE chat_messages.chat_id=chat_sessions.id
+                          WHERE chat_messages.chat_id=sessions.id
                       )
                   )
                 ORDER BY pinned DESC, updated_at DESC, created_at DESC
                 """
             ).fetchall()
         return [dict(row) for row in rows]
+
+    def get_session_mode(self, chat_id: str) -> str | None:
+        with self._lock, self._connect() as conn:
+            row = conn.execute(
+                "SELECT mode FROM chat_session_modes WHERE chat_id=?", (str(chat_id),)
+            ).fetchone()
+        return str(row["mode"]) if row and row["mode"] else None
+
+    def set_session_mode(self, chat_id: str, mode: str | None) -> dict[str, Any] | None:
+        session_id = str(chat_id)
+        normalized = str(mode or "").strip().upper() or None
+        with self._lock, self._connect() as conn:
+            if not conn.execute("SELECT 1 FROM chat_sessions WHERE id=?", (session_id,)).fetchone():
+                return None
+            if normalized is None:
+                conn.execute("DELETE FROM chat_session_modes WHERE chat_id=?", (session_id,))
+            else:
+                conn.execute(
+                    """INSERT INTO chat_session_modes(chat_id, mode, updated_at)
+                       VALUES(?,?,CURRENT_TIMESTAMP)
+                       ON CONFLICT(chat_id) DO UPDATE SET mode=excluded.mode,
+                       updated_at=CURRENT_TIMESTAMP""",
+                    (session_id, normalized),
+                )
+        return self.get_session(session_id)
+
+    def bind_session_mode_by_title(self, title: str, mode: str) -> dict[str, Any] | None:
+        needle = " ".join(str(title or "").casefold().replace("ё", "е").split())
+        if not needle:
+            return None
+        with self._lock, self._connect() as conn:
+            rows = conn.execute(
+                """SELECT id, title, updated_at, created_at FROM chat_sessions
+                   WHERE archived=0 ORDER BY updated_at DESC, created_at DESC""",
+            ).fetchall()
+            rows = [
+                row for row in rows
+                if " ".join(str(row["title"] or "").casefold().replace("ё", "е").split()) == needle
+            ]
+            if not rows:
+                return None
+            # Bind the already existing, most recently used exact-title chat.
+            # The mode is stored by ID and survives future renames.
+            chat_id = str(rows[0]["id"])
+            conn.execute(
+                """INSERT INTO chat_session_modes(chat_id, mode, updated_at)
+                   VALUES(?,?,CURRENT_TIMESTAMP)
+                   ON CONFLICT(chat_id) DO UPDATE SET mode=excluded.mode,
+                   updated_at=CURRENT_TIMESTAMP""",
+                (chat_id, str(mode).strip().upper()),
+            )
+        return self.get_session(chat_id)
 
     def rename_session(self, chat_id: str, title: str) -> dict[str, Any] | None:
         safe_title = str(title or "Новый чат").strip()[:120] or "Новый чат"
@@ -165,10 +235,20 @@ class ChatStore:
             pinned = not bool(row["pinned"])
             if pinned:
                 pinned_count = conn.execute(
-                    "SELECT COUNT(*) FROM chat_sessions WHERE pinned=1 AND archived=0"
+                    """
+                    SELECT COUNT(*) FROM chat_sessions AS sessions
+                    WHERE sessions.pinned=1 AND sessions.archived=0
+                      AND (
+                          sessions.id='default'
+                          OR EXISTS (
+                              SELECT 1 FROM chat_messages
+                              WHERE chat_messages.chat_id=sessions.id
+                          )
+                      )
+                    """
                 ).fetchone()[0]
-                if pinned_count >= 3:
-                    raise ValueError("Maximum of 3 pinned chats reached")
+                if pinned_count >= 4:
+                    raise ValueError("Maximum of 4 pinned chats reached")
             conn.execute("UPDATE chat_sessions SET pinned=?, updated_at=CURRENT_TIMESTAMP WHERE id=?", (int(pinned), str(chat_id)))
         return self.get_session(chat_id)
 
@@ -194,6 +274,7 @@ class ChatStore:
             if not row:
                 return False
             conn.execute("DELETE FROM chat_messages WHERE chat_id=?", (str(chat_id),))
+            conn.execute("DELETE FROM chat_session_modes WHERE chat_id=?", (str(chat_id),))
             conn.execute("DELETE FROM chat_sessions WHERE id=?", (str(chat_id),))
         return True
 
@@ -218,6 +299,31 @@ class ChatStore:
             if not row:
                 return False
             conn.execute("DELETE FROM chat_messages WHERE id=?", (str(message_id),))
+        return True
+
+    def clear_history(self, chat_id: str) -> bool:
+        """Delete all messages and cached attachment rows for one chat."""
+        session_id = str(chat_id or "default")
+        with self._lock, self._connect() as conn:
+            row = conn.execute("SELECT 1 FROM chat_sessions WHERE id=?", (session_id,)).fetchone()
+            if not row:
+                return False
+            attachment_rows = conn.execute(
+                "SELECT stored_path FROM chat_attachments WHERE message_id IN "
+                "(SELECT id FROM chat_messages WHERE chat_id=?)",
+                (session_id,),
+            ).fetchall()
+            conn.execute(
+                "DELETE FROM chat_attachments WHERE message_id IN "
+                "(SELECT id FROM chat_messages WHERE chat_id=?)",
+                (session_id,),
+            )
+            conn.execute("DELETE FROM chat_messages WHERE chat_id=?", (session_id,))
+        for row in attachment_rows:
+            try:
+                Path(str(row["stored_path"])).unlink(missing_ok=True)
+            except OSError:
+                pass
         return True
 
     @staticmethod
@@ -327,14 +433,16 @@ class ChatStore:
         attachments: list[dict[str, Any]] | None = None,
         reply_to: str | None = None,
         message_id: str | None = None,
+        source: str = "chat",
     ) -> dict[str, Any]:
         message_id = message_id or "msg_" + uuid.uuid4().hex
         safe_attachments = [item for item in (attachments or []) if isinstance(item, dict)]
         with self._lock, self._connect() as conn:
             conn.execute(
-                "INSERT INTO chat_messages(id, chat_id, role, content, attachments_json, reply_to) VALUES(?,?,?,?,?,?)",
+                "INSERT INTO chat_messages(id, chat_id, role, content, attachments_json, reply_to, source) VALUES(?,?,?,?,?,?,?)",
                 (message_id, str(chat_id or "default"), str(role), str(content or ""),
-                 json.dumps(safe_attachments, ensure_ascii=False), reply_to),
+                 json.dumps(safe_attachments, ensure_ascii=False), reply_to,
+                 str(source or "chat").strip().lower()[:24] or "chat"),
             )
         return self.get_message(message_id) or {}
 
@@ -359,11 +467,15 @@ class ChatStore:
         before_id: str | None = None,
         ids: list[str] | None = None,
         latest: bool = False,
+        source: str | None = None,
     ) -> list[dict[str, Any]]:
         limit = max(1, min(int(limit), 500))
         with self._lock, self._connect() as conn:
             params: list[Any] = [str(chat_id or "default")]
             clauses = ["chat_id=?"]
+            if source:
+                clauses.append("source=?")
+                params.append(str(source).strip().lower())
             if ids:
                 placeholders = ",".join("?" for _ in ids[:500])
                 clauses.append(f"id IN ({placeholders})")
@@ -445,6 +557,7 @@ class ChatStore:
         return {
             "id": row["id"], "chat_id": row["chat_id"], "role": row["role"],
             "content": content, "attachments": attachments,
+            "source": str(row["source"] or "chat") if "source" in row.keys() else "chat",
             "reply_to": row["reply_to"], "created_at": row["created_at"],
             "reactions": reactions, "pinned": pinned, "is_pinned": pinned,
         }

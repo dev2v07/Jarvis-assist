@@ -81,11 +81,23 @@ class Planner(Agent):
         g = goal.lower()
         steps = []
 
+        # Opening media or a browser is an action only when the user actually
+        # asks Jarvis to perform it.  Topic words on their own are not tool
+        # commands: e.g. "составь контент-план по теме музыка" must go to the
+        # selected AI model instead of opening Yandex Music.
+        action_request = bool(
+            re.match(
+                r"^\s*(?:джарвис[,.]?\s*)?(?:пожалуйста\s+)?"
+                r"(?:открой|открывай|запусти|запускай|включи|включай|поставь|врубай)\b",
+                g,
+            )
+        )
+
         # ------------------------------------------------
         # youtube
         # ------------------------------------------------
 
-        if any(word in g for word in ["youtube", "ютуб"]):
+        if action_request and any(word in g for word in ["youtube", "ютуб"]):
 
             steps.append(
                 {
@@ -102,7 +114,7 @@ class Planner(Agent):
         # браузер
         # ------------------------------------------------
 
-        if any(word in g for word in ["браузер", "browser", "интернет"]):
+        if action_request and any(word in g for word in ["браузер", "browser", "интернет"]):
 
             steps.append(
                 {
@@ -119,7 +131,7 @@ class Planner(Agent):
         # музыка
         # ------------------------------------------------
 
-        if any(word in g for word in ["музыку", "музыка", "music"]):
+        if action_request and any(word in g for word in ["музыку", "музыка", "music"]):
 
             steps.append(
                 {

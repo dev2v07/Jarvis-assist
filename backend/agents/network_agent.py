@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 import re
 import time
 import uuid
@@ -72,7 +73,16 @@ class NetworkAgent(Agent):
         if any(word in step_lower for word in ["open", "открой", "перейди", "запусти"]):
 
             try:
-                webbrowser.open(url)
+                if os.name == "nt":
+                    # Launch through the Windows shell so the action is
+                    # handled by the user's desktop session, not by a
+                    # backend webbrowser controller that may return before
+                    # opening anything visible.
+                    os.startfile(url)
+                else:
+                    opened = webbrowser.open(url, new=2)
+                    if not opened:
+                        return f"Ошибка открытия сайта: браузер не принял URL {url}"
                 logger.info(
                     "browser_open",
                     extra={
@@ -81,7 +91,7 @@ class NetworkAgent(Agent):
                     },
                 )
 
-                return f"Открываю сайт {url} в браузере"
+                return f"Открыл сайт {url} в браузере"
 
             except Exception as e:
 

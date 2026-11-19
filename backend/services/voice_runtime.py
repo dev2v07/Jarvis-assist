@@ -7,6 +7,7 @@ import json
 import os
 import queue
 import random
+import re
 from collections import deque
 import threading
 import time
@@ -23,6 +24,7 @@ from voice_engine.tts_queue import TTSQueue
 
 
 class VoiceRuntime:
+    VOSK_TRAILING_SILENCE_BLOCKS = 32  # 32 * 32 ms ~= 1.0 s
     """Own the microphone lifecycle instead of leaving it to legacy scripts."""
 
     SMALLTALK_WAVS = (
@@ -34,16 +36,15 @@ class VoiceRuntime:
         "как дела", "как поживаешь", "ты как",
     )
     NEWS_WAVS = (
-        ("news_01.wav", "Ничего нового, сэр. А у вас?"),
-        ("news_02.wav", "Из нового — продолжаю разработку новых систем."),
-        ("news_03.wav", "Установил новые компоненты для стабильной работы. А у вас?"),
-        ("news_04.wav", "Много нового, сэр. С чего начать рассказ?"),
-        ("news_05.wav", "Новое — хорошо забытое старое, сэр. А у вас?"),
-        ("news_06.wav", "Провожу диагностику своих систем. А у вас, сэр?"),
-        ("news_07.wav", "Настраиваю голосовой контур и проверяю его работу."),
-        ("news_08.wav", "Собираю новые знания в библиотеку и навожу порядок в системах."),
-        ("news_09.wav", "Работаю над тем, чтобы отвечать быстрее и точнее."),
-        ("news_10.wav", "Я на связи, сэр. Готов обсудить последние изменения."),
+        ("news_01.wav", "У меня всё спокойно, сэр. Готов к новым задачам. А у вас что нового?"),
+        ("news_02.wav", "Системы работают штатно, новых сбоев не было. Чем порадуете?"),
+        ("news_03.wav", "Продолжаю следить за порядком в библиотеке знаний. А что нового у вас?"),
+        ("news_04.wav", "Нового немного: день проходит ровно. Расскажете свои новости?"),
+        ("news_05.wav", "Готов к работе, сэр. Какие новости принесли вы?"),
+        ("news_06.wav", "Всё стабильно. Если есть новости — с удовольствием выслушаю."),
+        ("news_07.wav", "Пока без происшествий, сэр. Что интересного случилось у вас?"),
+        ("news_08.wav", "День спокойный. Может, поделитесь, как прошли ваши дела?"),
+        ("news_09.wav", "Ничего нового, сэр. Я на связи — рассказывайте, что нового."),
     )
     NEWS_MARKERS = (
         "что нового", "что у тебя нового", "у тебя что нового",
@@ -54,6 +55,10 @@ class VoiceRuntime:
         "зарбис", "нарвес", "диарвис", "завис", "зарес", "червис",
         "джервис", "джармис", "дервис", "джарлис", "джаррис", "джарбис",
     )
+    # Vosk has repeatedly returned this ordinary word for a separately spoken
+    # "Jarvis".  Accept it only as a complete wake utterance; never strip it
+    # from a longer phrase where it can have its normal Russian meaning.
+    WAKE_ONLY_ALIASES = ("обвес",)
     ACK_FILES = {
         "hello": "К вашим услугам сэр.wav",
         "thanks": "К вашим услугам сэр.wav",
@@ -101,12 +106,17 @@ class VoiceRuntime:
         self._stop = threading.Event()
         self._state_lock = threading.Lock()
         self._last_transcript = ""
+        self._audio_level = 0.04
         self._last_response = ""
         self._last_error = ""
         self._tts_available = importlib.util.find_spec("TTS") is not None
         self._phase = "выключен"
         self._follow_up_until = 0.0
         self._speaking = threading.Event()
+        # ACTIVE / SLEEP / WAKING. SLEEP keeps the microphone thread alive but
+        # only accepts wake phrases; WAKING is a short transient state.
+        self._mode = "ACTIVE"
+        self._wake_lock = threading.Lock()
         # Voice input is latest-turn-wins. A request waiting behind a long
         # story is stale, so never allow a backlog to grow.
         self._conversation_queue: queue.Queue[str | None] = queue.Queue(maxsize=1)
@@ -183,7 +193,14 @@ class VoiceRuntime:
         if not normalized_chat_id or not self._chat_store:
             return
         try:
-            messages = self._chat_store.list_messages(normalized_chat_id, limit=16, latest=True)
+            messages = self._chat_store.list_messages(
+                normalized_chat_id, limit=16, latest=True, source="voice"
+            )
+            # Keep pre-source-migration voice sessions recoverable. New turns
+            # are tagged explicitly; this fallback is only for stores whose
+            # older rows have no source metadata yet.
+            if not messages:
+                messages = self._chat_store.list_messages(normalized_chat_id, limit=16, latest=True)
         except Exception:
             # Persistence must not make microphone startup fail.  The next
             # turns still have a bounded in-memory context.
@@ -205,14 +222,14 @@ class VoiceRuntime:
         if not chat_id or not self._chat_store or not text or turn_key == self._last_persisted_transcript:
             return
         self._chat_store.touch_session(chat_id, title=text[:60])
-        self._chat_store.add_message(chat_id=chat_id, role="user", content=text)
+        self._chat_store.add_message(chat_id=chat_id, role="user", content=text, source="voice")
         self._last_persisted_transcript = turn_key
 
     def _persist_voice_assistant(self, text: str) -> None:
         chat_id = self._voice_chat_id()
         if not chat_id or not self._chat_store or not text:
             return
-        self._chat_store.add_message(chat_id=chat_id, role="assistant", content=text)
+        self._chat_store.add_message(chat_id=chat_id, role="assistant", content=text, source="voice")
 
     def _remember_conversation_turn(self, user_text: str, assistant_text: str) -> None:
         """Keep one bounded context window for local and dynamic voice turns."""
@@ -335,10 +352,16 @@ class VoiceRuntime:
             "microphone_enabled": bool(self._microphone_enabled),
             "microphone_index": self._device_index,
             "last_transcript": self._last_transcript,
+            "audio_level": float(getattr(self, "_audio_level", 0.04)),
             "last_response": self._last_response,
             "last_error": self._last_error,
+            "speaking": bool(getattr(getattr(self, "_speaking", None), "is_set", lambda: False)()),
+            "last_speaking_started_at": float(getattr(self, "_last_speaking_started_at", 0.0)),
+            "last_speaking_finished_at": float(getattr(self, "_last_speaking_finished_at", 0.0)),
             "tts_available": tts_available,
             "phase": self._phase,
+            "mode": getattr(self, "_mode", "ACTIVE"),
+            "sleeping": getattr(self, "_mode", "ACTIVE") == "SLEEP",
             "stt_engine": self._stt_engine_name(),
             "conversation_worker": bool(
                 self._conversation_thread and self._conversation_thread.is_alive()
@@ -455,10 +478,10 @@ class VoiceRuntime:
         pre_roll: deque[bytes] = deque(maxlen=6)  # ~=192 ms at 16 kHz/512
         speaking = False
         silence_blocks = 0
-        # End a short utterance sooner while still retaining a half-second
-        # pause window.  This is the production vosk-silero path; the
-        # diagnostic faster-whisper path keeps its own conservative setting.
-        silence_limit = 16  # 16 * 32 ms ~= 512 ms
+        # A half-second pause split normal Russian phrases before their final
+        # word and sent an incomplete request to the model.  Keep a one-second
+        # hangover; Vosk still receives one bounded utterance via FinalResult.
+        silence_limit = self.VOSK_TRAILING_SILENCE_BLOCKS
 
         def callback(indata, frames, time_info, status):
             if status and "overflow" not in str(status).lower():
@@ -499,7 +522,9 @@ class VoiceRuntime:
                 try:
                     block = audio_queue.get(timeout=0.5)
                 except queue.Empty:
+                    self._audio_level *= 0.72
                     continue
+                self._audio_level = max(0.04, min(1.0, self._estimate_audio_level(block)))
                 active = vad.is_speech(block)
                 if active:
                     if not speaking:
@@ -564,7 +589,9 @@ class VoiceRuntime:
                 try:
                     block = audio_queue.get(timeout=0.5)
                 except queue.Empty:
+                    self._audio_level *= 0.72
                     continue
+                self._audio_level = max(0.04, min(1.0, self._estimate_audio_level(block)))
                 active = vad.is_speech(block)
                 if active:
                     speech.append(block)
@@ -595,9 +622,22 @@ class VoiceRuntime:
                             path.unlink(missing_ok=True)
                         self._phase = "слушаю (Silero VAD)"
 
+    @staticmethod
+    def _estimate_audio_level(block: bytes) -> float:
+        try:
+            samples = memoryview(block).cast("h")
+            if not samples:
+                return 0.04
+            peak = max(abs(int(sample)) for sample in samples)
+            return min(1.0, peak / 32768.0)
+        except (TypeError, ValueError):
+            return 0.04
+
     def _extract_command(self, text: str) -> str | None:
         normalized = " ".join(text.lower().split())
         active = self._voice_sessions.active if self._voice_sessions else None
+        if normalized in self.WAKE_ONLY_ALIASES:
+            return ""
         # START explicitly grants the voice session ownership of the
         # microphone.  Do not require a second, error-prone wake-word pass in
         # an already active widget/chat session: Vosk can turn a short
@@ -628,7 +668,98 @@ class VoiceRuntime:
             return normalized
         return None
 
+    @staticmethod
+    def _normalize_recognized_text(text: str) -> str:
+        """Apply narrow, context-safe fixes for recurring Vosk confusions."""
+        normalized = " ".join(str(text or "").lower().replace("ё", "е").split())
+        return re.sub(
+            r"\b(процессор(?:ы|а|ов|ах|ом)?)\s+(?:пинбол|игнатову)\b",
+            r"\1 интел",
+            normalized,
+        )
+
+    def _is_wake_phrase(self, text: str) -> bool:
+        """Accept only the configured wake variants, not arbitrary words."""
+        normalized = " ".join(
+            str(text or "").lower().replace("ё", "е")
+            .replace(",", " ").replace(".", " ").replace("!", " ")
+            .replace("?", " ").replace(";", " ").replace(":", " ").split()
+        )
+        if not normalized:
+            return False
+        for wake_word in sorted(self.WAKE_WORDS + self.WAKE_ONLY_ALIASES, key=len, reverse=True):
+            word = wake_word.replace("ё", "е")
+            if normalized == word:
+                return True
+            if normalized.startswith(word + " "):
+                remainder = normalized[len(word):].strip(" ,.!?;:")
+                if remainder in {"", "привет", "здравствуй", "включись", "проснись", "эй", "слушай"}:
+                    return True
+        return False
+
+    def _wake_from_sleep(self) -> None:
+        """Switch SLEEP -> WAKING -> ACTIVE and start a fresh dialogue."""
+        if getattr(self, "_mode", "ACTIVE") != "SLEEP":
+            return
+        with self._wake_lock:
+            if self._mode != "SLEEP":
+                return
+            self._mode = "WAKING"
+            self._phase = "пробуждаюсь"
+            # A new session must not continue the pre-sleep conversation or
+            # its pending follow-up question.
+            self._conversation_history.clear()
+            self._last_transcript = ""
+            self._follow_up_until = 0.0
+            while True:
+                try:
+                    self._conversation_queue.get_nowait()
+                    self._conversation_queue.task_done()
+                except queue.Empty:
+                    break
+            if self._voice_sessions and self._voice_sessions.active:
+                self._voice_sessions.update(state="listening")
+            self._mode = "ACTIVE"
+            self._phase = "слушаю"
+            # The next utterance is treated as a normal command without
+            # requiring a second wake word.
+            self._follow_up_until = time.monotonic() + 30.0
+            self._say_wav("Да сэр.wav")
+
+    def _enter_sleep(self, reason: str = "farewell") -> None:
+        """Keep the process and microphone alive, but only listen for wake."""
+        if getattr(self, "_mode", "ACTIVE") == "SLEEP":
+            return
+        self._mode = "SLEEP"
+        self._phase = "ожидаю пробуждения"
+        self._follow_up_until = 0.0
+        self._conversation_history.clear()
+        self._last_sleep_reason = reason
+        while True:
+            try:
+                self._conversation_queue.get_nowait()
+                self._conversation_queue.task_done()
+            except queue.Empty:
+                break
+        if self._voice_sessions and self._voice_sessions.active:
+            self._voice_sessions.update(state="sleeping")
+
+    def _sleep_after_speech(self) -> None:
+        """Wait for the queued farewell TTS, then enter SLEEP."""
+        tts = self._tts_queue
+        if tts is not None:
+            try:
+                tts.wait_idle(timeout=30.0)
+            except Exception:
+                pass
+        self._enter_sleep("farewell")
+
     def _handle_transcript(self, text: str) -> None:
+        text = self._normalize_recognized_text(text)
+        if getattr(self, "_mode", "ACTIVE") == "SLEEP":
+            if self._is_wake_phrase(text):
+                self._wake_from_sleep()
+            return
         command = self._extract_command(text)
         if command is None:
             return
@@ -648,16 +779,12 @@ class VoiceRuntime:
         self._persist_voice_user(command)
         self._phase = "уточняю информацию"
         if not command:
-            # A repeated wake-word must not replay the acknowledgement on
-            # every recognition pass while the follow-up window is active.
-            if time.monotonic() >= self._follow_up_until:
-                self._phase = "отвечаю WAV"
-                self._say_wav("Да сэр.wav")
-                # Give the user enough time to formulate the follow-up
-                # question after saying the wake word separately.
-                self._follow_up_until = time.monotonic() + 30.0
-            else:
-                self._phase = "слушаю"
+            # A separately spoken wake word always receives an acknowledgement.
+            # Only the sleeping runtime changes mode; an already active runtime
+            # remains active and simply refreshes the follow-up window.
+            self._phase = "отвечаю WAV"
+            self._say_wav("Да сэр.wav")
+            self._follow_up_until = time.monotonic() + 30.0
             return
         try:
             from computer_control import get_last_command_feedback, has_pending_confirmation, run_command
@@ -693,7 +820,9 @@ class VoiceRuntime:
                 self._follow_up_until = time.monotonic() + 45.0
                 self._phase = "слушаю"
             return
+        route_started = time.perf_counter()
         route = self._response_router.route(command)
+        self._last_turn_metrics["route_decision_ms"] = round((time.perf_counter() - route_started) * 1000, 1)
 
         try:
             from computer_control import get_last_command_feedback, run_command
@@ -706,7 +835,7 @@ class VoiceRuntime:
                 intent = None
             if intent == "off":
                 self._say_wav(self.ACK_FILES["off"])
-                self.stop()
+                self._enter_sleep("command_off")
                 return
             if intent == "sound_off":
                 self._phase = "выполняю команду"
@@ -716,15 +845,19 @@ class VoiceRuntime:
                 return
             if intent:
                 self._phase = "выполняю команду"
+                action_started = time.perf_counter()
                 handled = bool(run_command(command))
+                self._last_turn_metrics["route"] = "command"
+                self._last_turn_metrics["command_action_ms"] = round((time.perf_counter() - action_started) * 1000, 1)
                 if handled:
                     feedback = get_last_command_feedback()
-                    if feedback and intent in {"open_folder", "open_bible", "open_system_settings", "computer_info", "open_productivity", "weather", "shutdown", "reboot"}:
+                    if feedback and intent in {"open_folder", "open_bible", "open_system_settings", "open_computer", "close_explorer", "computer_info", "open_productivity", "weather", "close_browser", "shutdown", "reboot"}:
                         self._speak_feedback(feedback)
                     else:
                         self._say_wav(self.COMMAND_WAVS.get(intent, "Да сэр.wav"))
+                    self._last_turn_metrics["response_ready_ms"] = round((time.perf_counter() - turn_started) * 1000, 1)
                     if intent == "off":
-                        self.stop()
+                        self._enter_sleep("command_off")
                     return
                 self._last_error = f"command_action_missing:{intent}"
                 self._say_wav("Я провел симуляции со всеми известными элементами.wav")
@@ -779,11 +912,13 @@ class VoiceRuntime:
             self._last_response = f"wav:{path.name}"
             self._phase = "говорю WAV"
             def play():
+                self._last_speaking_started_at = time.time()
                 self._speaking.set()
                 try:
                     play_voice(str(path))
                 finally:
                     self._speaking.clear()
+                    self._last_speaking_finished_at = time.time()
                     if self._enabled:
                         self._phase = "слушаю"
 
@@ -802,19 +937,23 @@ class VoiceRuntime:
         """Play generated speech while muting microphone self-listening."""
         from voice_engine.tts import speak
 
+        self._last_speaking_started_at = time.time()
         self._speaking.set()
         try:
             speak(text)
         finally:
             self._speaking.clear()
+            self._last_speaking_finished_at = time.time()
+            if self._enabled and self._phase.startswith("говор"):
+                self._phase = "слушаю"
 
     def _speak_feedback(self, text: str) -> None:
         """Speak short local action feedback without creating a new LLM turn."""
         if self._tts_queue is None:
             self._tts_queue = TTSQueue(self._speak_tts, self._on_tts_error)
         self._last_response = text
-        self._tts_queue.put_latest(text)
         self._phase = "говорю подтверждение"
+        self._tts_queue.put_latest(text)
 
     def _play_model_acknowledgement(self) -> None:
         """Play a cached Fish acknowledgement before a model-backed turn."""
@@ -878,13 +1017,21 @@ class VoiceRuntime:
                     self._tts_available = True
                     if self._tts_queue is None:
                         self._tts_queue = TTSQueue(self._speak_tts, self._on_tts_error)
+                    self._phase = "говорю Knowledge 3.0 через выбранный TTS"
                     self._tts_queue.put_latest(response)
                     metrics["tts_queued_ms"] = round((time.perf_counter() - turn_started) * 1000, 1)
-                    self._phase = "говорю Knowledge 3.0 через выбранный TTS"
                     self._remember_conversation_turn(text, response)
-                    if self._enabled:
+                    if str(local_knowledge.get("id", "")).startswith("farewell_"):
+                        # Say the farewell first, then switch to SLEEP; the
+                        # microphone thread stays alive for wake detection.
+                        self._follow_up_until = 0.0
+                        threading.Thread(
+                            target=self._sleep_after_speech,
+                            name="jarvis-sleep-after-farewell",
+                            daemon=True,
+                        ).start()
+                    elif self._enabled:
                         self._follow_up_until = time.monotonic() + 45.0
-                        self._phase = "слушаю"
                     return
             story_request = any(
                 marker in text.lower()
@@ -1000,15 +1147,14 @@ class VoiceRuntime:
             # Fish Audio is a request/response TTS API. Sending every sentence
             # separately creates a network-sized pause between sentences. One
             # short response per request keeps the speech continuous.
+            self._phase = "говорю AI по предложениям"
             self._tts_queue.put_latest(response)
             metrics["response_ready_ms"] = round((time.perf_counter() - turn_started) * 1000, 1)
             metrics["tts_queued_ms"] = metrics["response_ready_ms"]
-            self._phase = "говорю AI по предложениям"
             if self._enabled:
                 # Keep the conversation open after an answer. The next user
                 # turn should not require repeating the wake word.
                 self._follow_up_until = time.monotonic() + 45.0
-                self._phase = "слушаю"
         except Exception as error:
             self._tts_available = False
             # A failed LLM request must not play an unrelated command WAV or

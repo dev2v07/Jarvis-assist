@@ -185,7 +185,7 @@ class OllamaAdapter(_HttpAdapter):
         num_predict = self.config.get("HEL_OLLAMA_NUM_PREDICT")
         if num_predict:
             try:
-                options["num_predict"] = max(16, min(256, int(num_predict)))
+                options["num_predict"] = max(16, min(512, int(num_predict)))
             except (TypeError, ValueError):
                 pass
         data = self._post_json(
@@ -220,7 +220,7 @@ class OllamaAdapter(_HttpAdapter):
         num_predict = self.config.get("HEL_OLLAMA_NUM_PREDICT")
         if num_predict:
             try:
-                options["num_predict"] = max(16, min(256, int(num_predict)))
+                options["num_predict"] = max(16, min(512, int(num_predict)))
             except (TypeError, ValueError):
                 pass
         try:

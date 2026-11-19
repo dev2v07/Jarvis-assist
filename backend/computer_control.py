@@ -64,7 +64,12 @@ PENDING_CONFIRMATION = None
 # ---------------------------------------------
 
 def open_browser():
-    webbrowser.open("https://google.com")
+    # ``webbrowser.open`` may wait on the registered browser controller on
+    # Windows.  Voice commands must return control to the runtime immediately.
+    try:
+        os.startfile("https://google.com")
+    except (AttributeError, OSError):
+        webbrowser.open("https://google.com")
 
 
 def open_google():
@@ -180,6 +185,44 @@ def open_system_settings():
     open_settings()
 
 
+def open_computer():
+    """Open the Windows This PC view for explicit computer commands."""
+    global COMMAND_FEEDBACK
+    COMMAND_FEEDBACK = "Открываю Этот компьютер."
+    os.startfile("shell:MyComputerFolder")
+    return True
+
+
+def close_explorer():
+    """Close Explorer folder windows without terminating the Windows shell."""
+    global COMMAND_FEEDBACK
+    script = (
+        "$shell = New-Object -ComObject Shell.Application; "
+        "$windows = @($shell.Windows()) | Where-Object { "
+        "$_.FullName -and [IO.Path]::GetFileName($_.FullName) -ieq 'explorer.exe' }; "
+        "$count = @($windows).Count; "
+        "$windows | ForEach-Object { try { $_.Quit() } catch {} }; "
+        "Write-Output $count"
+    )
+    result = subprocess.run(
+        ["powershell.exe", "-NoProfile", "-NonInteractive", "-Command", script],
+        check=False,
+        capture_output=True,
+        text=True,
+        creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+    )
+    try:
+        closed_count = int((result.stdout or "0").strip().splitlines()[-1])
+    except (ValueError, IndexError):
+        closed_count = 0
+    COMMAND_FEEDBACK = (
+        "Окна Проводника закрыты."
+        if result.returncode == 0 and closed_count > 0
+        else "Открытые окна Проводника не найдены."
+    )
+    return True
+
+
 def computer_info():
     global COMMAND_FEEDBACK
     try:
@@ -252,6 +295,23 @@ def close_window():
     pyautogui.hotkey("alt", "f4")
 
 
+def close_browser():
+    """Close running desktop browsers for an explicit user command."""
+    global COMMAND_FEEDBACK
+    closed = False
+    for image_name in ("chrome.exe", "msedge.exe", "firefox.exe", "browser.exe", "opera.exe"):
+        result = subprocess.run(
+            ["taskkill", "/IM", image_name, "/T"],
+            check=False,
+            capture_output=True,
+            text=True,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+        )
+        closed = closed or result.returncode == 0
+    COMMAND_FEEDBACK = "Браузер закрыт." if closed else "Запущенный браузер не найден."
+    return True
+
+
 def make_screenshot():
 
     screenshot = pyautogui.screenshot()
@@ -315,6 +375,8 @@ ACTIONS = {
     "open_steam": open_steam,
     "open_bible": open_bible,
     "open_system_settings": open_system_settings,
+    "open_computer": open_computer,
+    "close_explorer": close_explorer,
     "computer_info": computer_info,
     "open_productivity": open_calculator,
 
@@ -323,6 +385,7 @@ ACTIONS = {
 
     "show_desktop": show_desktop,
     "close_window": close_window,
+    "close_browser": close_browser,
     "screenshot": make_screenshot,
 
     "shutdown": shutdown_pc,
@@ -365,14 +428,33 @@ def learn_command(command, intent):
 # ---------------------------------------------
 
 def find_intent(command):
-    normalized = " ".join(str(command or "").lower().split())
+    normalized = " ".join(str(command or "").lower().replace("ё", "е").split())
+    normalized = re.sub(r"^(?:джарвис|jarvis|обвес)[,.!?;:\s]+", "", normalized).strip()
+    if not normalized:
+        return None
     command_tokens = set(normalized.split())
     best_score = 0
     best_intent = None
 
+    # Exact phrases are authoritative.  This also prevents a fuzzy generic
+    # intent from winning over a more specific command.
     for intent, phrases in COMMANDS.items():
         for phrase in phrases:
-            phrase_normalized = " ".join(str(phrase).lower().split())
+            if normalized == " ".join(str(phrase).lower().replace("ё", "е").split()):
+                return intent
+
+    starts_like_command = bool(
+        re.match(
+            r"^(?:пожалуйста\s+)?(?:открой|открывай|закрой|закрывай|запусти|запускай|"
+            r"включи|включай|выключи|выключай|покажи|найди|сделай|поставь|"
+            r"переключи|верни|убери|останови|сохрани|добавь|лайкни|перезагрузи)\b",
+            normalized,
+        )
+    )
+
+    for intent, phrases in COMMANDS.items():
+        for phrase in phrases:
+            phrase_normalized = " ".join(str(phrase).lower().replace("ё", "е").split())
             phrase_tokens = set(phrase_normalized.split())
             if not phrase_tokens:
                 continue
@@ -380,10 +462,15 @@ def find_intent(command):
             # Keep natural variants such as "открой браузер пожалуйста", but
             # do not route a conversation to a command merely because it
             # shares one generic word like "сегодня".
-            contains_phrase = phrase_normalized in normalized
+            contains_phrase = starts_like_command and (
+                normalized.startswith(phrase_normalized + " ")
+                or phrase_normalized in normalized
+            )
             overlap = len(command_tokens & phrase_tokens) / len(phrase_tokens)
             score = fuzz.token_set_ratio(normalized, phrase_normalized)
-            accepted = contains_phrase or (overlap >= 0.75 and score >= 70)
+            accepted = contains_phrase or (
+                starts_like_command and overlap >= 0.75 and score >= 78
+            )
             if accepted and score > best_score:
                 best_score = score
                 best_intent = intent
