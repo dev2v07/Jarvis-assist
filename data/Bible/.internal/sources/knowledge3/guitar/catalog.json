@@ -1,0 +1,913 @@
+{
+  "version": 1,
+  "read_only": true,
+  "source_policy": "official_manufacturer_pages_and_manuals",
+  "models": [
+    {
+      "id": "cort-evl-z4",
+      "brand": "Cort",
+      "series": "EVL",
+      "model": "EVL-Z4",
+      "kind": "electric_guitar",
+      "summary": "Модель серии EVL с современной металлической направленностью; конкретный год и комплектацию нужно сверять по экземпляру и каталогу выпуска.",
+      "use_cases": [
+        "metal",
+        "hard rock",
+        "drop tuning"
+      ],
+      "modifications": [
+        "проверка мензуры и строя перед заменой машинки",
+        "настройка высоты звукоснимателей",
+        "замена электроники только после проверки распайки"
+      ],
+      "sources": [
+        "https://www.cortguitars.com/support/",
+        "https://www.cortguitars.com/wp-content/uploads/2024/01/cort-electric-guitar-manual.pdf",
+        "https://jam.ua/files/images/manuals/CORT-2008ru.pdf",
+        "https://manuals.plus/m/ee4ace90411acbfaadb447368bd8ee26029ef732b926bd99545e77873609dacc.pdf",
+        "https://www.infomusic.pl/artykul/11796,evl-z4",
+        "https://www.ibanez.com/jp/products/detail/grg170dx_2y_05.html",
+        "https://www.emgpickups.com/pub/media/Mageants/h/z/hz_h3_h4_b245_0230-0221rf.pdf",
+        "https://www.daddario.com/blogs/guitar/all-about-string-tension"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "LEGACY_AUDIO_UNREVIEWED",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/guitar/audio/cort-evl-z4.wav",
+      "audio_metadata": {
+        "duration": 13.39,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "electric_guitar",
+      "subcategory": "electric_guitar",
+      "topic": "EVL-Z4",
+      "questions": [
+        "EVL-Z4",
+        "Модель серии EVL с современной металлической направленностью; конкретный год и комплектацию нужно сверять по экземпляру и каталогу выпуска."
+      ],
+      "answer": "Модель серии EVL с современной металлической направленностью; конкретный год и комплектацию нужно сверять по экземпляру и каталогу выпуска.",
+      "verified_at": "2026-11-15",
+      "version": 2,
+      "confidence": "high",
+      "related_materials": [],
+      "detailed_material": {
+        "identity_and_history": "EVL-Z4 — шестиструнная электрогитара Cort серии EVL, а не Ibanez GIO. Историческая карточка EVL-Z4 опубликована в 2007 году, а экземпляры каталога Cort доступны с датой 2008 года. Это подтверждает присутствие модели в указанные годы, но не дату начала или конца выпуска, фабрику или комплектацию каждого серийного номера. EVL-Z4B — отдельный бас, EVL-Z6 — другая гитара.",
+        "stable_published_features": {
+          "body": "В обеих копиях фирменного каталога Cort указан корпус из красного дерева (mahogany). Без исследования конкретного инструмента не переносить эту характеристику на заменённые корпуса или другие модели EVL.",
+          "neck_and_fingerboard": "Кленовый гриф на болтах, палисандровая накладка. Заявление о профиле Modern C встречается в более поздних дилерских листах, но не подтверждено обеими каталоговыми таблицами; профиль экземпляра измерять отдельно.",
+          "scale": "24 3/4 дюйма, приблизительно 628,65 мм. Радиус накладки в проверенных фирменных таблицах не указан; встречающиеся у продавцов 12 дюймов остаются неподтверждённым параметром конкретного экземпляра.",
+          "pickups": "Каталожные описательные блоки указывают две EMG-HZ H4; это два пассивных хамбакера по документации EMG. Они не равны активным EMG 81/85, фигурирующим для других моделей EVL.",
+          "bridge": "В каталогах указан фиксированный лицензированный TonePros locking bridge со струнами сквозь корпус. Суффиксы CAVR и C-TPFP расходятся между опубликованными спецификациями, поэтому деталь для замены выбирают по фактическому бриджу и размерам посадки.",
+          "finish": "BKS/Black Satin встречается в каталогах; цвет конкретного подержанного инструмента и его подлинность по одной этикетке не устанавливаются."
+        },
+        "catalog_conflicts": [
+          "Одна доступная копия таблицы Cort указывает 24 jumbo лада и EMG-HZ H без цифры, другая — 22 jumbo и H4; историческая карточка 2007 года тоже указывает 22. Нельзя объявить 22 или 24 универсальной нормой без заводской спецификации конкретного года/рынка; число ладов физически пересчитать.",
+          "Историческая карточка 2007 года указывает CAVR и два регулятора volume плюс tone; фирменные таблицы дают C-TPFP и один volume плюс tone. Наличие трёхпозиционного переключателя согласуется. Проверить расположение и функцию ручек именно на своей гитаре.",
+          "В фирменных таблицах нет устойчивого значения радиуса, формы лада в миллиметрах, даты окончания выпуска, конкретной фабрики или веса. Эти значения не выводятся из модели по умолчанию."
+        ],
+        "electronics_and_sound": "Два пассивных хамбакера работают через селектор; положение у грифа обычно даёт более мягкий регистр, у бриджа — более яркую атаку, но итоговый тембр зависит также от усилителя, кабинета, перегруза, высоты датчиков, струн и исполнения. Пассивность H4 подтверждена инструкцией EMG: для них не требуется питание 9 В, указанное для активных систем. Если под крышкой батарея, сначала проверить, не заменена ли электроника.",
+        "playing_and_setup": "Мензура 24,75 дюйма при одинаковой струне и высоте ноты даёт меньшее натяжение, чем 25,5 дюйма; при понижении строя натяжение падает дополнительно. Это следует из руководства D'Addario, а не из рекламного обещания Cort. Для Drop-строя сначала выбрать калибр по ощущению и расчёту натяжения, затем проверить прогиб грифа, высоту струн, мензуру и отсутствие дребезга. Не обещать, что одна фиксированная комбинация строя и калибра подойдёт всем.",
+        "purchase_and_service_checklist": [
+          "Проверить читаемый серийный номер, форму грифа, наличие ремонта/трещин и число ладов; запросить документы о происхождении и годе, если важна заводская спецификация.",
+          "Проверить анкер и прямолинейность грифа без силового вращения, износ и высоту ладов, строй по всему грифу, состояние порожка.",
+          "Осмотреть реальный бридж и его посадку, точки выхода струн через корпус, колки и следы коррозии. Не заказывать CAVR/C-TPFP только по тексту карточки.",
+          "Прослушать каждый датчик и все положения селектора, покрутить все регуляторы и проверить джек; зафиксировать шум, пропадание сигнала и возможные замены датчиков.",
+          "После смены калибра/строя выполнить полную настройку, а при сомнениях в анкере или геометрии обратиться к мастеру."
+        ],
+        "modifications": "Улучшение начать с настройки высоты датчиков, исправных потенциометров/джека и подходящих струн. Для замены бриджа измерить межосевое расстояние и посадку. Для перехода на активные датчики проверить место под батарею, разводку и номиналы потенциометров; EMG-HZ H4 не следует описывать как систему с батареей. Замену звукоснимателей оценивать после записи исходного звука на одинаковом тракте.",
+        "comparison": "Ibanez GRG170DX на официальной современной странице Ibanez относится к Gio, имеет 25,5-дюймовую мензуру, H-S-H и тремоло T102; это сравнение конкретной текущей страницы, а не всех GIO и не одного года с Cort. EVL-Z4 в подтверждённом каталоге — Cort EVL с короткой мензурой, двумя пассивными хамбакерами и фиксированным string-through бриджем. Разница конструкции влияет на ощущение и обслуживание, но не доказывает, какая гитара объективно лучше звучит.",
+        "faq": [
+          {
+            "question": "Это GIO?",
+            "answer": "Нет. EVL — Cort, Gio — Ibanez."
+          },
+          {
+            "question": "Датчики активные?",
+            "answer": "Каталожная пара EMG-HZ H4 пассивная; у конкретного подержанного инструмента датчики могли заменить."
+          },
+          {
+            "question": "Сколько ладов и какие органы управления?",
+            "answer": "Публикации расходятся. Для конкретной гитары пересчитать лады и проверить каждую ручку; при необходимости сверить каталог нужного года и рынка."
+          },
+          {
+            "question": "Подойдёт ли Drop C?",
+            "answer": "Возможно после подбора струн и настройки; нельзя обещать результат по названию модели."
+          }
+        ],
+        "self_check": [
+          "Почему у EVL-Z4 нельзя без уточнения писать «активные EMG»?",
+          "Как отличить подтверждённый факт модели от спорного поля таблиц?",
+          "Какие измерения нужны до заказа нового бриджа?",
+          "Почему при одинаковых струнах понижение строя меняет натяжение?"
+        ],
+        "sources_and_confidence": [
+          {
+            "url": "https://jam.ua/files/images/manuals/CORT-2008ru.pdf",
+            "locator": "EVL-Z4 narrative and specification table",
+            "supports": "серия/материалы/мензура/тип бриджа и документирует конфликт 24 ладов",
+            "confidence": "primary_catalog_copy_conflicting"
+          },
+          {
+            "url": "https://manuals.plus/m/ee4ace90411acbfaadb447368bd8ee26029ef732b926bd99545e77873609dacc.pdf",
+            "locator": "EVL-Z4 narrative and table",
+            "supports": "22 лада/H4/основные материалы и конфликт управления/бриджа",
+            "confidence": "primary_catalog_copy_conflicting"
+          },
+          {
+            "url": "https://www.infomusic.pl/artykul/11796,evl-z4",
+            "locator": "2007-07-03 specification",
+            "supports": "присутствие модели в 2007 и вторичное описание CAVR/2 volume/22 лада",
+            "confidence": "historical_secondary"
+          },
+          {
+            "url": "https://www.ibanez.com/jp/products/detail/grg170dx_2y_05.html",
+            "locator": "GRG170DX Gio SPEC",
+            "supports": "отдельность бренда Gio и сравнение лишь с текущим GRG170DX",
+            "confidence": "official_current_model"
+          },
+          {
+            "url": "https://www.emgpickups.com/pub/media/Mageants/h/z/hz_h3_h4_b245_0230-0221rf.pdf",
+            "locator": "H3/H4 installation, passive EMG-HZ",
+            "supports": "пассивная природа H4 и отсутствие обязательного питания",
+            "confidence": "manufacturer_manual"
+          },
+          {
+            "url": "https://www.daddario.com/blogs/guitar/all-about-string-tension",
+            "locator": "String tension: gauge, scale length, pitch",
+            "supports": "практика выбора калибра и строя",
+            "confidence": "manufacturer_education"
+          }
+        ],
+        "unverified": [
+          "точные годы производства",
+          "радиус любого экземпляра",
+          "универсальное число ладов",
+          "точный суффикс бриджа для всех версий",
+          "универсальное число ручек",
+          "страна изготовления",
+          "объективный тембр без тракта"
+        ]
+      },
+      "response_variations": [
+        {
+          "variant_id": "cort-evl-z4-v1",
+          "variant_kind": "identity_and_context",
+          "parent_id": "cort-evl-z4",
+          "text": "Cort EVL-Z4 — электрогитара серии EVL с корпусом из красного дерева, кленовым грифом на болтах, палисандровой накладкой и мензурой 24,75 дюйма. Два пассивных хамбакера EMG-HZ H4 и фиксированный мост со струнами сквозь корпус отличают опубликованную конфигурацию. Историческая карточка существует за 2007 год, каталоги — за 2008-й; это не доказывает точные начало и конец выпуска. К GIO модель не относится: GIO — Ibanez.",
+          "query_patterns": [
+            "Что за гитара Cort EVL-Z4?"
+          ],
+          "source_ids": [
+            "https://jam.ua/files/images/manuals/CORT-2008ru.pdf",
+            "https://manuals.plus/m/ee4ace90411acbfaadb447368bd8ee26029ef732b926bd99545e77873609dacc.pdf",
+            "https://www.infomusic.pl/artykul/11796,evl-z4",
+            "https://www.ibanez.com/jp/products/detail/grg170dx_2y_05.html",
+            "https://www.emgpickups.com/pub/media/Mageants/h/z/hz_h3_h4_b245_0230-0221rf.pdf"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama research draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "cort-evl-z4-v2",
+          "variant_kind": "construction_and_uncertainty",
+          "parent_id": "cort-evl-z4",
+          "text": "В каталогах Cort для EVL-Z4 согласуются краснодеревный корпус, кленовый гриф на болтах, палисандровая накладка и мензура 24,75 дюйма. По числу ладов источники расходятся: одна таблица показывает 24 jumbo, другая и карточка 2007 года — 22 jumbo. Поэтому число ладов на конкретной гитаре следует пересчитать, а год и рынок уточнить по документам. Радиус накладки также нельзя объявлять универсальным без заводского листа.",
+          "query_patterns": [
+            "Сколько ладов и какая конструкция у Cort EVL-Z4?"
+          ],
+          "source_ids": [
+            "https://jam.ua/files/images/manuals/CORT-2008ru.pdf",
+            "https://manuals.plus/m/ee4ace90411acbfaadb447368bd8ee26029ef732b926bd99545e77873609dacc.pdf",
+            "https://www.infomusic.pl/artykul/11796,evl-z4"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama research draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "cort-evl-z4-v3",
+          "variant_kind": "pickups_and_controls",
+          "parent_id": "cort-evl-z4",
+          "text": "Для EVL-Z4 опубликована пара EMG-HZ H4 в конфигурации H-H. Руководство EMG относит H4 к пассивной серии, так что это не активные EMG 81/85 других моделей. Указан трёхпозиционный селектор, но число регуляторов в опубликованных таблицах расходится: историческая карточка 2007 года говорит о двух volume и одном tone, другая каталоговая таблица — об одном volume и одном tone. На подержанном инструменте проверьте функции каждой ручки и возможную замену электроники.",
+          "query_patterns": [
+            "Какая электроника у Cort EVL-Z4?"
+          ],
+          "source_ids": [
+            "https://jam.ua/files/images/manuals/CORT-2008ru.pdf",
+            "https://manuals.plus/m/ee4ace90411acbfaadb447368bd8ee26029ef732b926bd99545e77873609dacc.pdf",
+            "https://www.infomusic.pl/artykul/11796,evl-z4",
+            "https://www.emgpickups.com/pub/media/Mageants/h/z/hz_h3_h4_b245_0230-0221rf.pdf"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama research draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "cort-evl-z4-v4",
+          "variant_kind": "bridge_and_replacement",
+          "parent_id": "cort-evl-z4",
+          "text": "Согласованный факт каталогов — фиксированный лицензированный TonePros locking bridge, через который струны уходят сквозь корпус. Маркировка деталей расходится: историческое описание даёт CAVR, каталоговые таблицы встречаются с C-TPFP. Перед заказом замены осмотрите установленный бридж и измерьте посадку, межосевое расстояние, высоту и крепление. Покупать деталь только по названию модели рискованно: конкретный экземпляр мог быть другого года или уже модифицирован.",
+          "query_patterns": [
+            "Какой бридж стоит на Cort EVL-Z4 и чем его заменить?"
+          ],
+          "source_ids": [
+            "https://jam.ua/files/images/manuals/CORT-2008ru.pdf",
+            "https://manuals.plus/m/ee4ace90411acbfaadb447368bd8ee26029ef732b926bd99545e77873609dacc.pdf",
+            "https://www.infomusic.pl/artykul/11796,evl-z4"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama research draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "cort-evl-z4-v5",
+          "variant_kind": "setup_for_lower_tuning",
+          "parent_id": "cort-evl-z4",
+          "text": "У EVL-Z4 заявлена мензура 24,75 дюйма и фиксированный бридж. При одинаковой струне более короткая мензура и понижение высоты ноты уменьшают натяжение; это следует из расчётов D'Addario. Сначала выберите строй, затем попробуйте калибр, сохраняющий удобное натяжение; проверьте прогиб грифа, порожек, высоту струн и интонацию. Если струна болтается или задевает лады, меняйте настройку осмысленно, а не обещайте, что конкретный калибр решит всё для любого музыканта.",
+          "query_patterns": [
+            "Как настроить Cort EVL-Z4 для пониженного строя?"
+          ],
+          "source_ids": [
+            "https://jam.ua/files/images/manuals/CORT-2008ru.pdf",
+            "https://manuals.plus/m/ee4ace90411acbfaadb447368bd8ee26029ef732b926bd99545e77873609dacc.pdf",
+            "https://www.daddario.com/blogs/guitar/all-about-string-tension"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama research draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "cort-evl-z4-v6",
+          "variant_kind": "used_purchase_checklist",
+          "parent_id": "cort-evl-z4",
+          "text": "Сначала подтвердите, что перед вами именно EVL-Z4, а не бас EVL-Z4B или другая модель EVL. Пересчитайте лады, проверьте серийный номер и следы ремонта грифа. Затем осмотрите фактический бридж, выход струн через корпус, лады, порожек и колки. Подключите гитару: послушайте оба датчика, все положения селектора и работу каждой ручки. Каталоги расходятся в числе ладов и схеме управления, поэтому объявление продавца не заменяет проверки конкретного экземпляра.",
+          "query_patterns": [
+            "Что проверить перед покупкой Cort EVL-Z4 с рук?"
+          ],
+          "source_ids": [
+            "https://jam.ua/files/images/manuals/CORT-2008ru.pdf",
+            "https://manuals.plus/m/ee4ace90411acbfaadb447368bd8ee26029ef732b926bd99545e77873609dacc.pdf",
+            "https://www.infomusic.pl/artykul/11796,evl-z4"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama research draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "cort-evl-z4-v7",
+          "variant_kind": "comparison_to_ibanez",
+          "parent_id": "cort-evl-z4",
+          "text": "Сравнивать следует конкретные модели и годы: EVL-Z4 принадлежит Cort EVL, GRG170DX — Ibanez Gio. Для опубликованной EVL-Z4 указаны 24,75-дюймовая мензура, два пассивных хамбакера и фиксированный string-through бридж. Текущая официальная страница GRG170DX указывает 25,5 дюйма, H-S-H и тремоло T102. Эти различия влияют на настройку и ощущения, но не доказывают, что вся GIO устроена одинаково или одна гитара непременно звучит лучше.",
+          "query_patterns": [
+            "Чем Cort EVL-Z4 отличается от Ibanez GIO GRG170DX?"
+          ],
+          "source_ids": [
+            "https://jam.ua/files/images/manuals/CORT-2008ru.pdf",
+            "https://manuals.plus/m/ee4ace90411acbfaadb447368bd8ee26029ef732b926bd99545e77873609dacc.pdf",
+            "https://www.ibanez.com/jp/products/detail/grg170dx_2y_05.html",
+            "https://www.emgpickups.com/pub/media/Mageants/h/z/hz_h3_h4_b245_0230-0221rf.pdf"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama research draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "cort-evl-z4-v8",
+          "variant_kind": "modification_and_troubleshooting",
+          "parent_id": "cort-evl-z4",
+          "text": "До замены деталей проверьте строй, высоту струн, прогиб грифа и высоту пассивных EMG-HZ H4; сравнивайте звук при неизменном усилителе. Если сигнал пропадает, проверьте джек, переключатель и потенциометры. Для нового бриджа измерьте посадку на реальной гитаре, поскольку CAVR и C-TPFP по-разному названы в источниках. При переходе на активные датчики потребуются совместимая разводка и питание; нельзя считать штатные H4 уже активной системой.",
+          "query_patterns": [
+            "Как улучшить или отремонтировать Cort EVL-Z4?"
+          ],
+          "source_ids": [
+            "https://jam.ua/files/images/manuals/CORT-2008ru.pdf",
+            "https://manuals.plus/m/ee4ace90411acbfaadb447368bd8ee26029ef732b926bd99545e77873609dacc.pdf",
+            "https://www.infomusic.pl/artykul/11796,evl-z4",
+            "https://www.emgpickups.com/pub/media/Mageants/h/z/hz_h3_h4_b245_0230-0221rf.pdf"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama research draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved",
+      "updated_at": "2026-11-15T16:22:28+03:00",
+      "legacy_audio_status": "AUDIO_PENDING",
+      "quality_review": {
+        "status": "VERIFIED",
+        "scope": "new detailed_material and eight response_variations, explicitly edition-scoped; old summary/answer/WAV not reverified",
+        "reviewed_by": "Codex",
+        "reviewed_at": "2026-11-15T16:22:28+03:00",
+        "recorded_legacy_status": "SOURCE_REVIEW",
+        "source_count": 6,
+        "variant_count": 8,
+        "conflicts": [
+          "catalog copies differ: 22 vs 24 frets",
+          "CAVR vs C-TPFP",
+          "1 vs 2 volume controls"
+        ],
+        "ollama_draft_rejected_claims": [
+          "EVL-Z4 could have active EMG 81/85: those are shown for another EVL model, not this one",
+          "one source has only one pickup: both catalog narratives describe two",
+          "three-way selector unconfirmed: all checked tables specify it",
+          "CAVR unconfirmed: the 2007 historical listing explicitly specifies it",
+          "eight proposed variations were short questions/uncertainties, not useful substantive answers"
+        ],
+        "audio_assessment": "existing 13.39 s WAV retained; no reliable transcript match with new variants"
+      }
+    },
+    {
+      "id": "cort-evl-series",
+      "brand": "Cort",
+      "series": "EVL",
+      "model": "EVL Series",
+      "kind": "series",
+      "summary": "Серия Cort с визуальной и эргономической ориентацией на тяжёлую музыку.",
+      "use_cases": [
+        "metal",
+        "hard rock"
+      ],
+      "modifications": [
+        "проверка совместимости бриджа, колков и электроники по конкретному году"
+      ],
+      "sources": [
+        "https://www.cortguitars.com/",
+        "https://www.cortguitars.com/support/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/guitar/audio/cort-evl-series.wav",
+      "audio_metadata": {
+        "duration": 7.848,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "series",
+      "subcategory": "series",
+      "topic": "EVL Series",
+      "questions": [
+        "EVL Series",
+        "Серия Cort с визуальной и эргономической ориентацией на тяжёлую музыку."
+      ],
+      "answer": "Серия Cort с визуальной и эргономической ориентацией на тяжёлую музыку.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "cort-x-series",
+      "brand": "Cort",
+      "series": "X",
+      "model": "X Series",
+      "kind": "series",
+      "summary": "Электрогитары Cort для современной игры; сравнивать нужно по конкретной модели, мензуре, бриджу и конфигурации звукоснимателей.",
+      "use_cases": [
+        "rock",
+        "metal",
+        "lead"
+      ],
+      "modifications": [
+        "апгрейд звукоснимателей",
+        "экранировка",
+        "настройка тремоло"
+      ],
+      "sources": [
+        "https://www.cortguitars.com/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/guitar/audio/cort-x-series.wav",
+      "audio_metadata": {
+        "duration": 12.214,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "series",
+      "subcategory": "series",
+      "topic": "X Series",
+      "questions": [
+        "X Series",
+        "Электрогитары Cort для современной игры; сравнивать нужно по конкретной модели, мензуре, бриджу и конфигурации звукоснимателей."
+      ],
+      "answer": "Электрогитары Cort для современной игры; сравнивать нужно по конкретной модели, мензуре, бриджу и конфигурации звукоснимателей.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "ibanez-grg170dx",
+      "brand": "Ibanez",
+      "series": "GIO",
+      "model": "GRG170DX",
+      "kind": "electric_guitar",
+      "summary": "Официальная спецификация указывает 24 лада, GRG maple neck, poplar body, H-S-H Infinity pickups и T102 tremolo bridge.",
+      "use_cases": [
+        "beginner",
+        "rock",
+        "metal"
+      ],
+      "modifications": [
+        "настройка T102",
+        "замена звукоснимателей с проверкой размеров",
+        "улучшение экранировки"
+      ],
+      "sources": [
+        "https://www.ibanez.com/jp/products/detail/grg170dx_2y_05.html"
+      ],
+      "status": "VERIFIED_SOURCE",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/guitar/audio/ibanez-grg170dx.wav",
+      "audio_metadata": {
+        "duration": 13.886,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "electric_guitar",
+      "subcategory": "electric_guitar",
+      "topic": "GRG170DX",
+      "questions": [
+        "GRG170DX",
+        "Официальная спецификация указывает 24 лада, GRG maple neck, poplar body, H-S-H Infinity pickups и T102 tremolo bridge."
+      ],
+      "answer": "Официальная спецификация указывает 24 лада, GRG maple neck, poplar body, H-S-H Infinity pickups и T102 tremolo bridge.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "ibanez-grg121dx",
+      "brand": "Ibanez",
+      "series": "GIO",
+      "model": "GRG121DX",
+      "kind": "electric_guitar",
+      "summary": "Модель GIO; финальные характеристики зависят от версии и рынка, поэтому карточка требует сверки по официальной странице конкретного кода.",
+      "use_cases": [
+        "beginner",
+        "rock",
+        "metal"
+      ],
+      "modifications": [
+        "проверка совместимости бриджа и мензуры",
+        "замена электроники"
+      ],
+      "sources": [
+        "https://www.ibanez.com/eu/products/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/guitar/audio/ibanez-grg121dx.wav",
+      "audio_metadata": {
+        "duration": 14.194,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "electric_guitar",
+      "subcategory": "electric_guitar",
+      "topic": "GRG121DX",
+      "questions": [
+        "GRG121DX",
+        "Модель GIO; финальные характеристики зависят от версии и рынка, поэтому карточка требует сверки по официальной странице конкретного кода."
+      ],
+      "answer": "Модель GIO; финальные характеристики зависят от версии и рынка, поэтому карточка требует сверки по официальной странице конкретного кода.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "ibanez-rg",
+      "brand": "Ibanez",
+      "series": "RG",
+      "model": "RG Series",
+      "kind": "series",
+      "summary": "Серия для скоростной игры и стабильной эргономики; сравнение выполняется по конкретному RG-коду.",
+      "use_cases": [
+        "metal",
+        "shred",
+        "rock"
+      ],
+      "modifications": [
+        "звукосниматели",
+        "строй и пружины тремоло",
+        "пороги и мензура"
+      ],
+      "sources": [
+        "https://www.ibanez.com/eu/products/electric_guitars/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/guitar/audio/ibanez-rg.wav",
+      "audio_metadata": {
+        "duration": 9.892,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "series",
+      "subcategory": "series",
+      "topic": "RG Series",
+      "questions": [
+        "RG Series",
+        "Серия для скоростной игры и стабильной эргономики; сравнение выполняется по конкретному RG-коду."
+      ],
+      "answer": "Серия для скоростной игры и стабильной эргономики; сравнение выполняется по конкретному RG-коду.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "jackson-dinky",
+      "brand": "Jackson",
+      "series": "Dinky",
+      "model": "Dinky",
+      "kind": "series",
+      "summary": "Современная электрогитарная серия Jackson; конкретные материалы, мензура и бридж различаются по линейке и году.",
+      "use_cases": [
+        "metal",
+        "hard rock",
+        "lead"
+      ],
+      "modifications": [
+        "проверка совместимости тремоло",
+        "замена звукоснимателей",
+        "настройка мензуры"
+      ],
+      "sources": [
+        "https://www.jacksonguitars.com/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/guitar/audio/jackson-dinky.wav",
+      "audio_metadata": {
+        "duration": 10.495,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "series",
+      "subcategory": "series",
+      "topic": "Dinky",
+      "questions": [
+        "Dinky",
+        "Современная электрогитарная серия Jackson; конкретные материалы, мензура и бридж различаются по линейке и году."
+      ],
+      "answer": "Современная электрогитарная серия Jackson; конкретные материалы, мензура и бридж различаются по линейке и году.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "jackson-soloist",
+      "brand": "Jackson",
+      "series": "Soloist",
+      "model": "Soloist",
+      "kind": "series",
+      "summary": "Серия с конструкцией, ориентированной на комфортный доступ к верхним ладам; характеристики зависят от конкретного инструмента.",
+      "use_cases": [
+        "metal",
+        "lead",
+        "progressive"
+      ],
+      "modifications": [
+        "настройка тремоло",
+        "проверка анкера и ладов",
+        "замена электроники"
+      ],
+      "sources": [
+        "https://www.jacksonguitars.com/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/guitar/audio/jackson-soloist.wav",
+      "audio_metadata": {
+        "duration": 10.588,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "series",
+      "subcategory": "series",
+      "topic": "Soloist",
+      "questions": [
+        "Soloist",
+        "Серия с конструкцией, ориентированной на комфортный доступ к верхним ладам; характеристики зависят от конкретного инструмента."
+      ],
+      "answer": "Серия с конструкцией, ориентированной на комфортный доступ к верхним ладам; характеристики зависят от конкретного инструмента.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "fender-stratocaster",
+      "updated_at": "2026-11-15",
+      "brand": "Fender",
+      "series": "Stratocaster",
+      "model": "Stratocaster",
+      "kind": "series",
+      "summary": "Классическая платформа с широким выбором конфигураций; сравнивать нужно по конкретной спецификации и году.",
+      "use_cases": [
+        "blues",
+        "rock",
+        "pop"
+      ],
+      "modifications": [
+        "электроника",
+        "бридж",
+        "экранировка"
+      ],
+      "sources": [
+        "https://www.fender.com/en-US/electric-guitars/stratocaster/",
+        "https://www.fender.com/articles/behind-the-scenes/the-history-of-the-fender-stratocaster-the-1950s",
+        "https://www.fender.com/newsroom/270328-fender-celebrates-70-years-of-the-stratocaster-the-most-played-sought-after-and-beloved-model-in-music-history/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/guitar/audio/fender-stratocaster.wav",
+      "audio_metadata": {
+        "duration": 10.449,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "series",
+      "subcategory": "series",
+      "topic": "Stratocaster",
+      "questions": [
+        "Stratocaster",
+        "Классическая платформа с широким выбором конфигураций; сравнивать нужно по конкретной спецификации и году."
+      ],
+      "answer": "Классическая платформа с широким выбором конфигураций; сравнивать нужно по конкретной спецификации и году.",
+      "verified_at": "2026-11-15",
+      "version": 2,
+      "confidence": "high",
+      "related_materials": [
+        "offline:topic:offline_0041_fender_stratocaster"
+      ],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved",
+      "detailed_material": {
+        "scope": "История и исходная конструкция Stratocaster середины 1950-х; это карточка семейства, а не универсальная спецификация любого года или модификации.",
+        "origin": "Fender представила Stratocaster весной 1954 года, в том числе версии с системой изменения высоты звука и без неё. Разработка включала работу Лео Фендера, сотрудников компании и отклики музыкантов. Фредди Таварес участвовал в форме корпуса, Дон Рэндалл предложил имя, Рекс Гэллион связан с удобными контурами корпуса. Не следует сводить создание инструмента к одному человеку.",
+        "original_body_and_electronics": "У ранней модели был цельный корпус с вырезами для удобства руки и контакта с телом, три сингловых звукоснимателя и исходный трёхпозиционный переключатель: каждый фиксированный пункт выбирал один звукосниматель. Мастер-громкость и две ручки тембра работали для некового и среднего датчиков; у бриджевого отдельной ручки тембра не было. Музыканты находили промежуточные сочетания датчиков, удерживая переключатель между фиксированными положениями; нельзя называть исходный переключатель стандартным пятипозиционным.",
+        "bridge_development": "Первый прототип вибрато-системы с роликами Fender сочла неудачным ещё до серийного выпуска. Переработанная конструкция перемещала весь бридж вместе со струнами; пружины в задней полости уравновешивали натяжение, а рычаг менял высоту звука. Fender исторически называла устройство «tremolo», хотя по эффекту изменения высоты это вибрато. В 1954 году существовала и версия без этой системы.",
+        "development_and_variants": "По истории Fender, в середине 1956 года для корпусов стали применять ольху вместо ясеня; в конце 1956 года изменились магниты датчиков. В 1959 году появились модели с накладкой из палисандра и другой конструкцией пикгарда. Даже внутри первого десятилетия спецификация не была неизменной. Анонс 70-летия 2024 года показывает новые варианты с разными профилями грифа, датчиками и отделкой; точные характеристики всегда проверяются для конкретной модели и года.",
+        "practical_check": "При разборе или покупке сначала определите модель и год, затем по официальной спецификации проверьте древесину, датчики, переключатель, схему тембров и бридж. Не переносите схему 1954 года на современный Stratocaster или наоборот. На старом инструменте отдельно проверьте исходность деталей и изменения электрики, не выводя её только по форме корпуса.",
+        "self_check": [
+          "Почему ранний Stratocaster нельзя называть гитарой со штатным пятипозиционным переключателем?",
+          "Чем первоначальный роликовый прототип моста отличался от серийной системы?",
+          "Почему спецификация Stratocaster требует указания года и модификации?"
+        ],
+        "source_locators": [
+          "Fender, The History of the Fender Stratocaster: The 1950s, разделы разработки, электроники, моста и изменений 1956–1959 гг.",
+          "Fender Newsroom, 5 марта 2024 г., 70th Anniversary: 1954 год и разные современные модификации."
+        ]
+      },
+      "response_variations": [
+        {
+          "variant_id": "fender-stratocaster-v1",
+          "parent_id": "fender-stratocaster",
+          "variant_kind": "history_overview",
+          "query_patterns": [
+            "История Fender Stratocaster",
+            "Когда появилась Fender Stratocaster?"
+          ],
+          "text": "Fender представила Stratocaster весной 1954 года. Это была новая цельнокорпусная модель с удобными контурами, тремя звукоснимателями и, в одной из стартовых версий, системой изменения высоты звука рычагом. В её разработке участвовали Лео Фендер, сотрудники компании и музыканты; популярность пришла постепенно, а не сразу после выпуска.",
+          "source_ids": [
+            "https://www.fender.com/articles/behind-the-scenes/the-history-of-the-fender-stratocaster-the-1950s"
+          ],
+          "status": "VERIFIED",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "fender-stratocaster-v2",
+          "parent_id": "fender-stratocaster",
+          "variant_kind": "contributors",
+          "query_patterns": [
+            "Кто создал Fender Stratocaster?"
+          ],
+          "text": "Stratocaster не была работой одного человека. Лео Фендер руководил разработкой; Фредди Таварес помог сформировать новый контур корпуса, Дон Рэндалл предложил название, а гитаристы, в том числе Рекс Гэллион, давали обратную связь об удобстве. История Fender описывает коллективную доработку прототипов перед выпуском 1954 года.",
+          "source_ids": [
+            "https://www.fender.com/articles/behind-the-scenes/the-history-of-the-fender-stratocaster-the-1950s"
+          ],
+          "status": "VERIFIED",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "fender-stratocaster-v3",
+          "parent_id": "fender-stratocaster",
+          "variant_kind": "original_electronics",
+          "query_patterns": [
+            "Какая электроника была у Stratocaster 1954 года?",
+            "Был ли у раннего Stratocaster переключатель на пять позиций?"
+          ],
+          "text": "Ранний Stratocaster имел три сингловых датчика и штатный трёхпозиционный переключатель: в фиксированных положениях выбирался один датчик. Ручки — общая громкость и два тембра для некового и среднего датчиков; отдельного тембра для бриджевого не было. Промежуточные сочетания получали, удерживая переключатель между положениями; это ещё не штатный пятипозиционный селектор.",
+          "source_ids": [
+            "https://www.fender.com/articles/behind-the-scenes/the-history-of-the-fender-stratocaster-the-1950s"
+          ],
+          "status": "VERIFIED",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "fender-stratocaster-v4",
+          "parent_id": "fender-stratocaster",
+          "variant_kind": "bridge_history",
+          "query_patterns": [
+            "Как устроено раннее тремоло Stratocaster?",
+            "Почему мост Stratocaster называют тремоло?"
+          ],
+          "text": "Первый роликовый прототип Fender отбросила до серийного выпуска. В переработанной системе движется весь бридж со струнами: задние пружины балансируют их натяжение, а рычаг меняет высоту звука. По эффекту это вибрато, хотя Fender закрепила название «tremolo». В 1954 году предлагалась также версия Stratocaster без этой системы.",
+          "source_ids": [
+            "https://www.fender.com/articles/behind-the-scenes/the-history-of-the-fender-stratocaster-the-1950s"
+          ],
+          "status": "VERIFIED",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "fender-stratocaster-v5",
+          "parent_id": "fender-stratocaster",
+          "variant_kind": "telecaster_comparison",
+          "query_patterns": [
+            "Чем ранний Stratocaster отличался от Telecaster?"
+          ],
+          "text": "По истории Fender, Stratocaster развивала идеи Telecaster, но получила более округлые контуры корпуса, третий звукосниматель и новый бридж с рычагом изменения высоты звука. Это сравнение относится к ранним инструментам; у современных модификаций обеих серий встречаются разные конфигурации, поэтому для покупки сравнивайте конкретные модели и годы.",
+          "source_ids": [
+            "https://www.fender.com/articles/behind-the-scenes/the-history-of-the-fender-stratocaster-the-1950s",
+            "https://www.fender.com/newsroom/270328-fender-celebrates-70-years-of-the-stratocaster-the-most-played-sought-after-and-beloved-model-in-music-history/"
+          ],
+          "status": "VERIFIED",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "fender-stratocaster-v6",
+          "parent_id": "fender-stratocaster",
+          "variant_kind": "version_check",
+          "query_patterns": [
+            "Все ли Stratocaster одинаковы по конструкции?",
+            "Как проверить характеристики конкретного Stratocaster?"
+          ],
+          "text": "Нет единой спецификации для всех Stratocaster. Уже в 1950-х Fender меняла древесину корпуса, магниты датчиков и конструкцию грифа, а юбилейная серия 2024 года включает несколько разных конфигураций. Перед выводом о звучании или модификации уточните год и точную модель и сверяйте бридж, датчики, переключатель и материалы с её документацией.",
+          "source_ids": [
+            "https://www.fender.com/articles/behind-the-scenes/the-history-of-the-fender-stratocaster-the-1950s",
+            "https://www.fender.com/newsroom/270328-fender-celebrates-70-years-of-the-stratocaster-the-most-played-sought-after-and-beloved-model-in-music-history/"
+          ],
+          "status": "VERIFIED",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ],
+      "quality_review": {
+        "status": "VERIFIED",
+        "reviewed_by": "Codex",
+        "reviewed_at": "2026-11-15",
+        "scope": "1954 history and six variants only; broad series specifications remain SOURCE_REVIEW; old 10.449-second WAV unreviewed for new text",
+        "primary_sources_checked": [
+          "fender-history-1950s",
+          "fender-70th-2024"
+        ],
+        "ollama_draft": "data/Bible/.internal/sources/offline_knowledge/research/offline_0041_fender_stratocaster_ollama_draft.json",
+        "ollama_review": "Rejected malformed fourth item, invented bridge chronology, vague contributions and incorrect terminology; separated original three-way switch from later variants."
+      }
+    },
+    {
+      "id": "gibson-les-paul",
+      "brand": "Gibson",
+      "series": "Les Paul",
+      "model": "Les Paul",
+      "kind": "series",
+      "summary": "Платформа Gibson с фиксированным бриджем и хамбакерными конфигурациями в зависимости от версии.",
+      "use_cases": [
+        "rock",
+        "blues",
+        "hard rock"
+      ],
+      "modifications": [
+        "замена звукоснимателей",
+        "настройка высоты струн",
+        "экранировка по схеме"
+      ],
+      "sources": [
+        "https://www.gibson.com/en-US/Electric-Guitars/Les-Paul"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/guitar/audio/gibson-les-paul.wav",
+      "audio_metadata": {
+        "duration": 9.52,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "series",
+      "subcategory": "series",
+      "topic": "Les Paul",
+      "questions": [
+        "Les Paul",
+        "Платформа Gibson с фиксированным бриджем и хамбакерными конфигурациями в зависимости от версии."
+      ],
+      "answer": "Платформа Gibson с фиксированным бриджем и хамбакерными конфигурациями в зависимости от версии.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "schecter-hellraiser",
+      "brand": "Schecter",
+      "series": "Hellraiser",
+      "model": "Hellraiser",
+      "kind": "series",
+      "summary": "Тяжёлая гитарная серия; конкретные активные/пассивные схемы и бриджи зависят от модели.",
+      "use_cases": [
+        "metal",
+        "drop tuning"
+      ],
+      "modifications": [
+        "проверка питания активных датчиков",
+        "настройка строя",
+        "замена струн"
+      ],
+      "sources": [
+        "https://www.schecterguitars.com/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/guitar/audio/schecter-hellraiser.wav",
+      "audio_metadata": {
+        "duration": 9.242,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "series",
+      "subcategory": "series",
+      "topic": "Hellraiser",
+      "questions": [
+        "Hellraiser",
+        "Тяжёлая гитарная серия; конкретные активные/пассивные схемы и бриджи зависят от модели."
+      ],
+      "answer": "Тяжёлая гитарная серия; конкретные активные/пассивные схемы и бриджи зависят от модели.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "esp-ltd-ec",
+      "brand": "ESP/LTD",
+      "series": "EC",
+      "model": "EC Series",
+      "kind": "series",
+      "summary": "Одно- и двухвырезные платформы LTD/ESP; характеристики зависят от конкретного кода модели.",
+      "use_cases": [
+        "rock",
+        "metal",
+        "blues"
+      ],
+      "modifications": [
+        "звукосниматели",
+        "бридж и колки",
+        "экранировка"
+      ],
+      "sources": [
+        "https://www.espguitars.com/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/guitar/audio/esp-ltd-ec.wav",
+      "audio_metadata": {
+        "duration": 10.356,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "series",
+      "subcategory": "series",
+      "topic": "EC Series",
+      "questions": [
+        "EC Series",
+        "Одно- и двухвырезные платформы LTD/ESP; характеристики зависят от конкретного кода модели."
+      ],
+      "answer": "Одно- и двухвырезные платформы LTD/ESP; характеристики зависят от конкретного кода модели.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    }
+  ]
+}

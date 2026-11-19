@@ -1,0 +1,37 @@
+{
+  "task_type": "knowledge_draft",
+  "module": "offline_knowledge.guitar_history",
+  "topic_id": "offline_0041_fender_stratocaster",
+  "model": "qwen3:8b",
+  "language": "ru",
+  "goal": "Prepare a source-bound historical and technical learning card for the 1954 Fender Stratocaster, separating original design from later model variants.",
+  "source_documents": [
+    {
+      "id": "fender-history-1950s",
+      "url": "https://www.fender.com/articles/behind-the-scenes/the-history-of-the-fender-stratocaster-the-1950s",
+      "locator": "History of the Fender Stratocaster: The 1950s, development and design sections",
+      "facts": [
+        "Stratocaster appeared in 1954 after development involving Leo Fender and colleagues, including Freddy Tavares, Don Randall and musician feedback such as Rex Gallion.",
+        "Early design had a contoured solid body, three single-coil pickups, a three-position selector, master volume and two tone controls for neck and middle pickups; the original bridge pickup had no separate tone control.",
+        "The revised vibrato bridge moves the bridge assembly with strings, uses a rear spring cavity and an arm to vary pitch; Fender historically called it tremolo.",
+        "The original selector provided three pickup choices, not the later standard five-position combinations."
+      ]
+    },
+    {
+      "id": "fender-70th-2024",
+      "url": "https://www.fender.com/newsroom/270328-fender-celebrates-70-years-of-the-stratocaster-the-most-played-sought-after-and-beloved-model-in-music-history/",
+      "locator": "Fender newsroom, March 5 2024, anniversary announcement",
+      "facts": [
+        "Fender dates the Stratocaster's introduction to 1954 and marked its 70th anniversary in 2024.",
+        "The 2024 anniversary announcement describes multiple modern Stratocaster models with different necks and pickups; one historic specification must not be generalized to every Stratocaster."
+      ]
+    }
+  ],
+  "constraints": [
+    "Return valid compact JSON only, in Russian: overview string, up to six variants with kind/question/text/source_ids, uncertainties array, unsupported_claims array.",
+    "Distinguish pitch vibrato from volume tremolo, but note Fender's historical naming.",
+    "Do not claim every Stratocaster has identical pickups, selector, woods, bridge, neck radius or tone circuit.",
+    "Do not call the early selector five-position.",
+    "No invented precise model years or specifications outside the supplied facts; this is OLLAMA_DRAFT only."
+  ]
+}

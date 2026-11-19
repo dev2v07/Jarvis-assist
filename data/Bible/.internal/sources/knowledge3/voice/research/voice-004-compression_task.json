@@ -1,0 +1,48 @@
+{
+  "task_type": "knowledge_draft",
+  "module": "knowledge3.voice_production",
+  "topic_id": "voice-004-compression",
+  "model": "qwen3:8b",
+  "language": "ru",
+  "goal": "Подготовить предметный учебный черновик по вокальной компрессии: принцип, Threshold/Ratio/Attack/Release/Knee/Makeup Gain, пошаговая практика, прослушивание, альтернативы и ошибки. Не путать общие принципы с функциями разных версий Pro-C.",
+  "source_documents": [
+    {
+      "id": "fabfilter-controls-2022",
+      "url": "https://www.fabfilter.com/learn/compression/basic-compressor-controls",
+      "locator": "FabFilter Learn, Basic compressor controls, transfer curve, threshold/ratio, attack/release",
+      "facts": [
+        "Компрессор уменьшает усиление при превышении порога; ratio 4:1 означает, что 4 dB сверх порога на входе дают 1 dB сверх порога на выходе, до компенсации уровня.",
+        "Attack описывает скорость реакции; Release — возвращение после уменьшения усиления. Быстрый attack сильнее ослабляет атаку; слишком медленный release может сохранить сжатие к следующему событию.",
+        "В статье пример расчёта: вход −30 dB, порог −38 dB, ratio 4:1: выход −36 dB и уменьшение на 6 dB (идеализированная статическая модель)."
+      ]
+    },
+    {
+      "id": "fabfilter-proc2-manual",
+      "url": "https://www.fabfilter.com/downloads/pdf/help/ffproc2-manual.pdf",
+      "locator": "FabFilter Pro-C 2 Help, Dynamics controls and Time controls",
+      "facts": [
+        "Pro-C 2 имеет Threshold, Ratio, Knee, Range, Attack, Release и другие элементы; это руководство именно Pro-C 2, не Pro-C 3.",
+        "Мягкое knee даёт более постепенное введение сжатия возле порога; Range ограничивает максимальное изменение усиления, тогда как Ratio задаёт крутизну динамической характеристики.",
+        "Режим Vocal имеет автоматические knee и ratio. Не приписывать все его автоматические настройки каждому компрессору."
+      ]
+    },
+    {
+      "id": "shure-vocal-mixing",
+      "url": "https://www.shure.com/en-US/insights/how-to-record-and-mix-vocals",
+      "locator": "Shure, How to Record and Mix Vocals, Compression section",
+      "facts": [
+        "Для мягкого сжатия вокала Shure даёт диапазон ratio примерно 2:1–6:1 как ориентир, подстраивая threshold под пики; это не универсальный пресет.",
+        "Слишком много компрессии меняет характер голоса; в некоторых стилях умеренная компрессия или автоматизация уровня предпочтительнее.",
+        "При сильном сжатии Shure предлагает следить за сибилянтами и временем attack."
+      ]
+    }
+  ],
+  "constraints": [
+    "Вернуть JSON по-русски: overview, detailed_material, до восьми разных содержательных variants с kind/question/text/source_ids, uncertainties, unsupported_claims.",
+    "Не давать фиксированные настройки как универсальные; объяснять, что компрессия зависит от исполнения и микса.",
+    "Не путать компрессию с нормализацией, лимитированием, автоматизацией уровня и де-эссингом.",
+    "Пример вычислений явно обозначить как идеальную статическую характеристику без attack, release, knee и makeup gain.",
+    "Предложить слуховой A/B на сравнимом уровне громкости и объяснить, когда компрессор может быть не нужен.",
+    "Черновик модели не является проверенным материалом."
+  ]
+}

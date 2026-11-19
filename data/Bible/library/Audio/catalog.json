@@ -1,0 +1,1466 @@
+{
+  "version": 1,
+  "group": "Audio",
+  "source_of_truth": "data/Bible/index/library_catalog.json",
+  "record_count": 58,
+  "records": [
+    {
+      "canonical_id": "knowledge3:voice_production:voice-001-recording-level",
+      "legacy_id": "voice-001-recording-level",
+      "alias_of": null,
+      "kind": "voice_production",
+      "title": "Запись вокала: уровень и запас по громкости",
+      "category": "recording",
+      "subcategory": "recording",
+      "source_location": "data/Bible/.internal/sources/knowledge3/voice/lessons.json",
+      "source_index": 0,
+      "source_ids": [
+        "https://www.soundonsound.com/techniques/recording-vocals",
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/setting_up/setting_up_audio_recording_levels_and_inputs_c.html",
+        "https://www.shure.com/en-US/docs/education/Microphone-Techniques-for-Recording"
+      ],
+      "recorded_status": "SOURCE_REVIEW",
+      "content_status": "SOURCE_REVIEW",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:voice_production:voice-001-recording-level",
+          "path": "data/Bible/.internal/audio/library/knowledge3/voice/audio/voice-001-recording-level.wav",
+          "status": "AUDIO_PENDING"
+        }
+      ],
+      "variant_count": 4,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:voice_production:voice-002-editing",
+      "legacy_id": "voice-002-editing",
+      "alias_of": null,
+      "kind": "voice_production",
+      "title": "Редактирование вокала: компинг и тайминг",
+      "category": "editing",
+      "subcategory": "editing",
+      "source_location": "data/Bible/.internal/sources/knowledge3/voice/lessons.json",
+      "source_index": 1,
+      "source_ids": [
+        "https://www.izotope.com/community/blog/vocal-editing-101",
+        "https://www.izotope.com/community/blog/8-tips-for-perfect-vocal-comping",
+        "https://www.steinberg.help/v/u/cubase_pro_13_operation_manual_en.pdf"
+      ],
+      "recorded_status": "SOURCE_REVIEW",
+      "content_status": "SOURCE_REVIEW",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:voice_production:voice-002-editing",
+          "path": "data/Bible/.internal/audio/library/knowledge3/voice/audio/voice-002-editing.wav",
+          "status": "AUDIO_PENDING"
+        }
+      ],
+      "variant_count": 4,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:voice_production:voice-003-noise",
+      "legacy_id": "voice-003-noise",
+      "alias_of": null,
+      "kind": "voice_production",
+      "title": "Очистка вокала от шума",
+      "category": "cleanup",
+      "subcategory": "cleanup",
+      "source_location": "data/Bible/.internal/sources/knowledge3/voice/lessons.json",
+      "source_index": 2,
+      "source_ids": [
+        "https://www.izotope.com/community/blog/how-to-clean-up-voice-recordings-video-podcasts",
+        "https://www.izotope.com/community/blog/audio-artifacts",
+        "https://www.shure.com/en-US/docs/education/microphone-techniques-for-recording"
+      ],
+      "recorded_status": "SOURCE_REVIEW",
+      "content_status": "SOURCE_REVIEW",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:voice_production:voice-003-noise",
+          "path": "data/Bible/.internal/audio/library/knowledge3/voice/audio/voice-003-noise.wav",
+          "status": "AUDIO_PENDING"
+        }
+      ],
+      "variant_count": 4,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:voice_production:voice-004-compression",
+      "legacy_id": "voice-004-compression",
+      "alias_of": null,
+      "kind": "voice_production",
+      "title": "Вокальная компрессия",
+      "category": "processing",
+      "subcategory": "processing",
+      "source_location": "data/Bible/.internal/sources/knowledge3/voice/lessons.json",
+      "source_index": 3,
+      "source_ids": [
+        "https://www.fabfilter.com/learn/compression/basic-compressor-controls",
+        "https://www.fabfilter.com/downloads/pdf/help/ffproc2-manual.pdf",
+        "https://www.shure.com/en-US/insights/how-to-record-and-mix-vocals",
+        "https://www.fabfilter.com/learn/mixing/how-to-use-automation"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:voice_production:voice-004-compression",
+          "path": "data/Bible/.internal/audio/library/knowledge3/voice/audio/voice-004-compression.wav",
+          "status": "LEGACY_AUDIO_UNREVIEWED"
+        }
+      ],
+      "variant_count": 8,
+      "updated_at": "2026-11-15T16:12:39+03:00",
+      "version": 2,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:voice_production:voice-005-deessing",
+      "legacy_id": "voice-005-deessing",
+      "alias_of": null,
+      "kind": "voice_production",
+      "title": "De-essing и сибилянты",
+      "category": "processing",
+      "subcategory": "processing",
+      "source_location": "data/Bible/.internal/sources/knowledge3/voice/lessons.json",
+      "source_index": 4,
+      "source_ids": [
+        "https://www.fabfilter.com/help/pro-ds"
+      ],
+      "recorded_status": "VERIFIED",
+      "content_status": "VERIFIED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:voice_production:voice-005-deessing",
+          "path": "data/Bible/.internal/audio/library/knowledge3/voice/audio/voice-005-deessing.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:voice_production:voice-006-vocal-chain",
+      "legacy_id": "voice-006-vocal-chain",
+      "alias_of": null,
+      "kind": "voice_production",
+      "title": "Безопасная цепочка вокала",
+      "category": "workflow",
+      "subcategory": "workflow",
+      "source_location": "data/Bible/.internal/sources/knowledge3/voice/lessons.json",
+      "source_index": 5,
+      "source_ids": [
+        "https://www.soundonsound.com/techniques/vocal-recording"
+      ],
+      "recorded_status": "VERIFIED",
+      "content_status": "VERIFIED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:voice_production:voice-006-vocal-chain",
+          "path": "data/Bible/.internal/audio/library/knowledge3/voice/audio/voice-006-vocal-chain.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:audio-gain-staging",
+      "legacy_id": "audio-gain-staging",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Gain staging и headroom",
+      "category": "mixing",
+      "subcategory": "mixing",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 0,
+      "source_ids": [
+        "https://www.soundonsound.com/techniques/gain-staging"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:audio-gain-staging",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/audio-gain-staging.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:audio-frequency-balance",
+      "legacy_id": "audio-frequency-balance",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Частотный баланс микса",
+      "category": "mixing",
+      "subcategory": "mixing",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 1,
+      "source_ids": [
+        "https://www.fabfilter.com/learn/eq"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:audio-frequency-balance",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/audio-frequency-balance.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:audio-compression",
+      "legacy_id": "audio-compression",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Компрессия без потери атаки",
+      "category": "mixing",
+      "subcategory": "mixing",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 2,
+      "source_ids": [
+        "https://www.fabfilter.com/learn/compression"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:audio-compression",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/audio-compression.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:audio-phase",
+      "legacy_id": "audio-phase",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Фаза и корреляция",
+      "category": "mixing",
+      "subcategory": "mixing",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 3,
+      "source_ids": [
+        "https://www.soundonsound.com/techniques/understanding-phase"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:audio-phase",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/audio-phase.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:audio-lufs",
+      "legacy_id": "audio-lufs",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "LUFS, RMS и True Peak",
+      "category": "mastering",
+      "subcategory": "mastering",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 4,
+      "source_ids": [
+        "https://www.izotope.com/en/learn/loudness.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:audio-lufs",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/audio-lufs.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:cubase-group-channel",
+      "legacy_id": "cubase-group-channel",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Групповая шина для гитар в Cubase",
+      "category": "cubase13",
+      "subcategory": "cubase13",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 5,
+      "source_ids": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/setting_up/setting_up_group_channels_c.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:cubase-group-channel",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-group-channel.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:cubase-fx-send",
+      "legacy_id": "cubase-fx-send",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Отправка вокала на FX Channel",
+      "category": "cubase13",
+      "subcategory": "cubase13",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 6,
+      "source_ids": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/mixing/mixing_sends_c.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:cubase-fx-send",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-fx-send.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:cubase-sidechain",
+      "legacy_id": "cubase-sidechain",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Сайдчейн в Cubase",
+      "category": "cubase13",
+      "subcategory": "cubase13",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 7,
+      "source_ids": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/mixing/mixing_side_chain_c.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:cubase-sidechain",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-sidechain.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:cubase-stems",
+      "legacy_id": "cubase-stems",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Экспорт отдельных дорожек",
+      "category": "cubase13",
+      "subcategory": "cubase13",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 8,
+      "source_ids": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/export_audio_mixdown/export_audio_mixdown_c.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:cubase-stems",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-stems.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:metal-guitar-balance",
+      "legacy_id": "metal-guitar-balance",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Базовый подход к сведению тяжёлых гитар",
+      "category": "heavy_music",
+      "subcategory": "heavy_music",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 9,
+      "source_ids": [
+        "https://www.soundonsound.com/techniques/mixing-metal"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:metal-guitar-balance",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/metal-guitar-balance.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:vocal-depth",
+      "legacy_id": "vocal-depth",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Глубина вокала: reverb и delay",
+      "category": "mixing",
+      "subcategory": "mixing",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 10,
+      "source_ids": [
+        "https://www.soundonsound.com/techniques/vocal-recording"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:vocal-depth",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/vocal-depth.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:cubase-routing",
+      "legacy_id": "cubase-routing",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Routing и Audio Connections в Cubase",
+      "category": "cubase13",
+      "subcategory": "cubase13",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 11,
+      "source_ids": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/setting_up/setting_up_audio_connections_c.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:cubase-routing",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-routing.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:cubase-automation",
+      "legacy_id": "cubase-automation",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Automation в Cubase",
+      "category": "cubase13",
+      "subcategory": "cubase13",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 12,
+      "source_ids": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/automation/automation_c.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:cubase-automation",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-automation.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:cubase-vari-audio",
+      "legacy_id": "cubase-vari-audio",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "VariAudio для вокала",
+      "category": "cubase13",
+      "subcategory": "cubase13",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 13,
+      "source_ids": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/sample_editor_variaudio/sample_editor_variaudio_c.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:cubase-vari-audio",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-vari-audio.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:cubase-audiowarp",
+      "legacy_id": "cubase-audiowarp",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "AudioWarp и тайминг",
+      "category": "cubase13",
+      "subcategory": "cubase13",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 14,
+      "source_ids": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/sample_editor_audiowarp/sample_editor_audiowarp_c.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:cubase-audiowarp",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-audiowarp.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:cubase-comping",
+      "legacy_id": "cubase-comping",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Comping и lanes",
+      "category": "cubase13",
+      "subcategory": "cubase13",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 15,
+      "source_ids": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/recording/recording_comping_c.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:cubase-comping",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-comping.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:cubase-quantize",
+      "legacy_id": "cubase-quantize",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Quantization MIDI и аудио",
+      "category": "cubase13",
+      "subcategory": "cubase13",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 16,
+      "source_ids": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/midi_editor/midi_editor_quantizing_c.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:cubase-quantize",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-quantize.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:cubase-mixconsole",
+      "legacy_id": "cubase-mixconsole",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "MixConsole и контроль микса",
+      "category": "cubase13",
+      "subcategory": "cubase13",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 17,
+      "source_ids": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/mixconsole/mixconsole_c.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:cubase-mixconsole",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-mixconsole.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:cubase-project-settings",
+      "legacy_id": "cubase-project-settings",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Project Settings и шаблоны",
+      "category": "cubase13",
+      "subcategory": "cubase13",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 18,
+      "source_ids": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/project_handling/project_handling_project_setup_c.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:cubase-project-settings",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-project-settings.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:plugin-pro-q3-workflow",
+      "legacy_id": "plugin-pro-q3-workflow",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "FabFilter Pro-Q 3: рабочий EQ-процесс",
+      "category": "plugin",
+      "subcategory": "plugin",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 19,
+      "source_ids": [
+        "https://www.fabfilter.com/help/pro-q"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:plugin-pro-q3-workflow",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/plugin-pro-q3-workflow.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:plugin-pro-c2-workflow",
+      "legacy_id": "plugin-pro-c2-workflow",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "FabFilter Pro-C 2: компрессор",
+      "category": "plugin",
+      "subcategory": "plugin",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 20,
+      "source_ids": [
+        "https://www.fabfilter.com/help/pro-c"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:plugin-pro-c2-workflow",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/plugin-pro-c2-workflow.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:plugin-saturn2-workflow",
+      "legacy_id": "plugin-saturn2-workflow",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "FabFilter Saturn 2: сатурация",
+      "category": "plugin",
+      "subcategory": "plugin",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 21,
+      "source_ids": [
+        "https://www.fabfilter.com/help/saturn-2"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:plugin-saturn2-workflow",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/plugin-saturn2-workflow.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:plugin-ozone9-workflow",
+      "legacy_id": "plugin-ozone9-workflow",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "iZotope Ozone 9: мастеринг-процесс",
+      "category": "plugin",
+      "subcategory": "plugin",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 22,
+      "source_ids": [
+        "https://www.izotope.com/en/products/ozone.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:plugin-ozone9-workflow",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/plugin-ozone9-workflow.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:plugin-nectar3-workflow",
+      "legacy_id": "plugin-nectar3-workflow",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "iZotope Nectar 3: вокальная цепочка",
+      "category": "plugin",
+      "subcategory": "plugin",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 23,
+      "source_ids": [
+        "https://www.izotope.com/en/products/nectar.html"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:plugin-nectar3-workflow",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/plugin-nectar3-workflow.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:audio_lesson:plugin-guitar-rig-workflow",
+      "legacy_id": "plugin-guitar-rig-workflow",
+      "alias_of": null,
+      "kind": "audio_lesson",
+      "title": "Guitar Rig: усилитель и кабинет",
+      "category": "plugin",
+      "subcategory": "plugin",
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+      "source_index": 24,
+      "source_ids": [
+        "https://www.native-instruments.com/en/products/komplete/guitar/guitar-rig-5-player/"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:audio_lesson:plugin-guitar-rig-workflow",
+          "path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/plugin-guitar-rig-workflow.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:ezdrummer-3-by-team-v-r",
+      "legacy_id": "EZdrummer 3 by Team V.R",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "EZdrummer 3 by Team V.R",
+      "category": "instrument",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 0,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "3.0.0 CE",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:fabfilter-pro-q-2",
+      "legacy_id": "FabFilter Pro-Q 2",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "FabFilter Pro-Q 2",
+      "category": "mixing",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 1,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "2.2.3",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:fabfilter-total-bundle",
+      "legacy_id": "FabFilter Total Bundle",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "FabFilter Total Bundle",
+      "category": "mixing",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 2,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "2025.5",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:ik-multimedia-modo-bass-2",
+      "legacy_id": "IK Multimedia MODO BASS 2",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "IK Multimedia MODO BASS 2",
+      "category": "instrument",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 3,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "2.0.2",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:izotope-nectar-3",
+      "legacy_id": "iZotope Nectar 3",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "iZotope Nectar 3",
+      "category": "voice",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 4,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "3.00",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:izotope-ozone-9",
+      "legacy_id": "iZotope Ozone 9",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "iZotope Ozone 9",
+      "category": "mastering",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 5,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "9.12.0",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:native-instruments-guitar-rig-5",
+      "legacy_id": "Native Instruments Guitar Rig 5",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "Native Instruments Guitar Rig 5",
+      "category": "guitar",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 6,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "5.1.0.2641",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:native-instruments-guitar-rig-6",
+      "legacy_id": "Native Instruments Guitar Rig 6",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "Native Instruments Guitar Rig 6",
+      "category": "guitar",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 7,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "6.2.4",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:native-instruments-kontakt-7",
+      "legacy_id": "Native Instruments Kontakt 7",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "Native Instruments Kontakt 7",
+      "category": "instrument",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 8,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "7.3.2.0",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:native-instruments-kontakt-8",
+      "legacy_id": "Native Instruments Kontakt 8",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "Native Instruments Kontakt 8",
+      "category": "instrument",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 9,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "8.1.0.0",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:reaper-x64",
+      "legacy_id": "REAPER (x64)",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "REAPER (x64)",
+      "category": "daw",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 10,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "7.85",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:steinberg-cubase-13",
+      "legacy_id": "Steinberg Cubase 13",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "Steinberg Cubase 13",
+      "category": "daw",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 11,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "13.0.20",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:steinberg-cubase-15",
+      "legacy_id": "Steinberg Cubase 15",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "Steinberg Cubase 15",
+      "category": "daw",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 12,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "15.0.5",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:steinberg-nuendo-12",
+      "legacy_id": "Steinberg Nuendo 12",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "Steinberg Nuendo 12",
+      "category": "daw",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 13,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "12.0.52",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:plugin:xln-audio-addictive-keys",
+      "legacy_id": "XLN Audio Addictive Keys",
+      "alias_of": null,
+      "kind": "plugin",
+      "title": "XLN Audio Addictive Keys",
+      "category": "instrument",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+      "source_index": 14,
+      "source_ids": [],
+      "recorded_status": null,
+      "content_status": "AUDIT_REQUIRED",
+      "audio_links": [],
+      "variant_count": 0,
+      "updated_at": null,
+      "version": "1.1.8",
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:mixing:mixing-peak-rms",
+      "legacy_id": "mixing-peak-rms",
+      "alias_of": null,
+      "kind": "mixing",
+      "title": "Пики и RMS",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/mixing/catalog.json",
+      "source_index": 0,
+      "source_ids": [
+        "https://www.izotope.com/en/learn/understanding-loudness.html",
+        "https://www.itu.int/rec/R-REC-BS.1770-5-202311-I",
+        "https://tech.ebu.ch/publications/r128",
+        "https://tech.ebu.ch/publications/tech3343"
+      ],
+      "recorded_status": "SOURCE_REVIEW",
+      "content_status": "SOURCE_REVIEW",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:mixing:mixing-peak-rms",
+          "path": "data/Bible/.internal/audio/library/knowledge3/mixing/audio/mixing-peak-rms.wav",
+          "status": "AUDIO_PENDING"
+        }
+      ],
+      "variant_count": 6,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:mixing:mixing-stereo-correlation",
+      "legacy_id": "mixing-stereo-correlation",
+      "alias_of": null,
+      "kind": "mixing",
+      "title": "Стереокорреляция и моносовместимость",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/mixing/catalog.json",
+      "source_index": 1,
+      "source_ids": [
+        "https://www.soundonsound.com/techniques/understanding-phase"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:mixing:mixing-stereo-correlation",
+          "path": "data/Bible/.internal/audio/library/knowledge3/mixing/audio/mixing-stereo-correlation.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:mixing:mixing-reference",
+      "legacy_id": "mixing-reference",
+      "alias_of": null,
+      "kind": "mixing",
+      "title": "Сравнение с референсом",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/mixing/catalog.json",
+      "source_index": 2,
+      "source_ids": [
+        "https://www.soundonsound.com/techniques/mixing-references"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:mixing:mixing-reference",
+          "path": "data/Bible/.internal/audio/library/knowledge3/mixing/audio/mixing-reference.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:mixing:mastering-lufs",
+      "legacy_id": "mastering-lufs",
+      "alias_of": null,
+      "kind": "mixing",
+      "title": "LUFS и true peak",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/mixing/catalog.json",
+      "source_index": 3,
+      "source_ids": [
+        "https://www.itu.int/rec/R-REC-BS.1770"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:mixing:mastering-lufs",
+          "path": "data/Bible/.internal/audio/library/knowledge3/mixing/audio/mastering-lufs.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:mixing:mixing-vocal-space",
+      "legacy_id": "mixing-vocal-space",
+      "alias_of": null,
+      "kind": "mixing",
+      "title": "Место для вокала",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/mixing/catalog.json",
+      "source_index": 4,
+      "source_ids": [
+        "https://www.fabfilter.com/learn/eq"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:mixing:mixing-vocal-space",
+          "path": "data/Bible/.internal/audio/library/knowledge3/mixing/audio/mixing-vocal-space.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:mixing:mixing-heavy-guitars",
+      "legacy_id": "mixing-heavy-guitars",
+      "alias_of": null,
+      "kind": "mixing",
+      "title": "Баланс тяжёлых гитар",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/mixing/catalog.json",
+      "source_index": 5,
+      "source_ids": [
+        "https://www.soundonsound.com/techniques/mixing-metal"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:mixing:mixing-heavy-guitars",
+          "path": "data/Bible/.internal/audio/library/knowledge3/mixing/audio/mixing-heavy-guitars.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:daw:daw-open-cubase",
+      "legacy_id": "daw-open-cubase",
+      "alias_of": null,
+      "kind": "daw",
+      "title": "Открытие Cubase 13",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/daw/catalog.json",
+      "source_index": 0,
+      "source_ids": [
+        "https://www.steinberg.help/"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:daw:daw-open-cubase",
+          "path": "data/Bible/.internal/audio/library/knowledge3/daw/audio/daw-open-cubase.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:daw:daw-project-inspection",
+      "legacy_id": "daw-project-inspection",
+      "alias_of": null,
+      "kind": "daw",
+      "title": "Инспекция проекта Cubase",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/daw/catalog.json",
+      "source_index": 1,
+      "source_ids": [
+        "https://www.steinberg.help/cubase/"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:daw:daw-project-inspection",
+          "path": "data/Bible/.internal/audio/library/knowledge3/daw/audio/daw-project-inspection.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:daw:daw-group-channel",
+      "legacy_id": "daw-group-channel",
+      "alias_of": null,
+      "kind": "daw",
+      "title": "Group Channel в Cubase",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/daw/catalog.json",
+      "source_index": 2,
+      "source_ids": [
+        "https://www.steinberg.help/"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:daw:daw-group-channel",
+          "path": "data/Bible/.internal/audio/library/knowledge3/daw/audio/daw-group-channel.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:daw:daw-fx-send",
+      "legacy_id": "daw-fx-send",
+      "alias_of": null,
+      "kind": "daw",
+      "title": "FX Channel и send",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/daw/catalog.json",
+      "source_index": 3,
+      "source_ids": [
+        "https://www.steinberg.help/"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:daw:daw-fx-send",
+          "path": "data/Bible/.internal/audio/library/knowledge3/daw/audio/daw-fx-send.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:daw:daw-sidechain",
+      "legacy_id": "daw-sidechain",
+      "alias_of": null,
+      "kind": "daw",
+      "title": "Sidechain в Cubase",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/daw/catalog.json",
+      "source_index": 4,
+      "source_ids": [
+        "https://www.steinberg.help/"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:daw:daw-sidechain",
+          "path": "data/Bible/.internal/audio/library/knowledge3/daw/audio/daw-sidechain.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:daw:daw-stems",
+      "legacy_id": "daw-stems",
+      "alias_of": null,
+      "kind": "daw",
+      "title": "Экспорт stems",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/daw/catalog.json",
+      "source_index": 5,
+      "source_ids": [
+        "https://www.steinberg.help/"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:daw:daw-stems",
+          "path": "data/Bible/.internal/audio/library/knowledge3/daw/audio/daw-stems.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    }
+  ]
+}

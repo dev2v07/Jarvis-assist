@@ -1,0 +1,43 @@
+{
+  "languages": {
+    "Python": {
+      "completed": 1
+    },
+    "HTML": {
+      "completed": 1
+    },
+    "SQL": {
+      "completed": 2
+    },
+    "React": {
+      "completed": 1
+    }
+  },
+  "lessons": {
+    "python-001-variables-and-types": {
+      "completed": true,
+      "score": 100,
+      "note": "Автоматическая проверка упражнения пройдена"
+    },
+    "html-001-document": {
+      "completed": true,
+      "score": 100,
+      "note": "Автоматическая проверка упражнения пройдена"
+    },
+    "sql-001-select": {
+      "completed": true,
+      "score": 100,
+      "note": "Автоматическая проверка упражнения пройдена"
+    },
+    "react-001-component": {
+      "completed": true,
+      "score": 100,
+      "note": "Автоматическая проверка упражнения пройдена"
+    },
+    "sql-003-transaction": {
+      "completed": true,
+      "score": 100,
+      "note": "Автоматическая проверка упражнения пройдена"
+    }
+  }
+}

@@ -1,0 +1,338 @@
+{
+  "version": 1,
+  "read_only": true,
+  "scope": "external_reference_discography",
+  "artists": [
+    {
+      "name": "Trivium",
+      "sources": [
+        "https://www.trivium.org/music",
+        "https://musicbrainz.org/artist/1f5ff245-2837-4d4a-a609-e93e544478c3"
+      ],
+      "albums": [
+        {
+          "title": "Ember to Inferno",
+          "year": 2003
+        },
+        {
+          "title": "Ascendancy",
+          "year": 2005
+        },
+        {
+          "title": "The Crusade",
+          "year": 2006
+        },
+        {
+          "title": "Shogun",
+          "year": 2008
+        },
+        {
+          "title": "In Waves",
+          "year": 2011
+        },
+        {
+          "title": "Vengeance Falls",
+          "year": 2013
+        },
+        {
+          "title": "Silence in the Snow",
+          "year": 2015
+        },
+        {
+          "title": "The Sin and the Sentence",
+          "year": 2017
+        },
+        {
+          "title": "What the Dead Men Say",
+          "year": 2020
+        },
+        {
+          "title": "In the Court of the Dragon",
+          "year": 2021
+        },
+        {
+          "title": "Struck Dead",
+          "year": 2025,
+          "type": "EP"
+        },
+        {
+          "title": "Crown In The Grave",
+          "year": 2026,
+          "status": "official_store_preorder",
+          "release_note": "проверять дату релиза отдельно; на дату аудита официальный магазин показывал предзаказ"
+        }
+      ],
+      "status": "SOURCE_REVIEW",
+      "detailed_material": {
+        "identity": "Trivium — группа из Орландо, основанная в 2000 году по MusicBrainz. Эта карточка относится только к external_reference_discography; локальные файлы описываются отдельно в music_catalog.json.",
+        "history": "Дискография показывает переход от Ember to Inferno и Ascendancy через The Crusade и Shogun к In Waves, Vengeance Falls, Silence in the Snow, The Sin and the Sentence, What the Dead Men Say и In the Court of the Dragon. Официальная страница группы дополнительно перечисляет Struck Dead и Crown In The Grave; последний на дату аудита отмечен как предзаказ, поэтому не считается локально найденным релизом.",
+        "documented_lineups": [
+          {
+            "period": "Ascendancy 2005",
+            "members": [
+              "Matt Heafy — vocals/guitar",
+              "Corey Beaulieu — guitar/backing vocals",
+              "Paolo Gregoletto — bass/backing vocals",
+              "Travis Smith — drums"
+            ],
+            "source": "https://musicbrainz.org/release/03fa133e-c1b6-4ba9-a610-9a5c2e0a6fee"
+          },
+          {
+            "period": "Shogun 2008",
+            "members": [
+              "Matt Heafy — lead vocals/guitar",
+              "Corey Beaulieu — guitar",
+              "Paolo Gregoletto — bass",
+              "Travis Smith — drums"
+            ],
+            "source": "https://musicbrainz.org/release/305d6441-ffab-4ead-9af0-5185a67e5bca"
+          },
+          {
+            "period": "What the Dead Men Say 2020",
+            "members": [
+              "Matt Heafy — vocals/guitar",
+              "Corey Beaulieu — guitar",
+              "Paolo Gregoletto — bass",
+              "Alex Bent — drums"
+            ],
+            "source": "https://musicbrainz.org/artist/1f5ff245-2837-4d4a-a609-e93e544478c3"
+          }
+        ],
+        "local_vs_external": "Local collection answers which files are physically present. This reference card answers which releases are in the external discography. A missing local album is not an error, and an external release must not be presented as a local file.",
+        "listening_axes": [
+          "сравнить развитие вокальной подачи и чередование harsh/clean",
+          "отследить роль продюсера, инженера и микса только по release credits",
+          "сопоставить риффовую плотность, мелодику и динамику без выдачи субъективной оценки за факт",
+          "отдельно маркировать studio album, EP, demo и preorder"
+        ],
+        "uncertainties": [
+          "состав и статус новых релизов требуют проверки по официальным страницам на дату ответа",
+          "MusicBrainz может обновляться с задержкой относительно официального магазина",
+          "локальные записи не дают права утверждать полную дискографию исполнителя"
+        ],
+        "sources": [
+          "https://www.trivium.org/music?page=0",
+          "https://musicbrainz.org/artist/1f5ff245-2837-4d4a-a609-e93e544478c3",
+          "https://store.trivium.org/collections/music"
+        ],
+        "review_status": "SOURCE_REVIEW"
+      },
+      "response_variations": [
+        {
+          "variant_id": "trivium-reference-v1",
+          "variant_kind": "overview",
+          "parent_id": "Trivium",
+          "text": "Trivium — американская группа из Орландо, основанная в 2000 году. Её подтверждённая основная дискография в reference-каталоге проходит от Ember to Inferno и Ascendancy через Shogun и In Waves к In the Court of the Dragon; новые позиции Struck Dead и Crown In The Grave маркируются отдельно по типу и статусу.",
+          "source_ids": [
+            "https://www.trivium.org/music?page=0",
+            "https://musicbrainz.org/artist/1f5ff245-2837-4d4a-a609-e93e544478c3"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "trivium-reference-v2",
+          "variant_kind": "discography",
+          "parent_id": "Trivium",
+          "text": "Дискографию Trivium нужно читать как последовательность этапов: 2003 Ember to Inferno, 2005 Ascendancy, 2006 The Crusade, 2008 Shogun, 2011 In Waves, 2013 Vengeance Falls, 2015 Silence in the Snow, 2017 The Sin and the Sentence, 2020 What the Dead Men Say, 2021 In the Court of the Dragon, затем отдельный EP Struck Dead 2025 и предзаказ Crown In The Grave 2026.",
+          "source_ids": [
+            "https://www.trivium.org/music?page=0",
+            "https://musicbrainz.org/artist/1f5ff245-2837-4d4a-a609-e93e544478c3"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "trivium-reference-v3",
+          "variant_kind": "local_vs_external",
+          "parent_id": "Trivium",
+          "text": "Если пользователь спрашивает о локальной музыке, нужно обратиться к music_catalog.json: он описывает найденные файлы. Эта reference-карточка не доказывает наличие альбома на диске. Отсутствие релиза в локальном каталоге — не ошибка, а различие между коллекцией и внешней дискографией.",
+          "source_ids": [
+            "https://musicbrainz.org/artist/1f5ff245-2837-4d4a-a609-e93e544478c3"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "trivium-reference-v4",
+          "variant_kind": "lineup_and_credits",
+          "parent_id": "Trivium",
+          "text": "Состав корректнее показывать по периодам релизов: на Ascendancy и Shogun MusicBrainz указывает Matt Heafy, Corey Beaulieu, Paolo Gregoletto и Travis Smith; для What the Dead Men Say в credits указан Alex Bent. Это исторические credits, а не автоматическое утверждение текущего состава в 2026 году.",
+          "source_ids": [
+            "https://musicbrainz.org/release/03fa133e-c1b6-4ba9-a610-9a5c2e0a6fee",
+            "https://musicbrainz.org/release/305d6441-ffab-4ead-9af0-5185a67e5bca"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ]
+    },
+    {
+      "name": "Arch Enemy",
+      "sources": [
+        "https://archenemy.net/",
+        "https://musicbrainz.org/artist/e631bb92-3e2b-43e3-a2cb-b605e2fb53bd",
+        "https://www.centurymedia.com/artist/arch-enemy-1"
+      ],
+      "albums": [
+        {
+          "title": "Black Earth",
+          "year": 1996
+        },
+        {
+          "title": "Stigmata",
+          "year": 1998
+        },
+        {
+          "title": "Burning Bridges",
+          "year": 1999
+        },
+        {
+          "title": "Wages of Sin",
+          "year": 2001
+        },
+        {
+          "title": "Anthems of Rebellion",
+          "year": 2003
+        },
+        {
+          "title": "Doomsday Machine",
+          "year": 2005
+        },
+        {
+          "title": "Rise of the Tyrant",
+          "year": 2007
+        },
+        {
+          "title": "The Root of All Evil",
+          "year": 2009,
+          "note": "перезапись ранних песен; не альбом нового материала",
+          "source": "https://musicbrainz.org/release/31fc60de-e186-3b4b-a743-de81d274c6df"
+        },
+        {
+          "title": "Khaos Legions",
+          "year": 2011
+        },
+        {
+          "title": "War Eternal",
+          "year": 2014
+        },
+        {
+          "title": "Will to Power",
+          "year": 2017
+        },
+        {
+          "title": "Deceivers",
+          "year": 2022
+        },
+        {
+          "title": "Blood Dynasty",
+          "year": 2025
+        }
+      ],
+      "status": "SOURCE_REVIEW",
+      "detailed_material": {
+        "context": "Шведская группа из Хальмстада, основана в 1996 году; MusicBrainz относит её к melodic death metal. Альбомы и отдельные переиздания следует различать по типу релиза.",
+        "history": "Ранние Black Earth, Stigmata и Burning Bridges составляют начало каталога. Wages of Sin открывает следующую хронологическую часть. The Root of All Evil (2009) содержит перезаписи ранних песен и поэтому не описывается как альбом полностью нового материала. War Eternal (2014) и Blood Dynasty (2025) принадлежат более поздним периодам.",
+        "lineup_2026": [
+          "Michael Amott",
+          "Lauren Hart",
+          "Daniel Erlandsson",
+          "Joey Concepcion",
+          "Sharlee D'Angelo"
+        ],
+        "lineup_note": "Состав приведён по официальной странице на 2026-11-15. Lauren Hart указана как новая вокалистка; лейбл называет To The Last Breath первым синглом с её участием. Историю прежних вокалистов и точные даты переходов ещё требуется проверить по отдельным первичным источникам.",
+        "local_vs_external": "Этот реестр описывает внешнюю дискографию. Наличие конкретного файла или альбома в локальной коллекции определяется отдельно по music_catalog.json.",
+        "study_questions": [
+          "Чем перезаписанный материал отличается от нового студийного альбома?",
+          "Как меняется авторство и состав от релиза к релизу?",
+          "Какие альбомы действительно есть в локальной коллекции?"
+        ],
+        "source_map": [
+          {
+            "url": "https://musicbrainz.org/artist/e631bb92-3e2b-43e3-a2cb-b605e2fb53bd",
+            "supports": "место основания, год, жанровые теги и хронология релизов"
+          },
+          {
+            "url": "https://archenemy.net/",
+            "supports": "состав, указанный официальной страницей в 2026 году"
+          },
+          {
+            "url": "https://www.centurymedia.com/artist/arch-enemy-1",
+            "supports": "сингл To The Last Breath и новая вокалистка"
+          },
+          {
+            "url": "https://musicbrainz.org/release/31fc60de-e186-3b4b-a743-de81d274c6df",
+            "supports": "The Root of All Evil состоит из перезаписей ранних песен"
+          }
+        ]
+      },
+      "research_metadata": {
+        "ollama_model": "qwen3:8b",
+        "ollama_result": "REJECTED: добавлены неподтверждённые жанры и выдуманная характеристика вокала",
+        "codex_review": "хронология и текущий состав сверены с MusicBrainz, официальным сайтом и лейблом"
+      },
+      "response_variations": [
+        {
+          "variant_id": "arch-enemy-v1",
+          "variant_kind": "overview",
+          "parent_id": "Arch Enemy",
+          "text": "Arch Enemy — шведская группа из Хальмстада, основанная в 1996 году. MusicBrainz относит её к melodic death metal. Историю удобнее изучать по релизам и подтверждённым составам каждого периода, а актуальный состав проверять отдельно.",
+          "source_ids": [
+            "https://musicbrainz.org/artist/e631bb92-3e2b-43e3-a2cb-b605e2fb53bd"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "arch-enemy-v2",
+          "variant_kind": "discography",
+          "parent_id": "Arch Enemy",
+          "text": "Хронология студийного каталога начинается с Black Earth (1996), Stigmata (1998) и Burning Bridges (1999), проходит через Wages of Sin (2001), War Eternal (2014), Deceivers (2022) и Blood Dynasty (2025). The Root of All Evil (2009) отдельно помечен как перезапись раннего материала.",
+          "source_ids": [
+            "https://musicbrainz.org/artist/e631bb92-3e2b-43e3-a2cb-b605e2fb53bd",
+            "https://musicbrainz.org/release/31fc60de-e186-3b4b-a743-de81d274c6df"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "arch-enemy-v3",
+          "variant_kind": "lineup",
+          "parent_id": "Arch Enemy",
+          "text": "Официальная страница на 2026 год перечисляет Michael Amott, Lauren Hart, Daniel Erlandsson, Joey Concepcion и Sharlee D'Angelo. Century Media указывает To The Last Breath как первый сингл с Lauren Hart. Состав более ранних альбомов нужно разбирать по их credits.",
+          "source_ids": [
+            "https://archenemy.net/",
+            "https://www.centurymedia.com/artist/arch-enemy-1"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "arch-enemy-v4",
+          "variant_kind": "local_vs_external",
+          "parent_id": "Arch Enemy",
+          "text": "Список альбомов в reference-каталоге описывает внешнюю дискографию Arch Enemy. Для вопроса «что есть у меня?» Jarvis должен сопоставить её с локальным music_catalog.json; отсутствие файла не означает пропуск в дискографии.",
+          "source_ids": [
+            "https://musicbrainz.org/artist/e631bb92-3e2b-43e3-a2cb-b605e2fb53bd"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ]
+    }
+  ],
+  "policy": "Reference metadata only; local audio files and protected recordings are not copied or modified. Verify release details against the linked source before presenting as current."
+}

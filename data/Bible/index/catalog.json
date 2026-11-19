@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "status": "CANONICAL_MANIFEST",
+  "read_only": true,
+  "physical_migration": "PHYSICALLY_CONSOLIDATED",
+  "sources": {
+    "offline_catalog": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+    "voice_questions": "data/Bible/.internal/sources/voice_responses/questions.json",
+    "knowledge3_music": "data/Bible/.internal/sources/knowledge3/music_catalog.json",
+    "knowledge3_music_reference": "data/Bible/.internal/sources/knowledge3/music/reference_catalog.json",
+    "knowledge3_programming": "data/Bible/.internal/sources/knowledge3/programming/lessons.json",
+    "knowledge3_voice": "data/Bible/.internal/sources/knowledge3/voice/lessons.json",
+    "knowledge3_guitar": "data/Bible/.internal/sources/knowledge3/guitar/catalog.json",
+    "knowledge3_psychology": "data/Bible/.internal/sources/knowledge3/psychology/cards.json",
+    "knowledge3_literature": "data/Bible/.internal/sources/knowledge3/literature/catalog.json",
+    "knowledge3_audio": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+    "knowledge3_audio_lessons": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+    "knowledge3_mixing": "data/Bible/.internal/sources/knowledge3/mixing/catalog.json",
+    "knowledge3_daw": "data/Bible/.internal/sources/knowledge3/daw/catalog.json"
+  },
+  "audio_roots": [
+    "data/Bible/.internal/audio/library/offline_knowledge",
+    "data/Bible/.internal/audio/responses",
+    "data/Bible/.internal/audio/library/knowledge3"
+  ],
+  "migration_rules": {
+    "preserve_originals": true,
+    "preserve_canonical_ids": true,
+    "delete_only_after_verified_cutover": true,
+    "deduplicate_by_content_hash": true
+  }
+}

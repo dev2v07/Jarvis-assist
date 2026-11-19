@@ -1,0 +1,903 @@
+[
+  {
+    "id": "audio-gain-staging",
+    "category": "mixing",
+    "title": "Gain staging и headroom",
+    "summary": "Рабочий уровень сигнала должен оставлять запас до цифрового клиппинга; громкость не нужно наращивать на входе.",
+    "text": "Проверяй входной уровень до обработки, оставляй запас по пикам и сравнивай обработанный сигнал с bypass на одинаковой воспринимаемой громкости. Headroom защищает от накопления перегруза в цепи.",
+    "topics": [
+      "gain staging",
+      "headroom",
+      "clipping",
+      "уровень"
+    ],
+    "sources": [
+      "https://www.soundonsound.com/techniques/gain-staging"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/audio-gain-staging.wav",
+    "audio_metadata": {
+      "duration": 11.384,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "mixing",
+    "topic": "Gain staging и headroom",
+    "questions": [
+      "Gain staging и headroom",
+      "Рабочий уровень сигнала должен оставлять запас до цифрового клиппинга; громкость не нужно наращивать на входе."
+    ],
+    "answer": "Проверяй входной уровень до обработки, оставляй запас по пикам и сравнивай обработанный сигнал с bypass на одинаковой воспринимаемой громкости. Headroom защищает от накопления перегруза в цепи.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "audio-frequency-balance",
+    "category": "mixing",
+    "title": "Частотный баланс микса",
+    "summary": "Сначала оценивай взаимное расположение инструментов, затем применяй небольшие корректирующие действия.",
+    "text": "Слушай низ, середину и верх в контексте всего микса. Не вырезай частоту автоматически по совету: проверяй проблему в соло и в полном миксе, а затем возвращайся к bypass.",
+    "topics": [
+      "frequency balance",
+      "EQ",
+      "эквализация"
+    ],
+    "sources": [
+      "https://www.fabfilter.com/learn/eq"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/audio-frequency-balance.wav",
+    "audio_metadata": {
+      "duration": 10.403,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "mixing",
+    "topic": "Частотный баланс микса",
+    "questions": [
+      "Частотный баланс микса",
+      "Сначала оценивай взаимное расположение инструментов, затем применяй небольшие корректирующие действия."
+    ],
+    "answer": "Слушай низ, середину и верх в контексте всего микса. Не вырезай частоту автоматически по совету: проверяй проблему в соло и в полном миксе, а затем возвращайся к bypass.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "audio-compression",
+    "category": "mixing",
+    "title": "Компрессия без потери атаки",
+    "summary": "Компрессор управляет динамикой, а attack и release определяют, что происходит с транзиентами и дыханием.",
+    "text": "Начинай с умеренного ratio и настрой threshold по реальному материалу. Слушай атаку, release между фразами и сравнивай результат на совпадающей громкости.",
+    "topics": [
+      "compression",
+      "dynamics",
+      "attack",
+      "release"
+    ],
+    "sources": [
+      "https://www.fabfilter.com/learn/compression"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/audio-compression.wav",
+    "audio_metadata": {
+      "duration": 9.242,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "mixing",
+    "topic": "Компрессия без потери атаки",
+    "questions": [
+      "Компрессия без потери атаки",
+      "Компрессор управляет динамикой, а attack и release определяют, что происходит с транзиентами и дыханием."
+    ],
+    "answer": "Начинай с умеренного ratio и настрой threshold по реальному материалу. Слушай атаку, release между фразами и сравнивай результат на совпадающей громкости.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "audio-phase",
+    "category": "mixing",
+    "title": "Фаза и корреляция",
+    "summary": "Несовпадение времени и полярности микрофонов может ослаблять низ и сужать полезный сигнал.",
+    "text": "Проверяй совместимость дорожек в моно, слушай корреляцию и сравнивай полярность. Не исправляй фазу вслепую: решение зависит от расположения микрофонов и художественного результата.",
+    "topics": [
+      "phase",
+      "polarity",
+      "mono",
+      "корреляция"
+    ],
+    "sources": [
+      "https://www.soundonsound.com/techniques/understanding-phase"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/audio-phase.wav",
+    "audio_metadata": {
+      "duration": 11.213,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "mixing",
+    "topic": "Фаза и корреляция",
+    "questions": [
+      "Фаза и корреляция",
+      "Несовпадение времени и полярности микрофонов может ослаблять низ и сужать полезный сигнал."
+    ],
+    "answer": "Проверяй совместимость дорожек в моно, слушай корреляцию и сравнивай полярность. Не исправляй фазу вслепую: решение зависит от расположения микрофонов и художественного результата.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "audio-lufs",
+    "category": "mastering",
+    "title": "LUFS, RMS и True Peak",
+    "summary": "Разные метры отвечают на разные вопросы: средняя воспринимаемая громкость, энергия сигнала и запас до межсэмплового пика.",
+    "text": "Измеряй интегральную громкость на полном материале, контролируй True Peak и не пытайся достичь одного числа ценой клиппинга и динамики. Цель зависит от площадки и жанра.",
+    "topics": [
+      "LUFS",
+      "RMS",
+      "True Peak",
+      "mastering"
+    ],
+    "sources": [
+      "https://www.izotope.com/en/learn/loudness.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/audio-lufs.wav",
+    "audio_metadata": {
+      "duration": 10.218,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "mastering",
+    "topic": "LUFS, RMS и True Peak",
+    "questions": [
+      "LUFS, RMS и True Peak",
+      "Разные метры отвечают на разные вопросы: средняя воспринимаемая громкость, энергия сигнала и запас до межсэмплового пика."
+    ],
+    "answer": "Измеряй интегральную громкость на полном материале, контролируй True Peak и не пытайся достичь одного числа ценой клиппинга и динамики. Цель зависит от площадки и жанра.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "cubase-group-channel",
+    "category": "cubase13",
+    "title": "Групповая шина для гитар в Cubase",
+    "summary": "Group Channel позволяет собрать несколько дорожек и управлять общей обработкой.",
+    "text": "Создай Group Channel через Project > Add Track > Group Channel, выбери формат шины и направь выходы гитарных дорожек на эту группу. Проверь, что мастер-выход остаётся ожидаемым.",
+    "topics": [
+      "Cubase 13",
+      "Group Channel",
+      "гитары",
+      "bus"
+    ],
+    "sources": [
+      "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/setting_up/setting_up_group_channels_c.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-group-channel.wav",
+    "audio_metadata": {
+      "duration": 10.31,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cubase13",
+    "topic": "Групповая шина для гитар в Cubase",
+    "questions": [
+      "Групповая шина для гитар в Cubase",
+      "Group Channel позволяет собрать несколько дорожек и управлять общей обработкой."
+    ],
+    "answer": "Создай Group Channel через Project > Add Track > Group Channel, выбери формат шины и направь выходы гитарных дорожек на эту группу. Проверь, что мастер-выход остаётся ожидаемым.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "cubase-fx-send",
+    "category": "cubase13",
+    "title": "Отправка вокала на FX Channel",
+    "summary": "FX Channel используется для общей временной обработки, например delay или reverb.",
+    "text": "Создай FX Channel с нужным эффектом, затем на вокальной дорожке добавь Send на этот канал и настрой уровень посыла. Проверь pre/post-fader режим согласно задаче.",
+    "topics": [
+      "Cubase 13",
+      "FX Channel",
+      "Send",
+      "вокал"
+    ],
+    "sources": [
+      "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/mixing/mixing_sends_c.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-fx-send.wav",
+    "audio_metadata": {
+      "duration": 9.845,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cubase13",
+    "topic": "Отправка вокала на FX Channel",
+    "questions": [
+      "Отправка вокала на FX Channel",
+      "FX Channel используется для общей временной обработки, например delay или reverb."
+    ],
+    "answer": "Создай FX Channel с нужным эффектом, затем на вокальной дорожке добавь Send на этот канал и настрой уровень посыла. Проверь pre/post-fader режим согласно задаче.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "cubase-sidechain",
+    "category": "cubase13",
+    "title": "Сайдчейн в Cubase",
+    "summary": "Side-chain позволяет управляющему сигналу влиять на динамический процессор другой дорожки.",
+    "text": "Добавь компрессор на целевую дорожку, активируй side-chain input и направь управляющий Send с источника. Настрой фильтр детектора и проверь результат в полном миксе.",
+    "topics": [
+      "Cubase 13",
+      "sidechain",
+      "compressor",
+      "ducking"
+    ],
+    "sources": [
+      "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/mixing/mixing_side_chain_c.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-sidechain.wav",
+    "audio_metadata": {
+      "duration": 9.613,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cubase13",
+    "topic": "Сайдчейн в Cubase",
+    "questions": [
+      "Сайдчейн в Cubase",
+      "Side-chain позволяет управляющему сигналу влиять на динамический процессор другой дорожки."
+    ],
+    "answer": "Добавь компрессор на целевую дорожку, активируй side-chain input и направь управляющий Send с источника. Настрой фильтр детектора и проверь результат в полном миксе.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "cubase-stems",
+    "category": "cubase13",
+    "title": "Экспорт отдельных дорожек",
+    "summary": "Batch Export помогает вывести stems с контролем диапазона и источников.",
+    "text": "Перед экспортом проверь маркеры, sample rate, bit depth и нужные каналы. В окне Export Audio Mixdown выбери источники и убедись, что названия stems однозначны.",
+    "topics": [
+      "Cubase 13",
+      "Export Audio Mixdown",
+      "stems",
+      "экспорт"
+    ],
+    "sources": [
+      "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/export_audio_mixdown/export_audio_mixdown_c.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-stems.wav",
+    "audio_metadata": {
+      "duration": 10.17,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cubase13",
+    "topic": "Экспорт отдельных дорожек",
+    "questions": [
+      "Экспорт отдельных дорожек",
+      "Batch Export помогает вывести stems с контролем диапазона и источников."
+    ],
+    "answer": "Перед экспортом проверь маркеры, sample rate, bit depth и нужные каналы. В окне Export Audio Mixdown выбери источники и убедись, что названия stems однозначны.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "metal-guitar-balance",
+    "category": "heavy_music",
+    "title": "Базовый подход к сведению тяжёлых гитар",
+    "summary": "Плотность достигается не одной настройкой, а балансом дублей, баса, барабанов и транзиентов.",
+    "text": "Сначала выстрой исполнение и панораму дублей, затем освободи место для баса и малого барабана. Уточняй EQ в контексте, а сатурацию и лимитирование применяй после контроля динамики.",
+    "topics": [
+      "metal",
+      "metalcore",
+      "гитары",
+      "сведение"
+    ],
+    "sources": [
+      "https://www.soundonsound.com/techniques/mixing-metal"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/metal-guitar-balance.wav",
+    "audio_metadata": {
+      "duration": 11.814,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "heavy_music",
+    "topic": "Базовый подход к сведению тяжёлых гитар",
+    "questions": [
+      "Базовый подход к сведению тяжёлых гитар",
+      "Плотность достигается не одной настройкой, а балансом дублей, баса, барабанов и транзиентов."
+    ],
+    "answer": "Сначала выстрой исполнение и панораму дублей, затем освободи место для баса и малого барабана. Уточняй EQ в контексте, а сатурацию и лимитирование применяй после контроля динамики.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "vocal-depth",
+    "category": "mixing",
+    "title": "Глубина вокала: reverb и delay",
+    "summary": "Пространственные эффекты должны поддерживать фразу и не маскировать согласные.",
+    "text": "Поставь фильтрацию на возврат эффекта, настрой pre-delay под темп и сравнивай сухой и обработанный сигнал. Если слова теряются, сначала уменьши возврат или сократи хвост.",
+    "topics": [
+      "vocal",
+      "reverb",
+      "delay",
+      "разборчивость"
+    ],
+    "sources": [
+      "https://www.soundonsound.com/techniques/vocal-recording"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/vocal-depth.wav",
+    "audio_metadata": {
+      "duration": 10.321,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "mixing",
+    "topic": "Глубина вокала: reverb и delay",
+    "questions": [
+      "Глубина вокала: reverb и delay",
+      "Пространственные эффекты должны поддерживать фразу и не маскировать согласные."
+    ],
+    "answer": "Поставь фильтрацию на возврат эффекта, настрой pre-delay под темп и сравнивай сухой и обработанный сигнал. Если слова теряются, сначала уменьши возврат или сократи хвост.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "cubase-routing",
+    "category": "cubase13",
+    "title": "Routing и Audio Connections в Cubase",
+    "summary": "Правильный вход и выход проекта проверяются до настройки дорожек и эффектов.",
+    "text": "В Audio Connections проверь входные и выходные шины, порты интерфейса и sample rate. После этого назначай вход дорожки и не меняй рабочую шину случайно при создании новых каналов.",
+    "topics": [
+      "Cubase 13",
+      "routing",
+      "Audio Connections",
+      "VST Connections"
+    ],
+    "sources": [
+      "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/setting_up/setting_up_audio_connections_c.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-routing.wav",
+    "audio_metadata": {
+      "duration": 10.672,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cubase13",
+    "topic": "Routing и Audio Connections в Cubase",
+    "questions": [
+      "Routing и Audio Connections в Cubase",
+      "Правильный вход и выход проекта проверяются до настройки дорожек и эффектов."
+    ],
+    "answer": "В Audio Connections проверь входные и выходные шины, порты интерфейса и sample rate. После этого назначай вход дорожки и не меняй рабочую шину случайно при создании новых каналов.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "cubase-automation",
+    "category": "cubase13",
+    "title": "Automation в Cubase",
+    "summary": "Автоматизация сохраняет изменения параметров во времени и должна проверяться в режиме Read/Write.",
+    "text": "Включи Write только для записи нужного движения, затем выключи его и проверь результат в Read. Для безопасного редактирования используй отдельные automation lanes и сохраняй проект перед крупной правкой.",
+    "topics": [
+      "Cubase 13",
+      "automation",
+      "Read",
+      "Write"
+    ],
+    "sources": [
+      "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/automation/automation_c.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-automation.wav",
+    "audio_metadata": {
+      "duration": 12.565,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cubase13",
+    "topic": "Automation в Cubase",
+    "questions": [
+      "Automation в Cubase",
+      "Автоматизация сохраняет изменения параметров во времени и должна проверяться в режиме Read/Write."
+    ],
+    "answer": "Включи Write только для записи нужного движения, затем выключи его и проверь результат в Read. Для безопасного редактирования используй отдельные automation lanes и сохраняй проект перед крупной правкой.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "cubase-vari-audio",
+    "category": "cubase13",
+    "title": "VariAudio для вокала",
+    "summary": "VariAudio используется для просмотра и осторожной коррекции высоты и тайминга вокала.",
+    "text": "Сначала проверь распознавание нот и переходы, затем корректируй отдельные события умеренно. Всегда сравнивай с исходником: чрезмерная коррекция создаёт неестественные переходы.",
+    "topics": [
+      "Cubase 13",
+      "VariAudio",
+      "pitch",
+      "вокал"
+    ],
+    "sources": [
+      "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/sample_editor_variaudio/sample_editor_variaudio_c.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-vari-audio.wav",
+    "audio_metadata": {
+      "duration": 12.018,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cubase13",
+    "topic": "VariAudio для вокала",
+    "questions": [
+      "VariAudio для вокала",
+      "VariAudio используется для просмотра и осторожной коррекции высоты и тайминга вокала."
+    ],
+    "answer": "Сначала проверь распознавание нот и переходы, затем корректируй отдельные события умеренно. Всегда сравнивай с исходником: чрезмерная коррекция создаёт неестественные переходы.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "cubase-audiowarp",
+    "category": "cubase13",
+    "title": "AudioWarp и тайминг",
+    "summary": "AudioWarp помогает сопоставлять аудио с темпом проекта без разрушения исходного файла.",
+    "text": "Выбери подходящий алгоритм для материала, сначала найди транзиенты и только потом ставь warp markers. Проверяй артефакты на переходах и сохраняй исходный дубль отдельно.",
+    "topics": [
+      "Cubase 13",
+      "AudioWarp",
+      "warp markers",
+      "timing"
+    ],
+    "sources": [
+      "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/sample_editor_audiowarp/sample_editor_audiowarp_c.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-audiowarp.wav",
+    "audio_metadata": {
+      "duration": 10.458,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cubase13",
+    "topic": "AudioWarp и тайминг",
+    "questions": [
+      "AudioWarp и тайминг",
+      "AudioWarp помогает сопоставлять аудио с темпом проекта без разрушения исходного файла."
+    ],
+    "answer": "Выбери подходящий алгоритм для материала, сначала найди транзиенты и только потом ставь warp markers. Проверяй артефакты на переходах и сохраняй исходный дубль отдельно.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "cubase-comping",
+    "category": "cubase13",
+    "title": "Comping и lanes",
+    "summary": "Comping позволяет собрать лучший дубль из take lanes с контролируемыми переходами.",
+    "text": "Сначала прослушай все lanes целиком, выбери музыкально удачные фрагменты и проверь кроссфейды на стыках. Не удаляй исходные takes до финального утверждения компинга.",
+    "topics": [
+      "Cubase 13",
+      "comping",
+      "takes",
+      "lanes"
+    ],
+    "sources": [
+      "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/recording/recording_comping_c.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-comping.wav",
+    "audio_metadata": {
+      "duration": 10.17,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cubase13",
+    "topic": "Comping и lanes",
+    "questions": [
+      "Comping и lanes",
+      "Comping позволяет собрать лучший дубль из take lanes с контролируемыми переходами."
+    ],
+    "answer": "Сначала прослушай все lanes целиком, выбери музыкально удачные фрагменты и проверь кроссфейды на стыках. Не удаляй исходные takes до финального утверждения компинга.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "cubase-quantize",
+    "category": "cubase13",
+    "title": "Quantization MIDI и аудио",
+    "summary": "Квантизация выравнивает события по сетке, но силу и диапазон нужно подбирать под исполнение.",
+    "text": "Перед применением выбери правильную сетку и quantize value, прослушай результат и используй strength или ручную коррекцию для сохранения грува. Работай с копией или undo history.",
+    "topics": [
+      "Cubase 13",
+      "quantization",
+      "MIDI Editor",
+      "groove"
+    ],
+    "sources": [
+      "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/midi_editor/midi_editor_quantizing_c.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-quantize.wav",
+    "audio_metadata": {
+      "duration": 10.031,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cubase13",
+    "topic": "Quantization MIDI и аудио",
+    "questions": [
+      "Quantization MIDI и аудио",
+      "Квантизация выравнивает события по сетке, но силу и диапазон нужно подбирать под исполнение."
+    ],
+    "answer": "Перед применением выбери правильную сетку и quantize value, прослушай результат и используй strength или ручную коррекцию для сохранения грува. Работай с копией или undo history.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "cubase-mixconsole",
+    "category": "cubase13",
+    "title": "MixConsole и контроль микса",
+    "summary": "MixConsole объединяет уровни, панораму, inserts, sends, группы и контрольные метры.",
+    "text": "Начинай с понятной структуры каналов, используй visibility и channel linking осторожно, а важные изменения проверяй в bypass. Перед экспортом проверь master, control room и отсутствующие media files.",
+    "topics": [
+      "Cubase 13",
+      "MixConsole",
+      "inserts",
+      "sends",
+      "Control Room"
+    ],
+    "sources": [
+      "https://www.steinberg.help/r/cubase-pro/13.0/en/mixconsole/mixconsole_c.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-mixconsole.wav",
+    "audio_metadata": {
+      "duration": 12.372,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cubase13",
+    "topic": "MixConsole и контроль микса",
+    "questions": [
+      "MixConsole и контроль микса",
+      "MixConsole объединяет уровни, панораму, inserts, sends, группы и контрольные метры."
+    ],
+    "answer": "Начинай с понятной структуры каналов, используй visibility и channel linking осторожно, а важные изменения проверяй в bypass. Перед экспортом проверь master, control room и отсутствующие media files.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "cubase-project-settings",
+    "category": "cubase13",
+    "title": "Project Settings и шаблоны",
+    "summary": "Sample rate, bit depth, tempo и расположение проекта должны быть согласованы до записи.",
+    "text": "Перед началом проверь Project Setup, tempo, timecode, sample rate и bit depth. Сохраняй шаблон только после проверки routing и имен каналов, чтобы новые проекты не наследовали ошибку.",
+    "topics": [
+      "Cubase 13",
+      "Project Settings",
+      "templates",
+      "sample rate"
+    ],
+    "sources": [
+      "https://www.steinberg.help/r/cubase-pro/13.0/en/project_handling/project_handling_project_setup_c.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/cubase-project-settings.wav",
+    "audio_metadata": {
+      "duration": 10.913,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cubase13",
+    "topic": "Project Settings и шаблоны",
+    "questions": [
+      "Project Settings и шаблоны",
+      "Sample rate, bit depth, tempo и расположение проекта должны быть согласованы до записи."
+    ],
+    "answer": "Перед началом проверь Project Setup, tempo, timecode, sample rate и bit depth. Сохраняй шаблон только после проверки routing и имен каналов, чтобы новые проекты не наследовали ошибку.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "plugin-pro-q3-workflow",
+    "category": "plugin",
+    "title": "FabFilter Pro-Q 3: рабочий EQ-процесс",
+    "summary": "Динамический EQ и спектральный анализ помогают корректировать конфликтующие диапазоны точечно.",
+    "text": "Сначала найди проблему слухом, затем используй узкую полосу только для проверки и вернись к умеренной коррекции. Dynamic EQ применяй там, где диапазон мешает только в отдельные моменты; проверяй bypass и фазовый режим.",
+    "topics": [
+      "FabFilter Pro-Q 3",
+      "EQ",
+      "dynamic EQ",
+      "маскирование"
+    ],
+    "sources": [
+      "https://www.fabfilter.com/help/pro-q"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/plugin-pro-q3-workflow.wav",
+    "audio_metadata": {
+      "duration": 13.919,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "plugin",
+    "topic": "FabFilter Pro-Q 3: рабочий EQ-процесс",
+    "questions": [
+      "FabFilter Pro-Q 3: рабочий EQ-процесс",
+      "Динамический EQ и спектральный анализ помогают корректировать конфликтующие диапазоны точечно."
+    ],
+    "answer": "Сначала найди проблему слухом, затем используй узкую полосу только для проверки и вернись к умеренной коррекции. Dynamic EQ применяй там, где диапазон мешает только в отдельные моменты; проверяй bypass и фазовый режим.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "plugin-pro-c2-workflow",
+    "category": "plugin",
+    "title": "FabFilter Pro-C 2: компрессор",
+    "summary": "Компрессор позволяет выбирать характер реакции через attack, release, ratio, knee и side-chain фильтр.",
+    "text": "Настрой threshold по gain reduction, затем подбери attack и release по транзиентам. Сравнивай громкость после make-up и не маскируй проблему чрезмерной компрессией.",
+    "topics": [
+      "FabFilter Pro-C 2",
+      "compression",
+      "sidechain",
+      "attack",
+      "release"
+    ],
+    "sources": [
+      "https://www.fabfilter.com/help/pro-c"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/plugin-pro-c2-workflow.wav",
+    "audio_metadata": {
+      "duration": 8.963,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "plugin",
+    "topic": "FabFilter Pro-C 2: компрессор",
+    "questions": [
+      "FabFilter Pro-C 2: компрессор",
+      "Компрессор позволяет выбирать характер реакции через attack, release, ratio, knee и side-chain фильтр."
+    ],
+    "answer": "Настрой threshold по gain reduction, затем подбери attack и release по транзиентам. Сравнивай громкость после make-up и не маскируй проблему чрезмерной компрессией.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "plugin-saturn2-workflow",
+    "category": "plugin",
+    "title": "FabFilter Saturn 2: сатурация",
+    "summary": "Многополосная сатурация добавляет гармоники и может менять ощущение плотности.",
+    "text": "Начинай с одного диапазона и малой Drive, контролируй Mix и output. Сравнивай на одинаковой громкости и не используй сатурацию для маскировки плохого gain staging.",
+    "topics": [
+      "FabFilter Saturn 2",
+      "saturation",
+      "harmonics",
+      "multiband"
+    ],
+    "sources": [
+      "https://www.fabfilter.com/help/saturn-2"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/plugin-saturn2-workflow.wav",
+    "audio_metadata": {
+      "duration": 9.613,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "plugin",
+    "topic": "FabFilter Saturn 2: сатурация",
+    "questions": [
+      "FabFilter Saturn 2: сатурация",
+      "Многополосная сатурация добавляет гармоники и может менять ощущение плотности."
+    ],
+    "answer": "Начинай с одного диапазона и малой Drive, контролируй Mix и output. Сравнивай на одинаковой громкости и не используй сатурацию для маскировки плохого gain staging.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "plugin-ozone9-workflow",
+    "category": "plugin",
+    "title": "iZotope Ozone 9: мастеринг-процесс",
+    "summary": "Мастеринг начинается с диагностики баланса и динамики, а не с универсального пресета.",
+    "text": "Проверь уровень, тональный баланс и ширину до лимитера. Используй модули умеренно, оставляй возможность сравнить bypass и проверяй true peak отдельным метром, если он доступен.",
+    "topics": [
+      "iZotope Ozone 9",
+      "mastering",
+      "loudness",
+      "true peak"
+    ],
+    "sources": [
+      "https://www.izotope.com/en/products/ozone.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/plugin-ozone9-workflow.wav",
+    "audio_metadata": {
+      "duration": 10.732,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "plugin",
+    "topic": "iZotope Ozone 9: мастеринг-процесс",
+    "questions": [
+      "iZotope Ozone 9: мастеринг-процесс",
+      "Мастеринг начинается с диагностики баланса и динамики, а не с универсального пресета."
+    ],
+    "answer": "Проверь уровень, тональный баланс и ширину до лимитера. Используй модули умеренно, оставляй возможность сравнить bypass и проверяй true peak отдельным метром, если он доступен.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "plugin-nectar3-workflow",
+    "category": "plugin",
+    "title": "iZotope Nectar 3: вокальная цепочка",
+    "summary": "Nectar объединяет инструменты коррекции и динамики вокала, но каждый модуль нужно проверять отдельно.",
+    "text": "Начинай с чистого исходника, затем настрой коррекцию, de-essing и динамику по проблемным участкам. Не делай вокал громче только за счёт лимитера; сравнивай разборчивость в миксе.",
+    "topics": [
+      "iZotope Nectar 3",
+      "vocal",
+      "de-essing",
+      "compression"
+    ],
+    "sources": [
+      "https://www.izotope.com/en/products/nectar.html"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/plugin-nectar3-workflow.wav",
+    "audio_metadata": {
+      "duration": 11.834,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "plugin",
+    "topic": "iZotope Nectar 3: вокальная цепочка",
+    "questions": [
+      "iZotope Nectar 3: вокальная цепочка",
+      "Nectar объединяет инструменты коррекции и динамики вокала, но каждый модуль нужно проверять отдельно."
+    ],
+    "answer": "Начинай с чистого исходника, затем настрой коррекцию, de-essing и динамику по проблемным участкам. Не делай вокал громче только за счёт лимитера; сравнивай разборчивость в миксе.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "plugin-guitar-rig-workflow",
+    "category": "plugin",
+    "title": "Guitar Rig: усилитель и кабинет",
+    "summary": "Амп-симулятор формирует основной тембр, а кабинет и микрофонная модель сильно влияют на результат.",
+    "text": "Сначала выбери усилитель и строй, затем настрой cabinet, микрофон и room. Сравнивай обработанную дорожку с DI и оставляй чистый исходник для обратимости.",
+    "topics": [
+      "Guitar Rig 5",
+      "amp sim",
+      "cabinet",
+      "DI"
+    ],
+    "sources": [
+      "https://www.native-instruments.com/en/products/komplete/guitar/guitar-rig-5-player/"
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/audio/lesson_audio/plugin-guitar-rig-workflow.wav",
+    "audio_metadata": {
+      "duration": 10.031,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "plugin",
+    "topic": "Guitar Rig: усилитель и кабинет",
+    "questions": [
+      "Guitar Rig: усилитель и кабинет",
+      "Амп-симулятор формирует основной тембр, а кабинет и микрофонная модель сильно влияют на результат."
+    ],
+    "answer": "Сначала выбери усилитель и строй, затем настрой cabinet, микрофон и room. Сравнивай обработанную дорожку с DI и оставляй чистый исходник для обратимости.",
+    "verified_at": "2026-11-15",
+    "version": 1,
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  }
+]

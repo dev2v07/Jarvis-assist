@@ -1,0 +1,53 @@
+{
+  "task_type": "knowledge_draft",
+  "module": "knowledge3.guitar",
+  "topic_id": "cort-evl-z4",
+  "model": "qwen3:8b",
+  "language": "ru",
+  "goal": "Подготовить подробный технический и практический черновик только о Cort EVL-Z4. Разделить подтверждённое, различия опубликованных каталогов и проверяемое на конкретной гитаре.",
+  "source_documents": [
+    {
+      "id": "cort-catalog-jam",
+      "url": "https://jam.ua/files/images/manuals/CORT-2008ru.pdf",
+      "locator": "Cort-branded Russian catalog, EVL-Z4 narrative and specification table; mirror at jam.ua",
+      "facts": [
+        "Корпус красное дерево; гриф клен, на болтах; накладка палисандр; мензура 24 3/4 дюйма; EVL, не Ibanez GIO.",
+        "В доступном извлечении таблица показывает 24 jumbo лада, EMG-HZ H, TonePros C-TPFP и один volume, один tone. Описательный блок говорит о двух EMG-HZ H4. Встречается и другое извлечение этого каталога с 22 ладами, CAVR, двумя volume. Не скрывать противоречие."
+      ]
+    },
+    {
+      "id": "cort-catalog-manuals-plus",
+      "url": "https://manuals.plus/m/ee4ace90411acbfaadb447368bd8ee26029ef732b926bd99545e77873609dacc.pdf",
+      "locator": "Second Cort-branded Russian catalog copy, EVL-Z4 specification table",
+      "facts": [
+        "Та же базовая идентичность EVL-Z4; таблица показывает 22 jumbo лада, H4 и TonePros C-TPFP, но один volume, один tone.",
+        "Не приписывать этому источнику два volume, CAVR или радиус накладки."
+      ]
+    },
+    {
+      "id": "2007-spec-listing",
+      "url": "https://www.infomusic.pl/artykul/11796,evl-z4",
+      "locator": "2007-07-03 EVL-Z4 technical listing; secondary historical evidence",
+      "facts": [
+        "Заявлены 22 jumbo лада, два EMG-HZ H4, CAVR, два volume, один tone, трёхпозиционный переключатель.",
+        "Не считать независимым подтверждением любых лет выпуска: карточка могла перепечатать заводской лист."
+      ]
+    },
+    {
+      "id": "ibanez-official",
+      "url": "https://www.ibanez.com/jp/products/detail/grg170dx_2y_05.html",
+      "locator": "Ibanez official GRG170DX page, Gio breadcrumb and current spec",
+      "facts": [
+        "Gio — линейка Ibanez, а GRG170DX конкретная модель; нельзя относить Cort EVL-Z4 к GIO.",
+        "Не переносить характеристики современного GRG170DX на все GIO или исторический EVL-Z4."
+      ]
+    }
+  ],
+  "constraints": [
+    "Верни валидный JSON по-русски с полями overview, confirmed_specification, disputed_specification, playing_and_sound, service_checklist, practical_examples, comparisons, substantive_variants (до 8 с kind/question/text/source_ids), uncertainties, unsupported_claims.",
+    "Каждый вариант — самостоятельный ответ минимум 40 слов, а не только вопрос.",
+    "Не выдумывай годы производства, радиус накладки, одинаковую комплектацию всех рынков, конструкцию любого экземпляра и звучание без усилителя/настройки.",
+    "Чётко различай пассивные EMG-HZ H4 и активные EMG 81/85 других моделей.",
+    "Это только OLLAMA_DRAFT: статус VERIFIED присваивает Codex после проверки каждой претензии по источникам."
+  ]
+}

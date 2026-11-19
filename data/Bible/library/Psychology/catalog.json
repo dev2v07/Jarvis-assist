@@ -1,0 +1,231 @@
+{
+  "version": 1,
+  "group": "Psychology",
+  "source_of_truth": "data/Bible/index/library_catalog.json",
+  "record_count": 8,
+  "records": [
+    {
+      "canonical_id": "knowledge3:psychology:psych-001-facts-interpretations",
+      "legacy_id": "psych-001-facts-interpretations",
+      "alias_of": null,
+      "kind": "psychology",
+      "title": "Факты и интерпретации",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/psychology/cards.json",
+      "source_index": 0,
+      "source_ids": [
+        "https://beckinstitute.org/about/understanding-cbt/",
+        "https://beckinstitute.org/wp-content/uploads/2024/05/Cognitive-Model.pdf",
+        "https://beckinstitute.org/wp-content/uploads/2021/06/Testing-Your-Thoughts-Worksheet.pdf"
+      ],
+      "recorded_status": "SOURCE_REVIEW",
+      "content_status": "SOURCE_REVIEW",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:psychology:psych-001-facts-interpretations",
+          "path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-001-facts-interpretations.wav",
+          "status": "AUDIO_PENDING"
+        }
+      ],
+      "variant_count": 4,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:psychology:psych-002-emotions",
+      "legacy_id": "psych-002-emotions",
+      "alias_of": null,
+      "kind": "psychology",
+      "title": "Назвать эмоцию и потребность",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/psychology/cards.json",
+      "source_index": 1,
+      "source_ids": [
+        "https://www.apa.org/topics/emotions",
+        "https://beckinstitute.org/wp-content/uploads/2024/05/Cognitive-Model.pdf"
+      ],
+      "recorded_status": "SOURCE_REVIEW",
+      "content_status": "SOURCE_REVIEW",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:psychology:psych-002-emotions",
+          "path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-002-emotions.wav",
+          "status": "AUDIO_PENDING"
+        }
+      ],
+      "variant_count": 4,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:psychology:psych-003-boundaries",
+      "legacy_id": "psych-003-boundaries",
+      "alias_of": null,
+      "kind": "psychology",
+      "title": "Границы и ясная просьба",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/psychology/cards.json",
+      "source_index": 2,
+      "source_ids": [
+        "https://www.gottman.com/blog/setting-boundaries-with-others/",
+        "https://www.apa.org/pubs/books/supplemental/Integrated-Behavioral-Health-Primary-Care-Third-Edition/chapter-4-figures-third.pdf"
+      ],
+      "recorded_status": "SOURCE_REVIEW",
+      "content_status": "SOURCE_REVIEW",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:psychology:psych-003-boundaries",
+          "path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-003-boundaries.wav",
+          "status": "AUDIO_PENDING"
+        }
+      ],
+      "variant_count": 4,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:psychology:psych-004-stress",
+      "legacy_id": "psych-004-stress",
+      "alias_of": null,
+      "kind": "psychology",
+      "title": "Короткая стабилизация при стрессе",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/psychology/cards.json",
+      "source_index": 3,
+      "source_ids": [
+        "https://iris.who.int/bitstream/handle/10665/331901/9789240003910-eng.pdf",
+        "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/",
+        "https://www.nimh.nih.gov/health/publications/so-stressed-out-fact-sheet",
+        "https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/stress/"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:psychology:psych-004-stress",
+          "path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-004-stress.wav",
+          "status": "LEGACY_AUDIO_UNREVIEWED"
+        }
+      ],
+      "variant_count": 8,
+      "updated_at": "2026-11-15T16:08:04+03:00",
+      "version": 2,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:psychology:psych-005-communication",
+      "legacy_id": "psych-005-communication",
+      "alias_of": null,
+      "kind": "psychology",
+      "title": "Активное слушание",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/psychology/cards.json",
+      "source_index": 4,
+      "source_ids": [
+        "https://www.apa.org/topics/relationships/communication"
+      ],
+      "recorded_status": "SOURCE_REVIEW",
+      "content_status": "SOURCE_REVIEW",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:psychology:psych-005-communication",
+          "path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-005-communication.wav",
+          "status": "AUDIO_PENDING"
+        }
+      ],
+      "variant_count": 5,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:psychology:psych-006-self-compassion",
+      "legacy_id": "psych-006-self-compassion",
+      "alias_of": null,
+      "kind": "psychology",
+      "title": "Разговор с собой без унижения",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/psychology/cards.json",
+      "source_index": 5,
+      "source_ids": [
+        "https://self-compassion.org/"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:psychology:psych-006-self-compassion",
+          "path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-006-self-compassion.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:psychology:psych-007-conflict",
+      "legacy_id": "psych-007-conflict",
+      "alias_of": null,
+      "kind": "psychology",
+      "title": "Пауза перед конфликтом",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/psychology/cards.json",
+      "source_index": 6,
+      "source_ids": [
+        "https://www.gottman.com/blog/manage-conflict-the-six-skills/"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:psychology:psych-007-conflict",
+          "path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-007-conflict.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:psychology:psych-008-reflection",
+      "legacy_id": "psych-008-reflection",
+      "alias_of": null,
+      "kind": "psychology",
+      "title": "Итог поддерживающей сессии",
+      "category": "knowledge3",
+      "subcategory": "general",
+      "source_location": "data/Bible/.internal/sources/knowledge3/psychology/cards.json",
+      "source_index": 7,
+      "source_ids": [
+        "https://www.apa.org/topics/psychotherapy"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:psychology:psych-008-reflection",
+          "path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-008-reflection.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    }
+  ]
+}

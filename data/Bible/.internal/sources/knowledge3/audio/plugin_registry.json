@@ -1,0 +1,237 @@
+{
+  "version": 1,
+  "generated_at": "2026-11-15T18:13:37.169330+00:00",
+  "read_only": true,
+  "products": [
+    {
+      "name": "EZdrummer 3 by Team V.R",
+      "version": "3.0.0 CE",
+      "publisher": "Toontrack",
+      "install_location": "C:\\Program Files\\Toontrack\\",
+      "category": "instrument",
+      "function": "Drum instrument, MIDI and groove workflow",
+      "documentation": "https://www.toontrack.com/product/ezdrummer-3/",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "FabFilter Pro-Q 2",
+      "version": "2.2.3",
+      "publisher": "FabFilter",
+      "install_location": "C:\\Program Files\\FabFilter\\Pro-Q 2\\",
+      "category": "mixing",
+      "function": "Parametric EQ and spectrum analysis",
+      "documentation": "https://www.fabfilter.com/help/pro-q",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "FabFilter Total Bundle",
+      "version": "2025.5",
+      "publisher": "FabFilter & Team V.R",
+      "install_location": "C:\\Program Files\\FabFilter\\",
+      "category": "mixing",
+      "function": "EQ, compression, saturation and limiting",
+      "documentation": "https://www.fabfilter.com/help",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "IK Multimedia MODO BASS 2",
+      "version": "2.0.2",
+      "publisher": "IK Multimedia",
+      "install_location": "C:\\Program Files\\IK Multimedia\\MODO BASS 2\\",
+      "category": "instrument",
+      "function": "Physical-modelled bass instrument",
+      "documentation": "https://www.ikmultimedia.com/products/modobass2/",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "iZotope Nectar 3",
+      "version": "3.00",
+      "publisher": "iZotope & Team V.R",
+      "install_location": "C:\\Program Files (x86)\\iZotope\\Nectar 3\\",
+      "category": "voice",
+      "function": "Vocal editing and processing chain",
+      "documentation": "https://www.izotope.com/en/products/nectar.html",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "iZotope Ozone 9",
+      "version": "9.12.0",
+      "publisher": "iZotope",
+      "install_location": "C:\\Program Files\\iZotope\\Ozone 9\\",
+      "category": "mastering",
+      "function": "Mastering chain and loudness tools",
+      "documentation": "https://www.izotope.com/en/products/ozone.html",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "Native Instruments Guitar Rig 5",
+      "version": "5.1.0.2641",
+      "publisher": "Native Instruments",
+      "install_location": "C:\\Program Files\\Native Instruments\\Guitar Rig 5",
+      "category": "guitar",
+      "function": "Amp, cabinet and effects chain",
+      "documentation": "https://www.native-instruments.com/en/products/komplete/guitar/guitar-rig-5-player/",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "Native Instruments Guitar Rig 6",
+      "version": "6.2.4",
+      "publisher": "Native Instruments & Team V.R",
+      "install_location": "",
+      "category": "guitar",
+      "function": "Amp, cabinet and effects chain",
+      "documentation": "https://www.native-instruments.com/en/products/komplete/guitar/guitar-rig-6-player/",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "Native Instruments Kontakt 7",
+      "version": "7.3.2.0",
+      "publisher": "Native Instruments",
+      "install_location": "C:\\Program Files\\Native Instruments\\Kontakt 7",
+      "category": "instrument",
+      "function": "Sample instrument host",
+      "documentation": "https://www.native-instruments.com/en/catalog/software/kontakt/",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "Native Instruments Kontakt 8",
+      "version": "8.1.0.0",
+      "publisher": "Native Instruments",
+      "install_location": "C:\\Program Files\\Native Instruments\\Kontakt 8",
+      "category": "instrument",
+      "function": "Sample instrument host",
+      "documentation": "https://www.native-instruments.com/en/catalog/software/kontakt/",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "REAPER (x64)",
+      "version": "7.85",
+      "publisher": "Cockos Incorporated",
+      "install_location": "C:\\Program Files\\REAPER (x64)",
+      "category": "daw",
+      "function": "DAW, routing, actions and scripting",
+      "documentation": "https://www.reaper.fm/userguide.php",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "Steinberg Cubase 13",
+      "version": "13.0.20",
+      "publisher": "Steinberg Media Technologies GmbH",
+      "install_location": "C:\\Program Files\\Steinberg\\Cubase 13\\",
+      "category": "daw",
+      "function": "DAW project, MIDI, routing and automation",
+      "documentation": "https://www.steinberg.help/",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "Steinberg Cubase 15",
+      "version": "15.0.5",
+      "publisher": "Steinberg Media Technologies GmbH",
+      "install_location": "C:\\Program Files\\Steinberg\\Cubase 15\\",
+      "category": "daw",
+      "function": "DAW project, MIDI, routing and automation",
+      "documentation": "https://www.steinberg.help/",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "Steinberg Nuendo 12",
+      "version": "12.0.52",
+      "publisher": "Steinberg Media Technologies GmbH",
+      "install_location": "C:\\Program Files\\Steinberg\\Nuendo 12\\",
+      "category": "daw",
+      "function": "DAW and post-production workflow",
+      "documentation": "https://www.steinberg.help/",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    },
+    {
+      "name": "XLN Audio Addictive Keys",
+      "version": "1.1.8",
+      "publisher": "XLN Audio",
+      "install_location": "C:\\Program Files\\XLN Audio\\Addictive Keys\\",
+      "category": "instrument",
+      "function": "Virtual keyboard instrument",
+      "documentation": "https://www.xlnaudio.com/products/addictive_keys",
+      "availability": "installed_by_environment_audit",
+      "loaded_in_daw": "not_tested",
+      "source": "data/Bible/.internal/sources/knowledge3/environment_audit.json"
+    }
+  ],
+  "plugin_paths": {
+    "vst2": [
+      {
+        "path": "C:\\Program Files\\VstPlugins",
+        "exists": true,
+        "files": 1,
+        "extensions": {
+          ".dll": 1
+        }
+      },
+      {
+        "path": "C:\\Program Files\\Steinberg\\VstPlugins",
+        "exists": true,
+        "files": 170,
+        "extensions": {
+          ".dll": 151,
+          ".ini": 8,
+          ".ico": 8,
+          ".vst3": 3
+        }
+      },
+      {
+        "path": "C:\\Program Files (x86)\\VstPlugins",
+        "exists": false
+      }
+    ],
+    "vst3": [
+      {
+        "path": "C:\\Program Files\\Common Files\\VST3",
+        "exists": true,
+        "files": 172,
+        "extensions": {
+          ".vst3": 119,
+          ".bak": 1,
+          ".ini": 13,
+          ".ico": 13,
+          ".dll": 18,
+          ".json": 8
+        }
+      },
+      {
+        "path": "C:\\Program Files\\Common Files\\Steinberg\\VST3",
+        "exists": false
+      }
+    ]
+  },
+  "limitations": [
+    "Наличие файла или записи установки не подтверждает загрузку плагина в DAW.",
+    "Лицензии и совместимость не проверяются этим read-only реестром."
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "greetings_001": [
+    "response_01",
+    "response_07",
+    "response_05",
+    "response_02",
+    "response_10",
+    "response_08",
+    "response_06",
+    "response_04"
+  ],
+  "greetings_002": [
+    "response_01"
+  ],
+  "presence_001": [
+    "response_06"
+  ],
+  "mood_002": [
+    "response_01",
+    "response_04",
+    "response_02"
+  ],
+  "reactions_003": [
+    "response_04"
+  ],
+  "gratitude_003": [
+    "response_04",
+    "response_01",
+    "response_02"
+  ],
+  "reactions_008": [
+    "response_06"
+  ],
+  "cosmos_001": [
+    "response_05"
+  ],
+  "identity_003": [
+    "response_05"
+  ],
+  "tasks_001": [
+    "response_01"
+  ]
+}

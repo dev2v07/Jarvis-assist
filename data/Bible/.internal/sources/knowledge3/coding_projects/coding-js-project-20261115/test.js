@@ -1,0 +1,1 @@
+const assert=require('assert'); assert.equal(require('./main.js'),5); console.log('ok');

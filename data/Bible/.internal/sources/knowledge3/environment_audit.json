@@ -1,0 +1,2224 @@
+{
+  "generated_at": "2026-11-15T18:13:33.371331+00:00",
+  "read_only": true,
+  "installed_programs": [
+    {
+      "name": ".NET for Android Templates (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{A5DFFAED-47E1-4864-9165-E3DC908646FA}"
+    },
+    {
+      "name": ".NET MAUI SDK (x64)",
+      "version": "10.0.110.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{C6A0A583-DE12-43E0-9454-2D65C9119C65}"
+    },
+    {
+      "name": ".NET MAUI Templates (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{47F49530-3DC2-4007-9A83-4D11CE03815F}"
+    },
+    {
+      "name": "Aero-Glass-to-Win-10 v3.0.2.3751",
+      "version": "3.0.2.3751",
+      "publisher": "Tandem Marketing",
+      "install_location": "C:\\Program Files\\Aero-Glass-to-Win-10\\",
+      "uninstall": "\"C:\\Program Files\\Aero-Glass-to-Win-10\\unins000.exe\""
+    },
+    {
+      "name": "AIMP",
+      "version": "5.30.2533",
+      "publisher": "Artem Izmaylov",
+      "install_location": "",
+      "uninstall": "C:\\Program Files\\AIMP\\Uninstall.exe"
+    },
+    {
+      "name": "AMD DVR",
+      "version": "26.20.26288.1800",
+      "publisher": "Advanced Micro Devices, Inc.",
+      "install_location": "C:\\Program Files\\AMD\\CNext\\CNext\\",
+      "uninstall": ""
+    },
+    {
+      "name": "AMD Install Manager",
+      "version": "26.20.26316.0352",
+      "publisher": "Advanced Micro Devices, Inc.",
+      "install_location": "C:\\Program Files\\AMD\\AMDInstallManager\\",
+      "uninstall": "MsiExec.exe /X{D9CE306B-C724-4DBD-8E3A-3D5273056BC6}"
+    },
+    {
+      "name": "AMD Settings",
+      "version": "2026.1015.1803.2112",
+      "publisher": "Advanced Micro Devices, Inc.",
+      "install_location": "C:\\Program Files\\AMD\\CNext\\CNext\\",
+      "uninstall": ""
+    },
+    {
+      "name": "AMD Software",
+      "version": "26.10.1",
+      "publisher": "Advanced Micro Devices, Inc.",
+      "install_location": "C:\\Program Files\\AMD\\CIM\\BIN64",
+      "uninstall": "\"C:\\Program Files\\AMD\\CIM\\BIN64\\AMDSoftwareInstaller.exe\" /EXPRESS_UNINSTALL /IGNORE_UPGRADE /ON_REBOOT_MESSAGE:NO"
+    },
+    {
+      "name": "AMD User Experience Program",
+      "version": "2620.0.26291.0711",
+      "publisher": "Advanced Micro Devices, Inc.",
+      "install_location": "C:\\Program Files\\AMD\\Performance Profile Client\\",
+      "uninstall": ""
+    },
+    {
+      "name": "AMD WVR64",
+      "version": "26.20.26288.1759",
+      "publisher": "Advanced Micro Devices, Inc.",
+      "install_location": "C:\\Program Files\\AMD\\WVR\\",
+      "uninstall": ""
+    },
+    {
+      "name": "Android Studio",
+      "version": "2026.2.2.9",
+      "publisher": "Google LLC",
+      "install_location": "",
+      "uninstall": "C:\\Program Files\\Android\\Android Studio\\uninstall.exe"
+    },
+    {
+      "name": "Apple Mobile Device Support",
+      "version": "19.4.0.10",
+      "publisher": "Apple Inc.",
+      "install_location": "C:\\Program Files\\Common Files\\Apple\\Mobile Device Support\\",
+      "uninstall": "MsiExec.exe /I{EB85B0D0-1A60-4DD2-B723-72FAB3C661DB}"
+    },
+    {
+      "name": "Application Verifier x64 External Package",
+      "version": "10.1.19041.5609",
+      "publisher": "Microsoft",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{D5419286-34A7-E062-1C25-013A7FA94E9C}"
+    },
+    {
+      "name": "Application Verifier x64 External Package (DesktopEditions)",
+      "version": "10.1.28000.2705",
+      "publisher": "Microsoft",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{75AF2D90-5877-4020-3ED9-1512814FB74D}"
+    },
+    {
+      "name": "Application Verifier x64 External Package (OnecoreUAP)",
+      "version": "10.1.28000.2705",
+      "publisher": "Microsoft",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{77AF784F-6B40-BE0C-B1CF-FB52C2BE0C2D}"
+    },
+    {
+      "name": "Arturia Analog Lab V",
+      "version": "5.12.2",
+      "publisher": "Arturia & Team V.R",
+      "install_location": "C:\\Program Files\\Arturia\\Analog Lab V\\",
+      "uninstall": "\"C:\\ProgramData\\Arturia\\Uninstaller\\unins000.exe\""
+    },
+    {
+      "name": "AudioThing Effect Bundle",
+      "version": "2023.5",
+      "publisher": "AudioThing & Team V.R",
+      "install_location": "C:\\Users\\Public\\Documents\\AudioThing\\",
+      "uninstall": "\"C:\\Users\\Public\\Documents\\AudioThing\\Uninstallers\\unins000.exe\""
+    },
+    {
+      "name": "Blackmagic RAW Common Components",
+      "version": "6.0",
+      "publisher": "Blackmagic Design",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{89B80C17-5795-45F7-A401-0A5EBE4BBD4E}"
+    },
+    {
+      "name": "blender",
+      "version": "4.1.1",
+      "publisher": "Blender Foundation",
+      "install_location": "C:\\Program Files\\Blender Foundation\\Blender 4.1\\",
+      "uninstall": "MsiExec.exe /I{1ADD9FE1-B5B3-4B8C-9F62-D63F0D761D39}"
+    },
+    {
+      "name": "Bogren Digital Trivium Ampknob Bundle 2024.05",
+      "version": "2024.05",
+      "publisher": "Bogren Digital",
+      "install_location": "C:\\Program Files\\_uninstaller\\Bogren Digital\\Trivium Ampknob Bundle\\",
+      "uninstall": "\"C:\\Program Files\\_uninstaller\\Bogren Digital\\Trivium Ampknob Bundle\\unins000.exe\""
+    },
+    {
+      "name": "Bonjour",
+      "version": "3.1.0.1",
+      "publisher": "Apple Inc.",
+      "install_location": "C:\\Program Files (x86)\\Bonjour\\",
+      "uninstall": "MsiExec.exe /X{56DDDFB8-7F79-4480-89D5-25E1F52AB28F}"
+    },
+    {
+      "name": "Branding64",
+      "version": "1.00.0009",
+      "publisher": "Advanced Micro Devices, Inc.",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{492AEFBE-1B81-4C20-A111-E6974BB98EC5}"
+    },
+    {
+      "name": "CapCut",
+      "version": "9.6.0.4097",
+      "publisher": "Bytedance Pte. Ltd.",
+      "install_location": "",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\CapCut\\Apps\\uninst.exe\""
+    },
+    {
+      "name": "Cinesamples Drums Of War 3",
+      "version": "1.0.0.1",
+      "publisher": "Cinesamples",
+      "install_location": "C:\\Program Files\\Cinesamples\\Drums Of War 3",
+      "uninstall": ""
+    },
+    {
+      "name": "Cymatics Diablo",
+      "version": "1.0.1",
+      "publisher": "Cymatics",
+      "install_location": "C:\\Program Files\\Cymatics\\Diablo\\",
+      "uninstall": "\"C:\\Program Files\\Cymatics\\Diablo\\unins000.exe\""
+    },
+    {
+      "name": "DaVinci Resolve",
+      "version": "21.1.00017",
+      "publisher": "Blackmagic Design",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{1720F675-E833-4CB1-9DE8-532B17501F01}"
+    },
+    {
+      "name": "DaVinci Resolve Control Panels",
+      "version": "2.3.5.0",
+      "publisher": "Blackmagic Design",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{EDA8A73C-05DC-49ED-9DF5-D29F9317307A}"
+    },
+    {
+      "name": "DaVinci Resolve Renderer",
+      "version": "21.1.00017",
+      "publisher": "Blackmagic Design",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{A12BE67A-7FD1-4FD9-862A-84588A6B30C9}"
+    },
+    {
+      "name": "DiagnosticsHub_CollectionService",
+      "version": "18.5.37003",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{0DF34FE9-11BE-4C78-B1CE-216B94F17562}"
+    },
+    {
+      "name": "Docker Desktop",
+      "version": "4.57.0",
+      "publisher": "Docker Inc.",
+      "install_location": "C:\\Program Files\\Docker\\Docker",
+      "uninstall": "\"C:\\Program Files\\Docker\\Docker\\Docker Desktop Installer.exe\" \"uninstall\""
+    },
+    {
+      "name": "Dolphin Anty 2025.279.165",
+      "version": "2025.279.165",
+      "publisher": "Denis Zhitnyakov",
+      "install_location": "",
+      "uninstall": "\"C:\\Program Files\\Dolphin Anty\\Uninstall Dolphin Anty.exe\" /allusers"
+    },
+    {
+      "name": "Eclipse Temurin JDK with Hotspot 17.0.21+9 (x64)",
+      "version": "17.0.21.9",
+      "publisher": "Eclipse Adoptium",
+      "install_location": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.21.9-hotspot\\",
+      "uninstall": "MsiExec.exe /I{FBF4C8AA-8099-4F4C-BD10-CCD06B0B01D3}"
+    },
+    {
+      "name": "eSpeak NG Text-to-Speech 64-bit",
+      "version": "1.51.0",
+      "publisher": "eSpeak Community",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{3DA6DF03-E5CD-4A93-B06F-707484742BAB}"
+    },
+    {
+      "name": "EZdrummer 3 by Team V.R",
+      "version": "3.0.0 CE",
+      "publisher": "Toontrack",
+      "install_location": "C:\\Program Files\\Toontrack\\",
+      "uninstall": "MsiExec.exe /X{8AD0823D-7861-4CAE-8D2D-F6E18B30DE04}"
+    },
+    {
+      "name": "FabFilter Pro-Q 2",
+      "version": "2.2.3",
+      "publisher": "FabFilter",
+      "install_location": "C:\\Program Files\\FabFilter\\Pro-Q 2\\",
+      "uninstall": "\"C:\\Program Files\\FabFilter\\Pro-Q 2\\unins000.exe\""
+    },
+    {
+      "name": "FabFilter Total Bundle",
+      "version": "2025.5",
+      "publisher": "FabFilter & Team V.R",
+      "install_location": "C:\\Program Files\\FabFilter\\",
+      "uninstall": "\"C:\\Program Files\\FabFilter\\unins000.exe\""
+    },
+    {
+      "name": "Fairlight Audio Accelerator Utility",
+      "version": "1.0.15",
+      "publisher": "Blackmagic Design",
+      "install_location": "C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\audio\\Fairlight Audio Accelerator\\",
+      "uninstall": "\"C:\\Program Files\\Blackmagic Design\\DaVinci Resolve\\audio\\Fairlight Audio Accelerator\\unins000.exe\""
+    },
+    {
+      "name": "FFmpeg (Shared)",
+      "version": "9.0.2",
+      "publisher": "Gyan",
+      "install_location": "C:\\Users\\Данил\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg.Shared_Microsoft.Winget.Source_8wekyb3d8bbwe",
+      "uninstall": "winget uninstall --product-code Gyan.FFmpeg.Shared_Microsoft.Winget.Source_8wekyb3d8bbwe"
+    },
+    {
+      "name": "Figma",
+      "version": "126.11.9",
+      "publisher": "Figma, Inc.",
+      "install_location": "C:\\Users\\Данил\\AppData\\Local\\Figma",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\Figma\\Update.exe\" --uninstall"
+    },
+    {
+      "name": "Figma Agent",
+      "version": "126.11.9",
+      "publisher": "Figma, Inc.",
+      "install_location": "",
+      "uninstall": "C:\\Users\\Данил\\AppData\\Local\\FigmaAgent\\Uninstall.exe"
+    },
+    {
+      "name": "FileZilla 3.67.0",
+      "version": "3.67.0",
+      "publisher": "Tim Kosse",
+      "install_location": "C:\\Program Files\\FileZilla FTP Client",
+      "uninstall": "\"C:\\Program Files\\FileZilla FTP Client\\uninstall.exe\""
+    },
+    {
+      "name": "FreeLLMAPI 0.16.6",
+      "version": "0.16.6",
+      "publisher": "tashfeenahmed",
+      "install_location": "",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\Programs\\freellmapi-desktop\\Uninstall FreeLLMAPI.exe\" /currentuser"
+    },
+    {
+      "name": "Git",
+      "version": "2.56.0.4",
+      "publisher": "The Git Development Community",
+      "install_location": "C:\\Program Files\\Git\\",
+      "uninstall": "\"C:\\Program Files\\Git\\unins000.exe\""
+    },
+    {
+      "name": "Happ - Proxy Utility 4.7.2(636)",
+      "version": "4.7.2(636)",
+      "publisher": "Happ",
+      "install_location": "C:\\Program Files\\FlyFrogLLC\\Happ\\",
+      "uninstall": "\"C:\\Program Files\\FlyFrogLLC\\Happ\\unins000.exe\""
+    },
+    {
+      "name": "IIS 10.0 Express",
+      "version": "10.0.11304",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{C21221FC-C5DD-488F-AA88-9C936DB25907}"
+    },
+    {
+      "name": "IIS Express Application Compatibility Database for x64",
+      "version": "",
+      "publisher": "",
+      "install_location": "",
+      "uninstall": "%windir%\\system32\\sdbinst.exe -u \"C:\\Windows\\AppPatch\\CustomSDB\\{08274920-8908-45c2-9258-8ad67ff77b09}.sdb\""
+    },
+    {
+      "name": "IIS Express Application Compatibility Database for x86",
+      "version": "",
+      "publisher": "",
+      "install_location": "",
+      "uninstall": "%windir%\\system32\\sdbinst.exe -u \"C:\\Windows\\AppPatch\\CustomSDB\\{ad846bae-d44b-4722-abad-f7420e08bcd9}.sdb\""
+    },
+    {
+      "name": "IK Multimedia MODO BASS 2",
+      "version": "2.0.2",
+      "publisher": "IK Multimedia",
+      "install_location": "C:\\Program Files\\IK Multimedia\\MODO BASS 2\\",
+      "uninstall": "\"C:\\Program Files\\IK Multimedia\\MODO BASS 2\\unins000.exe\""
+    },
+    {
+      "name": "Initial Audio 808 Studio II",
+      "version": "2.0.5",
+      "publisher": "Initial Audio",
+      "install_location": "C:\\Program Files\\Initial Audio\\808 Studio II\\",
+      "uninstall": "\"C:\\Program Files\\Initial Audio\\808 Studio II\\unins000.exe\""
+    },
+    {
+      "name": "Inno Setup, версия 6.7.3",
+      "version": "6.7.3",
+      "publisher": "jrsoftware.org",
+      "install_location": "C:\\Users\\Данил\\AppData\\Local\\Programs\\Inno Setup 6\\",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\Programs\\Inno Setup 6\\unins000.exe\""
+    },
+    {
+      "name": "IntelliTraceProfilerProxy",
+      "version": "15.0.26282.03",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{FD04DA83-6BAB-4D8E-8AB2-9522249D7B33}"
+    },
+    {
+      "name": "iTunes",
+      "version": "12.13.10.3",
+      "publisher": "Apple Inc.",
+      "install_location": "C:\\Program Files\\iTunes\\",
+      "uninstall": "MsiExec.exe /I{8AA0DF43-D420-4428-B7C2-ABA06187A279}"
+    },
+    {
+      "name": "iZotope Nectar 3",
+      "version": "3.00",
+      "publisher": "iZotope & Team V.R",
+      "install_location": "C:\\Program Files (x86)\\iZotope\\Nectar 3\\",
+      "uninstall": "\"C:\\Program Files (x86)\\iZotope\\Nectar 3\\unins000.exe\""
+    },
+    {
+      "name": "iZotope Ozone 9",
+      "version": "9.12.0",
+      "publisher": "iZotope",
+      "install_location": "C:\\Program Files\\iZotope\\Ozone 9\\",
+      "uninstall": "\"C:\\Program Files\\iZotope\\Ozone 9\\unins000.exe\""
+    },
+    {
+      "name": "iZotope Relay",
+      "version": "1.3.0",
+      "publisher": "iZotope",
+      "install_location": "C:\\Program Files\\iZotope\\Relay\\",
+      "uninstall": "\"C:\\Program Files\\iZotope\\Relay\\unins000.exe\""
+    },
+    {
+      "name": "Kontakt 8 Insiders' Developers' Edition",
+      "version": "8.1.0",
+      "publisher": "Native Instruments",
+      "install_location": "C:\\Program Files\\Native Instruments\\Kontakt 8\\",
+      "uninstall": "\"C:\\Program Files\\Native Instruments\\Kontakt 8\\unins000.exe\""
+    },
+    {
+      "name": "M-Audio Delta Driver 6.0.2 (x64)",
+      "version": "6.0.2",
+      "publisher": "M-Audio",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{9CE5F7AE-9D50-4BE6-A32A-00E6914BDB71}"
+    },
+    {
+      "name": "MariaDB 13.0 (x64)",
+      "version": "13.0.2.0",
+      "publisher": "MariaDB Corporation Ab",
+      "install_location": "C:\\Program Files\\MariaDB 13.0\\",
+      "uninstall": "MsiExec.exe /I{240168B2-20AC-4648-98DB-A3D529878694}"
+    },
+    {
+      "name": "MediaTek SP Driver version 5.16.32.04",
+      "version": "5.16.32.04",
+      "publisher": "MediaTek.Inc.",
+      "install_location": "C:\\Program Files\\MediaTek\\SP Driver\\",
+      "uninstall": "\"C:\\Program Files\\MediaTek\\SP Driver\\unins000.exe\""
+    },
+    {
+      "name": "Microsoft .NET 10.0 Templates 10.0.404 x64",
+      "version": "40.11.32123",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{02DB1925-3F84-47DA-BA91-4EC4132BD8A7}"
+    },
+    {
+      "name": "Microsoft .NET 11.0 Templates 11.0.100 x64",
+      "version": "44.11.32122",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{B81760F2-A44E-4386-B194-9B566AF02692}"
+    },
+    {
+      "name": "Microsoft .NET 8.0 Templates 8.0.428 (x64)",
+      "version": "32.11.64674",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{7B94DD6C-9108-472D-B444-929970002A75}"
+    },
+    {
+      "name": "Microsoft .NET AppHost Pack - 10.0.15 (x64)",
+      "version": "80.60.61788",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{4DEC2C1B-C001-4083-8071-518AE7EB5458}"
+    },
+    {
+      "name": "Microsoft .NET AppHost Pack - 10.0.15 (x64_arm64)",
+      "version": "80.60.61788",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{B90ADB92-62F8-475D-A14B-2321A71C0CCA}"
+    },
+    {
+      "name": "Microsoft .NET AppHost Pack - 10.0.15 (x64_x86)",
+      "version": "80.60.61788",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{03DB29EB-F553-4A6F-B173-FF8CA4E39752}"
+    },
+    {
+      "name": "Microsoft .NET AppHost Pack - 11.0.0 (x64)",
+      "version": "88.0.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{351C3068-4D44-4211-934A-BD6D0E146B4A}"
+    },
+    {
+      "name": "Microsoft .NET AppHost Pack - 11.0.0 (x64_arm64)",
+      "version": "88.0.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{2933095D-F61B-4A05-ABF0-0A1474969E8E}"
+    },
+    {
+      "name": "Microsoft .NET AppHost Pack - 11.0.0 (x64_x86)",
+      "version": "88.0.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{5B034B7D-ECFF-4035-B90F-7017B76B4FD7}"
+    },
+    {
+      "name": "Microsoft .NET AppHost Pack - 8.0.34 (x64)",
+      "version": "64.136.61665",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{AC0FA8CC-7077-4B53-9456-9E9EC9B7FD8C}"
+    },
+    {
+      "name": "Microsoft .NET AppHost Pack - 8.0.34 (x64_arm64)",
+      "version": "64.136.61665",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{E9DFCE62-04BC-4702-B4DC-320BFFA7E830}"
+    },
+    {
+      "name": "Microsoft .NET AppHost Pack - 8.0.34 (x64_x86)",
+      "version": "64.136.61665",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{28A1F13E-383C-4753-B95A-09804B30DC7A}"
+    },
+    {
+      "name": "Microsoft .NET Host - 10.0.9 (x64)",
+      "version": "80.36.53633",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{1BE0093C-57AD-46B8-9781-8437664E9957}"
+    },
+    {
+      "name": "Microsoft .NET Host - 11.0.0 (x64)",
+      "version": "88.0.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{C5C61129-4623-4CD0-8171-8269F0031228}"
+    },
+    {
+      "name": "Microsoft .NET Host - 6.0.26 (x64)",
+      "version": "48.104.7000",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{87EBA554-A002-4EF4-A612-4FFD06092B5B}"
+    },
+    {
+      "name": "Microsoft .NET Host - 8.0.23 (x64)",
+      "version": "64.92.45415",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{8CE231CE-B9F2-488A-BC60-FA1CE584B85D}"
+    },
+    {
+      "name": "Microsoft .NET Host - 9.0.15 (x64)",
+      "version": "72.60.50518",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{FCBBC2DC-2AD7-4F1F-A444-87A9FA94C6BA}"
+    },
+    {
+      "name": "Microsoft .NET Host FX Resolver - 10.0.9 (x64)",
+      "version": "80.36.53633",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{946BA18E-2919-4151-B0AF-54F42D8515A3}"
+    },
+    {
+      "name": "Microsoft .NET Host FX Resolver - 11.0.0 (x64)",
+      "version": "88.0.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{38B7ED99-01EA-48DD-BA1D-EFF6DCA3E890}"
+    },
+    {
+      "name": "Microsoft .NET Host FX Resolver - 6.0.26 (x64)",
+      "version": "48.104.7000",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{D81A418F-966D-4069-B3E8-5EE4843CA862}"
+    },
+    {
+      "name": "Microsoft .NET Host FX Resolver - 8.0.23 (x64)",
+      "version": "64.92.45415",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{A42EAA28-C0A1-4712-A109-796202435469}"
+    },
+    {
+      "name": "Microsoft .NET Host FX Resolver - 9.0.15 (x64)",
+      "version": "72.60.50518",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{04C98367-FC14-4376-8866-17AD112FB6B9}"
+    },
+    {
+      "name": "Microsoft .NET Runtime - 10.0.15 (x64)",
+      "version": "80.60.61788",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{D5FC86EF-1345-42F1-8C61-EE5BC9ECDED1}"
+    },
+    {
+      "name": "Microsoft .NET Runtime - 10.0.9 (x64)",
+      "version": "80.36.53633",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{39F1106B-DDD4-4912-9069-D6491D1142BE}"
+    },
+    {
+      "name": "Microsoft .NET Runtime - 11.0.0 (x64)",
+      "version": "88.0.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{A6827AC8-D32F-4DC0-B0DC-4AA397EFEC42}"
+    },
+    {
+      "name": "Microsoft .NET Runtime - 6.0.26 (x64)",
+      "version": "48.104.7000",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{1A02C1B1-05BB-49F7-9DFF-99A66C6877FC}"
+    },
+    {
+      "name": "Microsoft .NET Runtime - 8.0.23 (x64)",
+      "version": "64.92.45415",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{39884818-B550-4209-9A49-81F9D21F6012}"
+    },
+    {
+      "name": "Microsoft .NET Runtime - 8.0.34 (x64)",
+      "version": "64.136.61665",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{250BD575-2087-42A0-A81F-5BC767693F8A}"
+    },
+    {
+      "name": "Microsoft .NET Runtime - 9.0.15 (x64)",
+      "version": "72.60.50518",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{97184660-56D3-4CCB-8919-34067AB40CD6}"
+    },
+    {
+      "name": "Microsoft .NET SDK 11.0.100 (x64) from Visual Studio",
+      "version": "44.11.32122",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{E6463374-C3C7-4D60-BB8F-0BB537967B8D}"
+    },
+    {
+      "name": "Microsoft .NET Standard Targeting Pack - 2.1.0 (x64)",
+      "version": "24.0.28113",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{A7036CFB-B403-4598-85FF-D397ABB88173}"
+    },
+    {
+      "name": "Microsoft .NET Targeting Pack - 10.0.15 (x64)",
+      "version": "80.60.61788",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{AFC0318B-7DE3-4BD5-8AAA-28F081D4BF30}"
+    },
+    {
+      "name": "Microsoft .NET Targeting Pack - 11.0.0 (x64)",
+      "version": "88.0.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{03DF002B-1D83-4349-B267-4C533145283C}"
+    },
+    {
+      "name": "Microsoft .NET Targeting Pack - 8.0.34 (x64)",
+      "version": "64.136.61665",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{2007694E-AB37-428D-9F5C-F346BA1B0BF1}"
+    },
+    {
+      "name": "Microsoft .NET Toolset 11.0.100 (x64)",
+      "version": "44.11.32122",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{8CC73C13-5C84-44CE-92B1-4706E72045D4}"
+    },
+    {
+      "name": "Microsoft ASP.NET Core 8.0.34 Shared Framework (x64)",
+      "version": "8.0.34.26523",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{146870B2-D481-36BC-886E-CCF517CD5E5E}"
+    },
+    {
+      "name": "Microsoft ASP.NET Core 8.0.34 Targeting Pack (x64)",
+      "version": "8.0.34.26523",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{009E3C28-3D7A-305A-8A2A-CC9AC49FF9E8}"
+    },
+    {
+      "name": "Microsoft ASP.NET Core Module for IIS Express",
+      "version": "12.2.18292.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{FAFEE5E3-E00A-4CE8-B495-8F66A5FAB236}"
+    },
+    {
+      "name": "Microsoft ASP.NET Core Module V2 for IIS Express",
+      "version": "17.0.22116.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{F0E9CE77-BF19-4BBE-B228-A42F782F82E4}"
+    },
+    {
+      "name": "Microsoft ASP.NET Core Runtime - 10.0.15 (x64)",
+      "version": "80.60.61788",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{EB042529-EDC8-41D1-8012-EA92ACA9CF0A}"
+    },
+    {
+      "name": "Microsoft ASP.NET Core Runtime - 11.0.0 (x64)",
+      "version": "88.0.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{D9561FDA-210C-4962-B7CA-71D370D077F1}"
+    },
+    {
+      "name": "Microsoft ASP.NET Core Targeting Pack - 10.0.15 (x64)",
+      "version": "80.60.61788",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{9CEED6B7-F2F6-497D-9121-0CF5DEE70114}"
+    },
+    {
+      "name": "Microsoft ASP.NET Core Targeting Pack - 11.0.0 (x64)",
+      "version": "88.0.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{41976050-8581-4A68-BE59-F3FE40A20FFB}"
+    },
+    {
+      "name": "Microsoft Command Line Utilities 15 for SQL Server",
+      "version": "15.0.1300.359",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{41C0DB18-1790-465E-B0DD-D9CAA35CACBE}"
+    },
+    {
+      "name": "Microsoft ODBC Driver 17 for SQL Server",
+      "version": "17.10.6.1",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{43DC72F9-63AC-4FD1-A129-E4F6C1B6E7EF}"
+    },
+    {
+      "name": "Microsoft Office 64-bit Components 2016",
+      "version": "16.0.4266.1001",
+      "publisher": "Microsoft Corporation",
+      "install_location": "C:\\Program Files (x86)\\Microsoft Office\\",
+      "uninstall": "MsiExec.exe /X{90160000-002A-0000-1000-0000000FF1CE}"
+    },
+    {
+      "name": "Microsoft Office Shared 64-bit MUI (Russian) 2016",
+      "version": "16.0.4266.1001",
+      "publisher": "Microsoft Corporation",
+      "install_location": "C:\\Program Files (x86)\\Microsoft Office\\",
+      "uninstall": "MsiExec.exe /X{90160000-002A-0419-1000-0000000FF1CE}"
+    },
+    {
+      "name": "Microsoft SQL Server 2025 LocalDB",
+      "version": "17.0.4025.3",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{E9279A3D-A613-4CA7-8B09-A6C4C5C5AB5A}"
+    },
+    {
+      "name": "Microsoft System CLR Types для SQL Server 2019",
+      "version": "15.0.2000.5",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{0CB63CB8-B9EC-42FE-813C-0ED7AB4BA67B}"
+    },
+    {
+      "name": "Microsoft Update Health Tools",
+      "version": "3.74.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{1FC1A6C2-576E-489A-9B4A-92D21F542136}"
+    },
+    {
+      "name": "Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.4148",
+      "version": "9.0.30729.4148",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{4B6C7001-C7D6-3710-913E-5BC23FCE91E6}"
+    },
+    {
+      "name": "Microsoft Visual C++ 2010  x64 Redistributable - 10.0.40219",
+      "version": "10.0.40219",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{1D8E6291-B0D5-35EC-8441-6616F567A0F7}"
+    },
+    {
+      "name": "Microsoft Visual C++ 2012 x64 Additional Runtime - 11.0.61030",
+      "version": "11.0.61030",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{37B8F9C7-03FB-3253-8781-2517C99D7C00}"
+    },
+    {
+      "name": "Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0.61030",
+      "version": "11.0.61030",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{CF2BEA3C-26EA-32F8-AA9B-331F7E34BA97}"
+    },
+    {
+      "name": "Microsoft Visual C++ 2013 x64 Additional Runtime - 12.0.40664",
+      "version": "12.0.40664",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{010792BA-551A-3AC0-A7EF-0FAB4156C382}"
+    },
+    {
+      "name": "Microsoft Visual C++ 2013 x64 Minimum Runtime - 12.0.40664",
+      "version": "12.0.40664",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{53CF6934-A98D-3D84-9146-FC4EDF3D5641}"
+    },
+    {
+      "name": "Microsoft Visual C++ 2022 X64 Additional Runtime - 14.52.37025",
+      "version": "14.52.37025",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{7C4CBFB7-BF8C-4502-B531-11ED5291E924}"
+    },
+    {
+      "name": "Microsoft Visual C++ 2022 X64 Debug Runtime - 14.52.37025",
+      "version": "14.52.37025",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{5924A30B-0C86-4F92-B163-418E277C9BF6}"
+    },
+    {
+      "name": "Microsoft Visual C++ 2022 X64 Minimum Runtime - 14.52.37025",
+      "version": "14.52.37025",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{CE16724D-0E59-47A4-9E10-6C836A8C069D}"
+    },
+    {
+      "name": "Microsoft Visual Studio Code (User)",
+      "version": "1.145.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "C:\\Users\\Данил\\AppData\\Local\\Programs\\Microsoft VS Code\\",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\Programs\\Microsoft VS Code\\unins000.exe\""
+    },
+    {
+      "name": "Microsoft Visual Studio Installer",
+      "version": "4.13.34.52758",
+      "publisher": "Microsoft Corporation",
+      "install_location": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\"",
+      "uninstall": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\setup.exe\" /uninstall"
+    },
+    {
+      "name": "Microsoft Web Deploy 4.0",
+      "version": "10.0.9419",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{DE4FFB86-1944-4273-B040-92E920BD6861}"
+    },
+    {
+      "name": "Microsoft Windows Desktop Runtime - 10.0.15 (x64)",
+      "version": "80.60.61788",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{888E927F-F300-4F16-882A-B9A04F9513FB}"
+    },
+    {
+      "name": "Microsoft Windows Desktop Runtime - 10.0.9 (x64)",
+      "version": "80.36.53633",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{B7AC6B1E-81BF-44EB-B1DA-D9F4A255984B}"
+    },
+    {
+      "name": "Microsoft Windows Desktop Runtime - 11.0.0 (x64)",
+      "version": "88.0.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{C330EE54-D1ED-44A9-B0AF-27A1D73CD432}"
+    },
+    {
+      "name": "Microsoft Windows Desktop Runtime - 6.0.26 (x64)",
+      "version": "48.104.6996",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{1F0EB53C-BE30-436A-BC54-FA364227A870}"
+    },
+    {
+      "name": "Microsoft Windows Desktop Runtime - 8.0.23 (x64)",
+      "version": "64.92.45458",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{29177194-CD94-4A2D-97A4-EF77738E995A}"
+    },
+    {
+      "name": "Microsoft Windows Desktop Runtime - 8.0.34 (x64)",
+      "version": "64.136.61676",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{5F1EBCB8-3C24-4C04-9BD7-4EB654E2D559}"
+    },
+    {
+      "name": "Microsoft Windows Desktop Runtime - 9.0.15 (x64)",
+      "version": "72.60.50530",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{49C0C973-52B5-4F6D-AD4F-9B9DF928BAC6}"
+    },
+    {
+      "name": "Microsoft Windows Desktop Targeting Pack - 10.0.15 (x64)",
+      "version": "80.60.61788",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{69394459-97B9-47BA-9FD0-5A30DDBE8056}"
+    },
+    {
+      "name": "Microsoft Windows Desktop Targeting Pack - 11.0.0 (x64)",
+      "version": "88.0.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{6C8319E8-2DB9-4C3D-8706-17A9F8CBA172}"
+    },
+    {
+      "name": "Microsoft Windows Desktop Targeting Pack - 8.0.34 (x64)",
+      "version": "64.136.61676",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{25FE4D4A-15A8-437A-A597-7A59BE8C884E}"
+    },
+    {
+      "name": "Microsoft.Android.Ref.37 (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{EABB0A87-5A80-4490-B062-404B40FA875C}"
+    },
+    {
+      "name": "Microsoft.Android.Runtime.37.android (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{3458186C-2D25-4D1C-BE86-280E184FDA4C}"
+    },
+    {
+      "name": "Microsoft.Android.Runtime.CoreCLR.37.android-arm (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{373ADC43-3D74-4458-9196-BEF13D919DEA}"
+    },
+    {
+      "name": "Microsoft.Android.Runtime.CoreCLR.37.android-arm64 (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{0A92E55F-6202-4754-8995-A9F7E74A2CD7}"
+    },
+    {
+      "name": "Microsoft.Android.Runtime.CoreCLR.37.android-x64 (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{3E1E16CD-5639-4138-9451-B0E442D9BCCF}"
+    },
+    {
+      "name": "Microsoft.Android.Runtime.Mono.37.android-arm (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{2426E1A6-A237-447D-B91B-FC8B4137C84C}"
+    },
+    {
+      "name": "Microsoft.Android.Runtime.Mono.37.android-arm64 (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{761B9E60-6631-484B-8A5E-DC784A159559}"
+    },
+    {
+      "name": "Microsoft.Android.Runtime.Mono.37.android-x64 (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{492C9C57-DA8A-49E0-9A8D-F3ECAB341A89}"
+    },
+    {
+      "name": "Microsoft.Android.Runtime.Mono.37.android-x86 (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{406C1049-E6B1-4B63-BF2B-184EC1BB94A5}"
+    },
+    {
+      "name": "Microsoft.Android.Runtime.NativeAOT.37.android-arm (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{21A3E68C-E407-488F-90AC-FB38ABEC82EC}"
+    },
+    {
+      "name": "Microsoft.Android.Runtime.NativeAOT.37.android-arm64 (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{A7764D21-1813-4E58-AF26-B6068A416900}"
+    },
+    {
+      "name": "Microsoft.Android.Runtime.NativeAOT.37.android-x64 (x64)",
+      "version": "37.2.31.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{F9B11876-5D96-4B02-BC69-23A368211D4B}"
+    },
+    {
+      "name": "Microsoft.Android.Sdk.Windows (x64)",
+      "version": "36.1.118.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{FBD6181A-FACE-4219-A484-E94F495E2F93}"
+    },
+    {
+      "name": "Microsoft.AspNetCore.Components.WebView.Maui (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{6063800D-BC76-4C72-AA36-153864820383}"
+    },
+    {
+      "name": "Microsoft.iOS.Ref.net11.0_27.2 (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{6AB9FC67-A53D-4560-B476-486DAEECFAEF}"
+    },
+    {
+      "name": "Microsoft.iOS.Runtime.ios-arm64.net11.0_27.2 (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{F458501B-A29D-4922-99B9-EE6A01ABB036}"
+    },
+    {
+      "name": "Microsoft.iOS.Runtime.ios.net11.0_27.2 (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{58A2853D-736F-464E-8F59-E39D331D261C}"
+    },
+    {
+      "name": "Microsoft.iOS.Runtime.iossimulator-arm64.net11.0_27.2 (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{F7434CFC-9140-4DBA-8293-8177938A4D2E}"
+    },
+    {
+      "name": "Microsoft.iOS.Runtime.iossimulator-x64.net11.0_27.2 (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{2C7CF1E9-C453-4DF1-8567-04612334F5BA}"
+    },
+    {
+      "name": "Microsoft.iOS.Sdk.net10.0_26.0 (x64)",
+      "version": "26.0.11017.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{11C2E64A-A24D-4C07-8834-2FFD590D72E0}"
+    },
+    {
+      "name": "Microsoft.iOS.Sdk.net11.0_27.2 (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{820AF609-C4ED-4061-8D24-9EAD9684A28C}"
+    },
+    {
+      "name": "Microsoft.iOS.Templates (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{4AEF6D57-922B-4695-84A0-18458325084B}"
+    },
+    {
+      "name": "Microsoft.iOS.Windows.Sdk.net10.0_26.0 (x64)",
+      "version": "26.0.11017.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{AA38E6F3-35A2-4EC9-A142-C20524268E6B}"
+    },
+    {
+      "name": "Microsoft.iOS.Windows.Sdk.net11.0_27.2 (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{0FF8F1C1-CCB7-452C-8157-DCAD2C1B343D}"
+    },
+    {
+      "name": "Microsoft.MacCatalyst.Ref.net11.0_27.2 (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{14859200-F932-4612-9977-9A7769B535A8}"
+    },
+    {
+      "name": "Microsoft.MacCatalyst.Runtime.maccatalyst-arm64.net11.0_27.2 (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{09D16EED-4DDC-4565-ABB1-8FA5B331657D}"
+    },
+    {
+      "name": "Microsoft.MacCatalyst.Runtime.maccatalyst-x64.net11.0_27.2 (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{AC56980E-7205-489E-BA21-38E9E8925D79}"
+    },
+    {
+      "name": "Microsoft.MacCatalyst.Runtime.maccatalyst.net11.0_27.2 (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{0905ED51-AC56-461C-9FB4-E2452E1B47F0}"
+    },
+    {
+      "name": "Microsoft.MacCatalyst.Sdk.net10.0_26.0 (x64)",
+      "version": "26.0.11017.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{3A323A38-6579-4FEA-903A-A1ADD4AFAA60}"
+    },
+    {
+      "name": "Microsoft.MacCatalyst.Sdk.net11.0_27.2 (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{767BE892-2027-459A-BBB5-062FF785F098}"
+    },
+    {
+      "name": "Microsoft.MacCatalyst.Templates (x64)",
+      "version": "27.2.11039.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{CEC03243-7B55-4975-A46E-15EE54974D67}"
+    },
+    {
+      "name": "Microsoft.Maui.Controls (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{C604E16C-122C-4B6F-BD24-80AA10C7D699}"
+    },
+    {
+      "name": "Microsoft.Maui.Controls.Build.Tasks (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{1FCED219-4A6F-4E93-A09F-F217622E35C9}"
+    },
+    {
+      "name": "Microsoft.Maui.Controls.Core (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{F2C458B8-F897-4780-81E7-462AB0487C79}"
+    },
+    {
+      "name": "Microsoft.Maui.Controls.Xaml (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{323532B7-933B-4773-898A-CD60642E11DF}"
+    },
+    {
+      "name": "Microsoft.Maui.Core (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{17B1FA27-5D85-4C4F-8252-372A07786D2F}"
+    },
+    {
+      "name": "Microsoft.Maui.Essentials (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{BA69A724-4B17-4C6B-BF2D-AAE93D776524}"
+    },
+    {
+      "name": "Microsoft.Maui.Graphics (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{D1A15349-237E-4CC7-97DE-DDBFD629856B}"
+    },
+    {
+      "name": "Microsoft.Maui.Graphics.Win2D.WinUI.Desktop (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{8461D701-D4E7-4611-98A5-2917F634AE28}"
+    },
+    {
+      "name": "Microsoft.Maui.Resizetizer (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{EDA68475-DC65-484B-808D-94CCC9CB02A8}"
+    },
+    {
+      "name": "Microsoft.NET.Runtime.MonoAOTCompiler.Task (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{5786DA87-FD67-4879-A53A-60EB29BCC663}"
+    },
+    {
+      "name": "Microsoft.NET.Runtime.MonoTargets.Sdk (x64)",
+      "version": "10.0.15.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{F626C8CC-78B0-4FEF-AA60-7B4E189DAB0F}"
+    },
+    {
+      "name": "Microsoft.NET.Sdk.Android.Manifest-11.0.100 (x64)",
+      "version": "137.2.31",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{ABB0F5CC-D0E0-4F40-A465-C3336016CA27}"
+    },
+    {
+      "name": "Microsoft.NET.Sdk.iOS.Manifest-11.0.100 (x64)",
+      "version": "27.2.11039",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{D226BDF0-B2FF-42DE-A5F9-FF5D53B004BE}"
+    },
+    {
+      "name": "Microsoft.NET.Sdk.MacCatalyst.Manifest-11.0.100 (x64)",
+      "version": "27.2.11039",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{4A8EBCAC-A204-40CF-9492-05F246D9083E}"
+    },
+    {
+      "name": "Microsoft.NET.Sdk.macOS.Manifest-11.0.100 (x64)",
+      "version": "27.2.11039",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{BD81D8C6-9FD8-4810-8229-6294132D3776}"
+    },
+    {
+      "name": "Microsoft.NET.Sdk.Maui.Manifest-11.0.100 (x64)",
+      "version": "111.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{8B958ED7-4F5C-4694-8428-A29B477E4CFD}"
+    },
+    {
+      "name": "Microsoft.NET.Sdk.tvOS.Manifest-11.0.100 (x64)",
+      "version": "27.2.11039",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{5F1547E1-DD47-4309-9361-D004025B0F39}"
+    },
+    {
+      "name": "Microsoft.NET.Workload.Emscripten.Current.Manifest-11.0.100 (x64)",
+      "version": "89.144.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{04AE0362-8606-4112-A618-0BE566C5A4BA}"
+    },
+    {
+      "name": "Microsoft.NET.Workload.Emscripten.net10.Manifest-11.0.100 (x64)",
+      "version": "89.144.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{5ED64EDF-A2FB-446A-942B-0413E0A29023}"
+    },
+    {
+      "name": "Microsoft.NET.Workload.Emscripten.net6.Manifest-11.0.100 (x64)",
+      "version": "89.144.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{B6E2520E-9764-43CE-B2F6-BDF44E55A520}"
+    },
+    {
+      "name": "Microsoft.NET.Workload.Emscripten.net7.Manifest-11.0.100 (x64)",
+      "version": "89.144.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{00D5F095-3253-44EB-B3C7-10C7A8296D47}"
+    },
+    {
+      "name": "Microsoft.NET.Workload.Emscripten.net8.Manifest-11.0.100 (x64)",
+      "version": "89.144.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{9A44C414-DB43-400F-862D-CCDB8C26556E}"
+    },
+    {
+      "name": "Microsoft.NET.Workload.Emscripten.net9.Manifest-11.0.100 (x64)",
+      "version": "89.144.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{DCBBAB20-BEBE-448D-ABB5-C17E3DEB6C99}"
+    },
+    {
+      "name": "Microsoft.NET.Workload.Mono.Toolchain.Current.Manifest-11.0.100 (x64)",
+      "version": "89.144.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{FD20AF01-2C6F-4BEE-BC08-95350F5337F9}"
+    },
+    {
+      "name": "Microsoft.NET.Workload.Mono.Toolchain.net10.Manifest-11.0.100 (x64)",
+      "version": "89.144.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{3498A02C-0767-4653-94AF-0344280333E2}"
+    },
+    {
+      "name": "Microsoft.NET.Workload.Mono.Toolchain.net6.Manifest-11.0.100 (x64)",
+      "version": "89.144.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{0EA4AD7F-3EF2-40B9-B0C6-12F626F71E93}"
+    },
+    {
+      "name": "Microsoft.NET.Workload.Mono.Toolchain.net7.Manifest-11.0.100 (x64)",
+      "version": "89.144.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{89B25231-583F-416F-9A07-ED67ABD0AE4C}"
+    },
+    {
+      "name": "Microsoft.NET.Workload.Mono.Toolchain.net8.Manifest-11.0.100 (x64)",
+      "version": "89.144.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{56239904-8F00-40A3-B10E-3DF692E0DE3F}"
+    },
+    {
+      "name": "Microsoft.NET.Workload.Mono.Toolchain.net9.Manifest-11.0.100 (x64)",
+      "version": "89.144.61782",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{49B47315-3089-484A-B807-34D47E80ADEF}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.AOT.win-x64.Cross.android-arm (x64)",
+      "version": "10.0.15.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{323F95B5-FE22-47DE-B205-4165556227D1}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.AOT.win-x64.Cross.android-arm64 (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{F579EDC2-5571-4447-8DF7-08BD4476257E}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.AOT.win-x64.Cross.android-x64 (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{B0892B7B-DF7D-4D8B-9FF2-B65C5066B4DF}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.AOT.win-x64.Cross.android-x86 (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{C735BCD3-35E3-439E-847D-A64CE704E032}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.Mono.android-arm (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{E878FA7F-05E4-479C-A563-8574C3681DA8}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.Mono.android-arm64 (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{ABEAF5C5-D95A-43C5-862A-EE9F1360CD4C}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.Mono.android-x64 (x64)",
+      "version": "10.0.15.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{EE970305-8646-4043-8760-D83D4E041871}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.Mono.android-x86 (x64)",
+      "version": "10.0.15.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{AFF8FBEC-44BE-4D50-853A-3EF1AD644BF7}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.Mono.ios-arm64 (x64)",
+      "version": "10.0.15.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{759853F8-699B-42A2-82E0-A5DE2273D46A}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.Mono.iossimulator-arm64 (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{C5CC109B-CBC6-438D-8A45-239EA3FEA348}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.Mono.iossimulator-x64 (x64)",
+      "version": "11.0.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{BC130F7A-0176-4B0E-9CFC-05B4741436E5}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.Mono.maccatalyst-arm64 (x64)",
+      "version": "10.0.15.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{BD03BE23-0525-4783-A39F-EEACE7ACFF08}"
+    },
+    {
+      "name": "Microsoft.NETCore.App.Runtime.Mono.maccatalyst-x64 (x64)",
+      "version": "10.0.15.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{B0A7E07C-BA18-4191-91CF-431CA04B52B3}"
+    },
+    {
+      "name": "MiniFuse Control Center 1.2.1",
+      "version": "1.2.1",
+      "publisher": "Arturia",
+      "install_location": "C:\\Program Files (x86)\\Arturia\\MiniFuse Control Center\\",
+      "uninstall": "\"C:\\Program Files (x86)\\Arturia\\MiniFuse Control Center\\unins000.exe\""
+    },
+    {
+      "name": "MKVToolNix (64-bit)",
+      "version": "103.0.0",
+      "publisher": "Moritz Bunkus",
+      "install_location": "",
+      "uninstall": "C:\\Program Files\\MKVToolNix\\uninst.exe"
+    },
+    {
+      "name": "Native Instruments Controller Editor",
+      "version": "1.4.3.891",
+      "publisher": "Native Instruments",
+      "install_location": "C:\\Program Files\\Native Instruments\\Controller Editor\\",
+      "uninstall": ""
+    },
+    {
+      "name": "Native Instruments Guitar Rig 5",
+      "version": "5.1.0.2641",
+      "publisher": "Native Instruments",
+      "install_location": "C:\\Program Files\\Native Instruments\\Guitar Rig 5",
+      "uninstall": ""
+    },
+    {
+      "name": "Native Instruments Guitar Rig 6",
+      "version": "6.2.4",
+      "publisher": "Native Instruments & Team V.R",
+      "install_location": "",
+      "uninstall": "\"C:\\Program Files\\Common Files\\Native Instruments\\Guitar Rig 6\\unins000.exe\""
+    },
+    {
+      "name": "Native Instruments Kontakt 7",
+      "version": "7.3.2.0",
+      "publisher": "Native Instruments",
+      "install_location": "C:\\Program Files\\Native Instruments\\Kontakt 7",
+      "uninstall": ""
+    },
+    {
+      "name": "Native Instruments Kontakt 8",
+      "version": "8.1.0.0",
+      "publisher": "Native Instruments",
+      "install_location": "C:\\Program Files\\Native Instruments\\Kontakt 8",
+      "uninstall": ""
+    },
+    {
+      "name": "Native Instruments Service Center",
+      "version": "2.3.2.926",
+      "publisher": "Native Instruments",
+      "install_location": "C:\\Program Files\\Native Instruments\\Service Center\\",
+      "uninstall": ""
+    },
+    {
+      "name": "NCALayer v1.4",
+      "version": "",
+      "publisher": "Национальный удостоверяющий центр РК",
+      "install_location": "C:\\Users\\Данил\\AppData\\Roaming\\NCALayer\\",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Roaming\\NCALayer\\unins000.exe\""
+    },
+    {
+      "name": "Neural DSP Archetype Gojira",
+      "version": "1.0.0",
+      "publisher": "Neural DSP",
+      "install_location": "C:\\Program Files\\Neural DSP\\Archetype Gojira\\",
+      "uninstall": "\"C:\\Program Files\\Neural DSP\\Archetype Gojira\\unins000.exe\""
+    },
+    {
+      "name": "Neural DSP Archetype Plini",
+      "version": "2.0.1",
+      "publisher": "Neural DSP",
+      "install_location": "C:\\Program Files\\Neural DSP\\Archetype Plini\\",
+      "uninstall": "\"C:\\Program Files\\Neural DSP\\Archetype Plini\\unins000.exe\""
+    },
+    {
+      "name": "Node.js",
+      "version": "20.20.0",
+      "publisher": "Node.js Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{B71936C5-9ED7-4BC2-9383-4B3F102BE462}"
+    },
+    {
+      "name": "oeksound soothe2",
+      "version": "1.1.2",
+      "publisher": "oeksound",
+      "install_location": "C:\\ProgramData\\oeksound\\soothe2\\",
+      "uninstall": "\"C:\\ProgramData\\oeksound\\soothe2\\unins000.exe\""
+    },
+    {
+      "name": "Ollama version 0.40.16",
+      "version": "0.40.16",
+      "publisher": "Ollama",
+      "install_location": "C:\\Users\\Данил\\AppData\\Local\\Programs\\Ollama\\",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\Programs\\Ollama\\unins000.exe\""
+    },
+    {
+      "name": "OpenCode 2.3.0",
+      "version": "2.3.0",
+      "publisher": "OpenCode",
+      "install_location": "",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\Programs\\ai.opencode.desktop\\Uninstall OpenCode.exe\" /currentuser"
+    },
+    {
+      "name": "Oracle VirtualBox 7.2.20",
+      "version": "7.2.20",
+      "publisher": "Oracle and/or its affiliates",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{1BE8263F-4C5F-4D97-83EA-7B8114402767}"
+    },
+    {
+      "name": "PHP 8.3",
+      "version": "8.3.36",
+      "publisher": "PHP Group",
+      "install_location": "C:\\Users\\Данил\\AppData\\Local\\Microsoft\\WinGet\\Packages\\PHP.PHP.8.3_Microsoft.Winget.Source_8wekyb3d8bbwe",
+      "uninstall": "winget uninstall --product-code PHP.PHP.8.3_Microsoft.Winget.Source_8wekyb3d8bbwe"
+    },
+    {
+      "name": "Postman x64 11.81.0",
+      "version": "11.81.0",
+      "publisher": "Postman",
+      "install_location": "C:\\Users\\Данил\\AppData\\Local\\Postman",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\Postman\\Update.exe\" --uninstall"
+    },
+    {
+      "name": "Python 3.11.9 (64-bit)",
+      "version": "3.11.9150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\Package Cache\\{1da2e09b-199c-4def-9a99-93a8c1b8ddf2}\\python-3.11.9-amd64.exe\"  /uninstall"
+    },
+    {
+      "name": "Python 3.11.9 Add to Path (64-bit)",
+      "version": "3.11.9150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{CD925D17-C20C-441B-AAE2-4FA5B78C978F}"
+    },
+    {
+      "name": "Python 3.11.9 Core Interpreter (64-bit)",
+      "version": "3.11.9150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{B074012B-9B85-4049-BA01-A58A8C4C2236}"
+    },
+    {
+      "name": "Python 3.11.9 Development Libraries (64-bit)",
+      "version": "3.11.9150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{CEE03ABD-D5F9-4104-BFA5-520711B8D71F}"
+    },
+    {
+      "name": "Python 3.11.9 Documentation (64-bit)",
+      "version": "3.11.9150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{425B36E9-4EA6-47B4-88C3-E798BA903188}"
+    },
+    {
+      "name": "Python 3.11.9 Executables (64-bit)",
+      "version": "3.11.9150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{C038789C-DCB5-42D3-8C51-3BC9DDB26B90}"
+    },
+    {
+      "name": "Python 3.11.9 pip Bootstrap (64-bit)",
+      "version": "3.11.9150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{1D653E80-09B2-40AB-9530-7DF12E632F8A}"
+    },
+    {
+      "name": "Python 3.11.9 Standard Library (64-bit)",
+      "version": "3.11.9150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{9AFDC691-40E5-4B15-835F-9A524AC4672C}"
+    },
+    {
+      "name": "Python 3.11.9 Tcl/Tk Support (64-bit)",
+      "version": "3.11.9150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{57AC2A86-EC99-4E9C-9FF9-15DAA88D1FAE}"
+    },
+    {
+      "name": "Python 3.11.9 Test Suite (64-bit)",
+      "version": "3.11.9150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{A9F91BE3-1B3B-4CB4-A169-19E13DD70BEA}"
+    },
+    {
+      "name": "Python 3.11.9 Utility Scripts (64-bit)",
+      "version": "3.11.9150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{29CEC70F-9D96-472B-B6A1-AE7578376985}"
+    },
+    {
+      "name": "Python 3.14.2 (64-bit)",
+      "version": "3.14.2150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\Package Cache\\{0ef3959c-4dd0-4cd2-9d49-307eaf0a2bff}\\python-3.14.2-amd64.exe\"  /uninstall"
+    },
+    {
+      "name": "Python 3.14.2 Add to Path (64-bit)",
+      "version": "3.14.2150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{4B91344F-511C-4064-90AC-D3A106A6A19F}"
+    },
+    {
+      "name": "Python 3.14.2 Core Interpreter (64-bit)",
+      "version": "3.14.2150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{EF39D56D-D2F1-4D1E-87EF-6D3FC9EF4D5D}"
+    },
+    {
+      "name": "Python 3.14.2 Development Libraries (64-bit)",
+      "version": "3.14.2150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{78EB2837-5DCC-42E9-913A-91D0775038C6}"
+    },
+    {
+      "name": "Python 3.14.2 Documentation (64-bit)",
+      "version": "3.14.2150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{123A1B2C-D913-4500-BF5B-37D6A9BEB108}"
+    },
+    {
+      "name": "Python 3.14.2 Executables (64-bit)",
+      "version": "3.14.2150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{4827DB7C-EA57-4B8F-B5E8-80F2B368003D}"
+    },
+    {
+      "name": "Python 3.14.2 pip Bootstrap (64-bit)",
+      "version": "3.14.2150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{B629CC25-B4E0-4A9E-99C9-216A14F4144A}"
+    },
+    {
+      "name": "Python 3.14.2 Standard Library (64-bit)",
+      "version": "3.14.2150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{FDF326B0-ECA5-42EC-9125-7F5ACD5995B8}"
+    },
+    {
+      "name": "Python 3.14.2 Tcl/Tk Support (64-bit)",
+      "version": "3.14.2150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{24994863-C156-4E42-8FF6-F17D4773092E}"
+    },
+    {
+      "name": "Python 3.14.2 Test Suite (64-bit)",
+      "version": "3.14.2150.0",
+      "publisher": "Python Software Foundation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{F2FCB28C-F751-4F4C-A9B4-E1A70DDDADCD}"
+    },
+    {
+      "name": "Python 3.14.3",
+      "version": "3.14-64",
+      "publisher": "Python Software Foundation",
+      "install_location": "C:\\Users\\Данил\\AppData\\Local\\Python\\pythoncore-3.14-64",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0\\pymanager.exe\" uninstall --yes --by-id \"pythoncore-3.14-64\""
+    },
+    {
+      "name": "REAPER (x64)",
+      "version": "7.85",
+      "publisher": "Cockos Incorporated",
+      "install_location": "C:\\Program Files\\REAPER (x64)",
+      "uninstall": "\"C:\\Program Files\\REAPER (x64)\\Uninstall.exe\""
+    },
+    {
+      "name": "Room Sound Blasting Room Signature Series Drums",
+      "version": "1.1.0.1",
+      "publisher": "Room Sound",
+      "install_location": "C:\\Program Files\\Room Sound\\Blasting Room Signature Series Drums",
+      "uninstall": ""
+    },
+    {
+      "name": "Samsung USB Driver for Mobile Phones",
+      "version": "1.9.5.0",
+      "publisher": "Samsung Electronics Co., Ltd.",
+      "install_location": "",
+      "uninstall": "C:\\Program Files\\Samsung\\USB Drivers\\Uninstall.exe"
+    },
+    {
+      "name": "SoftEther VPN Client",
+      "version": "4.44.9807",
+      "publisher": "SoftEther VPN Project",
+      "install_location": "",
+      "uninstall": "\"C:\\Program Files\\SoftEther VPN Client\\vpnsetup.exe\""
+    },
+    {
+      "name": "Sonic Academy KICK 2",
+      "version": "1.1.7",
+      "publisher": "Sonic Academy",
+      "install_location": "C:\\Program Files\\Sonic Academy\\KICK 2\\",
+      "uninstall": "\"C:\\Program Files\\Sonic Academy\\KICK 2\\unins000.exe\""
+    },
+    {
+      "name": "Steinberg Cubase 13",
+      "version": "13.0.20",
+      "publisher": "Steinberg Media Technologies GmbH",
+      "install_location": "C:\\Program Files\\Steinberg\\Cubase 13\\",
+      "uninstall": "MsiExec.exe /I{2B68F691-AC02-46E5-B548-70C95A995DD9}"
+    },
+    {
+      "name": "Steinberg Cubase 15",
+      "version": "15.0.5",
+      "publisher": "Steinberg Media Technologies GmbH",
+      "install_location": "C:\\Program Files\\Steinberg\\Cubase 15\\",
+      "uninstall": "MsiExec.exe /I{61BDC3C9-0744-4C67-ADF5-248D94F39C0E}"
+    },
+    {
+      "name": "Steinberg Generic Lower Latency ASIO Driver 64bit",
+      "version": "1.0.30",
+      "publisher": "Steinberg Media Technologies GmbH",
+      "install_location": "C:\\Program Files\\Steinberg\\Asio\\",
+      "uninstall": "MsiExec.exe /I{16D5A798-10BE-4FF3-BB71-54C012CD0D7D}"
+    },
+    {
+      "name": "Steinberg Library Manager",
+      "version": "3.2.40",
+      "publisher": "Steinberg Media Technologies GmbH",
+      "install_location": "C:\\Program Files\\Steinberg\\Steinberg Library Manager\\",
+      "uninstall": "MsiExec.exe /I{AA78592A-F13C-4C8E-B849-7A398001FA7F}"
+    },
+    {
+      "name": "Steinberg Nuendo 12",
+      "version": "12.0.52",
+      "publisher": "Steinberg Media Technologies GmbH",
+      "install_location": "C:\\Program Files\\Steinberg\\Nuendo 12\\",
+      "uninstall": "MsiExec.exe /I{AD5AFAC0-CFF3-47A4-8C18-59E14E5EF606}"
+    },
+    {
+      "name": "TEAM R2R Network Block Runtime",
+      "version": "2.3.0",
+      "publisher": "TEAM R2R",
+      "install_location": "C:\\Program Files\\TEAM R2R\\Network Block Runtime\\",
+      "uninstall": "\"C:\\Program Files\\TEAM R2R\\Network Block Runtime\\unins000.exe\""
+    },
+    {
+      "name": "TEAM R2R Steinberg Silk Emulator",
+      "version": "1.4.0",
+      "publisher": "TEAM R2R",
+      "install_location": "C:\\Program Files\\TEAM R2R\\Steinberg Silk Emulator\\",
+      "uninstall": "\"C:\\Program Files\\TEAM R2R\\Steinberg Silk Emulator\\unins000.exe\""
+    },
+    {
+      "name": "Tesseract-OCR - open source OCR engine",
+      "version": "5.5.0.20241111",
+      "publisher": "Tesseract-OCR community",
+      "install_location": "",
+      "uninstall": "C:\\Program Files\\Tesseract-OCR\\tesseract-uninstall.exe"
+    },
+    {
+      "name": "The Orchestra Complete 3.0.3 Update",
+      "version": "3.0.3",
+      "publisher": "Best Service",
+      "install_location": "",
+      "uninstall": ""
+    },
+    {
+      "name": "TikTok LIVE Studio",
+      "version": "0.97.4",
+      "publisher": " TikTok Pte. Ltd.",
+      "install_location": "C:\\Program Files\\TikTok LIVE Studio",
+      "uninstall": "\"C:\\Program Files\\TikTok LIVE Studio\\TikTok LIVE Studio Uninstaller.exe\""
+    },
+    {
+      "name": "UJAM 0.4.1",
+      "version": "0.4.1",
+      "publisher": "UJAM Music Technology GmbH",
+      "install_location": "",
+      "uninstall": "\"C:\\Program Files\\UJAM\\UJAM\\Uninstall UJAM.exe\" /allusers"
+    },
+    {
+      "name": "uJAM Beatmaker Bundle",
+      "version": "2023.6",
+      "publisher": "NXTGN Music Technology GmbH",
+      "install_location": "C:\\ProgramData\\uJAM\\",
+      "uninstall": "\"C:\\ProgramData\\uJAM\\unins000.exe\""
+    },
+    {
+      "name": "UJAM USYNTH",
+      "version": "1.2.0",
+      "publisher": "UJAM",
+      "install_location": "C:\\ProgramData\\UJAM\\USYNTH\\",
+      "uninstall": "\"C:\\ProgramData\\UJAM\\USYNTH\\unins000.exe\""
+    },
+    {
+      "name": "Uninstall Tool",
+      "version": "3.6.0",
+      "publisher": "CrystalIDEA Software",
+      "install_location": "C:\\Program Files\\Uninstall Tool\\",
+      "uninstall": "\"C:\\Program Files\\Uninstall Tool\\unins000.exe\""
+    },
+    {
+      "name": "Universal CRT Tools x64",
+      "version": "10.1.28000.2705",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{B662E6C9-5F7A-B360-5FFE-CB0F45320431}"
+    },
+    {
+      "name": "Update for x64-based Windows Systems (KB5001716)",
+      "version": "8.94.0.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{B8D93870-98D1-4980-AFCA-E26563CDFB79}"
+    },
+    {
+      "name": "USYNTH-GLAM 1.0.0",
+      "version": "1.0.0",
+      "publisher": "UJAM",
+      "install_location": "C:\\Program Files\\UJAM\\USYNTH-GLAM\\",
+      "uninstall": "\"C:\\Program Files\\UJAM\\USYNTH-GLAM\\unins000.exe\""
+    },
+    {
+      "name": "Valhalla DSP bundle 2019",
+      "version": "2019",
+      "publisher": "Valhalla DSP, LLC & Team V.R",
+      "install_location": "C:\\Program Files\\Valhalla DSP\\",
+      "uninstall": "\"C:\\Program Files\\Valhalla DSP\\unins000.exe\""
+    },
+    {
+      "name": "VK Play Игровой центр",
+      "version": "4.1869",
+      "publisher": "ООО «ВК»",
+      "install_location": "C:\\Users\\Данил\\AppData\\Local\\GameCenter",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\GameCenter\\GameCenter.exe\" -uninstall -cp"
+    },
+    {
+      "name": "VocalNet version 1.0.1",
+      "version": "1.0.1",
+      "publisher": "Session Loops",
+      "install_location": "C:\\Program Files\\Session Loops\\",
+      "uninstall": "\"C:\\Program Files\\Session Loops\\unins000.exe\""
+    },
+    {
+      "name": "VocalNetCommunity version 1.0.4",
+      "version": "1.0.4",
+      "publisher": "Session Loops",
+      "install_location": "C:\\Program Files\\Session Loops\\",
+      "uninstall": "\"C:\\Program Files\\Session Loops\\unins001.exe\""
+    },
+    {
+      "name": "Vovious",
+      "version": "1.0.6",
+      "publisher": "DoublePi Technologies GmbH",
+      "install_location": "C:\\Program Files\\Vovious\\",
+      "uninstall": "\"C:\\Program Files\\Vovious\\unins000.exe\""
+    },
+    {
+      "name": "VS JIT Debugger",
+      "version": "17.0.157.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{6C1EDC0A-E71D-44D2-821C-213A5CD15498}"
+    },
+    {
+      "name": "VS Script Debugging Common",
+      "version": "17.0.199.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{338D37B0-605A-46EB-9259-9B7E2DDD3608}"
+    },
+    {
+      "name": "VS WCF Debugging",
+      "version": "17.0.157.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{F7F70D15-A1C1-42D5-A47F-AD0AC223C5AD}"
+    },
+    {
+      "name": "vs_communityx64msi",
+      "version": "18.13.12405",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{ABDE0147-280D-4E3C-84B0-2FACCA107520}"
+    },
+    {
+      "name": "vs_devenx64vmsi",
+      "version": "18.9.11915",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{BF77625C-A16F-44B6-8DDE-728D5435860F}"
+    },
+    {
+      "name": "vs_minshellinteropx64msi",
+      "version": "18.12.12302",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{D7D87CBC-A3E6-4063-9A31-40085BBC5FC6}"
+    },
+    {
+      "name": "vs_minshellx64msi",
+      "version": "18.13.12405",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{90431B90-5A94-4A66-B516-53F9E39D4D1D}"
+    },
+    {
+      "name": "Warface",
+      "version": "1.599",
+      "publisher": "ASTRUM LAB",
+      "install_location": "C:\\VK Play\\Warface",
+      "uninstall": "rundll32 url.dll,FileProtocolHandler vkplay://uninstall/0.1177?controlpanel=1"
+    },
+    {
+      "name": "Waves Ultimate",
+      "version": "2023.07.31",
+      "publisher": "Waves",
+      "install_location": "C:\\Program Files (x86)\\Waves\\",
+      "uninstall": "\"C:\\Program Files (x86)\\Waves\\unins000.exe\""
+    },
+    {
+      "name": "WifiAutoInstall version 2.0.0.10",
+      "version": "2.0.0.10",
+      "publisher": "Realtek, Inc.",
+      "install_location": "C:\\Program Files\\Realtek\\WifiAutoInstall\\",
+      "uninstall": "\"C:\\Program Files\\Realtek\\WifiAutoInstall\\unins000.exe\""
+    },
+    {
+      "name": "Windows App Certification Kit Native Components",
+      "version": "10.1.28000.2705",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{BDA36ADD-08FC-A59C-3DA8-D08829FC73BE}"
+    },
+    {
+      "name": "Windows SDK DirectX x64 Remote",
+      "version": "10.1.28000.2705",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /I{1A9F56C8-22CC-B4DB-56A6-69EAAB7D45CD}"
+    },
+    {
+      "name": "Windows Subsystem for Linux",
+      "version": "3.0.5.0",
+      "publisher": "Microsoft Corporation",
+      "install_location": "",
+      "uninstall": "MsiExec.exe /X{8ACC61B3-7BB9-4E69-9382-B0F4AA8F2677}"
+    },
+    {
+      "name": "WinRAR 5.10 (64-разрядная)",
+      "version": "5.10.0",
+      "publisher": "win.rar GmbH",
+      "install_location": "C:\\Program Files\\WinRAR\\",
+      "uninstall": "C:\\Program Files\\WinRAR\\uninstall.exe"
+    },
+    {
+      "name": "X-Eight2 version 2.0.0",
+      "version": "2.0.0",
+      "publisher": "",
+      "install_location": "C:\\Program Files\\Thenatan\\X-Eight2\\",
+      "uninstall": "\"C:\\Program Files\\Thenatan\\X-Eight2\\unins000.exe\""
+    },
+    {
+      "name": "XLN Audio Addictive Keys",
+      "version": "1.1.8",
+      "publisher": "XLN Audio",
+      "install_location": "C:\\Program Files\\XLN Audio\\Addictive Keys\\",
+      "uninstall": "\"C:\\Program Files\\XLN Audio\\Addictive Keys\\unins000.exe\""
+    },
+    {
+      "name": "XLN Audio XO",
+      "version": "1.4.5.9",
+      "publisher": "XLN Audio",
+      "install_location": "C:\\Program Files\\XLN Audio\\XO\\",
+      "uninstall": "\"C:\\Program Files\\XLN Audio\\XO\\unins000.exe\""
+    },
+    {
+      "name": "Xvox Pro",
+      "version": "1.0.3",
+      "publisher": "Nuro Audio",
+      "install_location": "C:\\ProgramData\\Nuro Audio\\Xvox Pro\\",
+      "uninstall": "\"C:\\ProgramData\\Nuro Audio\\Xvox Pro\\unins000.exe\""
+    },
+    {
+      "name": "Zona",
+      "version": "",
+      "publisher": "Zona Team",
+      "install_location": "",
+      "uninstall": "C:\\PROGRA~1\\Zona\\uninstall.exe"
+    },
+    {
+      "name": "Zoom Workplace",
+      "version": "7.1.9 (48550)",
+      "publisher": "Zoom Communications, Inc.",
+      "install_location": "C:\\Users\\Данил\\AppData\\Roaming\\Zoom\\bin",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Roaming\\Zoom\\uninstall\\Installer.exe\" /uninstall"
+    },
+    {
+      "name": "Яндекс Музыка 5.124.1",
+      "version": "5.124.1",
+      "publisher": "Яндекс Музыка",
+      "install_location": "",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Local\\Programs\\YandexMusic\\Uninstall Яндекс Музыка.exe\" /currentuser"
+    },
+    {
+      "name": "Яндекс.Диск",
+      "version": "3.2.52.5229",
+      "publisher": "Яндекс",
+      "install_location": "",
+      "uninstall": "\"C:\\Users\\Данил\\AppData\\Roaming\\Yandex\\YandexDisk2\\3.2.52.5229\\YandexDisk3Installer-5229.exe\" -uninstallcomplete"
+    }
+  ],
+  "paths": {
+    "music_collection": {
+      "paths": [
+        {
+          "path": "E:\\Музыка",
+          "exists": true,
+          "files": 9522,
+          "extensions": {
+            ".jpg": 3687,
+            ".mp3": 5599,
+            ".pdf": 18,
+            ".png": 31,
+            ".m3u": 1,
+            ".jpeg": 2,
+            ".flac": 134,
+            ".log": 14,
+            ".cue": 7,
+            ".txt": 2,
+            ".bmp": 1,
+            ".gp5": 26
+          }
+        }
+      ],
+      "tracks": 5733,
+      "artists_by_folder": 37,
+      "albums_by_folder": 328,
+      "read_only": true
+    },
+    "vst2": {
+      "paths": [
+        {
+          "path": "C:\\Program Files\\VstPlugins",
+          "exists": true,
+          "files": 1,
+          "extensions": {
+            ".dll": 1
+          }
+        },
+        {
+          "path": "C:\\Program Files\\Steinberg\\VstPlugins",
+          "exists": true,
+          "files": 170,
+          "extensions": {
+            ".dll": 151,
+            ".ini": 8,
+            ".ico": 8,
+            ".vst3": 3
+          }
+        },
+        {
+          "path": "C:\\Program Files (x86)\\VstPlugins",
+          "exists": false
+        }
+      ]
+    },
+    "vst3": {
+      "paths": [
+        {
+          "path": "C:\\Program Files\\Common Files\\VST3",
+          "exists": true,
+          "files": 172,
+          "extensions": {
+            ".vst3": 119,
+            ".bak": 1,
+            ".ini": 13,
+            ".ico": 13,
+            ".dll": 18,
+            ".json": 8
+          }
+        },
+        {
+          "path": "C:\\Program Files\\Common Files\\Steinberg\\VST3",
+          "exists": false
+        }
+      ]
+    },
+    "audio_apps": {
+      "paths": [
+        {
+          "path": "C:\\Program Files\\Steinberg",
+          "exists": true,
+          "files": 5198,
+          "extensions": {
+            ".dll": 290,
+            ".exe": 22,
+            ".htm": 6,
+            ".ico": 29,
+            ".png": 616,
+            ".wav": 158,
+            ".srf": 20,
+            ".txt": 463,
+            ".metrics": 13,
+            ".otf": 4,
+            ".ttf": 30,
+            ".xml": 3126,
+            ".html": 10,
+            ".css": 6,
+            ".js": 127,
+            "[no extension]": 6,
+            ".json": 30,
+            ".ts": 4,
+            ".pdf": 21,
+            ".syx": 15,
+            ".pxml": 5,
+            ".cpr": 74,
+            ".vstsound": 14,
+            ".vst3": 26,
+            ".ini": 20,
+            ".sofa": 3,
+            ".uidesc": 5,
+            ".dat": 1,
+            ".qm": 21,
+            ".mod": 9,
+            ".dtd": 6,
+            ".xsd": 6,
+            ".ent": 2,
+            ".xsl": 8,
+            ".xls": 1,
+            ".bin": 1
+          }
+        },
+        {
+          "path": "C:\\Program Files\\REAPER (x64)",
+          "exists": true,
+          "files": 2425,
+          "extensions": {
+            ".txt": 35,
+            ".ini": 1,
+            ".exe": 5,
+            ".dll": 47,
+            ".pdf": 1,
+            ".reaperthemezip": 2,
+            ".reabank": 1,
+            ".reascale": 1,
+            ".wav": 12,
+            ".png": 2068,
+            "[no extension]": 219,
+            ".rpl": 8,
+            ".0": 1,
+            ".0 (receiver)": 1,
+            ".0 (transmitter)": 1,
+            ".1 (receiver)": 1,
+            ".1 (transmitter)": 1,
+            ".reaperkeymap": 2,
+            ".reaperosc": 4,
+            ".lua": 3,
+            ".ttf": 2,
+            ".py": 1,
+            ".otf": 1,
+            ".html": 6,
+            ".js": 1
+          }
+        }
+      ]
+    }
+  },
+  "notes": [
+    "This is an inventory only; no files, projects, plugins or audio were changed.",
+    "Plugin documentation and versions require a second, product-specific audit."
+  ]
+}

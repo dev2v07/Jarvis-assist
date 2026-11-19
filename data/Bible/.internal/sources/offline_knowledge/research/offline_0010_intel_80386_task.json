@@ -1,0 +1,37 @@
+{
+  "task_type": "knowledge_draft",
+  "module": "offline_knowledge",
+  "topic_id": "offline_0010_intel_80386",
+  "model": "qwen3:8b",
+  "language": "ru",
+  "goal": "Draft a detailed but concise Russian learning card about Intel 80386, with distinct answer intents rather than paraphrased definitions.",
+  "source_documents": [
+    {
+      "id": "intel-386-history",
+      "url": "https://timeline.intel.com/1985/raising-the-bar-with-the-386",
+      "locator": "October 17, 1985, Raising the Bar with the 386",
+      "facts": [
+        "Intel introduced 80386 in 1985; the historical timeline dates the entry October 17.",
+        "The cited initial product had a 16 MHz clock and 275,000 transistors; do not generalize these numbers to every 386 variant."
+      ]
+    },
+    {
+      "id": "intel-sdm-vol1",
+      "url": "https://cdrdv2-public.intel.com/782149/253665-sdm-vol-1.pdf",
+      "locator": "Volume 1 section 2.1.3, printed page 2-1",
+      "facts": [
+        "Intel386 was the first 32-bit processor in Intel's IA-32 family, with 32-bit registers for operands and addressing.",
+        "It retained the lower 16-bit register portions for backward compatibility and provided virtual-8086 mode.",
+        "Its 32-bit address bus supports up to 4 GiB physical address space.",
+        "It supports segmented and flat memory models, and paging with fixed 4-KiB pages."
+      ]
+    }
+  ],
+  "constraints": [
+    "Return valid JSON only, in Russian, no more than five variants, at most 70 Russian words per variant.",
+    "Fields: overview (string), variants (array of objects with kind, question, text, source_ids), uncertainties (array), unsupported_claims (array).",
+    "Do not confuse 80386 with 8086 or 80286. Protected mode was introduced on 286; 386 added 32-bit addressing and paging. Do not say 386 invented protected mode.",
+    "Do not infer actual installed RAM, performance or the year of every variant from address-bus capability or launch entry.",
+    "This is only OLLAMA_DRAFT; do not assign VERIFIED."
+  ]
+}

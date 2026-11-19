@@ -1,0 +1,832 @@
+{
+  "version": 1,
+  "privacy": "local_only",
+  "safety": {
+    "not_a_clinician": true,
+    "no_diagnosis": true,
+    "no_prescriptions": true,
+    "crisis_action": "При непосредственной опасности обратиться в местную экстренную службу или к человеку рядом."
+  },
+  "cards": [
+    {
+      "id": "psych-001-facts-interpretations",
+      "topic": "саморефлексия",
+      "title": "Факты и интерпретации",
+      "text": "Полезно разделить наблюдаемое событие и вывод, который мы ему приписали. Факт можно описать без догадки о намерениях другого человека; интерпретацию стоит проверить вопросом и альтернативными объяснениями.",
+      "exercise": "Запиши ситуацию двумя списками: что можно было увидеть или услышать и что ты предположил.",
+      "sources": [
+        "https://beckinstitute.org/about/understanding-cbt/",
+        "https://beckinstitute.org/wp-content/uploads/2024/05/Cognitive-Model.pdf",
+        "https://beckinstitute.org/wp-content/uploads/2021/06/Testing-Your-Thoughts-Worksheet.pdf"
+      ],
+      "status": "SOURCE_REVIEW",
+      "audio_status": "AUDIO_PENDING",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-001-facts-interpretations.wav",
+      "audio_metadata": {
+        "duration": 20.96,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "questions": [
+        "Факты и интерпретации"
+      ],
+      "answer": "Полезно разделить наблюдаемое событие и вывод, который мы ему приписали. Факт можно описать без догадки о намерениях другого человека; интерпретацию стоит проверить вопросом и альтернативными объяснениями.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "detailed_material": {
+        "introduction": "В когнитивной модели Бека между событием и реакцией рассматриваются автоматические мысли или образы. Разделение наблюдения и объяснения помогает заметить, где заканчиваются доступные свидетельства и начинается догадка.",
+        "definitions": {
+          "observation": "то, что можно описать по конкретному действию, словам или времени",
+          "interpretation": "предположение о смысле, мотивах или будущем; может быть верным, но требует проверки"
+        },
+        "mechanism": "Одна ситуация может сопровождаться разными мыслями и реакциями. Реакции включают эмоции, поведение и телесные ощущения. Проверка мысли по свидетельствам полезнее автоматического объявления её ошибкой.",
+        "example": "Ситуация: собеседник ответил через два дня. Наблюдение: сообщение было отправлено во вторник, ответ пришёл в четверг. Интерпретация: «он меня игнорирует». Возможные альтернативы следует проверять вопросом, а не выдавать за установленный факт.",
+        "exercise": [
+          "Запишите событие без предположения о чужих намерениях.",
+          "Отметьте первую мысль и свою реакцию.",
+          "Запишите свидетельства за и против мысли.",
+          "Сформулируйте более точную гипотезу и один безопасный способ её проверить."
+        ],
+        "limits": "Это упражнение для самонаблюдения, а не диагностика или замена профессиональной помощи. Когда факты указывают на реальную угрозу, не следует убеждать себя, что опасности нет.",
+        "questions": [
+          "Что именно можно наблюдать?",
+          "Какая часть моего вывода остаётся гипотезой?",
+          "Какое свидетельство могло бы изменить моё мнение?"
+        ],
+        "source_map": [
+          "https://beckinstitute.org/about/understanding-cbt/",
+          "https://beckinstitute.org/wp-content/uploads/2024/05/Cognitive-Model.pdf",
+          "https://beckinstitute.org/wp-content/uploads/2021/06/Testing-Your-Thoughts-Worksheet.pdf"
+        ]
+      },
+      "research_metadata": {
+        "ollama_model": "qwen3:8b",
+        "ollama_result": "Черновик рассмотрен; исключены неподтверждённые ограничения метода и обещания улучшения",
+        "codex_review": "модель ситуация–мысль–реакция и упражнение сопоставлены с Beck Institute"
+      },
+      "response_variations": [
+        {
+          "variant_id": "psych-001-facts-interpretations-v1",
+          "variant_kind": "theory",
+          "parent_id": "psych-001-facts-interpretations",
+          "text": "В когнитивной модели ситуация связана с реакцией через то, как человек её истолковал. Фраза «он ответил через два дня» описывает наблюдение, а «он меня не уважает» уже предполагает мотив. Предположение можно проверить, не объявляя его сразу истинным или ложным.",
+          "source_ids": [
+            "https://beckinstitute.org/wp-content/uploads/2024/05/Cognitive-Model.pdf"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-001-facts-interpretations-v2",
+          "variant_kind": "example",
+          "parent_id": "psych-001-facts-interpretations",
+          "text": "Пример: коллега промолчал на встрече. Факт — он не ответил на ваш вопрос при других. Мысль «он специально меня унижает» может влиять на эмоции и поведение, но намерение коллеги ещё неизвестно. Уточняющий разговор даст больше информации, чем догадка.",
+          "source_ids": [
+            "https://beckinstitute.org/about/understanding-cbt/"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-001-facts-interpretations-v3",
+          "variant_kind": "exercise",
+          "parent_id": "psych-001-facts-interpretations",
+          "text": "Запишите четыре строки: ситуацию, первую мысль, реакцию и свидетельства за и против этой мысли. Затем составьте альтернативное объяснение, которое не отвергает наблюдаемые факты, и решите, какой вопрос поможет его проверить.",
+          "source_ids": [
+            "https://beckinstitute.org/wp-content/uploads/2021/06/Testing-Your-Thoughts-Worksheet.pdf"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-001-facts-interpretations-v4",
+          "variant_kind": "limits",
+          "parent_id": "psych-001-facts-interpretations",
+          "text": "Разделение фактов и интерпретаций помогает уточнить мысль, но не означает, что любое опасение необоснованно. Если наблюдаемые факты говорят об угрозе, сначала позаботьтесь о безопасности. Это упражнение не ставит диагноз и не заменяет помощь специалиста.",
+          "source_ids": [
+            "https://beckinstitute.org/about/understanding-cbt/"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "psych-002-emotions",
+      "topic": "эмоциональный интеллект",
+      "title": "Назвать эмоцию и потребность",
+      "text": "Эмоция — сигнал, а не приказ к действию. Попробуй назвать её, оценить интенсивность и спросить себя, какая потребность или граница сейчас затронута.",
+      "exercise": "Назови эмоцию, интенсивность от 0 до 10 и одну потребность, которую можно поддержать безопасным действием.",
+      "sources": [
+        "https://www.apa.org/topics/emotions",
+        "https://beckinstitute.org/wp-content/uploads/2024/05/Cognitive-Model.pdf"
+      ],
+      "status": "SOURCE_REVIEW",
+      "audio_status": "AUDIO_PENDING",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-002-emotions.wav",
+      "audio_metadata": {
+        "duration": 20.728,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "questions": [
+        "Назвать эмоцию и потребность"
+      ],
+      "answer": "Эмоция — сигнал, а не приказ к действию. Попробуй назвать её, оценить интенсивность и спросить себя, какая потребность или граница сейчас затронута.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "detailed_material": {
+        "introduction": "Эмоция — реакция на лично значимую ситуацию, в которой могут сочетаться переживание, телесные изменения и готовность действовать. Назвать переживание полезно для самонаблюдения; само название не определяет автоматически, что следует делать.",
+        "distinctions": [
+          "Ситуация: что произошло наблюдаемо. Мысль: как человек объясняет событие. Эмоция: что он переживает. Телесная реакция: например, напряжение или учащённое сердцебиение. Поведение: что он делает дальше.",
+          "Фраза «меня не уважают» — возможная интерпретация ситуации, а «я злюсь» — описание эмоции. Одно и то же событие может вызвать несколько эмоций; не нужно подгонять переживание под единственный ярлык."
+        ],
+        "example": "Коллега не ответил на сообщение до вечера. Наблюдение: ответа пока нет. Возможная мысль: «меня игнорируют». Переживание: тревога и досада. Телесный признак: напряжение плеч. Действие: отложить обвинительный ответ, уточнить срок ответа, если вопрос срочный.",
+        "exercise_steps": [
+          "Записать наблюдаемую ситуацию без вывода о мотивах другого человека.",
+          "Назвать одну или несколько эмоций и оценить их интенсивность по собственной шкале 0–10; шкала служит только для сравнения своих состояний.",
+          "Отделить мысль от эмоции и отметить заметные телесные реакции и побуждение к действию.",
+          "Выбрать безопасный следующий шаг: пауза, уточняющий вопрос, обращение за поддержкой или решение практической задачи."
+        ],
+        "limitations": "Эмоции сами по себе не доказывают истинность или ложность интерпретации. Не следует требовать от человека немедленно успокоиться или игнорировать реальные угрозы. Это учебное упражнение, а не диагностика и не замена профессиональной помощи.",
+        "self_check": [
+          "Какое предложение в примере является наблюдением, а какое — интерпретацией?",
+          "Может ли человек одновременно испытывать тревогу и досаду?",
+          "Почему оценка интенсивности 0–10 не является диагнозом?"
+        ],
+        "sources": [
+          "https://www.apa.org/topics/emotions",
+          "https://beckinstitute.org/wp-content/uploads/2024/05/Cognitive-Model.pdf"
+        ]
+      },
+      "research_metadata": {
+        "ollama_model": "qwen3:8b",
+        "ollama_result": "REJECTED: модель выдумала термин «модель Коба» и перепутала структуру CBT",
+        "codex_review": "определение эмоции сверено с APA, компоненты когнитивной модели — с Beck Institute"
+      },
+      "response_variations": [
+        {
+          "variant_id": "psych-002-emotions-v1",
+          "variant_kind": "definition",
+          "parent_id": "psych-002-emotions",
+          "query_patterns": [
+            "Что такое эмоция?"
+          ],
+          "text": "Эмоция — реакция на значимое для человека событие, в которой могут сочетаться субъективное переживание, изменения в теле и поведенческое побуждение. Назвать её — первый шаг к описанию происходящего, но название само по себе не предписывает действие.",
+          "source_ids": [
+            "https://www.apa.org/topics/emotions"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": null,
+          "created_at": "2026-11-15",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-002-emotions-v2",
+          "variant_kind": "distinction",
+          "parent_id": "psych-002-emotions",
+          "query_patterns": [
+            "Как отличить мысль от эмоции?"
+          ],
+          "text": "Разделите пять вещей: что произошло, какая мысль возникла, что почувствовали, что заметили в теле и что сделали. «Он не ответил» — наблюдение; «он меня игнорирует» — мысль; «мне тревожно и обидно» — описание переживания. Это разные части одного эпизода, и их полезно записывать отдельно.",
+          "source_ids": [
+            "https://beckinstitute.org/wp-content/uploads/2024/05/Cognitive-Model.pdf"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": null,
+          "created_at": "2026-11-15",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-002-emotions-v3",
+          "variant_kind": "exercise",
+          "parent_id": "psych-002-emotions",
+          "text": "Попробуйте короткую запись: ситуация без догадок о чужих мотивах; эмоции и их интенсивность по вашей шкале 0–10; первая мысль; телесные признаки; безопасный следующий шаг. Например, при задержке ответа можно сначала уточнить срок, вместо немедленного обвинения. Число на шкале нужно лишь для личного наблюдения.",
+          "source_ids": [
+            "https://www.apa.org/topics/emotions",
+            "https://beckinstitute.org/wp-content/uploads/2024/05/Cognitive-Model.pdf"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": null,
+          "created_at": "2026-11-15",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-002-emotions-v4",
+          "variant_kind": "limits",
+          "parent_id": "psych-002-emotions",
+          "text": "Название эмоции помогает понять переживание, но не показывает автоматически причину и не отменяет реальную проблему. Если ситуация опасна, сначала важна безопасность. Такое самонаблюдение не ставит диагноз и не заменяет помощь специалиста.",
+          "source_ids": [
+            "https://www.apa.org/topics/emotions"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": null,
+          "created_at": "2026-11-15",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "psych-003-boundaries",
+      "topic": "личные границы",
+      "title": "Границы и ясная просьба",
+      "text": "Граница описывает, что ты готов делать и что сделаешь, если условие нарушается. Просьба должна быть конкретной, реалистичной и не требовать чтения мыслей.",
+      "exercise": "Сформулируй просьбу по схеме: когда происходит X, я чувствую Y, мне нужно Z, можешь ли ты W?",
+      "sources": [
+        "https://www.gottman.com/blog/setting-boundaries-with-others/",
+        "https://www.apa.org/pubs/books/supplemental/Integrated-Behavioral-Health-Primary-Care-Third-Edition/chapter-4-figures-third.pdf"
+      ],
+      "status": "SOURCE_REVIEW",
+      "audio_status": "AUDIO_PENDING",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-003-boundaries.wav",
+      "audio_metadata": {
+        "duration": 20.423,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "questions": [
+        "Границы и ясная просьба"
+      ],
+      "answer": "Граница описывает, что ты готов делать и что сделаешь, если условие нарушается. Просьба должна быть конкретной, реалистичной и не требовать чтения мыслей.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "detailed_material": {
+        "introduction": "Граница описывает предел собственного участия: что человек готов делать и как поступит при нарушении этого предела. Просьба предлагает другому человеку изменить конкретное действие и требует его согласия.",
+        "distinctions": [
+          "Просьба: «Пожалуйста, предупреждай меня о позднем звонке». Ответ зависит от другого человека.",
+          "Граница: «После 22:00 я отключаю рабочие уведомления и отвечаю утром». Выполнение находится в зоне собственных действий.",
+          "Ультиматум или угроза наказанием не становятся конструктивной границей только из-за названия."
+        ],
+        "workflow": [
+          "Назвать конкретную ситуацию без приписывания мотива другому человеку.",
+          "Выбрать: нужна просьба о совместном изменении или предел собственного участия.",
+          "Сформулировать просьбу конкретно и выполнимо либо сообщить, что именно вы сделаете со своей стороны.",
+          "Оставить место для ответа другого человека; если согласия нет, решить, как действовать в рамках собственных возможностей."
+        ],
+        "example": "Коллега звонит вечером по несрочным вопросам. Просьба: «Можешь писать такие вопросы до конца рабочего дня?» Граница: «После работы я не отвечаю на несрочные звонки; прочитаю сообщение утром». Обе формулировки можно сообщить спокойно и без догадки о мотивах коллеги.",
+        "limitations": "Ясная формулировка не гарантирует, что другой согласится. В ситуации угрозы или принуждения приоритет имеет безопасность; не нужно рассчитывать, что одного разговора достаточно. Материал обучает коммуникации и не является терапией.",
+        "exercise": "Запишите одну повторяющуюся ситуацию. Составьте два разных предложения: просьбу, зависящую от согласия другого, и границу, которую вы можете выполнить сами. Проверьте, нет ли в границе скрытого требования контролировать собеседника.",
+        "self_check": [
+          "Что в примере зависит от ответа коллеги?",
+          "Как изменить фразу «Ты обязан отвечать мне сразу», чтобы она стала просьбой?",
+          "Почему границу нужно связывать со своим действием?"
+        ],
+        "sources": [
+          "https://www.gottman.com/blog/setting-boundaries-with-others/",
+          "https://www.apa.org/pubs/books/supplemental/Integrated-Behavioral-Health-Primary-Care-Third-Edition/chapter-4-figures-third.pdf"
+        ]
+      },
+      "research_metadata": {
+        "ollama_model": "qwen3:8b",
+        "ollama_result": "DRAFT_ONLY: примеры использованы после переписывания; авторство тезисов уточнено по Gottman Institute и APA",
+        "codex_review": "различие просьбы и границы, ассертивность и ограничение эффективности сверены с источниками"
+      },
+      "response_variations": [
+        {
+          "variant_id": "psych-003-boundaries-v1",
+          "variant_kind": "definition",
+          "parent_id": "psych-003-boundaries",
+          "query_patterns": [
+            "Чем граница отличается от просьбы?"
+          ],
+          "text": "Просьба предлагает другому человеку изменить поведение: «Пожалуйста, предупреждай о позднем звонке». Граница описывает ваше собственное действие: «После 22:00 я не отвечаю на несрочные звонки». Первое требует согласия собеседника, второе можно выполнить самостоятельно.",
+          "source_ids": [
+            "https://www.gottman.com/blog/setting-boundaries-with-others/"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": null,
+          "created_at": "2026-11-15",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-003-boundaries-v2",
+          "variant_kind": "formulation",
+          "parent_id": "psych-003-boundaries",
+          "query_patterns": [
+            "Как сформулировать личную границу?"
+          ],
+          "text": "Опишите конкретную ситуацию и своё действие без приписывания мотивов другому: «Когда рабочие вопросы приходят поздно вечером, я читаю их утром и отвечаю в рабочее время». Это понятнее, чем расплывчатое «уважай мои границы», потому что собеседник слышит, чего ожидать.",
+          "source_ids": [
+            "https://www.gottman.com/blog/setting-boundaries-with-others/",
+            "https://www.apa.org/pubs/books/supplemental/Integrated-Behavioral-Health-Primary-Care-Third-Edition/chapter-4-figures-third.pdf"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": null,
+          "created_at": "2026-11-15",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-003-boundaries-v3",
+          "variant_kind": "practice",
+          "parent_id": "psych-003-boundaries",
+          "text": "Упражнение: выберите одну повторяющуюся ситуацию и напишите две фразы. В первой попросите другого о конкретном действии. Во второй укажите, что сделаете сами при повторении ситуации. Проверьте: вторую фразу вы действительно можете исполнить без согласия собеседника?",
+          "source_ids": [
+            "https://www.gottman.com/blog/setting-boundaries-with-others/"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": null,
+          "created_at": "2026-11-15",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-003-boundaries-v4",
+          "variant_kind": "limits",
+          "parent_id": "psych-003-boundaries",
+          "text": "Даже спокойная и ясная просьба не гарантирует согласия. Если собеседник отвергает её, можно опираться на собственное действие — то, что вы готовы делать или прекратить. При угрозе или принуждении сначала важна безопасность; навык коммуникации сам по себе не решает опасную ситуацию.",
+          "source_ids": [
+            "https://www.gottman.com/blog/setting-boundaries-with-others/",
+            "https://www.apa.org/pubs/books/supplemental/Integrated-Behavioral-Health-Primary-Care-Third-Edition/chapter-4-figures-third.pdf"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": null,
+          "created_at": "2026-11-15",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "psych-004-stress",
+      "topic": "стресс",
+      "title": "Короткая стабилизация при стрессе",
+      "text": "При сильном напряжении сначала полезно вернуть внимание к телу и ближайшей обстановке: медленное дыхание без задержки, опора ногами на пол и перечисление нескольких предметов вокруг.",
+      "exercise": "Назови пять предметов, четыре телесных ощущения, три звука и одно ближайшее безопасное действие.",
+      "sources": [
+        "https://iris.who.int/bitstream/handle/10665/331901/9789240003910-eng.pdf",
+        "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/",
+        "https://www.nimh.nih.gov/health/publications/so-stressed-out-fact-sheet",
+        "https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/stress/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "LEGACY_AUDIO_UNREVIEWED",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-004-stress.wav",
+      "audio_metadata": {
+        "duration": 20.885,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "questions": [
+        "Короткая стабилизация при стрессе"
+      ],
+      "answer": "При сильном напряжении сначала полезно вернуть внимание к телу и ближайшей обстановке: медленное дыхание без задержки, опора ногами на пол и перечисление нескольких предметов вокруг.",
+      "verified_at": "2026-11-15",
+      "version": 2,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved",
+      "legacy_audio_status": "AUDIO_READY",
+      "updated_at": "2026-11-15T16:08:04+03:00",
+      "detailed_material": {
+        "introduction": "Короткая стабилизация — навык для момента сильного напряжения: заметить переживание, восстановить контакт с телом и обстановкой, затем выбрать ближайшее безопасное действие. В руководстве WHO это называется grounding. Оно не требует, чтобы чувство быстро исчезло, и не заменяет помощь при длительных проблемах.",
+        "definitions": {
+          "stress": "Физический или психический ответ на внешний стрессор; он может быть кратким или повторяться (NIMH).",
+          "grounding": "Осознанное переключение внимания на переживание, тело и непосредственно доступные признаки окружающей обстановки (WHO).",
+          "stressor": "Ситуация или обстоятельство, связанное с напряжением; например, рабочая нагрузка, болезнь или конфликт (NIMH/NHS)."
+        },
+        "mechanism": "WHO предлагает последовательность «заметить мысли и чувства → замедлиться и ощутить тело → снова обратить внимание на мир вокруг и действие». Руководство не обещает убрать неприятное переживание. Нельзя обещать гарантированное снижение физиологического возбуждения от одной короткой практики.",
+        "signs_and_context": "Стресс может сопровождаться мышечным напряжением, головной болью, изменениями сна, трудностями сосредоточения и раздражительностью. Эти признаки неспецифичны: нельзя по ним установить диагноз или исключить физическую причину. Стрессоры включают работу, отношения, финансы и здоровье; у человека возможны несколько одновременно.",
+        "steps": [
+          "Если есть непосредственная угроза, сначала переместиться в безопасное место и обратиться за помощью.",
+          "Назвать переживание без оценки; отметить, где находятся стопы и руки.",
+          "Удобно сесть или встать. Мягко выдохнуть; не задерживать и не форсировать дыхание. Счёт допустим только по желанию.",
+          "Назвать пять видимых предметов, три-четыре звука и одно ощущение от поверхности. Число — ориентир из WHO, не обязательный тест.",
+          "Выбрать один небольшой безопасный шаг или обратиться к человеку за поддержкой."
+        ],
+        "breathing_option": "NHS описывает мягкое регулярное дыхание с необязательным счётом до пяти на вдохе и выдохе около пяти минут. При неудобстве можно не считать и сосредоточиться на зрении, звуках или осязании.",
+        "example": "Перед сложным разговором человек замечает напряжение плеч и мысль «всё пойдёт плохо». Он ощущает стопы на полу, называет предметы и звуки, затем записывает один вопрос для встречи. Это не доказывает, что ситуация безопасна или напряжение исчезнет.",
+        "common_mistakes": [
+          "Обещать себе полное успокоение за 30 секунд и считать оставшееся чувство провалом.",
+          "Форсировать вдох, задерживать дыхание или делать счёт обязательным.",
+          "Списывать на стресс любой физический симптом без медицинской оценки.",
+          "Использовать упражнение вместо ухода от реальной опасности, поддержки или решения стрессора."
+        ],
+        "faq": [
+          {
+            "question": "Нужно ли выполнять все шаги?",
+            "answer": "Нет. Можно выбрать доступные сейчас ощущения и безопасное действие."
+          },
+          {
+            "question": "Можно ли делать это без дыхательного упражнения?",
+            "answer": "Да, внимание к опоре, зрению, звукам и осязанию — отдельные части grounding у WHO."
+          },
+          {
+            "question": "Когда нужна помощь?",
+            "answer": "Если симптомы мешают жизни, сохраняются или самопомощь не работает — обратиться к специалисту; при непосредственной опасности — в местную экстренную службу."
+          }
+        ],
+        "self_check": [
+          "Какую цель WHO ставит перед grounding — устранить эмоцию или вернуть возможность действовать?",
+          "Назовите две альтернативы дыхательному фокусу.",
+          "Какие признаки означают, что одной самопомощи может быть недостаточно?"
+        ],
+        "further_topics": [
+          "Продолжительный стресс и организация нагрузки",
+          "Поддержка через общение",
+          "Самонаблюдение и дневник стрессоров"
+        ],
+        "limitations": "Материал образовательный. Jarvis не диагностирует тревожное расстройство и не назначает лечение. При опасности или ухудшении самочувствия обращаться за местной экстренной или профессиональной помощью.",
+        "source_map": [
+          {
+            "url": "https://iris.who.int/bitstream/handle/10665/331901/9789240003910-eng.pdf",
+            "locator": "Part 1, pp. 37–41",
+            "supports": "grounding: переживание, опора, зрение/слух/осязание, действие и ограничение цели"
+          },
+          {
+            "url": "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/",
+            "locator": "Breathing exercises for stress, steps 1–5",
+            "supports": "положение и мягкое дыхание; необязательный счёт до пяти и пять минут"
+          },
+          {
+            "url": "https://www.nimh.nih.gov/health/publications/so-stressed-out-fact-sheet",
+            "locator": "Stress vs Anxiety; Coping; Recognize When You Need More Help",
+            "supports": "определение, различие, признаки и критерии помощи"
+          },
+          {
+            "url": "https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/stress/",
+            "locator": "Symptoms, Things to try, When to get help, Causes",
+            "supports": "признаки, небольшие задачи, социальная поддержка, помощь"
+          }
+        ]
+      },
+      "response_variations": [
+        {
+          "variant_id": "psych-004-stress-v1",
+          "variant_kind": "principle",
+          "parent_id": "psych-004-stress",
+          "query_patterns": [
+            "Что такое заземление при стрессе?",
+            "Помогает ли заземление убрать эмоции?"
+          ],
+          "text": "Заземление при стрессе — это возвращение внимания к тому, что происходит сейчас: заметить переживание, ощутить опору тела и назвать видимые или слышимые вещи вокруг. В руководстве WHO цель упражнения — снова включиться в ситуацию и выбрать полезное действие. Оно не обязано устранять тревогу или другие тяжёлые эмоции.",
+          "source_ids": [
+            "https://iris.who.int/bitstream/handle/10665/331901/9789240003910-eng.pdf"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-004-stress-v2",
+          "variant_kind": "guided_exercise",
+          "parent_id": "psych-004-stress",
+          "query_patterns": [
+            "Как быстро стабилизироваться при стрессе?",
+            "Что сделать при сильном стрессе прямо сейчас?"
+          ],
+          "text": "Попробуйте короткую практику: отметьте про себя, что вы сейчас чувствуете; поставьте стопы на пол и ощутите опору; мягко выдохните без задержки дыхания; назовите пять предметов, которые видите, и три-четыре звука; коснитесь доступной поверхности и отметьте её фактуру. Затем выберите одно ближайшее безопасное действие. Если обстановка действительно опасна, прежде всего уходите в безопасное место и зовите помощь.",
+          "source_ids": [
+            "https://iris.who.int/bitstream/handle/10665/331901/9789240003910-eng.pdf",
+            "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-004-stress-v3",
+          "variant_kind": "breathing",
+          "parent_id": "psych-004-stress",
+          "query_patterns": [
+            "Как дышать при стрессе без задержки?",
+            "Нужно ли считать до пяти при дыхании?"
+          ],
+          "text": "Для спокойной дыхательной практики NHS предлагает устроиться удобно, при сидении или стоянии поставить стопы на пол и дышать мягко, регулярно, без усилия. Можно считать до пяти на вдохе и выдохе, только если это удобно: достигать пяти обязательно не нужно. NHS предлагает практиковать около пяти минут. Это вариант самопомощи, а не способ установить причину симптомов.",
+          "source_ids": [
+            "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-004-stress-v4",
+          "variant_kind": "alternative",
+          "parent_id": "psych-004-stress",
+          "query_patterns": [
+            "Что делать, если дыхательное упражнение неприятно?",
+            "Можно ли заземлиться без фокуса на дыхании?"
+          ],
+          "text": "Если сосредоточение на дыхании сейчас неприятно, не заставляйте себя менять ритм. Можно оставить обычное дыхание и переключиться на другие части заземления из руководства WHO: почувствовать стопы, перечислить видимые предметы, звуки и ощущения от поверхности под пальцами. Важнее заметить окружение и выбрать безопасный следующий шаг, чем выполнить все пункты по счёту.",
+          "source_ids": [
+            "https://iris.who.int/bitstream/handle/10665/331901/9789240003910-eng.pdf",
+            "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-004-stress-v5",
+          "variant_kind": "distinction",
+          "parent_id": "psych-004-stress",
+          "query_patterns": [
+            "Чем стресс отличается от тревоги?",
+            "Что такое стресс и тревога?"
+          ],
+          "text": "NIMH описывает стресс как физический или психический ответ на внешний стрессор, например нагрузку или болезнь; стрессор бывает кратким или повторяющимся. Тревога может сохраняться и без текущей угрозы. Беспокойство, напряжение и проблемы со сном встречаются в обоих случаях, поэтому по одному ощущению Jarvis не может поставить диагноз. Если состояние мешает жить, стоит обсудить его со специалистом.",
+          "source_ids": [
+            "https://www.nimh.nih.gov/health/publications/so-stressed-out-fact-sheet"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-004-stress-v6",
+          "variant_kind": "help_threshold",
+          "parent_id": "psych-004-stress",
+          "query_patterns": [
+            "Когда обращаться за помощью из-за стресса?",
+            "Когда самопомощи при стрессе недостаточно?"
+          ],
+          "text": "Обратитесь к квалифицированному специалисту, если стресс или тревога не проходят, мешают повседневным делам, ведут к избеганию ситуаций или самостоятельные шаги не помогают. Телесные симптомы не следует автоматически списывать на стресс: их причину оценивает медик. Если есть непосредственная опасность для вас или другого человека, обратитесь в местную экстренную службу и к человеку рядом.",
+          "source_ids": [
+            "https://www.nimh.nih.gov/health/publications/so-stressed-out-fact-sheet",
+            "https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/stress/"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-004-stress-v7",
+          "variant_kind": "practical_followup",
+          "parent_id": "psych-004-stress",
+          "query_patterns": [
+            "Что делать после упражнения от стресса?",
+            "Как перейти от заземления к действию?"
+          ],
+          "text": "Заземление полезно связать с конкретным действием. После короткой паузы спросите себя: какая задача сейчас зависит от меня и какой один безопасный шаг я могу сделать? Например, записать три срочных дела и начать с первого, попросить помощи или заранее подготовить завтрашнюю поездку. NHS советует делить нагрузку на небольшие цели; WHO — возвращать внимание к действию, которое соответствует вашим ценностям.",
+          "source_ids": [
+            "https://iris.who.int/bitstream/handle/10665/331901/9789240003910-eng.pdf",
+            "https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/stress/"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-004-stress-v8",
+          "variant_kind": "limits_and_mistakes",
+          "parent_id": "psych-004-stress",
+          "query_patterns": [
+            "Какие ошибки бывают в упражнениях при стрессе?",
+            "Почему заземление не помогает сразу?"
+          ],
+          "text": "Не считайте упражнение неудачным только потому, что неприятная эмоция осталась: WHO прямо объясняет, что заземление не предназначено для её исчезновения. Не форсируйте дыхание и не превращайте счёт в обязательную норму — NHS рекомендует комфортный ритм. Не используйте упражнение вместо решения реальной угрозы или обращения за помощью, если симптомы сохраняются и мешают жизни.",
+          "source_ids": [
+            "https://iris.who.int/bitstream/handle/10665/331901/9789240003910-eng.pdf",
+            "https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/",
+            "https://www.nimh.nih.gov/health/publications/so-stressed-out-fact-sheet"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ],
+      "research_metadata": {
+        "ollama_model": "qwen3:8b",
+        "ollama_task": "data/Bible/.internal/sources/knowledge3/psychology/research/psych-004-stress_task.json",
+        "ollama_draft": "data/Bible/.internal/sources/knowledge3/psychology/research/psych-004-stress_ollama_draft.json",
+        "ollama_result": "DRAFT_ONLY: eight questions, not substantive answers; unsupported control/excitation claims and fixed duration rejected",
+        "codex_review": "WHO Part 1 pp. 37–41; NHS breathing/stress; NIMH stress fact sheet, checked 2026-11-15"
+      },
+      "quality_review": {
+        "status": "VERIFIED",
+        "scope": "new detailed_material and eight response_variations only; old text/answer and WAV not reverified",
+        "reviewed_by": "Codex",
+        "reviewed_at": "2026-11-15T16:08:04+03:00",
+        "broken_legacy_source": "https://www.nhs.uk/mental-health/conditions/stress-anxiety-depression/understanding-stress/",
+        "broken_legacy_source_http_status": 404,
+        "source_count": 4,
+        "variant_count": 8,
+        "audio_assessment": "existing WAV retained but transcript correspondence unverified"
+      }
+    },
+    {
+      "id": "psych-005-communication",
+      "topic": "общение",
+      "title": "Активное слушание",
+      "text": "Активное слушание состоит из внимания, краткого перефразирования и уточняющего вопроса. Оно не требует автоматически соглашаться и помогает снизить количество неверных предположений.",
+      "exercise": "Перефразируй позицию собеседника одним предложением и задай один уточняющий вопрос.",
+      "sources": [
+        "https://www.apa.org/topics/relationships/communication"
+      ],
+      "status": "SOURCE_REVIEW",
+      "audio_status": "AUDIO_PENDING",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-005-communication.wav",
+      "audio_metadata": {
+        "duration": 18.113,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "questions": [
+        "Активное слушание"
+      ],
+      "answer": "Активное слушание состоит из внимания, краткого перефразирования и уточняющего вопроса. Оно не требует автоматически соглашаться и помогает снизить количество неверных предположений.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "research_metadata": {
+        "ollama_model": "qwen3:8b",
+        "ollama_role": "draft_variants_only",
+        "ollama_result": "Черновик вернул неполный JSON и только один вариант; не принят.",
+        "codex_review": "Сохранены границы: навык коммуникации, не диагноз и не психотерапевтическое лечение. Варианты проверены на отсутствие обещаний результата и стигматизирующих формулировок."
+      },
+      "response_variations": [
+        {
+          "variant_id": "psych-005-communication-v1",
+          "variant_kind": "definition",
+          "parent_id": "psych-005-communication",
+          "text": "Активное слушание — это способ проверить понимание: сначала уделить внимание, затем кратко передать услышанное своими словами и задать уточняющий вопрос. Оно не требует соглашаться с собеседником и не означает, что вы обязаны решить его проблему.",
+          "source_ids": [
+            "https://www.apa.org/topics/relationships/communication"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-005-communication-v2",
+          "variant_kind": "steps",
+          "parent_id": "psych-005-communication",
+          "text": "Практическая последовательность: убери отвлекающий фактор; назови тему, которую понял; перефразируй без обвинения; задай один открытый вопрос; проверь, правильно ли понял ответ. Если разговор становится небезопасным, навык слушания не отменяет право поставить паузу.",
+          "source_ids": [
+            "https://www.apa.org/topics/relationships/communication"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-005-communication-v3",
+          "variant_kind": "example",
+          "parent_id": "psych-005-communication",
+          "text": "Пример: вместо «Ты опять всё испортил» можно сказать «Я услышал, что тебя расстроила задержка и ты ожидал другого плана. Правильно ли я понял, что сейчас важнее обсудить сроки?» Такая фраза проверяет смысл, но не подтверждает каждую оценку как факт.",
+          "source_ids": [
+            "https://www.apa.org/topics/relationships/communication"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-005-communication-v4",
+          "variant_kind": "mistakes",
+          "parent_id": "psych-005-communication",
+          "text": "Ошибки — перебивать советом, превращать перефразирование в спор, задавать сразу несколько вопросов, использовать «я понимаю» без проверки и требовать откровенности от человека, который не готов говорить. Активное слушание не должно становиться техникой давления.",
+          "source_ids": [
+            "https://www.apa.org/topics/relationships/communication"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "psych-005-communication-v5",
+          "variant_kind": "reflection",
+          "parent_id": "psych-005-communication",
+          "text": "После разговора можно проверить себя четырьмя вопросами: что человек сообщил буквально, что я додумал, какой вопрос помог уточнить смысл и где я начал защищаться или давать непрошеный совет. Это упражнение развивает наблюдательность, но не является диагностикой.",
+          "source_ids": [
+            "https://www.apa.org/topics/relationships/communication"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "psych-006-self-compassion",
+      "topic": "самооценка",
+      "title": "Разговор с собой без унижения",
+      "text": "Самосострадание не отменяет ответственности. Оно помогает оценить ошибку как конкретное действие, которое можно исправить, а не как доказательство собственной бесполезности.",
+      "exercise": "Опиши ошибку нейтрально, назови чему она научила и выбери один исправимый следующий шаг.",
+      "sources": [
+        "https://self-compassion.org/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-006-self-compassion.wav",
+      "audio_metadata": {
+        "duration": 19.489,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "questions": [
+        "Разговор с собой без унижения"
+      ],
+      "answer": "Самосострадание не отменяет ответственности. Оно помогает оценить ошибку как конкретное действие, которое можно исправить, а не как доказательство собственной бесполезности.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "psych-007-conflict",
+      "topic": "конфликты",
+      "title": "Пауза перед конфликтом",
+      "text": "Пауза полезна, когда разговор превращается в обмен импульсивными реакциями. Важно обозначить возвращение к разговору, а не использовать молчание как наказание.",
+      "exercise": "Сформулируй нейтральную фразу для паузы и время, когда вернёшься к обсуждению.",
+      "sources": [
+        "https://www.gottman.com/blog/manage-conflict-the-six-skills/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-007-conflict.wav",
+      "audio_metadata": {
+        "duration": 16.401,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "questions": [
+        "Пауза перед конфликтом"
+      ],
+      "answer": "Пауза полезна, когда разговор превращается в обмен импульсивными реакциями. Важно обозначить возвращение к разговору, а не использовать молчание как наказание.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "psych-008-reflection",
+      "topic": "саморефлексия",
+      "title": "Итог поддерживающей сессии",
+      "text": "Завершая разговор, полезно отделить главное наблюдение, чувство, выбранное действие и вопрос, который остался открытым. Это не диагноз и не медицинское заключение.",
+      "exercise": "Запиши четыре строки: что произошло, что я чувствую, что могу сделать сегодня, какая помощь нужна.",
+      "sources": [
+        "https://www.apa.org/topics/psychotherapy"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/psychology/audio/psych-008-reflection.wav",
+      "audio_metadata": {
+        "duration": 18.397,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "questions": [
+        "Итог поддерживающей сессии"
+      ],
+      "answer": "Завершая разговор, полезно отделить главное наблюдение, чувство, выбранное действие и вопрос, который остался открытым. Это не диагноз и не медицинское заключение.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    }
+  ]
+}

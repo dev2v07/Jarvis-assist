@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "project": "JARVIS KNOWLEDGE & CREATIVE INTELLIGENCE 3.0",
+  "modules": [
+    {
+      "id": "guitar_encyclopedia",
+      "priority": 3,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/guitar"
+    },
+    {
+      "id": "psychology_support",
+      "priority": 3,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/psychology"
+    },
+    {
+      "id": "books_literature",
+      "priority": 4,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/literature"
+    },
+    {
+      "id": "personal_music_intelligence",
+      "priority": 2,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/music"
+    },
+    {
+      "id": "programming_mentor",
+      "priority": 2,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/programming"
+    },
+    {
+      "id": "coding_developer",
+      "priority": 1,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/coding_projects"
+    },
+    {
+      "id": "music_production",
+      "priority": 2,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/audio"
+    },
+    {
+      "id": "voice_production_mentor",
+      "priority": 3,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/voice"
+    },
+    {
+      "id": "daw_control",
+      "priority": 5,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/daw"
+    },
+    {
+      "id": "mixing_mastering_engineer",
+      "priority": 5,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/mixing"
+    }
+  ]
+}

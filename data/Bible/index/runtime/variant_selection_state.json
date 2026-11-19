@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "recent_variant_ids": [
+    "psych-004-stress-v7",
+    "offline_0002_intel_8086-v1"
+  ],
+  "usage": {
+    "psych-004-stress-v7": 1,
+    "offline_0002_intel_8086-v1": 1
+  },
+  "updated_at": "2026-11-18T13:56:03.234429+00:00"
+}

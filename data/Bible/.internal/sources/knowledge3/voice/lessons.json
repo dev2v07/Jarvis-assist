@@ -1,0 +1,789 @@
+[
+  {
+    "id": "voice-001-recording-level",
+    "category": "recording",
+    "title": "Запись вокала: уровень и запас по громкости",
+    "summary": "Как избежать клиппинга и сохранить чистый исходник.",
+    "text": "При записи вокала нужно оставить запас по уровню и не допускать цифрового клиппинга. Пиковый уровень зависит от интерфейса и микрофона, поэтому контролируй вход по индикатору и записывай чистый сигнал без попытки сделать его громким уже на входе.",
+    "exercise": "Запиши короткий дубль с разной громкостью и сравни пики без клиппинга.",
+    "sources": [
+      {
+        "url": "https://www.soundonsound.com/techniques/recording-vocals",
+        "title": "Sound On Sound: Recording Vocals"
+      },
+      {
+        "url": "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/setting_up/setting_up_audio_recording_levels_and_inputs_c.html",
+        "title": "Steinberg Cubase Pro 13: Recording Levels and Inputs"
+      },
+      {
+        "url": "https://www.shure.com/en-US/docs/education/Microphone-Techniques-for-Recording",
+        "title": "Shure microphone techniques for recording"
+      }
+    ],
+    "status": "SOURCE_REVIEW",
+    "audio_status": "AUDIO_PENDING",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/voice/audio/voice-001-recording-level.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 14.724,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "recording",
+    "topic": "Запись вокала: уровень и запас по громкости",
+    "questions": [
+      "Запись вокала: уровень и запас по громкости",
+      "Как избежать клиппинга и сохранить чистый исходник."
+    ],
+    "answer": "При записи вокала нужно оставить запас по уровню и не допускать цифрового клиппинга. Пиковый уровень зависит от интерфейса и микрофона, поэтому контролируй вход по индикатору и записывай чистый сигнал без попытки сделать его громким уже на входе.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "detailed_material": {
+      "purpose": "Записать исходный вокал без перегрузки и с достаточным запасом для более громких фраз.",
+      "signal_chain": "Голос → микрофон → предусилитель/АЦП аудиоинтерфейса → вход Cubase → записываемый файл. Входной gain до АЦП задаётся интерфейсом или его панелью; фейдер дорожки Cubase не исправляет перегрузку, возникшую до АЦП.",
+      "setup_steps": [
+        "Подключите микрофон к подходящему входу и проверьте настройки интерфейса.",
+        "Поставьте поп-фильтр и подберите расстояние, учитывая комнату и эффект близости.",
+        "Попросите исполнителя спеть самый громкий фрагмент и установите gain по пикам без перегрузки интерфейса и входного канала.",
+        "Запишите тестовый дубль, прослушайте согласные, шум, взрывные звуки и возможные искажения.",
+        "Сохраните чистый исходник и только затем начните редактирование или обработку."
+      ],
+      "troubleshooting": [
+        "Если вход интерфейса перегружен, уменьшите gain на интерфейсе и запишите заново; уменьшение фейдера после записи не восстанавливает повреждённый сигнал.",
+        "Если пиков нет, но звук искажается, проверьте микрофон, предусилитель, входной режим и эффекты в цепи.",
+        "Если слишком много комнаты или взрывных согласных, измените положение микрофона и поп-фильтра до программной обработки."
+      ],
+      "exercise": "Запишите два коротких дубля с одинаковым исполнением и разным безопасным входным gain. Сравните шум, пики и слышимые искажения при выравненном уровне воспроизведения; не меняйте оригинальные записи.",
+      "common_mistakes": [
+        "настраивать gain по тихому фрагменту вместо самого громкого",
+        "считать любой универсальный target dBFS обязательным",
+        "пытаться убрать уже записанный клиппинг фейдером",
+        "путать входной уровень интерфейса с громкостью мониторинга"
+      ],
+      "source_map": [
+        "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/setting_up/setting_up_audio_recording_levels_and_inputs_c.html",
+        "https://www.shure.com/en-US/docs/education/Microphone-Techniques-for-Recording"
+      ]
+    },
+    "research_metadata": {
+      "ollama_model": "qwen3:8b",
+      "ollama_result": "Черновик изучен; исправлено смешение регулировки микрофона и предусилителя интерфейса",
+      "codex_review": "проверены цепь сигнала и общие рекомендации Steinberg/Shure; конкретные цифры пиков не универсализированы"
+    },
+    "response_variations": [
+      {
+        "variant_id": "voice-001-recording-level-v1",
+        "variant_kind": "principle",
+        "parent_id": "voice-001-recording-level",
+        "text": "Уровень вокала на записи задаётся прежде всего предусилителем аудиоинтерфейса. Установите запас под самые громкие фразы, чтобы не перегрузить вход. Фейдер Cubase меняет последующий уровень и не восстанавливает уже искажённый сигнал АЦП.",
+        "source_ids": [
+          "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/setting_up/setting_up_audio_recording_levels_and_inputs_c.html"
+        ],
+        "status": "SOURCE_REVIEW",
+        "generated_by": "Codex",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-001-recording-level-v2",
+        "variant_kind": "setup_steps",
+        "parent_id": "voice-001-recording-level",
+        "text": "Перед дублем проверьте вход интерфейса, поп-фильтр и расстояние до микрофона. Попросите спеть самый громкий участок, выставьте gain без клиппинга, сделайте тестовую запись и прослушайте её целиком перед основной сессией.",
+        "source_ids": [
+          "https://www.shure.com/en-US/docs/education/Microphone-Techniques-for-Recording",
+          "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/setting_up/setting_up_audio_recording_levels_and_inputs_c.html"
+        ],
+        "status": "SOURCE_REVIEW",
+        "generated_by": "Codex",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-001-recording-level-v3",
+        "variant_kind": "clipping_diagnosis",
+        "parent_id": "voice-001-recording-level",
+        "text": "При искажении сначала проверьте индикатор интерфейса и входного канала. Если перегружен вход до Cubase, уменьшите аппаратный gain и перезапишите дубль. Если вход чистый, последовательно отключайте обработку и проверяйте каждый следующий участок цепи.",
+        "source_ids": [
+          "https://www.steinberg.help/r/cubase-pro/13.0/en/cubase_nuendo/topics/setting_up/setting_up_audio_recording_levels_and_inputs_c.html"
+        ],
+        "status": "SOURCE_REVIEW",
+        "generated_by": "Codex",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-001-recording-level-v4",
+        "variant_kind": "practice",
+        "parent_id": "voice-001-recording-level",
+        "text": "Упражнение: запишите короткую громкую фразу с двумя безопасными настройками gain. При одинаковой громкости воспроизведения сравните шум, пики и согласные. Выберите настройку с чистым сигналом и запасом для более громкого исполнения; сохраните оба исходных дубля.",
+        "source_ids": [
+          "https://www.shure.com/en-US/docs/education/Microphone-Techniques-for-Recording"
+        ],
+        "status": "SOURCE_REVIEW",
+        "generated_by": "Codex",
+        "audio_status": "AUDIO_PENDING"
+      }
+    ],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "voice-002-editing",
+    "category": "editing",
+    "title": "Редактирование вокала: компинг и тайминг",
+    "summary": "Как собрать лучший дубль без разрушения естественной фразы.",
+    "text": "Компинг объединяет лучшие фрагменты нескольких дублей. Сначала выбирай исполнение и интонацию, затем аккуратно правь тайминг на стыках с короткими кроссфейдами. Не выравнивай каждую согласную до механической точности.",
+    "exercise": "Собери короткий компинг из двух дублей и проверь стыки на отдельном прослушивании.",
+    "sources": [
+      {
+        "url": "https://www.izotope.com/community/blog/vocal-editing-101",
+        "title": "iZotope: Vocal Editing 101"
+      },
+      {
+        "url": "https://www.izotope.com/community/blog/8-tips-for-perfect-vocal-comping",
+        "title": "iZotope: 8 Tips for Perfect Vocal Comping"
+      },
+      {
+        "url": "https://www.steinberg.help/v/u/cubase_pro_13_operation_manual_en.pdf",
+        "title": "Steinberg: Cubase Pro 13.0.30 Operation Manual"
+      }
+    ],
+    "status": "SOURCE_REVIEW",
+    "audio_status": "AUDIO_PENDING",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/voice/audio/voice-002-editing.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 12.725,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "editing",
+    "topic": "Редактирование вокала: компинг и тайминг",
+    "questions": [
+      "Редактирование вокала: компинг и тайминг",
+      "Как собрать лучший дубль без разрушения естественной фразы."
+    ],
+    "answer": "Компинг объединяет лучшие фрагменты нескольких дублей. Сначала выбирай исполнение и интонацию, затем аккуратно правь тайминг на стыках с короткими кроссфейдами. Не выравнивай каждую согласную до механической точности.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "detailed_material": {
+      "goal": "Собрать естественную вокальную партию из нескольких дублей, не теряя дикцию и выразительность, затем устранить слышимые технические стыки.",
+      "definitions": {
+        "comping": "выбор лучших фраз или участков из нескольких записанных дублей в единую партию",
+        "crossfade": "плавный переход между соседними аудиособытиями в зоне перекрытия",
+        "clip_gain": "изменение уровня отдельного фрагмента до последующей обработки трека"
+      },
+      "workflow": [
+        "Сохранить исходные дубли и отметить фразы с удачной подачей, ритмом и дикцией.",
+        "Выбрать основную версию каждой фразы; переключать дубль преимущественно в паузе или у безопасного звукового перехода, прослушивая место стыка.",
+        "Проверить, не появились ли двойной вдох, пропущенный слог, щелчок или резкий скачок уровня.",
+        "При достаточном перекрытии событий добавить кроссфейд; иначе поставить отдельные короткие fade-out и fade-in и прослушать результат.",
+        "При необходимости слегка скорректировать тайминг и clip gain, затем сравнить соло вокал и полный микс без автоматического выравнивания каждого звука."
+      ],
+      "example": "Из двух дублей куплета оставить первый для спокойной строки, второй — для выразительного окончания. Стык поставить в паузе до вдоха; убедиться, что слышен только один вдох, а после fade переход не щёлкает. Разницу уровня сгладить clip gain, сохранив исходные дубли.",
+      "mistakes": [
+        "Ставить разрез на середине гласной: слышен скачок тембра или фазы.",
+        "Оставлять вдох из обоих дублей: возникает двойной вдох.",
+        "Применять длинный кроссфейд поверх двух разных слов: появляются слышимые наложения.",
+        "Исправлять всё по сетке до прослушивания целой фразы: теряется естественная подача."
+      ],
+      "cubase_13_scope": "Руководство Cubase Pro 13 подтверждает редактирование audio events, fades/crossfades и работу с исходным аудиофайлом. Названия кнопок и путь меню в этом уроке не фиксируются без отдельной проверки интерфейса установленной версии.",
+      "self_check": [
+        "Чем компинг отличается от обработки компрессором?",
+        "Почему перед склейкой проверяют вдохи и конец слов?",
+        "Что делать, если для кроссфейда нет перекрытия?"
+      ],
+      "sources": [
+        "https://www.izotope.com/community/blog/vocal-editing-101",
+        "https://www.izotope.com/community/blog/8-tips-for-perfect-vocal-comping",
+        "https://www.steinberg.help/v/u/cubase_pro_13_operation_manual_en.pdf"
+      ]
+    },
+    "research_metadata": {
+      "ollama_model": "qwen3:8b",
+      "ollama_result": "DRAFT_ONLY: структура компинга использована, предложение автоматически удалять все вдохи отклонено как чрезмерное",
+      "codex_review": "последовательность и ошибки сверены с iZotope; Cubase 13 ограничен подтверждёнными возможностями руководства"
+    },
+    "response_variations": [
+      {
+        "variant_id": "voice-002-editing-v1",
+        "variant_kind": "concept",
+        "parent_id": "voice-002-editing",
+        "text": "Компинг — выбор лучших фраз из нескольких вокальных дублей в одну партию. Сначала оценивают исполнение и дикцию, а уже потом исправляют стыки, тайминг и уровень. Компрессор или автотюн не заменяют выбор удачного исполнения.",
+        "source_ids": [
+          "https://www.izotope.com/community/blog/vocal-editing-101"
+        ],
+        "status": "SOURCE_REVIEW",
+        "generated_by": "Codex",
+        "verified_by": null,
+        "created_at": "2026-11-15",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-002-editing-v2",
+        "variant_kind": "workflow",
+        "parent_id": "voice-002-editing",
+        "query_patterns": [
+          "Как собрать вокальный компинг?"
+        ],
+        "text": "Соберите вокальный комп по фразам: сохраните исходные дубли, выберите лучшие участки, поставьте стыки в паузах, проверьте вдохи и согласные, затем добавьте fades или кроссфейды и выровняйте только явные скачки clip gain. Прослушайте вокал отдельно и в миксе.",
+        "source_ids": [
+          "https://www.izotope.com/community/blog/vocal-editing-101",
+          "https://www.izotope.com/community/blog/8-tips-for-perfect-vocal-comping"
+        ],
+        "status": "SOURCE_REVIEW",
+        "generated_by": "Codex",
+        "verified_by": null,
+        "created_at": "2026-11-15",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-002-editing-v3",
+        "variant_kind": "troubleshooting",
+        "parent_id": "voice-002-editing",
+        "query_patterns": [
+          "Почему щелкает стык вокальных дублей?"
+        ],
+        "text": "Щелчок на стыке обычно требует прослушать точку разреза и добавить плавный переход. Двойной вдох означает, что соседние фрагменты сохранили по вдоху каждый: оставьте один. Если кроссфейд накладывает разные слова друг на друга, сократите перекрытие или перенесите стык в паузу.",
+        "source_ids": [
+          "https://www.izotope.com/community/blog/8-tips-for-perfect-vocal-comping"
+        ],
+        "status": "SOURCE_REVIEW",
+        "generated_by": "Codex",
+        "verified_by": null,
+        "created_at": "2026-11-15",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-002-editing-v4",
+        "variant_kind": "practice",
+        "parent_id": "voice-002-editing",
+        "text": "Упражнение в Cubase 13: сделайте две записи короткого куплета, сохраните оба исходных дубля, соберите один комп из лучших фраз и проверьте стыки на щелчки, двойные вдохи и скачки уровня. Сравните результат сначала соло, затем с инструментами; оставьте тот вариант, где фразировка звучит естественно.",
+        "source_ids": [
+          "https://www.izotope.com/community/blog/vocal-editing-101",
+          "https://www.steinberg.help/v/u/cubase_pro_13_operation_manual_en.pdf"
+        ],
+        "status": "SOURCE_REVIEW",
+        "generated_by": "Codex",
+        "verified_by": null,
+        "created_at": "2026-11-15",
+        "audio_status": "AUDIO_PENDING"
+      }
+    ],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "voice-003-noise",
+    "category": "cleanup",
+    "title": "Очистка вокала от шума",
+    "summary": "Как уменьшать шум без артефактов и искажения согласных.",
+    "text": "Сначала устрани источник шума и выбери чистый участок для профиля, если используешь denoise. Обрабатывай умеренно, сравнивай bypass и сохраняй исходный дубль. Сильное шумоподавление часто создаёт металлические артефакты.",
+    "exercise": "Сделай две версии очистки с разной интенсивностью и выбери менее артефактную.",
+    "sources": [
+      {
+        "url": "https://www.izotope.com/community/blog/how-to-clean-up-voice-recordings-video-podcasts",
+        "title": "iZotope: How to Clean Up Voice Recordings"
+      },
+      {
+        "url": "https://www.izotope.com/community/blog/audio-artifacts",
+        "title": "iZotope: What Are Audio Artifacts?"
+      },
+      {
+        "url": "https://www.shure.com/en-US/docs/education/microphone-techniques-for-recording",
+        "title": "Shure: Microphone Techniques for Recording"
+      }
+    ],
+    "status": "SOURCE_REVIEW",
+    "audio_status": "AUDIO_PENDING",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/voice/audio/voice-003-noise.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 13.331,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "cleanup",
+    "topic": "Очистка вокала от шума",
+    "questions": [
+      "Очистка вокала от шума",
+      "Как уменьшать шум без артефактов и искажения согласных."
+    ],
+    "answer": "Сначала устрани источник шума и выбери чистый участок для профиля, если используешь denoise. Обрабатывай умеренно, сравнивай bypass и сохраняй исходный дубль. Сильное шумоподавление часто создаёт металлические артефакты.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "detailed_material": {
+      "goal": "Уменьшить отвлекающий шум, сохранив тембр, согласные и естественные паузы вокала.",
+      "diagnosis": [
+        "Постоянный фон: вентиляция, шипение, гул; сначала ищут источник и проверяют, можно ли записать заново в более тихой обстановке.",
+        "Отдельные щелчки, удары и шорохи: проверяют локально; один общий профиль шума обычно не решает эту задачу.",
+        "Отражения комнаты и длинный хвост реверберации: это иная проблема, чем постоянное шипение, и обычный denoise не является универсальным решением."
+      ],
+      "workflow": [
+        "Если запись ещё не сделана, уменьшить шум в комнате и подобрать положение микрофона и исполнителя; проверить тестовый дубль.",
+        "Сохранить исходную запись и определить, где слышен именно постоянный шум, а где есть полезный звук голоса.",
+        "Для профилируемого denoise выбрать участок без голоса, содержащий только типичный фон; не обучать профиль на согласных или дыхании.",
+        "Прослушать умеренную обработку в паузах и во время тихих слов; сравнить с исходником при сопоставимой громкости.",
+        "Ослабить обработку, если согласные или тембр стали неестественными, либо вернуться к перезаписи и локальному исправлению отдельных дефектов."
+      ],
+      "example": "Если на тихом куплете слышен ровный вентилятор, сначала выключите его или измените расположение микрофона при новой записи. Если перезапись невозможна, возьмите короткий участок с одним фоном, примените умеренное подавление и проверьте, не пропали ли тихие окончания слов.",
+      "common_mistakes": [
+        "Использовать участок с голосом как профиль шума — алгоритм может ослабить часть вокала.",
+        "Снижать шум до абсолютной тишины любой ценой — возникают водянистые или звенящие артефакты.",
+        "Пытаться одним denoise исправить щелчки, реверберацию и клиппинг — это разные дефекты.",
+        "Сравнивать до/после при разной громкости — более громкий вариант может казаться лучше только из-за уровня."
+      ],
+      "version_scope": "Урок описывает принципы очистки, а не наличие конкретного модуля RX в установленной системе. Интерфейсные команды и параметры зависят от имеющейся версии и должны проверяться отдельно.",
+      "self_check": [
+        "Что должно быть в участке для профиля шума?",
+        "Как распознать чрезмерное подавление?",
+        "Почему отдельный щелчок не равен постоянному фону?"
+      ],
+      "sources": [
+        "https://www.izotope.com/community/blog/how-to-clean-up-voice-recordings-video-podcasts",
+        "https://www.izotope.com/community/blog/audio-artifacts",
+        "https://www.shure.com/en-US/docs/education/microphone-techniques-for-recording"
+      ]
+    },
+    "research_metadata": {
+      "ollama_model": "qwen3:8b",
+      "ollama_result": "REJECTED: denoise ошибочно назван дешифровкой, параметры подавления смешаны с компрессией",
+      "codex_review": "типология шума, источник до обработки и артефакты проверены по Shure и iZotope"
+    },
+    "response_variations": [
+      {
+        "variant_id": "voice-003-noise-v1",
+        "variant_kind": "diagnosis",
+        "parent_id": "voice-003-noise",
+        "text": "Сначала определите тип проблемы. Ровный фон вентиляции или шипение подходит для осторожного шумоподавления с профилем шума. Один щелчок исправляют локально, а эхо комнаты требует другого подхода. Чем точнее диагноз дефекта, тем меньше лишней обработки вокала.",
+        "source_ids": [
+          "https://www.izotope.com/community/blog/how-to-clean-up-voice-recordings-video-podcasts",
+          "https://www.izotope.com/community/blog/audio-artifacts"
+        ],
+        "status": "SOURCE_REVIEW",
+        "generated_by": "Codex",
+        "verified_by": null,
+        "created_at": "2026-11-15",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-003-noise-v2",
+        "variant_kind": "prevention",
+        "parent_id": "voice-003-noise",
+        "text": "Если можно записать вокал снова, сначала уменьшите шум в помещении и подберите положение микрофона. Проверьте тестовый дубль до основной записи: плохое отношение голоса к фону сложнее исправлять после записи, чем шумный вентилятор до неё.",
+        "source_ids": [
+          "https://www.shure.com/en-US/docs/education/microphone-techniques-for-recording"
+        ],
+        "status": "SOURCE_REVIEW",
+        "generated_by": "Codex",
+        "verified_by": null,
+        "created_at": "2026-11-15",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-003-noise-v3",
+        "variant_kind": "workflow",
+        "parent_id": "voice-003-noise",
+        "query_patterns": [
+          "Как убрать постоянный шум с вокала?"
+        ],
+        "text": "Для постоянного фона сохраните исходник, выделите отрезок без голоса с типичным шумом, создайте по нему профиль и применяйте умеренное подавление. Сравните обработанную запись с исходной при равной громкости: тихие согласные и окончания слов должны остаться слышны.",
+        "source_ids": [
+          "https://www.izotope.com/community/blog/how-to-clean-up-voice-recordings-video-podcasts"
+        ],
+        "status": "SOURCE_REVIEW",
+        "generated_by": "Codex",
+        "verified_by": null,
+        "created_at": "2026-11-15",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-003-noise-v4",
+        "variant_kind": "artifacts",
+        "parent_id": "voice-003-noise",
+        "query_patterns": [
+          "Почему голос звучит водянисто после шумоподавления?"
+        ],
+        "text": "Водянистый или звенящий оттенок может появиться от слишком сильного подавления. Вернитесь к исходнику, уменьшите интенсивность обработки и слушайте тихие слоги и паузы. Не пытайтесь любой ценой получить цифровую тишину; важнее сохранить разборчивый естественный голос.",
+        "source_ids": [
+          "https://www.izotope.com/community/blog/audio-artifacts"
+        ],
+        "status": "SOURCE_REVIEW",
+        "generated_by": "Codex",
+        "verified_by": null,
+        "created_at": "2026-11-15",
+        "audio_status": "AUDIO_PENDING"
+      }
+    ],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "voice-004-compression",
+    "category": "processing",
+    "title": "Вокальная компрессия",
+    "summary": "Как стабилизировать динамику, не убив атаку и дыхание.",
+    "text": "Компрессор уменьшает разницу между тихими и громкими фрагментами. Начинай с умеренного ratio, слушай атаку согласных и release между фразами, а громкость после компрессии сравнивай по воспринимаемому уровню.",
+    "exercise": "Сравни bypass и компрессию на одном уровне громкости и опиши, что изменилось в атаках.",
+    "sources": [
+      {
+        "url": "https://www.fabfilter.com/learn/compression/basic-compressor-controls",
+        "title": "FabFilter Learn: Basic compressor controls"
+      },
+      {
+        "url": "https://www.fabfilter.com/downloads/pdf/help/ffproc2-manual.pdf",
+        "title": "FabFilter Pro-C 2 Help"
+      },
+      {
+        "url": "https://www.shure.com/en-US/insights/how-to-record-and-mix-vocals",
+        "title": "Shure: How to Record and Mix Vocals"
+      },
+      {
+        "url": "https://www.fabfilter.com/learn/mixing/how-to-use-automation",
+        "title": "FabFilter Learn: How to use automation"
+      }
+    ],
+    "status": "SOURCE_LINKED",
+    "audio_status": "LEGACY_AUDIO_UNREVIEWED",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/voice/audio/voice-004-compression.wav",
+    "version": 2,
+    "audio_metadata": {
+      "duration": 12.97,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "processing",
+    "topic": "Вокальная компрессия",
+    "questions": [
+      "Вокальная компрессия",
+      "Как стабилизировать динамику, не убив атаку и дыхание."
+    ],
+    "answer": "Компрессор уменьшает разницу между тихими и громкими фрагментами. Начинай с умеренного ratio, слушай атаку согласных и release между фразами, а громкость после компрессии сравнивай по воспринимаемому уровню.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved",
+    "legacy_audio_status": "AUDIO_READY",
+    "updated_at": "2026-11-15T16:12:39+03:00",
+    "detailed_material": {
+      "introduction": "Цель вокальной компрессии — управлять изменениями уровня, чтобы голос занимал нужное место в миксе, не теряя артикуляцию и выразительность. Универсального пресета нет: результат зависит от певца, записи, аранжировки и желаемой эстетики. Исторический контекст темы — развитие динамической обработки в записи и вещании; точные исторические даты здесь не исследованы, поэтому не заявляются.",
+      "definitions": {
+        "threshold": "Уровень, при превышении которого начинается уменьшение усиления.",
+        "ratio": "Отношение изменения входного и выходного уровня выше порога; 4:1 означает 4 dB на входе на 1 dB на выходе в статической модели.",
+        "attack": "Скорость вступления сжатия после события.",
+        "release": "Скорость возвращения к исходному усилению.",
+        "knee": "Форма перехода к сжатию возле порога.",
+        "makeup_gain": "Компенсация уровня после сжатия, не восстановление исходной динамики.",
+        "gain_reduction": "Текущее уменьшение усиления, которое показывает измеритель компрессора."
+      },
+      "principle_and_math": "В идеализированной статической модели вход −30 dB, порог −38 dB, Ratio 4:1: превышение 8 dB превращается в 2 dB, выход −36 dB, gain reduction 6 dB. Это расчёт без учёта времени attack/release, формы knee и makeup gain; в реальном сигнале измеритель меняется во времени.",
+      "version_scope": "Общие принципы подтверждены FabFilter Learn. Руководство Pro-C 2 описывает конкретные Threshold, Ratio, Knee, Range, Attack, Release, Wet Gain, Auto Gain и Dry Gain. Текущая витрина FabFilter уже показывает Pro-C 3; её особенности нельзя переносить на Pro-C 2 автоматически. В режиме Vocal Pro-C 2 ratio и knee автоматические, что не относится ко всем компрессорам.",
+      "workflow": [
+        "Слушать исходную партию в миксе и определить задачу: отдельные пики, теряющиеся слова или художественно плотное звучание.",
+        "Если проблема состоит в нескольких фразах, сначала рассмотреть ручную коррекцию уровня/автоматизацию вместо сильного компрессора.",
+        "Начать с умеренного Ratio как ориентира, опустить Threshold так, чтобы прибор показывал уменьшение громких фраз; смотреть на него вместе со слуховой проверкой.",
+        "Настроить Attack по началу согласных и Release по восстановлению между фразами; проверить тихие и громкие места, не ориентируясь на одно число миллисекунд.",
+        "Сравнить мягкое и жёсткое Knee, если компрессор это позволяет. Компенсировать выходную громкость, A/B сопоставлять по близкому воспринимаемому уровню.",
+        "Послушать в полном миксе и соло: есть ли насосный эффект, подчёркнутые вдохи/сибилянты, потеря атаки; при необходимости ослабить обработку или перейти к автоматизации."
+      ],
+      "examples": [
+        "Для разговорного вокала с отдельными громкими словами порог настраивают так, чтобы прибор реагировал прежде всего на пики; конкретное число dB без уровня исходной записи бессмысленно.",
+        "Если несколько слов теряются в плотном припеве, локальная автоматизация громкости может исправить их без изменения звука всей партии."
+      ],
+      "common_mistakes": [
+        "Принимать пример Ratio 4:1 за универсальную настройку или гарантированный звук.",
+        "Считать большую громкость после Makeup Gain доказательством улучшения.",
+        "Ставить слишком быстрый Attack и не проверять начало слогов; ставить слишком медленный Release и не замечать сжатия следующей фразы.",
+        "Опускать Threshold слишком сильно, постоянно подавляя всю партию, хотя проблема только в отдельных словах.",
+        "Путать де-эссинг с общей компрессией: сибилянты требуют отдельной оценки."
+      ],
+      "comparisons": "Лимитирование — крайний случай очень большого Ratio; автоматизация регулирует уровень конкретных участков вручную; де-эссинг направлен на сибилянты. Эти инструменты не являются синонимами, хотя могут использоваться вместе.",
+      "faq": [
+        {
+          "question": "Нужно ли сжимать каждый вокал?",
+          "answer": "Нет; слушайте голос в контексте микса и оставляйте естественную динамику, если она работает."
+        },
+        {
+          "question": "Нужно ли всегда ставить 2:1–6:1?",
+          "answer": "Нет; Shure приводит это как диапазон для мягкого эффекта, а не стандарт для любой записи."
+        },
+        {
+          "question": "Что проверять при A/B?",
+          "answer": "Понятность слов, начало согласных, паузы и дыхание при сопоставимом воспринимаемом уровне."
+        }
+      ],
+      "self_check": [
+        "При Threshold −38 dB и входе −30 dB что даст Ratio 4:1 в статической модели?",
+        "Как изменятся согласные при слишком быстром Attack?",
+        "Почему Auto Gain в Pro-C 2 не гарантирует равную слышимую громкость?",
+        "Когда локальная автоматизация лучше сильной компрессии?"
+      ],
+      "further_topics": [
+        "Автоматизация вокала",
+        "Параллельная компрессия",
+        "Де-эссинг",
+        "Gain staging",
+        "FabFilter Pro-C 2: режимы и side chain"
+      ],
+      "source_map": [
+        {
+          "url": "https://www.fabfilter.com/learn/compression/basic-compressor-controls",
+          "locator": "Transfer curve; Threshold/Ratio; Attack/Release",
+          "supports": "теория, расчёт, времена"
+        },
+        {
+          "url": "https://www.fabfilter.com/downloads/pdf/help/ffproc2-manual.pdf",
+          "locator": "Dynamics controls pp.9–10; Time controls pp.10–11",
+          "supports": "точные функции Pro-C 2, Knee, Gain, Dry и режим Vocal"
+        },
+        {
+          "url": "https://www.shure.com/en-US/insights/how-to-record-and-mix-vocals",
+          "locator": "Compression in How to Record and Mix Vocals",
+          "supports": "контекст вокала, умеренные ориентиры и альтернативы"
+        },
+        {
+          "url": "https://www.fabfilter.com/learn/mixing/how-to-use-automation",
+          "locator": "Automation as a finishing touch",
+          "supports": "локальная автоматизация при чрезмерной компрессии"
+        }
+      ]
+    },
+    "response_variations": [
+      {
+        "variant_id": "voice-004-compression-v1",
+        "variant_kind": "principle",
+        "parent_id": "voice-004-compression",
+        "query_patterns": [
+          "Что делает компрессор с вокалом?",
+          "Что такое вокальная компрессия?"
+        ],
+        "text": "Компрессор снижает усиление, когда уровень вокала превышает порог. Это может удержать отдельные громкие фразы ближе к остальной партии, но не обязано улучшить любую запись. Для естественного результата сначала слушайте вокал в миксе: иногда достаточно автоматизации громкости или вовсе не нужна динамическая обработка.",
+        "source_ids": [
+          "https://www.fabfilter.com/learn/compression/basic-compressor-controls",
+          "https://www.shure.com/en-US/insights/how-to-record-and-mix-vocals",
+          "https://www.fabfilter.com/learn/mixing/how-to-use-automation"
+        ],
+        "status": "VERIFIED",
+        "generated_by": "Codex after Ollama draft",
+        "verified_by": "Codex",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-004-compression-v2",
+        "variant_kind": "threshold_ratio",
+        "parent_id": "voice-004-compression",
+        "query_patterns": [
+          "Как работают Threshold и Ratio у компрессора?",
+          "Что значит ratio 4 к 1?"
+        ],
+        "text": "Threshold задаёт уровень начала сжатия, Ratio — насколько уменьшается прирост уровня выше порога. В идеальной статической модели: вход −30 dB при пороге −38 dB находится на 8 dB выше него; при 4:1 на выходе будет 2 dB выше порога, то есть −36 dB, а уменьшение составит 6 dB. Реальный результат зависит также от attack, release, knee и компенсации усиления.",
+        "source_ids": [
+          "https://www.fabfilter.com/learn/compression/basic-compressor-controls",
+          "https://www.fabfilter.com/downloads/pdf/help/ffproc2-manual.pdf"
+        ],
+        "status": "VERIFIED",
+        "generated_by": "Codex after Ollama draft",
+        "verified_by": "Codex",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-004-compression-v3",
+        "variant_kind": "timing",
+        "parent_id": "voice-004-compression",
+        "query_patterns": [
+          "Как настроить Attack и Release на вокале?",
+          "Почему компрессор съедает атаки слов?"
+        ],
+        "text": "Attack определяет, как быстро компрессор начинает уменьшать усиление: слишком быстрый может сгладить начало слога, а более медленный пропускает часть атаки. Release определяет восстановление после сжатия; слишком медленный оставит уменьшение усиления к следующей фразе, слишком быстрый может сделать изменение уровня заметным. Настраивайте оба параметра по вокалу в контексте музыки, наблюдая gain reduction и слушая согласные, паузы и дыхание.",
+        "source_ids": [
+          "https://www.fabfilter.com/learn/compression/basic-compressor-controls",
+          "https://www.fabfilter.com/downloads/pdf/help/ffproc2-manual.pdf",
+          "https://www.shure.com/en-US/insights/how-to-record-and-mix-vocals"
+        ],
+        "status": "VERIFIED",
+        "generated_by": "Codex after Ollama draft",
+        "verified_by": "Codex",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-004-compression-v4",
+        "variant_kind": "workflow",
+        "parent_id": "voice-004-compression",
+        "query_patterns": [
+          "Как пошагово настроить компрессию вокала?",
+          "Как обработать вокал компрессором в миксе?"
+        ],
+        "text": "Рабочая последовательность: сначала выровняйте лишь самые крупные скачки уровня клипа или автоматизацией, если это нужно; включите компрессор в миксе; выберите умеренный Ratio и опускайте Threshold до сжатия громких фраз; настройте Attack так, чтобы сохранить нужную атаку слов, затем Release — чтобы усиление успевало восстановиться между фразами. Компенсируйте выходной уровень и сравните bypass с обработкой при сопоставимой громкости. Если пропала разборчивость или голос начал заметно «качать», ослабьте обработку.",
+        "source_ids": [
+          "https://www.fabfilter.com/learn/compression/basic-compressor-controls",
+          "https://www.fabfilter.com/downloads/pdf/help/ffproc2-manual.pdf",
+          "https://www.shure.com/en-US/insights/how-to-record-and-mix-vocals",
+          "https://www.fabfilter.com/learn/mixing/how-to-use-automation"
+        ],
+        "status": "VERIFIED",
+        "generated_by": "Codex after Ollama draft",
+        "verified_by": "Codex",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-004-compression-v5",
+        "variant_kind": "knee_and_gain",
+        "parent_id": "voice-004-compression",
+        "query_patterns": [
+          "Что делают Knee и Makeup Gain?",
+          "Почему с компрессором вокал кажется лучше только из-за громкости?"
+        ],
+        "text": "Мягкий Knee вводит сжатие постепенно возле Threshold; жёсткий делает переход более резким. Makeup Gain поднимает обработанный сигнал после уменьшения усиления, но сам по себе не возвращает исходную динамику. В Pro-C 2 Auto Gain только оценивает нужную компенсацию, а не измеряет итоговую громкость: поэтому сравнивайте обработку и bypass при близком воспринимаемом уровне.",
+        "source_ids": [
+          "https://www.fabfilter.com/downloads/pdf/help/ffproc2-manual.pdf",
+          "https://www.fabfilter.com/learn/compression/basic-compressor-controls"
+        ],
+        "status": "VERIFIED",
+        "generated_by": "Codex after Ollama draft",
+        "verified_by": "Codex",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-004-compression-v6",
+        "variant_kind": "when_not_needed",
+        "parent_id": "voice-004-compression",
+        "query_patterns": [
+          "Когда компрессор на вокале не нужен?",
+          "Можно ли заменить компрессию автоматизацией громкости?"
+        ],
+        "text": "Если вокал уже ровно читается в миксе и его естественные перепады важны для исполнения, компрессор можно не включать. Когда отдельные слова теряются только в некоторых местах, автоматизация уровня позволяет исправить именно эти места, не изменяя атаку каждой фразы. FabFilter и Shure оба описывают автоматизацию как практическую альтернативу чрезмерной компрессии; решение проверяйте слухом в полном миксе.",
+        "source_ids": [
+          "https://www.fabfilter.com/learn/mixing/how-to-use-automation",
+          "https://www.shure.com/en-US/insights/how-to-record-and-mix-vocals"
+        ],
+        "status": "VERIFIED",
+        "generated_by": "Codex after Ollama draft",
+        "verified_by": "Codex",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-004-compression-v7",
+        "variant_kind": "comparison",
+        "parent_id": "voice-004-compression",
+        "query_patterns": [
+          "Чем компрессор отличается от лимитера?",
+          "Чем компрессия отличается от автоматизации уровня?"
+        ],
+        "text": "Компрессор автоматически уменьшает усиление после превышения Threshold согласно Ratio и временам реакции. При предельно большом Ratio поведение приближается к лимитированию; руководство Pro-C 2 прямо описывает крайнее положение Ratio как limiter. Автоматизация уровня — это заранее заданное изменение громкости по времени, полезное для конкретных слов и фраз. Это разные способы управлять динамикой, которые можно сочетать.",
+        "source_ids": [
+          "https://www.fabfilter.com/downloads/pdf/help/ffproc2-manual.pdf",
+          "https://www.fabfilter.com/learn/mixing/how-to-use-automation"
+        ],
+        "status": "VERIFIED",
+        "generated_by": "Codex after Ollama draft",
+        "verified_by": "Codex",
+        "audio_status": "AUDIO_PENDING"
+      },
+      {
+        "variant_id": "voice-004-compression-v8",
+        "variant_kind": "parallel",
+        "parent_id": "voice-004-compression",
+        "query_patterns": [
+          "Что такое параллельная компрессия вокала?",
+          "Как работает Dry в Pro-C 2?"
+        ],
+        "text": "При параллельной компрессии к обработанному вокалу подмешивают исходный сигнал. В Pro-C 2 ручка Dry Gain добавляет необработанный вход к сжатому выходу; исходные атаки остаются слышны, а обработанная часть может добавить плотности. Начните с отключённого сухого добавления, затем поднимайте его постепенно, сравнивая уровень и фазовое поведение в вашем маршруте. Это не обязательный шаг для каждой партии.",
+        "source_ids": [
+          "https://www.fabfilter.com/downloads/pdf/help/ffproc2-manual.pdf"
+        ],
+        "status": "VERIFIED",
+        "generated_by": "Codex after Ollama draft",
+        "verified_by": "Codex",
+        "audio_status": "AUDIO_PENDING"
+      }
+    ],
+    "research_metadata": {
+      "ollama_model": "qwen3:8b",
+      "ollama_task": "data/Bible/.internal/sources/knowledge3/voice/research/voice-004-compression_task.json",
+      "ollama_draft": "data/Bible/.internal/sources/knowledge3/voice/research/voice-004-compression_ollama_draft.json",
+      "ollama_result": "DRAFT_ONLY: seven questions instead of answers; incorrect threshold direction and oversimplified limiter comparison rejected",
+      "codex_review": "FabFilter Learn compressor controls/automation, Pro-C 2 manual, Shure vocal mixing checked 2026-11-15"
+    },
+    "quality_review": {
+      "status": "VERIFIED",
+      "scope": "new detailed_material and eight response_variations only; old short answer/WAV not reverified",
+      "reviewed_by": "Codex",
+      "reviewed_at": "2026-11-15T16:12:39+03:00",
+      "recorded_legacy_status": "VERIFIED",
+      "recorded_legacy_source": [
+        {
+          "url": "https://www.fabfilter.com/learn/compression",
+          "title": "FabFilter: Compression"
+        }
+      ],
+      "source_count": 4,
+      "variant_count": 8,
+      "audio_assessment": "existing 12.97 s WAV retained; transcript correspondence to new children unverified"
+    }
+  },
+  {
+    "id": "voice-005-deessing",
+    "category": "processing",
+    "title": "De-essing и сибилянты",
+    "summary": "Как смягчить резкие С и Ш без приглушения всего вокала.",
+    "text": "De-esser должен реагировать на узкую область сибилянтов, а не на весь голос. Слушай обработанный диапазон отдельно, затем верни полный сигнал и проверь, не исчезла ли разборчивость.",
+    "exercise": "Найди самый резкий участок и сравни узкую динамическую обработку с широким эквалайзером.",
+    "sources": [
+      {
+        "url": "https://www.fabfilter.com/help/pro-ds",
+        "title": "FabFilter Pro-DS Help"
+      }
+    ],
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/voice/audio/voice-005-deessing.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 10.686,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "processing",
+    "topic": "De-essing и сибилянты",
+    "questions": [
+      "De-essing и сибилянты",
+      "Как смягчить резкие С и Ш без приглушения всего вокала."
+    ],
+    "answer": "De-esser должен реагировать на узкую область сибилянтов, а не на весь голос. Слушай обработанный диапазон отдельно, затем верни полный сигнал и проверь, не исчезла ли разборчивость.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "voice-006-vocal-chain",
+    "category": "workflow",
+    "title": "Безопасная цепочка вокала",
+    "summary": "Порядок очистки, коррекции, динамики и пространственной обработки.",
+    "text": "Универсальной цепочки нет. Практичный порядок начинается с редактирования и очистки, затем идёт тональная коррекция, динамика и только после этого временные эффекты. Каждый шаг проверяй в контексте микса и сохраняй исходник.",
+    "exercise": "Составь цепочку для своего дубля и объясни назначение каждого шага.",
+    "sources": [
+      {
+        "url": "https://www.soundonsound.com/techniques/vocal-recording",
+        "title": "Sound On Sound: Vocal Recording"
+      }
+    ],
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/voice/audio/voice-006-vocal-chain.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 14.708,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "subcategory": "workflow",
+    "topic": "Безопасная цепочка вокала",
+    "questions": [
+      "Безопасная цепочка вокала",
+      "Порядок очистки, коррекции, динамики и пространственной обработки."
+    ],
+    "answer": "Универсальной цепочки нет. Практичный порядок начинается с редактирования и очистки, затем идёт тональная коррекция, динамика и только после этого временные эффекты. Каждый шаг проверяй в контексте микса и сохраняй исходник.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  }
+]

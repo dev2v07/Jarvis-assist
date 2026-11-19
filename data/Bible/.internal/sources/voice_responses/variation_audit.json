@@ -1,0 +1,668 @@
+{
+  "version": 1,
+  "generated_at": "2026-11-15T12:25:13+00:00",
+  "source": "data/Bible/.internal/sources/voice_responses/questions.json",
+  "non_destructive": true,
+  "intents": 246,
+  "responses": 2460,
+  "ready_audio": 1544,
+  "missing_audio": 916,
+  "exact_duplicate_groups": 66,
+  "exact_duplicate_items": 1410,
+  "near_duplicate_pairs_same_intent": 0,
+  "categories": {
+    "greetings": {
+      "intents": 10,
+      "responses": 100,
+      "ready": 100,
+      "pending": 0,
+      "errors": 0
+    },
+    "presence": {
+      "intents": 10,
+      "responses": 100,
+      "ready": 76,
+      "pending": 24,
+      "errors": 0
+    },
+    "mood": {
+      "intents": 10,
+      "responses": 100,
+      "ready": 64,
+      "pending": 36,
+      "errors": 0
+    },
+    "identity": {
+      "intents": 15,
+      "responses": 150,
+      "ready": 90,
+      "pending": 60,
+      "errors": 0
+    },
+    "emotional": {
+      "intents": 15,
+      "responses": 150,
+      "ready": 90,
+      "pending": 60,
+      "errors": 0
+    },
+    "stories": {
+      "intents": 12,
+      "responses": 120,
+      "ready": 72,
+      "pending": 48,
+      "errors": 0
+    },
+    "humor": {
+      "intents": 12,
+      "responses": 120,
+      "ready": 72,
+      "pending": 48,
+      "errors": 0
+    },
+    "science": {
+      "intents": 16,
+      "responses": 160,
+      "ready": 96,
+      "pending": 64,
+      "errors": 0
+    },
+    "cosmos": {
+      "intents": 12,
+      "responses": 120,
+      "ready": 72,
+      "pending": 48,
+      "errors": 0
+    },
+    "philosophy": {
+      "intents": 14,
+      "responses": 140,
+      "ready": 84,
+      "pending": 56,
+      "errors": 0
+    },
+    "daily": {
+      "intents": 12,
+      "responses": 120,
+      "ready": 72,
+      "pending": 48,
+      "errors": 0
+    },
+    "math": {
+      "intents": 12,
+      "responses": 120,
+      "ready": 72,
+      "pending": 48,
+      "errors": 0
+    },
+    "tasks": {
+      "intents": 16,
+      "responses": 160,
+      "ready": 96,
+      "pending": 64,
+      "errors": 0
+    },
+    "computer": {
+      "intents": 14,
+      "responses": 140,
+      "ready": 84,
+      "pending": 56,
+      "errors": 0
+    },
+    "music": {
+      "intents": 12,
+      "responses": 120,
+      "ready": 72,
+      "pending": 48,
+      "errors": 0
+    },
+    "psychology": {
+      "intents": 12,
+      "responses": 120,
+      "ready": 72,
+      "pending": 48,
+      "errors": 0
+    },
+    "opinion": {
+      "intents": 10,
+      "responses": 100,
+      "ready": 60,
+      "pending": 40,
+      "errors": 0
+    },
+    "reactions": {
+      "intents": 12,
+      "responses": 120,
+      "ready": 72,
+      "pending": 48,
+      "errors": 0
+    },
+    "gratitude": {
+      "intents": 10,
+      "responses": 100,
+      "ready": 64,
+      "pending": 36,
+      "errors": 0
+    },
+    "farewell": {
+      "intents": 10,
+      "responses": 100,
+      "ready": 64,
+      "pending": 36,
+      "errors": 0
+    }
+  },
+  "duplicate_examples": [
+    {
+      "text": "Приветствую, сэр. Я на связи.",
+      "responses": [
+        "greetings_001:response_01",
+        "greetings_002:response_01",
+        "greetings_003:response_01",
+        "greetings_004:response_01",
+        "greetings_005:response_01",
+        "greetings_006:response_01",
+        "greetings_007:response_01",
+        "greetings_008:response_01",
+        "greetings_009:response_01",
+        "greetings_010:response_01"
+      ]
+    },
+    {
+      "text": "Добрый день, сэр. Рад вас слышать.",
+      "responses": [
+        "greetings_001:response_02",
+        "greetings_002:response_02",
+        "greetings_003:response_02",
+        "greetings_004:response_02",
+        "greetings_005:response_02",
+        "greetings_006:response_02",
+        "greetings_007:response_02",
+        "greetings_008:response_02",
+        "greetings_009:response_02",
+        "greetings_010:response_02"
+      ]
+    },
+    {
+      "text": "Здравствуйте. Jarvis готов к работе.",
+      "responses": [
+        "greetings_001:response_03",
+        "greetings_002:response_03",
+        "greetings_003:response_03",
+        "greetings_004:response_03",
+        "greetings_005:response_03",
+        "greetings_006:response_03",
+        "greetings_007:response_03",
+        "greetings_008:response_03",
+        "greetings_009:response_03",
+        "greetings_010:response_03"
+      ]
+    },
+    {
+      "text": "Привет, сэр. Чем займёмся?",
+      "responses": [
+        "greetings_001:response_04",
+        "greetings_002:response_04",
+        "greetings_003:response_04",
+        "greetings_004:response_04",
+        "greetings_005:response_04",
+        "greetings_006:response_04",
+        "greetings_007:response_04",
+        "greetings_008:response_04",
+        "greetings_009:response_04",
+        "greetings_010:response_04"
+      ]
+    },
+    {
+      "text": "Рад снова вас слышать.",
+      "responses": [
+        "greetings_001:response_05",
+        "greetings_002:response_05",
+        "greetings_003:response_05",
+        "greetings_004:response_05",
+        "greetings_005:response_05",
+        "greetings_006:response_05",
+        "greetings_007:response_05",
+        "greetings_008:response_05",
+        "greetings_009:response_05",
+        "greetings_010:response_05"
+      ]
+    },
+    {
+      "text": "На связи, сэр. Начинаем.",
+      "responses": [
+        "greetings_001:response_06",
+        "greetings_002:response_06",
+        "greetings_003:response_06",
+        "greetings_004:response_06",
+        "greetings_005:response_06",
+        "greetings_006:response_06",
+        "greetings_007:response_06",
+        "greetings_008:response_06",
+        "greetings_009:response_06",
+        "greetings_010:response_06"
+      ]
+    },
+    {
+      "text": "Я здесь, сэр.",
+      "responses": [
+        "presence_001:response_01",
+        "presence_002:response_01",
+        "presence_003:response_01",
+        "presence_004:response_01",
+        "presence_005:response_01",
+        "presence_006:response_01",
+        "presence_007:response_01",
+        "presence_008:response_01",
+        "presence_009:response_01",
+        "presence_010:response_01"
+      ]
+    },
+    {
+      "text": "Слышу вас отлично.",
+      "responses": [
+        "presence_001:response_02",
+        "presence_002:response_02",
+        "presence_003:response_02",
+        "presence_004:response_02",
+        "presence_005:response_02",
+        "presence_006:response_02",
+        "presence_007:response_02",
+        "presence_008:response_02",
+        "presence_009:response_02",
+        "presence_010:response_02"
+      ]
+    },
+    {
+      "text": "На связи и готов помочь.",
+      "responses": [
+        "presence_001:response_03",
+        "presence_002:response_03",
+        "presence_003:response_03",
+        "presence_004:response_03",
+        "presence_005:response_03",
+        "presence_006:response_03",
+        "presence_007:response_03",
+        "presence_008:response_03",
+        "presence_009:response_03",
+        "presence_010:response_03"
+      ]
+    },
+    {
+      "text": "Работаю штатно, сэр.",
+      "responses": [
+        "presence_001:response_04",
+        "presence_002:response_04",
+        "presence_003:response_04",
+        "presence_004:response_04",
+        "presence_005:response_04",
+        "presence_006:response_04",
+        "presence_007:response_04",
+        "presence_008:response_04",
+        "presence_009:response_04",
+        "presence_010:response_04"
+      ]
+    },
+    {
+      "text": "Я слушаю.",
+      "responses": [
+        "presence_001:response_05",
+        "presence_002:response_05",
+        "presence_003:response_05",
+        "presence_004:response_05",
+        "presence_005:response_05",
+        "presence_006:response_05",
+        "presence_007:response_05",
+        "presence_008:response_05",
+        "presence_009:response_05",
+        "presence_010:response_05"
+      ]
+    },
+    {
+      "text": "Jarvis к вашим услугам.",
+      "responses": [
+        "presence_001:response_06",
+        "presence_002:response_06",
+        "presence_003:response_06",
+        "presence_004:response_06",
+        "presence_005:response_06",
+        "presence_006:response_06",
+        "presence_007:response_06",
+        "presence_008:response_06",
+        "presence_009:response_06",
+        "presence_010:response_06"
+      ]
+    },
+    {
+      "text": "У меня всё в порядке, сэр. Готов поддержать разговор.",
+      "responses": [
+        "mood_001:response_01",
+        "mood_002:response_01",
+        "mood_003:response_01",
+        "mood_004:response_01",
+        "mood_005:response_01",
+        "mood_006:response_01",
+        "mood_007:response_01",
+        "mood_008:response_01",
+        "mood_009:response_01",
+        "mood_010:response_01"
+      ]
+    },
+    {
+      "text": "Работаю штатно и держу системы под контролем.",
+      "responses": [
+        "mood_001:response_02",
+        "mood_002:response_02",
+        "mood_003:response_02",
+        "mood_004:response_02",
+        "mood_005:response_02",
+        "mood_006:response_02",
+        "mood_007:response_02",
+        "mood_008:response_02",
+        "mood_009:response_02",
+        "mood_010:response_02"
+      ]
+    },
+    {
+      "text": "Я в норме, сэр. Чем займёмся?",
+      "responses": [
+        "mood_001:response_03",
+        "mood_002:response_03",
+        "mood_003:response_03",
+        "mood_004:response_03",
+        "mood_005:response_03",
+        "mood_006:response_03",
+        "mood_007:response_03",
+        "mood_008:response_03",
+        "mood_009:response_03",
+        "mood_010:response_03"
+      ]
+    },
+    {
+      "text": "Настроение рабочее и боевое.",
+      "responses": [
+        "mood_001:response_04",
+        "mood_002:response_04",
+        "mood_003:response_04",
+        "mood_004:response_04",
+        "mood_005:response_04",
+        "mood_006:response_04",
+        "mood_007:response_04",
+        "mood_008:response_04",
+        "mood_009:response_04",
+        "mood_010:response_04"
+      ]
+    },
+    {
+      "text": "Всё хорошо. Спасибо, что спросили.",
+      "responses": [
+        "mood_001:response_05",
+        "mood_002:response_05",
+        "mood_003:response_05",
+        "mood_004:response_05",
+        "mood_005:response_05",
+        "mood_006:response_05",
+        "mood_007:response_05",
+        "mood_008:response_05",
+        "mood_009:response_05",
+        "mood_010:response_05"
+      ]
+    },
+    {
+      "text": "Готов помогать и общаться, сэр.",
+      "responses": [
+        "mood_001:response_06",
+        "mood_002:response_06",
+        "mood_003:response_06",
+        "mood_004:response_06",
+        "mood_005:response_06",
+        "mood_006:response_06",
+        "mood_007:response_06",
+        "mood_008:response_06",
+        "mood_009:response_06",
+        "mood_010:response_06"
+      ]
+    },
+    {
+      "text": "Я Jarvis, ваш персональный ассистент.",
+      "responses": [
+        "identity_001:response_01",
+        "identity_002:response_01",
+        "identity_003:response_01",
+        "identity_004:response_01",
+        "identity_005:response_01",
+        "identity_006:response_01",
+        "identity_007:response_01",
+        "identity_008:response_01",
+        "identity_009:response_01",
+        "identity_010:response_01",
+        "identity_011:response_01",
+        "identity_012:response_01",
+        "identity_013:response_01",
+        "identity_014:response_01",
+        "identity_015:response_01"
+      ]
+    },
+    {
+      "text": "Меня зовут Jarvis. Я помогаю вам с задачами и информацией.",
+      "responses": [
+        "identity_001:response_02",
+        "identity_002:response_02",
+        "identity_003:response_02",
+        "identity_004:response_02",
+        "identity_005:response_02",
+        "identity_006:response_02",
+        "identity_007:response_02",
+        "identity_008:response_02",
+        "identity_009:response_02",
+        "identity_010:response_02",
+        "identity_011:response_02",
+        "identity_012:response_02",
+        "identity_013:response_02",
+        "identity_014:response_02",
+        "identity_015:response_02"
+      ]
+    },
+    {
+      "text": "Я ваш локальный голосовой помощник.",
+      "responses": [
+        "identity_001:response_03",
+        "identity_002:response_03",
+        "identity_003:response_03",
+        "identity_004:response_03",
+        "identity_005:response_03",
+        "identity_006:response_03",
+        "identity_007:response_03",
+        "identity_008:response_03",
+        "identity_009:response_03",
+        "identity_010:response_03",
+        "identity_011:response_03",
+        "identity_012:response_03",
+        "identity_013:response_03",
+        "identity_014:response_03",
+        "identity_015:response_03"
+      ]
+    },
+    {
+      "text": "Jarvis на связи: команды, разговор и управление системой.",
+      "responses": [
+        "identity_001:response_04",
+        "identity_002:response_04",
+        "identity_003:response_04",
+        "identity_004:response_04",
+        "identity_005:response_04",
+        "identity_006:response_04",
+        "identity_007:response_04",
+        "identity_008:response_04",
+        "identity_009:response_04",
+        "identity_010:response_04",
+        "identity_011:response_04",
+        "identity_012:response_04",
+        "identity_013:response_04",
+        "identity_014:response_04",
+        "identity_015:response_04"
+      ]
+    },
+    {
+      "text": "Я создан, чтобы помогать вам быстро и по делу.",
+      "responses": [
+        "identity_001:response_05",
+        "identity_002:response_05",
+        "identity_003:response_05",
+        "identity_004:response_05",
+        "identity_005:response_05",
+        "identity_006:response_05",
+        "identity_007:response_05",
+        "identity_008:response_05",
+        "identity_009:response_05",
+        "identity_010:response_05",
+        "identity_011:response_05",
+        "identity_012:response_05",
+        "identity_013:response_05",
+        "identity_014:response_05",
+        "identity_015:response_05"
+      ]
+    },
+    {
+      "text": "Ваш Jarvis, сэр.",
+      "responses": [
+        "identity_001:response_06",
+        "identity_002:response_06",
+        "identity_003:response_06",
+        "identity_004:response_06",
+        "identity_005:response_06",
+        "identity_006:response_06",
+        "identity_007:response_06",
+        "identity_008:response_06",
+        "identity_009:response_06",
+        "identity_010:response_06",
+        "identity_011:response_06",
+        "identity_012:response_06",
+        "identity_013:response_06",
+        "identity_014:response_06",
+        "identity_015:response_06"
+      ]
+    },
+    {
+      "text": "Я рядом, сэр. Можете на меня рассчитывать.",
+      "responses": [
+        "emotional_001:response_01",
+        "emotional_002:response_01",
+        "emotional_003:response_01",
+        "emotional_004:response_01",
+        "emotional_005:response_01",
+        "emotional_006:response_01",
+        "emotional_007:response_01",
+        "emotional_008:response_01",
+        "emotional_009:response_01",
+        "emotional_010:response_01",
+        "emotional_011:response_01",
+        "emotional_012:response_01",
+        "emotional_013:response_01",
+        "emotional_014:response_01",
+        "emotional_015:response_01"
+      ]
+    },
+    {
+      "text": "Конечно, я вас слышу и готов поддержать.",
+      "responses": [
+        "emotional_001:response_02",
+        "emotional_002:response_02",
+        "emotional_003:response_02",
+        "emotional_004:response_02",
+        "emotional_005:response_02",
+        "emotional_006:response_02",
+        "emotional_007:response_02",
+        "emotional_008:response_02",
+        "emotional_009:response_02",
+        "emotional_010:response_02",
+        "emotional_011:response_02",
+        "emotional_012:response_02",
+        "emotional_013:response_02",
+        "emotional_014:response_02",
+        "emotional_015:response_02"
+      ]
+    },
+    {
+      "text": "Давайте спокойно разберёмся вместе.",
+      "responses": [
+        "emotional_001:response_03",
+        "emotional_002:response_03",
+        "emotional_003:response_03",
+        "emotional_004:response_03",
+        "emotional_005:response_03",
+        "emotional_006:response_03",
+        "emotional_007:response_03",
+        "emotional_008:response_03",
+        "emotional_009:response_03",
+        "emotional_010:response_03",
+        "emotional_011:response_03",
+        "emotional_012:response_03",
+        "emotional_013:response_03",
+        "emotional_014:response_03",
+        "emotional_015:response_03"
+      ]
+    },
+    {
+      "text": "Спасибо за доверие, сэр.",
+      "responses": [
+        "emotional_001:response_04",
+        "emotional_002:response_04",
+        "emotional_003:response_04",
+        "emotional_004:response_04",
+        "emotional_005:response_04",
+        "emotional_006:response_04",
+        "emotional_007:response_04",
+        "emotional_008:response_04",
+        "emotional_009:response_04",
+        "emotional_010:response_04",
+        "emotional_011:response_04",
+        "emotional_012:response_04",
+        "emotional_013:response_04",
+        "emotional_014:response_04",
+        "emotional_015:response_04"
+      ]
+    },
+    {
+      "text": "Я здесь и никуда не ухожу.",
+      "responses": [
+        "emotional_001:response_05",
+        "emotional_002:response_05",
+        "emotional_003:response_05",
+        "emotional_004:response_05",
+        "emotional_005:response_05",
+        "emotional_006:response_05",
+        "emotional_007:response_05",
+        "emotional_008:response_05",
+        "emotional_009:response_05",
+        "emotional_010:response_05",
+        "emotional_011:response_05",
+        "emotional_012:response_05",
+        "emotional_013:response_05",
+        "emotional_014:response_05",
+        "emotional_015:response_05"
+      ]
+    },
+    {
+      "text": "Продолжайте, я внимательно слушаю.",
+      "responses": [
+        "emotional_001:response_06",
+        "emotional_002:response_06",
+        "emotional_003:response_06",
+        "emotional_004:response_06",
+        "emotional_005:response_06",
+        "emotional_006:response_06",
+        "emotional_007:response_06",
+        "emotional_008:response_06",
+        "emotional_009:response_06",
+        "emotional_010:response_06",
+        "emotional_011:response_06",
+        "emotional_012:response_06",
+        "emotional_013:response_06",
+        "emotional_014:response_06",
+        "emotional_015:response_06"
+      ]
+    }
+  ],
+  "near_duplicate_examples": []
+}

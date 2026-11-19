@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "group": "Literature",
+  "source_of_truth": "data/Bible/index/library_catalog.json",
+  "record_count": 7,
+  "records": [
+    {
+      "canonical_id": "knowledge3:literature:carnegie-friends",
+      "legacy_id": "carnegie-friends",
+      "alias_of": null,
+      "kind": "literature",
+      "title": "Как завоевывать друзей и оказывать влияние на людей",
+      "category": "nonfiction",
+      "subcategory": "nonfiction",
+      "source_location": "data/Bible/.internal/sources/knowledge3/literature/catalog.json",
+      "source_index": 0,
+      "source_ids": [
+        "https://www.simonandschuster.com/books/How-to-Win-Friends-and-Influence-People/Dale-Carnegie/Dale-Carnegie-Books/9780671027032",
+        "https://books.google.com/books?id=1rW-QpIAs8UC&lr=&rview=1",
+        "https://wwws.loc.gov/exhibits/books-that-shaped-america/1900-to-1950.html",
+        "https://www.wiley-vch.de/en/areas-interest/finance-economics-law/business-management-13ba/general-introductory-business-management-13ba0/business-self-help-13ba01/how-to-win-friends-and-influence-people-978-1-907326-15-8"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:literature:carnegie-friends",
+          "path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/carnegie-friends.wav",
+          "status": "LEGACY_AUDIO_UNREVIEWED"
+        }
+      ],
+      "variant_count": 8,
+      "updated_at": "2026-11-15T16:17:50+03:00",
+      "version": 2,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:literature:carnegie-worry",
+      "legacy_id": "carnegie-worry",
+      "alias_of": null,
+      "kind": "literature",
+      "title": "Как перестать беспокоиться и начать жить",
+      "category": "nonfiction",
+      "subcategory": "nonfiction",
+      "source_location": "data/Bible/.internal/sources/knowledge3/literature/catalog.json",
+      "source_index": 1,
+      "source_ids": [
+        "https://www.simonandschuster.com/books/How-to-Stop-Worrying-and-Start-Living/Dale-Carnegie/9780671733355"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:literature:carnegie-worry",
+          "path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/carnegie-worry.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:literature:carnegie-speaking",
+      "legacy_id": "carnegie-speaking",
+      "alias_of": null,
+      "kind": "literature",
+      "title": "Как вырабатывать уверенность в себе и влиять на людей, выступая публично",
+      "category": "nonfiction",
+      "subcategory": "nonfiction",
+      "source_location": "data/Bible/.internal/sources/knowledge3/literature/catalog.json",
+      "source_index": 2,
+      "source_ids": [
+        "https://www.simonandschuster.com/authors/Dale-Carnegie/153"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:literature:carnegie-speaking",
+          "path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/carnegie-speaking.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:literature:werber-ants",
+      "legacy_id": "werber-ants",
+      "alias_of": null,
+      "kind": "literature",
+      "title": "Трилогия «Муравьи»",
+      "category": "fiction",
+      "subcategory": "fiction",
+      "source_location": "data/Bible/.internal/sources/knowledge3/literature/catalog.json",
+      "source_index": 3,
+      "source_ids": [
+        "https://www.glenat.com/auteur/bernard-werber/"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:literature:werber-ants",
+          "path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/werber-ants.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:literature:werber-thanatonauts",
+      "legacy_id": "werber-thanatonauts",
+      "alias_of": null,
+      "kind": "literature",
+      "title": "Цикл «Танатонавты»",
+      "category": "fiction",
+      "subcategory": "fiction",
+      "source_location": "data/Bible/.internal/sources/knowledge3/literature/catalog.json",
+      "source_index": 4,
+      "source_ids": [
+        "https://www.albin-michel.fr/auteurs/bernard-werber-17883"
+      ],
+      "recorded_status": "SOURCE_LINKED",
+      "content_status": "SOURCE_LINKED",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:literature:werber-thanatonauts",
+          "path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/werber-thanatonauts.wav",
+          "status": "AUDIO_READY"
+        }
+      ],
+      "variant_count": 0,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:literature:defoe-robinson-crusoe",
+      "legacy_id": "defoe-robinson-crusoe",
+      "alias_of": null,
+      "kind": "literature",
+      "title": "Робинзон Крузо",
+      "category": "public_domain_candidate",
+      "subcategory": "public_domain_candidate",
+      "source_location": "data/Bible/.internal/sources/knowledge3/literature/catalog.json",
+      "source_index": 5,
+      "source_ids": [
+        "https://www.gutenberg.org/ebooks/70841/"
+      ],
+      "recorded_status": "SOURCE_REVIEW",
+      "content_status": "SOURCE_REVIEW",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:literature:defoe-robinson-crusoe",
+          "path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/defoe-robinson-crusoe.wav",
+          "status": "AUDIO_PENDING"
+        }
+      ],
+      "variant_count": 4,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "knowledge3:literature:verne-mysterious-island",
+      "legacy_id": "verne-mysterious-island",
+      "alias_of": null,
+      "kind": "literature",
+      "title": "Таинственный остров",
+      "category": "public_domain_candidate",
+      "subcategory": "public_domain_candidate",
+      "source_location": "data/Bible/.internal/sources/knowledge3/literature/catalog.json",
+      "source_index": 6,
+      "source_ids": [
+        "https://onlinebooks.library.upenn.edu/webbin/gutbook/lookup?num=1268"
+      ],
+      "recorded_status": "SOURCE_REVIEW",
+      "content_status": "SOURCE_REVIEW",
+      "audio_links": [
+        {
+          "variant_id": "knowledge3:literature:verne-mysterious-island",
+          "path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/verne-mysterious-island.wav",
+          "status": "AUDIO_PENDING"
+        }
+      ],
+      "variant_count": 4,
+      "updated_at": "2026-11-15",
+      "version": 1,
+      "derived_id": false
+    }
+  ]
+}

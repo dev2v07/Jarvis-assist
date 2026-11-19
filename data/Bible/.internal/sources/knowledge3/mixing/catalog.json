@@ -1,0 +1,340 @@
+{
+  "version": 1,
+  "status": "SOURCE_LINKED_READ_ONLY",
+  "cards": [
+    {
+      "id": "mixing-peak-rms",
+      "title": "Пики и RMS",
+      "summary": "Пиковый уровень показывает запас до клиппинга, RMS помогает оценить среднюю энергию сигнала.",
+      "topics": [
+        "peak",
+        "rms",
+        "dbfs",
+        "клиппинг"
+      ],
+      "sources": [
+        "https://www.izotope.com/en/learn/understanding-loudness.html",
+        "https://www.itu.int/rec/R-REC-BS.1770-5-202311-I",
+        "https://tech.ebu.ch/publications/r128",
+        "https://tech.ebu.ch/publications/tech3343"
+      ],
+      "audio_status": "AUDIO_PENDING",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/mixing/audio/mixing-peak-rms.wav",
+      "audio_metadata": {
+        "duration": 6.502,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "topic": "Пики и RMS",
+      "questions": [
+        "Пики и RMS",
+        "Пиковый уровень показывает запас до клиппинга, RMS помогает оценить среднюю энергию сигнала."
+      ],
+      "answer": "Пиковый уровень показывает запас до клиппинга, RMS помогает оценить среднюю энергию сигнала.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "status": "SOURCE_REVIEW",
+      "research_metadata": {
+        "ollama_model": "qwen3:8b",
+        "ollama_role": "draft_variants_only",
+        "ollama_result": "Черновик получен, но четыре ответа оказались частично дублирующимися; один вариант был структурно неполным. В VERIFIED он не переносился.",
+        "codex_review": "Проверены различия Peak/RMS/LUFS, актуальность ITU-R BS.1770-5 и область применения EBU R 128. Нормативные значения не обобщаются на музыкальный мастеринг без указания платформы."
+      },
+      "detailed_material": {
+        "core_explanation": "Sample peak показывает максимальное значение отдельных отсчётов; true peak оценивает максимум непрерывной восстановленной формы и может быть выше sample peak. RMS описывает усреднённую энергию за выбранное окно, но не является универсальной мерой воспринимаемой громкости. LUFS/LKFS — loudness-метрика семейства ITU-R BS.1770 с K-взвешиванием, суммированием каналов и gating; это оценка, а не прямое измерение субъективного слуха.",
+        "workflow": [
+          "проверить sample peak и true peak на входе и выходе цепочки",
+          "оценить RMS или crest factor для понимания динамики материала",
+          "измерить momentary/short-term/integrated loudness подходящим loudness-метром",
+          "сравнивать референсы на сопоставимой воспринимаемой громкости",
+          "выбирать целевые значения только после определения платформы и стандарта"
+        ],
+        "important_limits": [
+          "Peak не отвечает на вопрос, насколько громко воспринимается весь трек",
+          "RMS зависит от окна, спектра и формы сигнала",
+          "LUFS не гарантирует одинаковое субъективное восприятие в любых наушниках и акустике",
+          "EBU R 128 — broadcast-рекомендация; её -23 LUFS нельзя автоматически выдавать за универсальную цель для музыкального релиза",
+          "BS.1770-5 — действующая редакция ITU; локальная карточка раньше ссылалась на общую страницу без версии"
+        ],
+        "sources_and_claims": [
+          {
+            "source": "https://www.itu.int/rec/R-REC-BS.1770-5-202311-I",
+            "claims": "действующая рекомендация, loudness algorithm и true-peak measurement"
+          },
+          {
+            "source": "https://tech.ebu.ch/publications/r128",
+            "claims": "EBU R 128 и broadcast loudness descriptors"
+          },
+          {
+            "source": "https://tech.ebu.ch/publications/tech3343",
+            "claims": "пример broadcast workflow, -23 LUFS и -1 dBTP в указанном контексте"
+          }
+        ],
+        "review_status": "SOURCE_REVIEW"
+      },
+      "response_variations": [
+        {
+          "variant_id": "mixing-peak-rms-v1",
+          "variant_kind": "definition",
+          "parent_id": "mixing-peak-rms",
+          "text": "Peak отвечает на вопрос «какой максимум достигнут», RMS — «какова средняя энергия за окно», а LUFS — «какова стандартизированная оценка громкости программы». Поэтому высокий peak не обязательно означает высокую воспринимаемую громкость, а одинаковый RMS не гарантирует одинаковый LUFS.",
+          "source_ids": [
+            "https://www.itu.int/rec/R-REC-BS.1770-5-202311-I"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "mixing-peak-rms-v2",
+          "variant_kind": "metering_workflow",
+          "parent_id": "mixing-peak-rms",
+          "text": "В рабочем измерении сначала проверь sample peak и true peak, затем оцени RMS или crest factor, а для программы измерь momentary, short-term и integrated loudness. После этого сравнивай материал с референсом при сопоставимой громкости; один показатель не должен заменять остальные.",
+          "source_ids": [
+            "https://www.itu.int/rec/R-REC-BS.1770-5-202311-I",
+            "https://tech.ebu.ch/publications/r128"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "mixing-peak-rms-v3",
+          "variant_kind": "true_peak",
+          "parent_id": "mixing-peak-rms",
+          "text": "True peak нужен потому, что максимум восстановленной непрерывной формы может оказаться выше максимального цифрового sample. Поэтому отсутствие клиппинга по sample meter не доказывает отсутствие межсемплового перегруза после конвертации или кодирования.",
+          "source_ids": [
+            "https://www.itu.int/rec/R-REC-BS.1770-5-202311-I"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "mixing-peak-rms-v4",
+          "variant_kind": "comparison",
+          "parent_id": "mixing-peak-rms",
+          "text": "RMS удобен для грубой оценки энергии и crest factor, но зависит от окна и материала. LUFS использует другую модель измерения и предназначен для loudness-процессов. Сравнивать RMS и LUFS как две шкалы одного и того же нельзя.",
+          "source_ids": [
+            "https://www.itu.int/rec/R-REC-BS.1770-5-202311-I"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "mixing-peak-rms-v5",
+          "variant_kind": "broadcast_example",
+          "parent_id": "mixing-peak-rms",
+          "text": "В broadcast-контексте EBU R 128 использует programme loudness, loudness range и maximum true peak; рекомендация -23 LUFS и -1 dBTP относится к этому стандарту и его рабочей области. Для музыки и стриминговых платформ цель нужно брать из требований конкретной площадки, а не переносить автоматически.",
+          "source_ids": [
+            "https://tech.ebu.ch/publications/r128",
+            "https://tech.ebu.ch/publications/tech3343"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "mixing-peak-rms-v6",
+          "variant_kind": "mistakes",
+          "parent_id": "mixing-peak-rms",
+          "text": "Типичные ошибки: нормализовать всё только по sample peak, принимать RMS за loudness, сравнивать треки без выравнивания громкости, считать любое число LUFS универсальным и игнорировать true peak перед кодированием. Исправление начинается с определения платформы и цели измерения.",
+          "source_ids": [
+            "https://www.itu.int/rec/R-REC-BS.1770-5-202311-I",
+            "https://tech.ebu.ch/publications/r128"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "mixing-stereo-correlation",
+      "title": "Стереокорреляция и моносовместимость",
+      "summary": "Проверяй корреляцию и моно-сумму, чтобы обнаружить ослабление сигнала из-за фазовых различий.",
+      "topics": [
+        "phase",
+        "correlation",
+        "mono",
+        "стерео"
+      ],
+      "sources": [
+        "https://www.soundonsound.com/techniques/understanding-phase"
+      ],
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/mixing/audio/mixing-stereo-correlation.wav",
+      "audio_metadata": {
+        "duration": 7.477,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "topic": "Стереокорреляция и моносовместимость",
+      "questions": [
+        "Стереокорреляция и моносовместимость",
+        "Проверяй корреляцию и моно-сумму, чтобы обнаружить ослабление сигнала из-за фазовых различий."
+      ],
+      "answer": "Проверяй корреляцию и моно-сумму, чтобы обнаружить ослабление сигнала из-за фазовых различий.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "status": "SOURCE_LINKED",
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "mixing-reference",
+      "title": "Сравнение с референсом",
+      "summary": "Референс нужно сравнивать на сопоставимой воспринимаемой громкости и в одинаковых условиях прослушивания.",
+      "topics": [
+        "reference",
+        "референс",
+        "compare",
+        "сравнение"
+      ],
+      "sources": [
+        "https://www.soundonsound.com/techniques/mixing-references"
+      ],
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/mixing/audio/mixing-reference.wav",
+      "audio_metadata": {
+        "duration": 7.523,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "topic": "Сравнение с референсом",
+      "questions": [
+        "Сравнение с референсом",
+        "Референс нужно сравнивать на сопоставимой воспринимаемой громкости и в одинаковых условиях прослушивания."
+      ],
+      "answer": "Референс нужно сравнивать на сопоставимой воспринимаемой громкости и в одинаковых условиях прослушивания.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "status": "SOURCE_LINKED",
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "mastering-lufs",
+      "title": "LUFS и true peak",
+      "summary": "Интегральная громкость и true peak измеряются отдельными loudness-метрами; RMS не заменяет LUFS.",
+      "topics": [
+        "lufs",
+        "true peak",
+        "mastering",
+        "громкость"
+      ],
+      "sources": [
+        "https://www.itu.int/rec/R-REC-BS.1770"
+      ],
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/mixing/audio/mastering-lufs.wav",
+      "audio_metadata": {
+        "duration": 7.43,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "topic": "LUFS и true peak",
+      "questions": [
+        "LUFS и true peak",
+        "Интегральная громкость и true peak измеряются отдельными loudness-метрами; RMS не заменяет LUFS."
+      ],
+      "answer": "Интегральная громкость и true peak измеряются отдельными loudness-метрами; RMS не заменяет LUFS.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "status": "SOURCE_LINKED",
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "mixing-vocal-space",
+      "title": "Место для вокала",
+      "summary": "Место вокалу создают балансом, автоматизацией и умеренной коррекцией конфликтующих инструментов, а не постоянным солированием дорожек.",
+      "topics": [
+        "vocal",
+        "voice",
+        "пространство",
+        "баланс"
+      ],
+      "sources": [
+        "https://www.fabfilter.com/learn/eq"
+      ],
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/mixing/audio/mixing-vocal-space.wav",
+      "audio_metadata": {
+        "duration": 9.938,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "topic": "Место для вокала",
+      "questions": [
+        "Место для вокала",
+        "Место вокалу создают балансом, автоматизацией и умеренной коррекцией конфликтующих инструментов, а не постоянным солированием дорожек."
+      ],
+      "answer": "Место вокалу создают балансом, автоматизацией и умеренной коррекцией конфликтующих инструментов, а не постоянным солированием дорожек.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "status": "SOURCE_LINKED",
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "mixing-heavy-guitars",
+      "title": "Баланс тяжёлых гитар",
+      "summary": "Плотность ритм-гитар оценивай вместе с басом и бочкой; ширина не должна разрушать центр и моносовместимость.",
+      "topics": [
+        "metal",
+        "guitar",
+        "гитары",
+        "тяжёлая музыка"
+      ],
+      "sources": [
+        "https://www.soundonsound.com/techniques/mixing-metal"
+      ],
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/mixing/audio/mixing-heavy-guitars.wav",
+      "audio_metadata": {
+        "duration": 8.127,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "topic": "Баланс тяжёлых гитар",
+      "questions": [
+        "Баланс тяжёлых гитар",
+        "Плотность ритм-гитар оценивай вместе с басом и бочкой; ширина не должна разрушать центр и моносовместимость."
+      ],
+      "answer": "Плотность ритм-гитар оценивай вместе с басом и бочкой; ширина не должна разрушать центр и моносовместимость.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "status": "SOURCE_LINKED",
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    }
+  ]
+}

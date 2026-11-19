@@ -1,0 +1,213 @@
+{
+  "version": 1,
+  "status": "SAFE_ACTION_CATALOG",
+  "cards": [
+    {
+      "id": "daw-open-cubase",
+      "title": "Открытие Cubase 13",
+      "summary": "Jarvis находит обнаруженный Cubase и запускает его без shell-команд.",
+      "topics": [
+        "cubase",
+        "кубейс",
+        "запуск"
+      ],
+      "sources": [
+        "https://www.steinberg.help/"
+      ],
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/daw/audio/daw-open-cubase.wav",
+      "audio_metadata": {
+        "duration": 6.177,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "topic": "Открытие Cubase 13",
+      "questions": [
+        "Открытие Cubase 13",
+        "Jarvis находит обнаруженный Cubase и запускает его без shell-команд."
+      ],
+      "answer": "Jarvis находит обнаруженный Cubase и запускает его без shell-команд.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "status": "SOURCE_LINKED",
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "daw-project-inspection",
+      "title": "Инспекция проекта Cubase",
+      "summary": "Jarvis может прочитать структуру папки, найти CPR-проекты и аудиофайлы без изменения содержимого.",
+      "topics": [
+        "cpr",
+        "проект",
+        "инспекция",
+        "аудио"
+      ],
+      "sources": [
+        "https://www.steinberg.help/cubase/"
+      ],
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/daw/audio/daw-project-inspection.wav",
+      "audio_metadata": {
+        "duration": 8.359,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "topic": "Инспекция проекта Cubase",
+      "questions": [
+        "Инспекция проекта Cubase",
+        "Jarvis может прочитать структуру папки, найти CPR-проекты и аудиофайлы без изменения содержимого."
+      ],
+      "answer": "Jarvis может прочитать структуру папки, найти CPR-проекты и аудиофайлы без изменения содержимого.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "status": "SOURCE_LINKED",
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "daw-group-channel",
+      "title": "Group Channel в Cubase",
+      "summary": "Групповой канал объединяет несколько дорожек для общей обработки и автоматизации.",
+      "topics": [
+        "group channel",
+        "группа",
+        "шина"
+      ],
+      "sources": [
+        "https://www.steinberg.help/"
+      ],
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/daw/audio/daw-group-channel.wav",
+      "audio_metadata": {
+        "duration": 6.223,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "topic": "Group Channel в Cubase",
+      "questions": [
+        "Group Channel в Cubase",
+        "Групповой канал объединяет несколько дорожек для общей обработки и автоматизации."
+      ],
+      "answer": "Групповой канал объединяет несколько дорожек для общей обработки и автоматизации.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "status": "SOURCE_LINKED",
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "daw-fx-send",
+      "title": "FX Channel и send",
+      "summary": "Send направляет часть сигнала на общий эффект, сохраняя отдельный контроль исходной дорожки.",
+      "topics": [
+        "fx channel",
+        "send",
+        "реверб",
+        "эффект"
+      ],
+      "sources": [
+        "https://www.steinberg.help/"
+      ],
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/daw/audio/daw-fx-send.wav",
+      "audio_metadata": {
+        "duration": 6.641,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "topic": "FX Channel и send",
+      "questions": [
+        "FX Channel и send",
+        "Send направляет часть сигнала на общий эффект, сохраняя отдельный контроль исходной дорожки."
+      ],
+      "answer": "Send направляет часть сигнала на общий эффект, сохраняя отдельный контроль исходной дорожки.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "status": "SOURCE_LINKED",
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "daw-sidechain",
+      "title": "Sidechain в Cubase",
+      "summary": "Sidechain позволяет управляющему сигналу влиять на компрессию или другой динамический процесс.",
+      "topics": [
+        "sidechain",
+        "сайдчейн",
+        "компрессор"
+      ],
+      "sources": [
+        "https://www.steinberg.help/"
+      ],
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/daw/audio/daw-sidechain.wav",
+      "audio_metadata": {
+        "duration": 7.384,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "topic": "Sidechain в Cubase",
+      "questions": [
+        "Sidechain в Cubase",
+        "Sidechain позволяет управляющему сигналу влиять на компрессию или другой динамический процесс."
+      ],
+      "answer": "Sidechain позволяет управляющему сигналу влиять на компрессию или другой динамический процесс.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "status": "SOURCE_LINKED",
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "daw-stems",
+      "title": "Экспорт stems",
+      "summary": "Перед экспортом stems проверь начало и конец диапазона, sample rate, bit depth и имена файлов.",
+      "topics": [
+        "stems",
+        "экспорт",
+        "рендер",
+        "bounce"
+      ],
+      "sources": [
+        "https://www.steinberg.help/"
+      ],
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/daw/audio/daw-stems.wav",
+      "audio_metadata": {
+        "duration": 7.245,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "knowledge3",
+      "subcategory": "general",
+      "topic": "Экспорт stems",
+      "questions": [
+        "Экспорт stems",
+        "Перед экспортом stems проверь начало и конец диапазона, sample rate, bit depth и имена файлов."
+      ],
+      "answer": "Перед экспортом stems проверь начало и конец диапазона, sample rate, bit depth и имена файлов.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "status": "SOURCE_LINKED",
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    }
+  ]
+}

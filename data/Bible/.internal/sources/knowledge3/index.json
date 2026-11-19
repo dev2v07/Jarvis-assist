@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "generated_at": "2026-11-15T02:23:08.164803+00:00",
+  "read_only": true,
+  "modules": [
+    {
+      "id": "guitar_encyclopedia",
+      "priority": 3,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/guitar"
+    },
+    {
+      "id": "psychology_support",
+      "priority": 3,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/psychology"
+    },
+    {
+      "id": "books_literature",
+      "priority": 4,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/literature"
+    },
+    {
+      "id": "personal_music_intelligence",
+      "priority": 2,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/music"
+    },
+    {
+      "id": "programming_mentor",
+      "priority": 2,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/programming"
+    },
+    {
+      "id": "coding_developer",
+      "priority": 1,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/coding_projects"
+    },
+    {
+      "id": "music_production",
+      "priority": 2,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/audio"
+    },
+    {
+      "id": "voice_production_mentor",
+      "priority": 3,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/voice"
+    },
+    {
+      "id": "daw_control",
+      "priority": 5,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/daw"
+    },
+    {
+      "id": "mixing_mastering_engineer",
+      "priority": 5,
+      "status": "implemented_mvp",
+      "storage": "data/knowledge3/mixing"
+    }
+  ],
+  "sources": {
+    "module_registry": "data/Bible/.internal/sources/knowledge3/module_registry.json",
+    "environment_audit": "data/Bible/.internal/sources/knowledge3/environment_audit.json",
+    "offline_knowledge": "data/Bible/.internal/sources/offline_knowledge/catalog.json"
+  },
+  "offline_knowledge": {
+    "path": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+    "topics": 405,
+    "status": "VERIFIED_BY_USER"
+  },
+  "environment": {
+    "audit_generated_at": "2026-11-14T17:36:56.950064+00:00",
+    "installed_programs": 294
+  },
+  "music": {
+    "path": "data/Bible/.internal/sources/knowledge3/music_catalog.json",
+    "reference_path": "data/Bible/.internal/sources/knowledge3/music/reference_catalog.json",
+    "summary": {
+      "tracks": 5733,
+      "artists": 135,
+      "albums": 613
+    }
+  },
+  "programming": {
+    "path": "data/Bible/.internal/sources/knowledge3/programming/lessons.json",
+    "lessons": 31,
+    "languages": [
+      "FastAPI",
+      "Flutter",
+      "Git",
+      "HTML",
+      "PHP",
+      "Python",
+      "React",
+      "React Native",
+      "SQL",
+      "WordPress"
+    ],
+    "audio_path": "data/knowledge3/programming/audio",
+    "audio_ready": 31,
+    "audio_pending": 0,
+    "audio_status": "AUDIO_READY"
+  },
+  "audio": {
+    "path": "data/Bible/.internal/sources/knowledge3/audio/plugin_registry.json",
+    "products": 15,
+    "lessons_path": "data/Bible/.internal/sources/knowledge3/audio/lessons.json",
+    "lessons": 25,
+    "audio_ready": 25,
+    "audio_pending": 0,
+    "status": "AUDIO_READY"
+  },
+  "voice": {
+    "path": "data/Bible/.internal/sources/knowledge3/voice/lessons.json",
+    "lessons": 6,
+    "audio_status": "AUDIO_READY",
+    "audio_ready": 6,
+    "audio_pending": 0
+  },
+  "guitar": {
+    "path": "data/Bible/.internal/sources/knowledge3/guitar/catalog.json",
+    "models": 12,
+    "status": "AUDIO_READY",
+    "audio_path": "data/knowledge3/guitar/audio",
+    "audio_ready": 12,
+    "audio_pending": 0,
+    "audio_status": "AUDIO_READY"
+  },
+  "psychology": {
+    "path": "data/Bible/.internal/sources/knowledge3/psychology/cards.json",
+    "cards": 8,
+    "safety": "NO_DIAGNOSIS_NO_PRESCRIPTIONS",
+    "audio_path": "data/knowledge3/psychology/audio",
+    "audio_ready": 8,
+    "audio_pending": 0,
+    "audio_status": "AUDIO_READY"
+  },
+  "literature": {
+    "path": "data/Bible/.internal/sources/knowledge3/literature/catalog.json",
+    "works": 8,
+    "copyright_policy": "SUMMARY_ONLY_FOR_PROTECTED_WORKS",
+    "audio_path": "data/knowledge3/literature/audio",
+    "audio_ready": 7,
+    "audio_pending": 0,
+    "audio_status": "AUDIO_READY"
+  },
+  "daw": {
+    "path": "data/Bible/.internal/sources/knowledge3/environment_audit.json",
+    "catalog_path": "data/Bible/.internal/sources/knowledge3/daw/catalog.json",
+    "status": "SAFE_ACTION_CATALOG",
+    "automation": "CONFIRMATION_FIRST",
+    "audio_path": "data/knowledge3/daw/audio",
+    "audio_ready": 6,
+    "audio_pending": 0,
+    "audio_status": "AUDIO_READY"
+  },
+  "mixing": {
+    "path": "data/Bible/.internal/sources/knowledge3/mixing/catalog.json",
+    "status": "READ_ONLY_WAV_METERING_LUFS_TRUE_PEAK",
+    "cards": 6,
+    "supported": [
+      "WAV",
+      "peak_dbfs",
+      "rms_dbfs",
+      "clipping",
+      "integrated_lufs",
+      "true_peak_dbfs_4x"
+    ],
+    "audio_path": "data/knowledge3/mixing/audio",
+    "audio_ready": 6,
+    "audio_pending": 0,
+    "audio_status": "AUDIO_READY"
+  }
+}

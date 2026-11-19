@@ -1,0 +1,3657 @@
+{
+  "version": 1,
+  "group": "CPU",
+  "source_of_truth": "data/Bible/index/library_catalog.json",
+  "record_count": 52,
+  "records": [
+    {
+      "canonical_id": "offline:topic:offline_0001_topic_0001",
+      "legacy_id": "offline_0001_topic_0001",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как появились первые персональные компьютеры?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 0,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0001_topic_0001:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0001_topic_0001/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0001_topic_0001:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0001_topic_0001/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0001_topic_0001:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0001_topic_0001/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0001_topic_0001:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0001_topic_0001/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0001_topic_0001:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0001_topic_0001/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0001_topic_0001:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0001_topic_0001/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0001_topic_0001:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0001_topic_0001/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0001_topic_0001:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0001_topic_0001/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0001_topic_0001:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0001_topic_0001/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0001_topic_0001:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0001_topic_0001/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0002_intel_8086",
+      "legacy_id": "offline_0002_intel_8086",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое Intel 8086?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 1,
+      "source_ids": [
+        "https://www.intel.com/content/www/us/en/history/virtual-vault/articles/the-8086-and-the-ibm-pc.html",
+        "https://timeline.intel.com/1978/the-beginning-of-a-legend-the-8086",
+        "https://cdrdv2-public.intel.com/782149/253665-sdm-vol-1.pdf",
+        "https://bitsavers.org/components/intel/8086/9800722-03_The_8086_Family_Users_Manual_Oct79.pdf"
+      ],
+      "recorded_status": "VERIFIED",
+      "content_status": "VERIFIED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0002_intel_8086:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0002_intel_8086/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0002_intel_8086:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0002_intel_8086/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0002_intel_8086:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0002_intel_8086/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0002_intel_8086:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0002_intel_8086/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0002_intel_8086:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0002_intel_8086/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0002_intel_8086:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0002_intel_8086/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0002_intel_8086:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0002_intel_8086/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0002_intel_8086:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0002_intel_8086/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0002_intel_8086:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0002_intel_8086/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0002_intel_8086:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0002_intel_8086/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 6,
+      "updated_at": "2026-11-15",
+      "version": 2,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0003_intel_80286_8086",
+      "legacy_id": "offline_0003_intel_80286_8086",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Чем отличался Intel 80286 от 8086?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 2,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0003_intel_80286_8086:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0003_intel_80286_8086/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0003_intel_80286_8086:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0003_intel_80286_8086/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0003_intel_80286_8086:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0003_intel_80286_8086/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0003_intel_80286_8086:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0003_intel_80286_8086/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0003_intel_80286_8086:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0003_intel_80286_8086/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0003_intel_80286_8086:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0003_intel_80286_8086/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0003_intel_80286_8086:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0003_intel_80286_8086/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0003_intel_80286_8086:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0003_intel_80286_8086/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0003_intel_80286_8086:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0003_intel_80286_8086/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0003_intel_80286_8086:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0003_intel_80286_8086/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0004_intel_80386",
+      "legacy_id": "offline_0004_intel_80386",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое Intel 80386?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 3,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0004_intel_80386:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0004_intel_80386/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0004_intel_80386:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0004_intel_80386/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0004_intel_80386:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0004_intel_80386/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0004_intel_80386:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0004_intel_80386/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0004_intel_80386:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0004_intel_80386/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0004_intel_80386:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0004_intel_80386/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0004_intel_80386:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0004_intel_80386/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0004_intel_80386:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0004_intel_80386/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0004_intel_80386:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0004_intel_80386/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0004_intel_80386:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0004_intel_80386/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0005_intel_486",
+      "legacy_id": "offline_0005_intel_486",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Почему Intel 486 был важен?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 4,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0005_intel_486:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0005_intel_486/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0005_intel_486:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0005_intel_486/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0005_intel_486:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0005_intel_486/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0005_intel_486:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0005_intel_486/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0005_intel_486:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0005_intel_486/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0005_intel_486:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0005_intel_486/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0005_intel_486:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0005_intel_486/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0005_intel_486:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0005_intel_486/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0005_intel_486:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0005_intel_486/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0005_intel_486:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0005_intel_486/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0006_pentium",
+      "legacy_id": "offline_0006_pentium",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое Pentium первого поколения?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 5,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0006_pentium:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0006_pentium/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0006_pentium:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0006_pentium/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0006_pentium:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0006_pentium/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0006_pentium:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0006_pentium/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0006_pentium:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0006_pentium/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0006_pentium:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0006_pentium/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0006_pentium:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0006_pentium/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0006_pentium:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0006_pentium/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0006_pentium:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0006_pentium/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0006_pentium:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0006_pentium/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0007_pentium_486",
+      "legacy_id": "offline_0007_pentium_486",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Чем Pentium отличался от 486?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 6,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0007_pentium_486:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0007_pentium_486/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0007_pentium_486:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0007_pentium_486/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0007_pentium_486:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0007_pentium_486/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0007_pentium_486:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0007_pentium_486/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0007_pentium_486:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0007_pentium_486/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0007_pentium_486:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0007_pentium_486/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0007_pentium_486:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0007_pentium_486/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0007_pentium_486:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0007_pentium_486/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0007_pentium_486:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0007_pentium_486/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0007_pentium_486:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0007_pentium_486/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0008_pentium_mmx",
+      "legacy_id": "offline_0008_pentium_mmx",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое Pentium MMX?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 7,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0008_pentium_mmx:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0008_pentium_mmx/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0008_pentium_mmx:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0008_pentium_mmx/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0008_pentium_mmx:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0008_pentium_mmx/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0008_pentium_mmx:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0008_pentium_mmx/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0008_pentium_mmx:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0008_pentium_mmx/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0008_pentium_mmx:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0008_pentium_mmx/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0008_pentium_mmx:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0008_pentium_mmx/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0008_pentium_mmx:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0008_pentium_mmx/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0008_pentium_mmx:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0008_pentium_mmx/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0008_pentium_mmx:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0008_pentium_mmx/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0009_pentium_ii",
+      "legacy_id": "offline_0009_pentium_ii",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое Pentium II?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 8,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0009_pentium_ii:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0009_pentium_ii/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0009_pentium_ii:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0009_pentium_ii/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0009_pentium_ii:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0009_pentium_ii/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0009_pentium_ii:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0009_pentium_ii/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0009_pentium_ii:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0009_pentium_ii/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0009_pentium_ii:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0009_pentium_ii/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0009_pentium_ii:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0009_pentium_ii/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0009_pentium_ii:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0009_pentium_ii/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0009_pentium_ii:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0009_pentium_ii/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0009_pentium_ii:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0009_pentium_ii/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0010_pentium_iii_pentium_ii",
+      "legacy_id": "offline_0010_pentium_iii_pentium_ii",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Чем Pentium III отличался от Pentium II?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 9,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0010_pentium_iii_pentium_ii:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_pentium_iii_pentium_ii/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_pentium_iii_pentium_ii:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_pentium_iii_pentium_ii/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_pentium_iii_pentium_ii:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_pentium_iii_pentium_ii/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_pentium_iii_pentium_ii:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_pentium_iii_pentium_ii/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_pentium_iii_pentium_ii:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_pentium_iii_pentium_ii/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_pentium_iii_pentium_ii:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_pentium_iii_pentium_ii/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_pentium_iii_pentium_ii:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_pentium_iii_pentium_ii/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_pentium_iii_pentium_ii:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_pentium_iii_pentium_ii/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_pentium_iii_pentium_ii:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_pentium_iii_pentium_ii/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_pentium_iii_pentium_ii:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_pentium_iii_pentium_ii/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0011_pentium_4",
+      "legacy_id": "offline_0011_pentium_4",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое Pentium 4?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 10,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0011_pentium_4:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0011_pentium_4/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0011_pentium_4:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0011_pentium_4/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0011_pentium_4:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0011_pentium_4/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0011_pentium_4:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0011_pentium_4/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0011_pentium_4:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0011_pentium_4/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0011_pentium_4:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0011_pentium_4/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0011_pentium_4:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0011_pentium_4/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0011_pentium_4:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0011_pentium_4/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0011_pentium_4:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0011_pentium_4/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0011_pentium_4:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0011_pentium_4/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0012_netburst",
+      "legacy_id": "offline_0012_netburst",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Почему архитектура NetBurst была спорной?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 11,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0012_netburst:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0012_netburst/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0012_netburst:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0012_netburst/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0012_netburst:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0012_netburst/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0012_netburst:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0012_netburst/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0012_netburst:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0012_netburst/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0012_netburst:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0012_netburst/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0012_netburst:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0012_netburst/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0012_netburst:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0012_netburst/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0012_netburst:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0012_netburst/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0012_netburst:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0012_netburst/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0013_intel_core_2_duo",
+      "legacy_id": "offline_0013_intel_core_2_duo",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое Intel Core 2 Duo?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 12,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0013_intel_core_2_duo:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0013_intel_core_2_duo/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0013_intel_core_2_duo:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0013_intel_core_2_duo/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0013_intel_core_2_duo:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0013_intel_core_2_duo/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0013_intel_core_2_duo:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0013_intel_core_2_duo/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0013_intel_core_2_duo:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0013_intel_core_2_duo/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0013_intel_core_2_duo:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0013_intel_core_2_duo/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0013_intel_core_2_duo:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0013_intel_core_2_duo/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0013_intel_core_2_duo:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0013_intel_core_2_duo/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0013_intel_core_2_duo:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0013_intel_core_2_duo/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0013_intel_core_2_duo:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0013_intel_core_2_duo/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0014_core_2_duo",
+      "legacy_id": "offline_0014_core_2_duo",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Почему Core 2 Duo считался большим шагом вперед?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 13,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0014_core_2_duo:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0014_core_2_duo/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0014_core_2_duo:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0014_core_2_duo/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0014_core_2_duo:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0014_core_2_duo/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0014_core_2_duo:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0014_core_2_duo/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0014_core_2_duo:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0014_core_2_duo/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0014_core_2_duo:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0014_core_2_duo/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0014_core_2_duo:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0014_core_2_duo/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0014_core_2_duo:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0014_core_2_duo/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0014_core_2_duo:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0014_core_2_duo/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0014_core_2_duo:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0014_core_2_duo/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0015_amd_athlon",
+      "legacy_id": "offline_0015_amd_athlon",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое AMD Athlon?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 14,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0015_amd_athlon:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0015_amd_athlon/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0015_amd_athlon:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0015_amd_athlon/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0015_amd_athlon:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0015_amd_athlon/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0015_amd_athlon:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0015_amd_athlon/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0015_amd_athlon:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0015_amd_athlon/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0015_amd_athlon:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0015_amd_athlon/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0015_amd_athlon:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0015_amd_athlon/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0015_amd_athlon:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0015_amd_athlon/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0015_amd_athlon:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0015_amd_athlon/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0015_amd_athlon:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0015_amd_athlon/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0016_athlon_64_pentium_4",
+      "legacy_id": "offline_0016_athlon_64_pentium_4",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Чем Athlon 64 отличался от Pentium 4?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 15,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0016_athlon_64_pentium_4:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0016_athlon_64_pentium_4/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0016_athlon_64_pentium_4:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0016_athlon_64_pentium_4/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0016_athlon_64_pentium_4:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0016_athlon_64_pentium_4/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0016_athlon_64_pentium_4:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0016_athlon_64_pentium_4/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0016_athlon_64_pentium_4:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0016_athlon_64_pentium_4/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0016_athlon_64_pentium_4:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0016_athlon_64_pentium_4/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0016_athlon_64_pentium_4:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0016_athlon_64_pentium_4/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0016_athlon_64_pentium_4:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0016_athlon_64_pentium_4/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0016_athlon_64_pentium_4:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0016_athlon_64_pentium_4/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0016_athlon_64_pentium_4:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0016_athlon_64_pentium_4/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0017_socket_7",
+      "legacy_id": "offline_0017_socket_7",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое Socket 7?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 16,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0017_socket_7:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0017_socket_7/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0017_socket_7:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0017_socket_7/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0017_socket_7:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0017_socket_7/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0017_socket_7:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0017_socket_7/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0017_socket_7:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0017_socket_7/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0017_socket_7:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0017_socket_7/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0017_socket_7:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0017_socket_7/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0017_socket_7:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0017_socket_7/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0017_socket_7:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0017_socket_7/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0017_socket_7:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0017_socket_7/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0018_socket_478",
+      "legacy_id": "offline_0018_socket_478",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое Socket 478?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 17,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0018_socket_478:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0018_socket_478/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0018_socket_478:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0018_socket_478/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0018_socket_478:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0018_socket_478/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0018_socket_478:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0018_socket_478/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0018_socket_478:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0018_socket_478/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0018_socket_478:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0018_socket_478/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0018_socket_478:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0018_socket_478/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0018_socket_478:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0018_socket_478/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0018_socket_478:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0018_socket_478/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0018_socket_478:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0018_socket_478/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0019_socket_775",
+      "legacy_id": "offline_0019_socket_775",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое Socket 775?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 18,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0019_socket_775:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0019_socket_775/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0019_socket_775:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0019_socket_775/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0019_socket_775:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0019_socket_775/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0019_socket_775:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0019_socket_775/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0019_socket_775:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0019_socket_775/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0019_socket_775:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0019_socket_775/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0019_socket_775:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0019_socket_775/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0019_socket_775:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0019_socket_775/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0019_socket_775:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0019_socket_775/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0019_socket_775:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0019_socket_775/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0020_socket_am2",
+      "legacy_id": "offline_0020_socket_am2",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое Socket AM2?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 19,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0020_socket_am2:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0020_socket_am2/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0020_socket_am2:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0020_socket_am2/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0020_socket_am2:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0020_socket_am2/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0020_socket_am2:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0020_socket_am2/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0020_socket_am2:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0020_socket_am2/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0020_socket_am2:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0020_socket_am2/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0020_socket_am2:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0020_socket_am2/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0020_socket_am2:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0020_socket_am2/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0020_socket_am2:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0020_socket_am2/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0020_socket_am2:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0020_socket_am2/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0021_topic_0021",
+      "legacy_id": "offline_0021_topic_0021",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое северный и южный мост материнской платы?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 20,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0021_topic_0021:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0021_topic_0021/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0021_topic_0021:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0021_topic_0021/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0021_topic_0021:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0021_topic_0021/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0021_topic_0021:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0021_topic_0021/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0021_topic_0021:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0021_topic_0021/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0021_topic_0021:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0021_topic_0021/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0021_topic_0021:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0021_topic_0021/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0021_topic_0021:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0021_topic_0021/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0021_topic_0021:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0021_topic_0021/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0021_topic_0021:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0021_topic_0021/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0022_ddr_sdram",
+      "legacy_id": "offline_0022_ddr_sdram",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как работала память DDR и чем она отличалась от SDRAM?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 21,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0022_ddr_sdram:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0022_ddr_sdram/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0022_ddr_sdram:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0022_ddr_sdram/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0022_ddr_sdram:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0022_ddr_sdram/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0022_ddr_sdram:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0022_ddr_sdram/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0022_ddr_sdram:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0022_ddr_sdram/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0022_ddr_sdram:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0022_ddr_sdram/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0022_ddr_sdram:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0022_ddr_sdram/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0022_ddr_sdram:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0022_ddr_sdram/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0022_ddr_sdram:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0022_ddr_sdram/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0022_ddr_sdram:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0022_ddr_sdram/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0023_ddr2_ddr3",
+      "legacy_id": "offline_0023_ddr2_ddr3",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Чем DDR2 отличалась от DDR3?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 22,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0023_ddr2_ddr3:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0023_ddr2_ddr3/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0023_ddr2_ddr3:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0023_ddr2_ddr3/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0023_ddr2_ddr3:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0023_ddr2_ddr3/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0023_ddr2_ddr3:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0023_ddr2_ddr3/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0023_ddr2_ddr3:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0023_ddr2_ddr3/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0023_ddr2_ddr3:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0023_ddr2_ddr3/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0023_ddr2_ddr3:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0023_ddr2_ddr3/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0023_ddr2_ddr3:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0023_ddr2_ddr3/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0023_ddr2_ddr3:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0023_ddr2_ddr3/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0023_ddr2_ddr3:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0023_ddr2_ddr3/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0024_fsb",
+      "legacy_id": "offline_0024_fsb",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое FSB?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 23,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0024_fsb:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0024_fsb/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0024_fsb:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0024_fsb/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0024_fsb:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0024_fsb/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0024_fsb:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0024_fsb/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0024_fsb:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0024_fsb/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0024_fsb:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0024_fsb/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0024_fsb:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0024_fsb/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0024_fsb:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0024_fsb/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0024_fsb:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0024_fsb/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0024_fsb:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0024_fsb/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0025_topic_0025",
+      "legacy_id": "offline_0025_topic_0025",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое разгон процессора?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 24,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0025_topic_0025:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0025_topic_0025/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0025_topic_0025:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0025_topic_0025/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0025_topic_0025:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0025_topic_0025/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0025_topic_0025:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0025_topic_0025/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0025_topic_0025:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0025_topic_0025/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0025_topic_0025:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0025_topic_0025/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0025_topic_0025:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0025_topic_0025/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0025_topic_0025:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0025_topic_0025/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0025_topic_0025:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0025_topic_0025/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0025_topic_0025:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0025_topic_0025/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0026_topic_0026",
+      "legacy_id": "offline_0026_topic_0026",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Почему старые процессоры сильно нагревались?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 25,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0026_topic_0026:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0026_topic_0026/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0026_topic_0026:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0026_topic_0026/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0026_topic_0026:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0026_topic_0026/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0026_topic_0026:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0026_topic_0026/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0026_topic_0026:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0026_topic_0026/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0026_topic_0026:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0026_topic_0026/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0026_topic_0026:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0026_topic_0026/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0026_topic_0026:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0026_topic_0026/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0026_topic_0026:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0026_topic_0026/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0026_topic_0026:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0026_topic_0026/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0027_l1_l2_l3",
+      "legacy_id": "offline_0027_l1_l2_l3",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое кэш L1, L2 и L3?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 26,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0027_l1_l2_l3:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0027_l1_l2_l3/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0027_l1_l2_l3:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0027_l1_l2_l3/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0027_l1_l2_l3:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0027_l1_l2_l3/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0027_l1_l2_l3:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0027_l1_l2_l3/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0027_l1_l2_l3:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0027_l1_l2_l3/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0027_l1_l2_l3:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0027_l1_l2_l3/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0027_l1_l2_l3:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0027_l1_l2_l3/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0027_l1_l2_l3:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0027_l1_l2_l3/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0027_l1_l2_l3:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0027_l1_l2_l3/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0027_l1_l2_l3:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0027_l1_l2_l3/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0028_topic_0028",
+      "legacy_id": "offline_0028_topic_0028",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как появились многоядерные процессоры?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 27,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0028_topic_0028:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0028_topic_0028/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0028_topic_0028:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0028_topic_0028/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0028_topic_0028:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0028_topic_0028/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0028_topic_0028:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0028_topic_0028/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0028_topic_0028:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0028_topic_0028/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0028_topic_0028:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0028_topic_0028/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0028_topic_0028:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0028_topic_0028/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0028_topic_0028:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0028_topic_0028/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0028_topic_0028:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0028_topic_0028/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0028_topic_0028:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0028_topic_0028/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0029_topic_0029",
+      "legacy_id": "offline_0029_topic_0029",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Почему тактовая частота не всегда определяет производительность?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 28,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0029_topic_0029:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0029_topic_0029/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0029_topic_0029:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0029_topic_0029/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0029_topic_0029:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0029_topic_0029/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0029_topic_0029:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0029_topic_0029/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0029_topic_0029:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0029_topic_0029/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0029_topic_0029:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0029_topic_0029/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0029_topic_0029:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0029_topic_0029/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0029_topic_0029:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0029_topic_0029/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0029_topic_0029:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0029_topic_0029/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0029_topic_0029:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0029_topic_0029/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0030_1980",
+      "legacy_id": "offline_0030_1980",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как развивались процессоры с 1980-х до наших дней?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 29,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0030_1980:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0030_1980/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0030_1980:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0030_1980/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0030_1980:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0030_1980/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0030_1980:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0030_1980/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0030_1980:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0030_1980/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0030_1980:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0030_1980/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0030_1980:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0030_1980/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0030_1980:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0030_1980/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0030_1980:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0030_1980/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0030_1980:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0030_1980/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0031_x86",
+      "legacy_id": "offline_0031_x86",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое архитектура x86?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 30,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0031_x86:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0031_x86/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0031_x86:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0031_x86/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0031_x86:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0031_x86/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0031_x86:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0031_x86/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0031_x86:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0031_x86/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0031_x86:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0031_x86/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0031_x86:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0031_x86/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0031_x86:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0031_x86/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0031_x86:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0031_x86/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0031_x86:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0031_x86/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0032_x86_64",
+      "legacy_id": "offline_0032_x86_64",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое x86-64?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 31,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0032_x86_64:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0032_x86_64/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0032_x86_64:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0032_x86_64/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0032_x86_64:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0032_x86_64/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0032_x86_64:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0032_x86_64/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0032_x86_64:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0032_x86_64/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0032_x86_64:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0032_x86_64/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0032_x86_64:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0032_x86_64/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0032_x86_64:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0032_x86_64/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0032_x86_64:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0032_x86_64/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0032_x86_64:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0032_x86_64/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0033_risc_cisc",
+      "legacy_id": "offline_0033_risc_cisc",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Чем RISC отличается от CISC?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 32,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0033_risc_cisc:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0033_risc_cisc/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0033_risc_cisc:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0033_risc_cisc/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0033_risc_cisc:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0033_risc_cisc/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0033_risc_cisc:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0033_risc_cisc/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0033_risc_cisc:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0033_risc_cisc/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0033_risc_cisc:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0033_risc_cisc/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0033_risc_cisc:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0033_risc_cisc/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0033_risc_cisc:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0033_risc_cisc/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0033_risc_cisc:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0033_risc_cisc/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0033_risc_cisc:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0033_risc_cisc/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0034_topic_0034",
+      "legacy_id": "offline_0034_topic_0034",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как работали первые видеокарты?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 33,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0034_topic_0034:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0034_topic_0034/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0034_topic_0034:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0034_topic_0034/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0034_topic_0034:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0034_topic_0034/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0034_topic_0034:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0034_topic_0034/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0034_topic_0034:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0034_topic_0034/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0034_topic_0034:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0034_topic_0034/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0034_topic_0034:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0034_topic_0034/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0034_topic_0034:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0034_topic_0034/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0034_topic_0034:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0034_topic_0034/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0034_topic_0034:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0034_topic_0034/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0035_3dfx_voodoo",
+      "legacy_id": "offline_0035_3dfx_voodoo",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое 3Dfx Voodoo?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 34,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0035_3dfx_voodoo:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0035_3dfx_voodoo/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0035_3dfx_voodoo:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0035_3dfx_voodoo/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0035_3dfx_voodoo:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0035_3dfx_voodoo/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0035_3dfx_voodoo:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0035_3dfx_voodoo/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0035_3dfx_voodoo:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0035_3dfx_voodoo/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0035_3dfx_voodoo:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0035_3dfx_voodoo/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0035_3dfx_voodoo:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0035_3dfx_voodoo/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0035_3dfx_voodoo:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0035_3dfx_voodoo/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0035_3dfx_voodoo:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0035_3dfx_voodoo/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0035_3dfx_voodoo:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0035_3dfx_voodoo/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0036_agp",
+      "legacy_id": "offline_0036_agp",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое AGP?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 35,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0036_agp:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0036_agp/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0036_agp:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0036_agp/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0036_agp:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0036_agp/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0036_agp:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0036_agp/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0036_agp:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0036_agp/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0036_agp:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0036_agp/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0036_agp:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0036_agp/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0036_agp:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0036_agp/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0036_agp:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0036_agp/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0036_agp:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0036_agp/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0037_pci_express_pci",
+      "legacy_id": "offline_0037_pci_express_pci",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Чем PCI Express отличается от PCI?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 36,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0037_pci_express_pci:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0037_pci_express_pci/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0037_pci_express_pci:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0037_pci_express_pci/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0037_pci_express_pci:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0037_pci_express_pci/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0037_pci_express_pci:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0037_pci_express_pci/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0037_pci_express_pci:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0037_pci_express_pci/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0037_pci_express_pci:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0037_pci_express_pci/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0037_pci_express_pci:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0037_pci_express_pci/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0037_pci_express_pci:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0037_pci_express_pci/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0037_pci_express_pci:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0037_pci_express_pci/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0037_pci_express_pci:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0037_pci_express_pci/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0038_ide",
+      "legacy_id": "offline_0038_ide",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как работали старые жесткие диски IDE?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 37,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0038_ide:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0038_ide/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0038_ide:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0038_ide/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0038_ide:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0038_ide/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0038_ide:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0038_ide/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0038_ide:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0038_ide/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0038_ide:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0038_ide/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0038_ide:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0038_ide/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0038_ide:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0038_ide/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0038_ide:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0038_ide/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0038_ide:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0038_ide/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0039_ide_sata",
+      "legacy_id": "offline_0039_ide_sata",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Чем IDE отличался от SATA?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 38,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0039_ide_sata:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0039_ide_sata/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0039_ide_sata:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0039_ide_sata/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0039_ide_sata:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0039_ide_sata/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0039_ide_sata:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0039_ide_sata/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0039_ide_sata:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0039_ide_sata/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0039_ide_sata:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0039_ide_sata/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0039_ide_sata:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0039_ide_sata/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0039_ide_sata:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0039_ide_sata/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0039_ide_sata:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0039_ide_sata/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0039_ide_sata:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0039_ide_sata/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0040_ssd",
+      "legacy_id": "offline_0040_ssd",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как появились первые SSD?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 39,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0040_ssd:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0040_ssd/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0040_ssd:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0040_ssd/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0040_ssd:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0040_ssd/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0040_ssd:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0040_ssd/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0040_ssd:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0040_ssd/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0040_ssd:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0040_ssd/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0040_ssd:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0040_ssd/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0040_ssd:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0040_ssd/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0040_ssd:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0040_ssd/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0040_ssd:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0040_ssd/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0091_topic_0091",
+      "legacy_id": "offline_0091_topic_0091",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое гитарный процессор?",
+      "category": "C. ГИТАРНОЕ ОБОРУДОВАНИЕ И ЗВУК",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 90,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0091_topic_0091:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0091_topic_0091/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0091_topic_0091:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0091_topic_0091/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0091_topic_0091:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0091_topic_0091/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0091_topic_0091:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0091_topic_0091/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0091_topic_0091:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0091_topic_0091/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0091_topic_0091:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0091_topic_0091/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0091_topic_0091:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0091_topic_0091/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0091_topic_0091:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0091_topic_0091/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0091_topic_0091:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0091_topic_0091/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0091_topic_0091:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0091_topic_0091/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0092_topic_0092",
+      "legacy_id": "offline_0092_topic_0092",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Чем цифровой процессор отличается от аналогового?",
+      "category": "C. ГИТАРНОЕ ОБОРУДОВАНИЕ И ЗВУК",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 91,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0092_topic_0092:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0092_topic_0092/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0092_topic_0092:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0092_topic_0092/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0092_topic_0092:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0092_topic_0092/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0092_topic_0092:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0092_topic_0092/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0092_topic_0092:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0092_topic_0092/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0092_topic_0092:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0092_topic_0092/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0092_topic_0092:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0092_topic_0092/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0092_topic_0092:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0092_topic_0092/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0092_topic_0092:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0092_topic_0092/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0092_topic_0092:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0092_topic_0092/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0224_topic_0224",
+      "legacy_id": "offline_0224_topic_0224",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как появился первый компьютер?",
+      "category": "H. ИСТОРИЯ ЧЕЛОВЕЧЕСТВА",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 223,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0224_topic_0224:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0224_topic_0224/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0224_topic_0224:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0224_topic_0224/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0224_topic_0224:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0224_topic_0224/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0224_topic_0224:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0224_topic_0224/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0224_topic_0224:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0224_topic_0224/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0224_topic_0224:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0224_topic_0224/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0224_topic_0224:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0224_topic_0224/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0224_topic_0224:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0224_topic_0224/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0224_topic_0224:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0224_topic_0224/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0224_topic_0224:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0224_topic_0224/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0260_topic_0260",
+      "legacy_id": "offline_0260_topic_0260",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как устроена компьютерная безопасность?",
+      "category": "I. ИНТЕРНЕТ И ИНФОРМАЦИОННЫЕ ТЕХНОЛОГИИ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 259,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0260_topic_0260:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0260_topic_0260/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0260_topic_0260:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0260_topic_0260/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0260_topic_0260:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0260_topic_0260/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0260_topic_0260:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0260_topic_0260/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0260_topic_0260:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0260_topic_0260/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0260_topic_0260:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0260_topic_0260/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0260_topic_0260:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0260_topic_0260/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0260_topic_0260:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0260_topic_0260/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0260_topic_0260:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0260_topic_0260/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0260_topic_0260:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0260_topic_0260/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0308_topic_0308",
+      "legacy_id": "offline_0308_topic_0308",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как компьютер выполняет математические операции?",
+      "category": "K. МАТЕМАТИКА И ЛОГИКА",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 307,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0308_topic_0308:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0308_topic_0308/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0308_topic_0308:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0308_topic_0308/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0308_topic_0308:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0308_topic_0308/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0308_topic_0308:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0308_topic_0308/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0308_topic_0308:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0308_topic_0308/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0308_topic_0308:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0308_topic_0308/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0308_topic_0308:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0308_topic_0308/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0308_topic_0308:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0308_topic_0308/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0308_topic_0308:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0308_topic_0308/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0308_topic_0308:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0308_topic_0308/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0330_topic_0330",
+      "legacy_id": "offline_0330_topic_0330",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как выбрать компьютер для работы?",
+      "category": "M. ПРАКТИЧЕСКИЕ ЗНАНИЯ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 329,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0330_topic_0330:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0330_topic_0330/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0330_topic_0330:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0330_topic_0330/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0330_topic_0330:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0330_topic_0330/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0330_topic_0330:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0330_topic_0330/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0330_topic_0330:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0330_topic_0330/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0330_topic_0330:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0330_topic_0330/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0330_topic_0330:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0330_topic_0330/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0330_topic_0330:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0330_topic_0330/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0330_topic_0330:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0330_topic_0330/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0330_topic_0330:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0330_topic_0330/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0333_topic_0333",
+      "legacy_id": "offline_0333_topic_0333",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как правильно обслуживать компьютер?",
+      "category": "M. ПРАКТИЧЕСКИЕ ЗНАНИЯ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 332,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0333_topic_0333:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0333_topic_0333/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0333_topic_0333:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0333_topic_0333/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0333_topic_0333:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0333_topic_0333/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0333_topic_0333:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0333_topic_0333/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0333_topic_0333:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0333_topic_0333/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0333_topic_0333:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0333_topic_0333/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0333_topic_0333:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0333_topic_0333/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0333_topic_0333:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0333_topic_0333/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0333_topic_0333:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0333_topic_0333/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0333_topic_0333:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0333_topic_0333/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0334_topic_0334",
+      "legacy_id": "offline_0334_topic_0334",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как безопасно чистить компьютер от пыли?",
+      "category": "M. ПРАКТИЧЕСКИЕ ЗНАНИЯ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 333,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0334_topic_0334:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0334_topic_0334/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0334_topic_0334:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0334_topic_0334/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0334_topic_0334:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0334_topic_0334/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0334_topic_0334:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0334_topic_0334/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0334_topic_0334:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0334_topic_0334/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0334_topic_0334:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0334_topic_0334/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0334_topic_0334:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0334_topic_0334/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0334_topic_0334:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0334_topic_0334/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0334_topic_0334:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0334_topic_0334/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0334_topic_0334:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0334_topic_0334/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0341_topic_0341",
+      "legacy_id": "offline_0341_topic_0341",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Как защитить компьютер от вирусов?",
+      "category": "M. ПРАКТИЧЕСКИЕ ЗНАНИЯ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 340,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0341_topic_0341:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0341_topic_0341/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0341_topic_0341:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0341_topic_0341/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0341_topic_0341:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0341_topic_0341/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0341_topic_0341:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0341_topic_0341/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0341_topic_0341:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0341_topic_0341/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0341_topic_0341:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0341_topic_0341/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0341_topic_0341:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0341_topic_0341/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0341_topic_0341:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0341_topic_0341/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0341_topic_0341:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0341_topic_0341/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0341_topic_0341:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0341_topic_0341/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0375_topic_0375",
+      "legacy_id": "offline_0375_topic_0375",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Последний компьютер человечества",
+      "category": "Научная фантастика",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 374,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0375_topic_0375:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0375_topic_0375/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0375_topic_0375:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0375_topic_0375/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0375_topic_0375:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0375_topic_0375/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0375_topic_0375:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0375_topic_0375/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0375_topic_0375:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0375_topic_0375/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0375_topic_0375:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0375_topic_0375/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0375_topic_0375:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0375_topic_0375/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0375_topic_0375:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0375_topic_0375/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0375_topic_0375:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0375_topic_0375/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0375_topic_0375:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0375_topic_0375/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0389_topic_0389",
+      "legacy_id": "offline_0389_topic_0389",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Запись с неизвестного компьютера",
+      "category": "Детективы и мистика",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 388,
+      "source_ids": [],
+      "recorded_status": "RESEARCH_REQUIRED",
+      "content_status": "RESEARCH_REQUIRED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0389_topic_0389:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0389_topic_0389/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0389_topic_0389:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0389_topic_0389/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0389_topic_0389:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0389_topic_0389/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0389_topic_0389:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0389_topic_0389/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0389_topic_0389:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0389_topic_0389/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0389_topic_0389:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0389_topic_0389/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0389_topic_0389:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0389_topic_0389/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0389_topic_0389:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0389_topic_0389/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0389_topic_0389:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0389_topic_0389/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0389_topic_0389:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0389_topic_0389/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 10,
+      "updated_at": null,
+      "version": 1,
+      "derived_id": false
+    },
+    {
+      "canonical_id": "offline:topic:offline_0010_intel_80386",
+      "legacy_id": "offline_0010_intel_80386",
+      "alias_of": null,
+      "kind": "topic",
+      "title": "Что такое Intel 80386?",
+      "category": "A. СТАРЫЕ КОМПЬЮТЕРЫ И ПРОЦЕССОРЫ",
+      "subcategory": null,
+      "source_location": "data/Bible/.internal/sources/offline_knowledge/catalog.json",
+      "source_index": 403,
+      "source_ids": [
+        "https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2025-05/history-1985-annual-report.pdf",
+        "https://timeline.intel.com/1985/raising-the-bar-with-the-386",
+        "https://cdrdv2-public.intel.com/782149/253665-sdm-vol-1.pdf"
+      ],
+      "recorded_status": "VERIFIED",
+      "content_status": "VERIFIED",
+      "audio_links": [
+        {
+          "variant_id": "offline:topic:offline_0010_intel_80386:v01",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_intel_80386/variant_01.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_intel_80386:v02",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_intel_80386/variant_02.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_intel_80386:v03",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_intel_80386/variant_03.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_intel_80386:v04",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_intel_80386/variant_04.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_intel_80386:v05",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_intel_80386/variant_05.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_intel_80386:v06",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_intel_80386/variant_06.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_intel_80386:v07",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_intel_80386/variant_07.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_intel_80386:v08",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_intel_80386/variant_08.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_intel_80386:v09",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_intel_80386/variant_09.wav",
+          "status": "ready"
+        },
+        {
+          "variant_id": "offline:topic:offline_0010_intel_80386:v10",
+          "path": "data/Bible/.internal/audio/library/offline_knowledge/audio/offline_0010_intel_80386/variant_10.wav",
+          "status": "ready"
+        }
+      ],
+      "variant_count": 6,
+      "updated_at": "2026-11-15",
+      "version": 2,
+      "derived_id": false
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "status": "APPLIED",
+  "archive": "data/archive/bible_legacy_sources_20261115",
+  "moves": [
+    {
+      "from": "data/Bible/materials/offline_knowledge",
+      "to": "data/Bible/.internal/sources/offline_knowledge"
+    },
+    {
+      "from": "data/Bible/materials/knowledge3",
+      "to": "data/Bible/.internal/sources/knowledge3"
+    },
+    {
+      "from": "data/Bible/materials/voice_responses",
+      "to": "data/Bible/.internal/sources/voice_responses"
+    },
+    {
+      "from": "data/Bible/audio/offline_knowledge",
+      "to": "data/Bible/.internal/audio/library/offline_knowledge"
+    },
+    {
+      "from": "data/Bible/audio/knowledge3",
+      "to": "data/Bible/.internal/audio/library/knowledge3"
+    },
+    {
+      "from": "data/Bible/audio/voice_responses",
+      "to": "data/Bible/audio/responses"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "task_type": "knowledge_draft",
+  "module": "knowledge3.literature",
+  "topic_id": "carnegie-worry",
+  "model": "qwen3:8b",
+  "language": "ru",
+  "goal": "Подготовить самостоятельный содержательный разбор Dale Carnegie How to Stop Worrying and Start Living. Включить краткий обзор, десять частей конкретного изученного электронного текста, анализ, практические иллюстрации, ограничения и до восьми смысловых ответов; не копировать защищённый текст.",
+  "source_documents": [
+    {
+      "id": "simon-2004",
+      "url": "https://www.simonandschuster.com/books/How-to-Stop-Worrying-and-Start-Living/Dale-Carnegie/Dale-Carnegie-Books/9780671035976",
+      "locator": "Official publisher page, Gallery Books paperback 2004, ISBN 9780671035976, 320 pages",
+      "facts": [
+        "Publisher describes self-help advice on work, finances, sleep, gratitude and criticism, but claims of guaranteed benefit are marketing, not clinical evidence.",
+        "Different editions and translations may have different page numbers, titles, revisions and subdivisions."
+      ]
+    },
+    {
+      "id": "google-1948",
+      "url": "https://books.google.com/books/about/How_to_Stop_Worrying_and_Start_Living.html?id=KpohAQAAIAAJ",
+      "locator": "Google Books metadata for Simon and Schuster 1948, 306 pages",
+      "facts": [
+        "Publication year 1948 is attested bibliographically. Do not claim the checked web-text layout is identical to the 1948 copy."
+      ]
+    },
+    {
+      "id": "book-text-ten-parts",
+      "url": "https://crpf.gov.in/writereaddata/images/pdf/How_To_Stop_Worrying_And_Start_Living.pdf",
+      "locator": "Externally hosted full text; contents list ten parts and thirty main chapters plus 32 case stories; edition/rightsholder not established",
+      "facts": [
+        "Part I: focus on the present day, handling a feared outcome, bodily effects of worry.",
+        "Part II: collect facts, analyze a problem, choose and act; work-related worries.",
+        "Part III: habit of worry, small irritations, likelihood, acceptance of what cannot be changed, limiting rumination over the past.",
+        "Part IV: attitude, resentment, gratitude, individuality and helping others; historical claims about curing melancholy are not modern medical evidence.",
+        "Part V: family/religious outlook as one personal route, not universal prescription.",
+        "Part VI: response to criticism; Part VII: fatigue, work habits and insomnia; Part VIII: vocational choice; Part IX: financial planning; Part X: personal case stories.",
+        "Use for research only. Do not copy passages, quotes or reconstruct substantial narrative sections; write independent summaries."
+      ]
+    },
+    {
+      "id": "nimh-stress",
+      "url": "https://www.nimh.nih.gov/health/publications/so-stressed-out-fact-sheet",
+      "locator": "NIMH fact sheet on stress/anxiety and seeking help",
+      "facts": [
+        "Worrying that persists or interferes with daily life warrants professional evaluation; self-help book does not diagnose or replace care."
+      ]
+    }
+  ],
+  "constraints": [
+    "Верни JSON на русском: overview, author_context, edition_scope, ten_parts (10 разных смысловых пересказов), ideas, analysis, practical_examples, limitations, substantive_variants (до 8 с kind/question/text/source_ids), uncertainties, unsupported_claims.",
+    "В каждом варианте должен быть полноценный ответ минимум 40 слов, а не только вопрос.",
+    "Не писать дословные цитаты; не копировать главы или истории. Для примеров придумай собственные ситуации и явно пометь их как авторские иллюстрации.",
+    "Не выдавать совет Карнеги за лечение тревожного расстройства, гарантии сна или медицинский факт; признавать культурную и историческую ограниченность религиозных/гендерных эпизодов.",
+    "Не смешивать страницу недоступного ISBN 9780671733355 с проверенным paperback 2004 ISBN 9780671035976.",
+    "Это OLLAMA_DRAFT; только Codex после сверки источников может дать VERIFIED."
+  ]
+}

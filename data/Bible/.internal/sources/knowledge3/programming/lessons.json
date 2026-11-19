@@ -1,0 +1,1428 @@
+[
+  {
+    "id": "python-001-variables-and-types",
+    "language": "Python",
+    "level": "beginner",
+    "title": "Python: переменные и типы данных",
+    "summary": "Как сохранять значения, выбирать типы и проверять результат.",
+    "explanation": "Переменная связывает имя со значением. В Python тип определяется самим значением: строка хранит текст, int — целое число, float — дробь, bool — истину или ложь.",
+    "example": "name = 'Jarvis'\nvisits = 3\nprint(f'{name}: {visits}')",
+    "exercise": "Создай переменные с именем пользователя и количеством проектов и выведи их одной строкой.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "есть две переменные",
+        "использованы строка и число",
+        "результат выводится через print"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/tutorial/introduction.html",
+        "title": "Python Tutorial: An Informal Introduction"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/python-001-variables-and-types.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 10.681,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "Python",
+    "subcategory": "Python",
+    "topic": "Python: переменные и типы данных",
+    "questions": [
+      "Python: переменные и типы данных",
+      "Как сохранять значения, выбирать типы и проверять результат."
+    ],
+    "answer": "Переменная связывает имя со значением. В Python тип определяется самим значением: строка хранит текст, int — целое число, float — дробь, bool — истину или ложь.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "python-002-conditionals",
+    "language": "Python",
+    "level": "beginner",
+    "title": "Python: условия и ветвление",
+    "summary": "Как выбирать действие с помощью if, elif и else.",
+    "explanation": "Условие сравнивает значения и выбирает ветку программы. Важно проверять более узкие условия раньше общих и не дублировать вычисления без необходимости.",
+    "example": "temperature = 18\nif temperature < 0:\n    state = 'мороз'\nelif temperature < 10:\n    state = 'холодно'\nelse:\n    state = 'комфортно'\nprint(state)",
+    "exercise": "Напиши программу, которая по числу баллов возвращает: 'начальный', 'средний' или 'продвинутый' уровень.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "есть if/elif/else",
+        "обработаны границы",
+        "программа печатает результат"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/tutorial/controlflow.html",
+        "title": "Python Tutorial: More Control Flow Tools"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/python-002-conditionals.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 8.684,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "Python",
+    "subcategory": "Python",
+    "topic": "Python: условия и ветвление",
+    "questions": [
+      "Python: условия и ветвление",
+      "Как выбирать действие с помощью if, elif и else."
+    ],
+    "answer": "Условие сравнивает значения и выбирает ветку программы. Важно проверять более узкие условия раньше общих и не дублировать вычисления без необходимости.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "python-003-functions",
+    "language": "Python",
+    "level": "beginner",
+    "title": "Python: функции и повторное использование",
+    "summary": "Как выделять повторяемую логику в функции с параметрами и результатом.",
+    "explanation": "Функция получает входные данные через параметры, выполняет одну понятную задачу и возвращает результат через return. Маленькие функции проще тестировать и объяснять.",
+    "example": "def greeting(name):\n    return f'Привет, {name}!'\n\nprint(greeting('Данил'))",
+    "exercise": "Создай функцию calculate_total(price, count), которая возвращает общую стоимость.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "есть два параметра",
+        "использован return",
+        "результат вызывается через print"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/tutorial/controlflow.html#defining-functions",
+        "title": "Python Tutorial: Defining Functions"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/python-003-functions.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 10.522,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "Python",
+    "subcategory": "Python",
+    "topic": "Python: функции и повторное использование",
+    "questions": [
+      "Python: функции и повторное использование",
+      "Как выделять повторяемую логику в функции с параметрами и результатом."
+    ],
+    "answer": "Функция получает входные данные через параметры, выполняет одну понятную задачу и возвращает результат через return. Маленькие функции проще тестировать и объяснять.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "html-001-document",
+    "language": "HTML",
+    "level": "beginner",
+    "title": "HTML: структура документа",
+    "summary": "Каркас страницы и семантические элементы.",
+    "explanation": "HTML-документ состоит из объявления типа, элемента html, секций head и body. Семантические теги помогают браузеру и вспомогательным технологиям понимать структуру страницы.",
+    "example": "<!doctype html>\n<html lang='ru'>\n  <head><meta charset='utf-8'><title>Jarvis</title></head>\n  <body><main><h1>Привет</h1></main></body>\n</html>",
+    "exercise": "Создай страницу с заголовком, основным содержимым и ссылкой.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://developer.mozilla.org/ru/docs/Learn/HTML/Introduction_to_HTML/Getting_started",
+        "title": "MDN: Начало работы с HTML"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/html-001-document.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 10.973,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "HTML",
+    "subcategory": "HTML",
+    "topic": "HTML: структура документа",
+    "questions": [
+      "HTML: структура документа",
+      "Каркас страницы и семантические элементы."
+    ],
+    "answer": "HTML-документ состоит из объявления типа, элемента html, секций head и body. Семантические теги помогают браузеру и вспомогательным технологиям понимать структуру страницы.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "html-002-form",
+    "language": "HTML",
+    "level": "beginner",
+    "title": "HTML: форма и доступность",
+    "summary": "Поля формы, labels и безопасная структура ввода.",
+    "explanation": "У каждого поля формы должна быть понятная label, а тип input должен соответствовать данным. Это улучшает доступность и проверку браузером.",
+    "example": "<form><label for='email'>Почта</label><input id='email' name='email' type='email' required><button type='submit'>Отправить</button></form>",
+    "exercise": "Создай форму имени и email с подписями и обязательным email.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://developer.mozilla.org/ru/docs/Learn/Forms",
+        "title": "MDN: Формы"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/html-002-form.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 8.081,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "HTML",
+    "subcategory": "HTML",
+    "topic": "HTML: форма и доступность",
+    "questions": [
+      "HTML: форма и доступность",
+      "Поля формы, labels и безопасная структура ввода."
+    ],
+    "answer": "У каждого поля формы должна быть понятная label, а тип input должен соответствовать данным. Это улучшает доступность и проверку браузером.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "php-001-syntax",
+    "language": "PHP",
+    "level": "beginner",
+    "title": "PHP: переменные и функции",
+    "summary": "Базовый синтаксис серверного скрипта.",
+    "explanation": "В PHP переменные начинаются со знака доллара, а функция принимает параметры и может вернуть значение через return.",
+    "example": "<?php\nfunction greet(string $name): string { return \"Привет, $name\"; }\necho greet('Jarvis');",
+    "exercise": "Напиши функцию, которая принимает цену и количество и возвращает сумму.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://www.php.net/manual/ru/language.basic-syntax.phpsyntax.php",
+        "title": "PHP Manual: Синтаксис"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/php-001-syntax.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.316,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "PHP",
+    "subcategory": "PHP",
+    "topic": "PHP: переменные и функции",
+    "questions": [
+      "PHP: переменные и функции",
+      "Базовый синтаксис серверного скрипта."
+    ],
+    "answer": "В PHP переменные начинаются со знака доллара, а функция принимает параметры и может вернуть значение через return.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "php-002-pdo",
+    "language": "PHP",
+    "level": "beginner",
+    "title": "PHP: безопасный запрос через PDO",
+    "summary": "Параметризованные запросы и работа с базой.",
+    "explanation": "PDO позволяет использовать подготовленные выражения. Значения пользователя нельзя склеивать в SQL-строку напрямую.",
+    "example": "$stmt = $pdo->prepare('SELECT * FROM users WHERE id = :id');\n$stmt->execute(['id' => $id]);",
+    "exercise": "Составь параметризованный SELECT по email.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://www.php.net/manual/ru/pdo.prepared-statements.php",
+        "title": "PHP Manual: Подготовленные выражения PDO"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/php-002-pdo.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.78,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "PHP",
+    "subcategory": "PHP",
+    "topic": "PHP: безопасный запрос через PDO",
+    "questions": [
+      "PHP: безопасный запрос через PDO",
+      "Параметризованные запросы и работа с базой."
+    ],
+    "answer": "PDO позволяет использовать подготовленные выражения. Значения пользователя нельзя склеивать в SQL-строку напрямую.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "wordpress-001-hooks",
+    "language": "WordPress",
+    "level": "beginner",
+    "title": "WordPress: hooks и shortcode",
+    "summary": "Как подключать поведение без изменения ядра.",
+    "explanation": "Actions сообщают о событии, filters изменяют значение. Плагин должен подключаться через API WordPress и не править ядро.",
+    "example": "add_action('init', function () { add_shortcode('hello', fn() => 'Привет'); });",
+    "exercise": "Создай небольшой shortcode, возвращающий безопасный текст.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://developer.wordpress.org/plugins/hooks/",
+        "title": "WordPress Developer Resources: Hooks"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/wordpress-001-hooks.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 7.43,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "WordPress",
+    "subcategory": "WordPress",
+    "topic": "WordPress: hooks и shortcode",
+    "questions": [
+      "WordPress: hooks и shortcode",
+      "Как подключать поведение без изменения ядра."
+    ],
+    "answer": "Actions сообщают о событии, filters изменяют значение. Плагин должен подключаться через API WordPress и не править ядро.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "wordpress-002-rest",
+    "language": "WordPress",
+    "level": "beginner",
+    "title": "WordPress: REST API",
+    "summary": "Получение данных через зарегистрированный endpoint.",
+    "explanation": "REST endpoint должен проверять права, валидировать входные данные и возвращать структурированный ответ.",
+    "example": "add_action('rest_api_init', function () { register_rest_route('jarvis/v1', '/ping', ['methods' => 'GET', 'callback' => fn() => ['ok' => true], 'permission_callback' => '__return_true']); });",
+    "exercise": "Опиши endpoint, который возвращает версию плагина без раскрытия секретов.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/",
+        "title": "WordPress Developer Resources: Custom Endpoints"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/wordpress-002-rest.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.269,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "WordPress",
+    "subcategory": "WordPress",
+    "topic": "WordPress: REST API",
+    "questions": [
+      "WordPress: REST API",
+      "Получение данных через зарегистрированный endpoint."
+    ],
+    "answer": "REST endpoint должен проверять права, валидировать входные данные и возвращать структурированный ответ.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "react-001-component",
+    "language": "React",
+    "level": "beginner",
+    "title": "React: компонент и props",
+    "summary": "Разделение интерфейса на переиспользуемые компоненты.",
+    "explanation": "Компонент получает входные данные через props и возвращает JSX. Состояние не следует дублировать без необходимости.",
+    "example": "function Greeting({ name }) { return <h1>Привет, {name}</h1>; }",
+    "exercise": "Создай компонент карточки проекта с props title и status.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://react.dev/learn/your-first-component",
+        "title": "React: Your First Component"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/react-001-component.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.966,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "React",
+    "subcategory": "React",
+    "topic": "React: компонент и props",
+    "questions": [
+      "React: компонент и props",
+      "Разделение интерфейса на переиспользуемые компоненты."
+    ],
+    "answer": "Компонент получает входные данные через props и возвращает JSX. Состояние не следует дублировать без необходимости.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "react-002-state",
+    "language": "React",
+    "level": "beginner",
+    "title": "React: состояние и обработчик",
+    "summary": "Изменение интерфейса через useState.",
+    "explanation": "useState возвращает текущее значение и функцию обновления. Обновление состояния должно происходить через setter.",
+    "example": "const [count, setCount] = useState(0);\n<button onClick={() => setCount(count + 1)}>{count}</button>",
+    "exercise": "Сделай счётчик задач с кнопками плюс и минус.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://react.dev/learn/state-a-components-memory",
+        "title": "React: State"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/react-002-state.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.269,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "React",
+    "subcategory": "React",
+    "topic": "React: состояние и обработчик",
+    "questions": [
+      "React: состояние и обработчик",
+      "Изменение интерфейса через useState."
+    ],
+    "answer": "useState возвращает текущее значение и функцию обновления. Обновление состояния должно происходить через setter.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "react-native-001-screen",
+    "language": "React Native",
+    "level": "beginner",
+    "title": "React Native: экран и стиль",
+    "summary": "Базовый экран мобильного приложения.",
+    "explanation": "React Native использует View и Text вместо DOM-элементов. Стили задаются объектами StyleSheet и применяются через style.",
+    "example": "import { View, Text } from 'react-native';\nexport default function App() { return <View><Text>Jarvis</Text></View>; }",
+    "exercise": "Создай экран профиля с именем и кнопкой действия.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://reactnative.dev/docs/getting-started",
+        "title": "React Native: Getting Started"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/react-native-001-screen.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 7.616,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "React Native",
+    "subcategory": "React Native",
+    "topic": "React Native: экран и стиль",
+    "questions": [
+      "React Native: экран и стиль",
+      "Базовый экран мобильного приложения."
+    ],
+    "answer": "React Native использует View и Text вместо DOM-элементов. Стили задаются объектами StyleSheet и применяются через style.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "react-native-002-fetch",
+    "language": "React Native",
+    "level": "beginner",
+    "title": "React Native: запрос API",
+    "summary": "Загрузка данных и состояние ожидания.",
+    "explanation": "Сетевой запрос нужно сопровождать состояниями loading и error, чтобы пользователь понимал, что происходит.",
+    "example": "const response = await fetch(url);\nconst data = await response.json();",
+    "exercise": "Опиши функцию загрузки списка задач с обработкой ошибки.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://reactnative.dev/docs/network",
+        "title": "React Native: Networking"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/react-native-002-fetch.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 5.573,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "React Native",
+    "subcategory": "React Native",
+    "topic": "React Native: запрос API",
+    "questions": [
+      "React Native: запрос API",
+      "Загрузка данных и состояние ожидания."
+    ],
+    "answer": "Сетевой запрос нужно сопровождать состояниями loading и error, чтобы пользователь понимал, что происходит.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "flutter-001-widget",
+    "language": "Flutter",
+    "level": "beginner",
+    "title": "Flutter: StatelessWidget",
+    "summary": "Структура виджета и build.",
+    "explanation": "StatelessWidget подходит для интерфейса, который не хранит изменяемое локальное состояние. Метод build возвращает дерево виджетов.",
+    "example": "class Hello extends StatelessWidget { const Hello({super.key}); @override Widget build(BuildContext context) => const Text('Jarvis'); }",
+    "exercise": "Создай виджет карточки с заголовком и описанием.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://docs.flutter.dev/get-started/flutter-for/declarative",
+        "title": "Flutter: Declarative UI"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/flutter-001-widget.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 7.523,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "Flutter",
+    "subcategory": "Flutter",
+    "topic": "Flutter: StatelessWidget",
+    "questions": [
+      "Flutter: StatelessWidget",
+      "Структура виджета и build."
+    ],
+    "answer": "StatelessWidget подходит для интерфейса, который не хранит изменяемое локальное состояние. Метод build возвращает дерево виджетов.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "flutter-002-state",
+    "language": "Flutter",
+    "level": "beginner",
+    "title": "Flutter: состояние StatefulWidget",
+    "summary": "Изменяемый экран и setState.",
+    "explanation": "StatefulWidget отделяет конфигурацию виджета от объекта State. setState сообщает Flutter, что дерево нужно перестроить.",
+    "example": "setState(() { counter += 1; });",
+    "exercise": "Сделай счётчик на StatefulWidget и обновляй его кнопкой.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://docs.flutter.dev/get-started/flutter-for/declarative",
+        "title": "Flutter: State"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/flutter-002-state.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.362,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "Flutter",
+    "subcategory": "Flutter",
+    "topic": "Flutter: состояние StatefulWidget",
+    "questions": [
+      "Flutter: состояние StatefulWidget",
+      "Изменяемый экран и setState."
+    ],
+    "answer": "StatefulWidget отделяет конфигурацию виджета от объекта State. setState сообщает Flutter, что дерево нужно перестроить.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "git-001-branch",
+    "language": "Git",
+    "level": "beginner",
+    "title": "Git: ветки и безопасное изменение",
+    "summary": "Изолирование работы через ветки.",
+    "explanation": "Ветка позволяет менять код отдельно от основной линии. Перед объединением нужно посмотреть diff и проверить тесты.",
+    "example": "git switch -c feature/mentor\ngit diff\ngit status",
+    "exercise": "Составь последовательность команд для новой функции без commit и push.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://git-scm.com/book/ru/v2/Основы-Git-Ветвление-в-Git",
+        "title": "Pro Git: Ветвление"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/git-001-branch.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.641,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "Git",
+    "subcategory": "Git",
+    "topic": "Git: ветки и безопасное изменение",
+    "questions": [
+      "Git: ветки и безопасное изменение",
+      "Изолирование работы через ветки."
+    ],
+    "answer": "Ветка позволяет менять код отдельно от основной линии. Перед объединением нужно посмотреть diff и проверить тесты.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "git-002-recovery",
+    "language": "Git",
+    "level": "beginner",
+    "title": "Git: просмотр истории и восстановление",
+    "summary": "Поиск причины изменения без разрушительных команд.",
+    "explanation": "Сначала используют log, show и diff. Сброс с потерей изменений нельзя выполнять без явного подтверждения.",
+    "example": "git log --oneline -5\ngit show HEAD -- path/to/file\ngit diff",
+    "exercise": "Опиши безопасный порядок анализа неожиданного изменения файла.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://git-scm.com/book/ru/v2/Основы-Git-Просмотр-истории-коммитов",
+        "title": "Pro Git: История"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/git-002-recovery.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.641,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "Git",
+    "subcategory": "Git",
+    "topic": "Git: просмотр истории и восстановление",
+    "questions": [
+      "Git: просмотр истории и восстановление",
+      "Поиск причины изменения без разрушительных команд."
+    ],
+    "answer": "Сначала используют log, show и diff. Сброс с потерей изменений нельзя выполнять без явного подтверждения.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "sql-001-select",
+    "language": "SQL",
+    "level": "beginner",
+    "title": "SQL: SELECT и фильтрация",
+    "summary": "Выбор строк и ограничение результата.",
+    "explanation": "SELECT получает столбцы, WHERE фильтрует строки, ORDER BY задаёт порядок, LIMIT ограничивает объём.",
+    "example": "SELECT name, status FROM tasks WHERE status = 'open' ORDER BY name LIMIT 20;",
+    "exercise": "Составь запрос открытых задач, отсортированных по дате.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://www.postgresql.org/docs/current/tutorial-select.html",
+        "title": "PostgreSQL: Querying a Table"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/sql-001-select.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 7.291,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "SQL",
+    "subcategory": "SQL",
+    "topic": "SQL: SELECT и фильтрация",
+    "questions": [
+      "SQL: SELECT и фильтрация",
+      "Выбор строк и ограничение результата."
+    ],
+    "answer": "SELECT получает столбцы, WHERE фильтрует строки, ORDER BY задаёт порядок, LIMIT ограничивает объём.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "sql-002-join",
+    "language": "SQL",
+    "level": "beginner",
+    "title": "SQL: связи таблиц и JOIN",
+    "summary": "Объединение связанных данных.",
+    "explanation": "JOIN связывает таблицы по ключу. Условие связи должно быть явным, иначе можно получить декартово произведение.",
+    "example": "SELECT users.name, tasks.title FROM users JOIN tasks ON tasks.user_id = users.id;",
+    "exercise": "Выведи имя пользователя и название его задач через JOIN.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://www.postgresql.org/docs/current/tutorial-join.html",
+        "title": "PostgreSQL: Joins"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/sql-002-join.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 7.059,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "SQL",
+    "subcategory": "SQL",
+    "topic": "SQL: связи таблиц и JOIN",
+    "questions": [
+      "SQL: связи таблиц и JOIN",
+      "Объединение связанных данных."
+    ],
+    "answer": "JOIN связывает таблицы по ключу. Условие связи должно быть явным, иначе можно получить декартово произведение.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "fastapi-001-route",
+    "language": "FastAPI",
+    "level": "beginner",
+    "title": "FastAPI: маршрут и Pydantic",
+    "summary": "Типизированный HTTP endpoint.",
+    "explanation": "FastAPI использует аннотации и Pydantic-модели для валидации входа и формирования понятного API.",
+    "example": "class Item(BaseModel): name: str\n@app.post('/items')\ndef create(item: Item): return item",
+    "exercise": "Создай endpoint, принимающий имя проекта и возвращающий его в JSON.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://fastapi.tiangolo.com/tutorial/body/",
+        "title": "FastAPI: Request Body"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/fastapi-001-route.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 5.851,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "FastAPI",
+    "subcategory": "FastAPI",
+    "topic": "FastAPI: маршрут и Pydantic",
+    "questions": [
+      "FastAPI: маршрут и Pydantic",
+      "Типизированный HTTP endpoint."
+    ],
+    "answer": "FastAPI использует аннотации и Pydantic-модели для валидации входа и формирования понятного API.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "fastapi-002-errors",
+    "language": "FastAPI",
+    "level": "beginner",
+    "title": "FastAPI: ошибки и статус ответа",
+    "summary": "Предсказуемые ошибки API.",
+    "explanation": "Клиенту нужно возвращать корректный HTTP-статус и безопасное сообщение, не раскрывая traceback и секреты.",
+    "example": "if not item: raise HTTPException(status_code=404, detail='Not found')",
+    "exercise": "Добавь обработку отсутствующего проекта с кодом 404.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://fastapi.tiangolo.com/tutorial/handling-errors/",
+        "title": "FastAPI: Handling Errors"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/fastapi-002-errors.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.734,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "FastAPI",
+    "subcategory": "FastAPI",
+    "topic": "FastAPI: ошибки и статус ответа",
+    "questions": [
+      "FastAPI: ошибки и статус ответа",
+      "Предсказуемые ошибки API."
+    ],
+    "answer": "Клиенту нужно возвращать корректный HTTP-статус и безопасное сообщение, не раскрывая traceback и секреты.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "html-003-accessibility",
+    "language": "HTML",
+    "level": "beginner",
+    "title": "HTML: доступность и landmarks",
+    "summary": "Семантическая разметка, landmarks и текстовые альтернативы.",
+    "explanation": "Используй main, nav и button по назначению, а изображения снабжай осмысленным alt. Доступность нельзя исправлять только визуальными стилями.",
+    "example": "<nav aria-label='Основное меню'><a href='/'>Главная</a></nav>\n<main><h1>Курс</h1></main>",
+    "exercise": "Сделай разметку страницы с nav, main и доступной кнопкой.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://developer.mozilla.org/ru/docs/Learn/Accessibility",
+        "title": "MDN: Accessibility"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/html-003-accessibility.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 8.406,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "HTML",
+    "subcategory": "HTML",
+    "topic": "HTML: доступность и landmarks",
+    "questions": [
+      "HTML: доступность и landmarks",
+      "Семантическая разметка, landmarks и текстовые альтернативы."
+    ],
+    "answer": "Используй main, nav и button по назначению, а изображения снабжай осмысленным alt. Доступность нельзя исправлять только визуальными стилями.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "php-003-validation",
+    "language": "PHP",
+    "level": "beginner",
+    "title": "PHP: валидация входных данных",
+    "summary": "Проверка и нормализация данных формы.",
+    "explanation": "Сначала нормализуй вход, затем валидируй тип, длину и формат. Ошибки должны быть понятны пользователю и не содержать секретов.",
+    "example": "$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);\nif ($email === false) { http_response_code(422); }",
+    "exercise": "Опиши обработку невалидного email с безопасным ответом.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://www.php.net/manual/ru/filter.filters.validate.php",
+        "title": "PHP Manual: Фильтры валидации"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/php-003-validation.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 7.616,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "PHP",
+    "subcategory": "PHP",
+    "topic": "PHP: валидация входных данных",
+    "questions": [
+      "PHP: валидация входных данных",
+      "Проверка и нормализация данных формы."
+    ],
+    "answer": "Сначала нормализуй вход, затем валидируй тип, длину и формат. Ошибки должны быть понятны пользователю и не содержать секретов.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "wordpress-003-security",
+    "language": "WordPress",
+    "level": "beginner",
+    "title": "WordPress: nonce и права",
+    "summary": "Базовая защита действий администратора.",
+    "explanation": "Для изменяющих действий проверяй capability и nonce. Экранируй вывод в момент вывода, а не полагайся на доверие к форме.",
+    "example": "if (! current_user_can('manage_options')) { wp_die('Недостаточно прав'); }\ncheck_admin_referer('jarvis_save');",
+    "exercise": "Составь безопасную проверку сохранения настройки плагина.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://developer.wordpress.org/apis/security/nonces/",
+        "title": "WordPress: Nonces"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/wordpress-003-security.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 7.245,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "WordPress",
+    "subcategory": "WordPress",
+    "topic": "WordPress: nonce и права",
+    "questions": [
+      "WordPress: nonce и права",
+      "Базовая защита действий администратора."
+    ],
+    "answer": "Для изменяющих действий проверяй capability и nonce. Экранируй вывод в момент вывода, а не полагайся на доверие к форме.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "python-004-testing",
+    "language": "Python",
+    "level": "beginner",
+    "title": "Python: тестируем функцию",
+    "summary": "Изолированный тест и проверяемый результат.",
+    "explanation": "Тест должен проверять наблюдаемое поведение функции и быть независимым от случайного состояния окружения.",
+    "example": "def add(a, b): return a + b\nassert add(2, 3) == 5",
+    "exercise": "Напиши два assert-теста для функции, которая считает скидку.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/library/unittest.html",
+        "title": "Python: unittest"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/python-004-testing.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.223,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "Python",
+    "subcategory": "Python",
+    "topic": "Python: тестируем функцию",
+    "questions": [
+      "Python: тестируем функцию",
+      "Изолированный тест и проверяемый результат."
+    ],
+    "answer": "Тест должен проверять наблюдаемое поведение функции и быть независимым от случайного состояния окружения.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "react-003-form",
+    "language": "React",
+    "level": "beginner",
+    "title": "React: контролируемая форма",
+    "summary": "Состояние поля и обработка submit.",
+    "explanation": "Контролируемое поле получает value из state и обновляется через onChange. На submit нужно отменить перезагрузку страницы и проверить данные.",
+    "example": "const [name, setName] = useState('');\n<form onSubmit={e => { e.preventDefault(); save(name); }}><input value={name} onChange={e => setName(e.target.value)} /></form>",
+    "exercise": "Создай форму поиска с контролируемым input и обработчиком submit.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://react.dev/learn/responding-to-events",
+        "title": "React: Responding to Events"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/react-003-form.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 8.313,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "React",
+    "subcategory": "React",
+    "topic": "React: контролируемая форма",
+    "questions": [
+      "React: контролируемая форма",
+      "Состояние поля и обработка submit."
+    ],
+    "answer": "Контролируемое поле получает value из state и обновляется через onChange. На submit нужно отменить перезагрузку страницы и проверить данные.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "react-native-003-permissions",
+    "language": "React Native",
+    "level": "beginner",
+    "title": "React Native: состояния разрешений",
+    "summary": "Понятный UX для недоступной функции устройства.",
+    "explanation": "Состояния denied, granted и unavailable нужно различать и показывать пользователю безопасный следующий шаг вместо падения приложения.",
+    "example": "if (status === 'denied') return <Text>Разрешение отключено в настройках</Text>;",
+    "exercise": "Опиши экран, который показывает разные состояния разрешения микрофона.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://reactnative.dev/docs/permissionsandroid",
+        "title": "React Native: PermissionsAndroid"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/react-native-003-permissions.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 8.916,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "React Native",
+    "subcategory": "React Native",
+    "topic": "React Native: состояния разрешений",
+    "questions": [
+      "React Native: состояния разрешений",
+      "Понятный UX для недоступной функции устройства."
+    ],
+    "answer": "Состояния denied, granted и unavailable нужно различать и показывать пользователю безопасный следующий шаг вместо падения приложения.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "flutter-003-async",
+    "language": "Flutter",
+    "level": "beginner",
+    "title": "Flutter: FutureBuilder и ошибка",
+    "summary": "Отображение загрузки, результата и ошибки.",
+    "explanation": "Асинхронный экран должен явно обрабатывать waiting, data и error, не оставляя пользователя на бесконечном спиннере.",
+    "example": "FutureBuilder(future: load(), builder: (context, snapshot) { if (snapshot.hasError) return Text('Ошибка'); return Text('${snapshot.data}'); })",
+    "exercise": "Составь состояния виджета загрузки списка проектов.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html",
+        "title": "Flutter: FutureBuilder"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/flutter-003-async.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.966,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "Flutter",
+    "subcategory": "Flutter",
+    "topic": "Flutter: FutureBuilder и ошибка",
+    "questions": [
+      "Flutter: FutureBuilder и ошибка",
+      "Отображение загрузки, результата и ошибки."
+    ],
+    "answer": "Асинхронный экран должен явно обрабатывать waiting, data и error, не оставляя пользователя на бесконечном спиннере.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "git-003-tag",
+    "language": "Git",
+    "level": "beginner",
+    "title": "Git: теги и воспроизводимый релиз",
+    "summary": "Фиксация версии без изменения рабочей директории.",
+    "explanation": "Annotated tag помогает обозначить проверенный релиз. Перед созданием тега нужно проверить status и историю.",
+    "example": "git status\ngit log --oneline -3\ngit tag -a v0.1.0 -m 'release'",
+    "exercise": "Составь безопасную последовательность подготовки локального тега без push.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://git-scm.com/book/ru/v2/Основы-Git-Основы-работы-с-тегами",
+        "title": "Pro Git: Теги"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/git-003-tag.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.316,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "Git",
+    "subcategory": "Git",
+    "topic": "Git: теги и воспроизводимый релиз",
+    "questions": [
+      "Git: теги и воспроизводимый релиз",
+      "Фиксация версии без изменения рабочей директории."
+    ],
+    "answer": "Annotated tag помогает обозначить проверенный релиз. Перед созданием тега нужно проверить status и историю.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "sql-003-transaction",
+    "language": "SQL",
+    "level": "beginner",
+    "title": "SQL: транзакция и откат",
+    "summary": "Атомарное изменение нескольких таблиц.",
+    "explanation": "Транзакция группирует изменения: commit фиксирует всё, rollback откатывает всё при ошибке.",
+    "example": "BEGIN;\nUPDATE accounts SET balance = balance - 10 WHERE id = 1;\nCOMMIT;",
+    "exercise": "Опиши перевод средств с проверкой ошибки и rollback.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://www.postgresql.org/docs/current/tutorial-transactions.html",
+        "title": "PostgreSQL: Transactions"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/sql-003-transaction.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 5.805,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "SQL",
+    "subcategory": "SQL",
+    "topic": "SQL: транзакция и откат",
+    "questions": [
+      "SQL: транзакция и откат",
+      "Атомарное изменение нескольких таблиц."
+    ],
+    "answer": "Транзакция группирует изменения: commit фиксирует всё, rollback откатывает всё при ошибке.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  },
+  {
+    "id": "fastapi-003-dependency",
+    "language": "FastAPI",
+    "level": "beginner",
+    "title": "FastAPI: dependency и проверка доступа",
+    "summary": "Переиспользуемая проверка контекста запроса.",
+    "explanation": "Dependencies позволяют централизовать получение пользователя и проверку доступа, не копируя безопасность в каждом endpoint.",
+    "example": "def require_user(token: str = Header()):\n    if not token: raise HTTPException(401)\n    return token",
+    "exercise": "Составь dependency, которая отклоняет запрос без токена кодом 401.",
+    "check": {
+      "type": "manual",
+      "criteria": [
+        "решение запускается",
+        "использована тема урока",
+        "результат выведен или возвращён"
+      ]
+    },
+    "sources": [
+      {
+        "url": "https://fastapi.tiangolo.com/tutorial/dependencies/",
+        "title": "FastAPI: Dependencies"
+      }
+    ],
+    "generated_by": "main_model",
+    "status": "VERIFIED",
+    "audio_status": "AUDIO_READY",
+    "audio_path": "data/Bible/.internal/audio/library/knowledge3/programming/audio/fastapi-003-dependency.wav",
+    "version": 1,
+    "audio_metadata": {
+      "duration": 6.78,
+      "samplerate": 44100,
+      "channels": 1
+    },
+    "category": "FastAPI",
+    "subcategory": "FastAPI",
+    "topic": "FastAPI: dependency и проверка доступа",
+    "questions": [
+      "FastAPI: dependency и проверка доступа",
+      "Переиспользуемая проверка контекста запроса."
+    ],
+    "answer": "Dependencies позволяют централизовать получение пользователя и проверку доступа, не копируя безопасность в каждом endpoint.",
+    "verified_at": "2026-11-15",
+    "confidence": "high",
+    "related_materials": [],
+    "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+  }
+]

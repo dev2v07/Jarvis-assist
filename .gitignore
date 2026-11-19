@@ -86,7 +86,13 @@ docs/runtime/diagnostics/*.log
 docs/runtime/diagnostics/*.jsonl
 docs/runtime/diagnostics/*.png
 
-# Temporary state files left behind by test_knowledge_variations.py
-backend/tests/knowledge-reviewed-*.json
-backend/tests/knowledge-variation-*.json
-backend/tests/voice-variation-*.json
+# Local rollback archives of the knowledge library (kept on disk, not in VCS)
+data/archive/
+
+# Live state databases created in the project root by ad-hoc runs
+data/*.sqlite3
+data/*.sqlite3-wal
+data/*.sqlite3-shm
+
+# Generated full-library export (reproducible from data/Bible)
+docs/knowledge/quality/export/

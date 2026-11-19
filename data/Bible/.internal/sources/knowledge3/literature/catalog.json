@@ -1,0 +1,728 @@
+{
+  "version": 1,
+  "copyright_policy": "protected_works_use_summaries_and_analysis_only",
+  "works": [
+    {
+      "id": "carnegie-friends",
+      "author": "Дейл Карнеги",
+      "title": "Как завоевывать друзей и оказывать влияние на людей",
+      "type": "nonfiction",
+      "access": "summary_only",
+      "summary": "Практические принципы общения, интерес к собеседнику, уважение и конструктивное влияние без манипулятивных обещаний.",
+      "topics": [
+        "общение",
+        "влияние",
+        "отношения"
+      ],
+      "sources": [
+        "https://www.simonandschuster.com/books/How-to-Win-Friends-and-Influence-People/Dale-Carnegie/Dale-Carnegie-Books/9780671027032",
+        "https://books.google.com/books?id=1rW-QpIAs8UC&lr=&rview=1",
+        "https://wwws.loc.gov/exhibits/books-that-shaped-america/1900-to-1950.html",
+        "https://www.wiley-vch.de/en/areas-interest/finance-economics-law/business-management-13ba/general-introductory-business-management-13ba0/business-self-help-13ba01/how-to-win-friends-and-influence-people-978-1-907326-15-8"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "LEGACY_AUDIO_UNREVIEWED",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/carnegie-friends.wav",
+      "audio_metadata": {
+        "duration": 12.437,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "nonfiction",
+      "subcategory": "nonfiction",
+      "topic": "Как завоевывать друзей и оказывать влияние на людей",
+      "questions": [
+        "Как завоевывать друзей и оказывать влияние на людей",
+        "Практические принципы общения, интерес к собеседнику, уважение и конструктивное влияние без манипулятивных обещаний."
+      ],
+      "answer": "Практические принципы общения, интерес к собеседнику, уважение и конструктивное влияние без манипулятивных обещаний.",
+      "verified_at": "2026-11-15",
+      "version": 2,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved",
+      "legacy_audio_status": "AUDIO_READY",
+      "updated_at": "2026-11-15T16:17:50+03:00",
+      "detailed_material": {
+        "author_and_historical_context": "Дейл Карнеги (1888–1955) преподавал навыки публичной речи и общения. Книга впервые вышла в 1936 году во время Великой депрессии; Библиотека Конгресса относит её к заметным ранним книгам жанра self-help. Издатель описывает её как руководство по общению и лидерству, а не как академическое исследование психотерапии.",
+        "edition_scope": "Основной пересказ относится к четырёхчастной структуре переиздания Simon & Schuster 2010, ISBN 9781451621716, 320 страниц (оглавление Google Books). Страница Gallery Books для ISBN 9780671027032 указывает paperback 1998 года, 320 страниц и упоминает обновление для читателей 2022 года. Wiley Capstone Classics 2026, ISBN 9781907326158, 432 страницы, содержит шесть частей, включая письма и семейную жизнь. Номера страниц разных редакций и переводов не смешивать.",
+        "genre_and_structure": "Это нехудожественное руководство с принципами и анекдотическими примерами. Единого сюжета или постоянных персонажей нет. В четырёхчастной редакции Part I содержит три главы, Part II — шесть, Part III — двенадцать, Part IV — девять; названия и порядок проверены по оглавлениям. Отдельные жизненные истории служат иллюстрациями тезиса, а не героями романа.",
+        "short_summary": "Карнеги предлагает начинать общение с уважения к достоинству другого человека: избегать унизительного обвинения, замечать его усилия, проявлять настоящий интерес и слушать. Затем он переносит эти установки на споры и руководство: признавать свою ошибку, снижать ненужное противостояние, давать обратную связь так, чтобы у человека оставалась возможность сотрудничать. Книга учит способу разговора; она не гарантирует согласия и не освобождает от ясных границ.",
+        "parts": [
+          {
+            "part": 1,
+            "title": "Основные способы обращаться с людьми",
+            "chapters": "3 главы: о критике, признательности и мотивах собеседника",
+            "summary": "Начало книги строится вокруг вопроса, почему прямое осуждение редко меняет поведение. Автор приводит человеческие истории, в том числе о самооправдании даже при очевидной вине, чтобы показать защитную реакцию на нападение. Следом противопоставляет лести конкретную искреннюю благодарность: замечать действие другого, а не раздавать пустые комплименты. Третья глава переносит внимание на желания адресата: просьбу полезно объяснять через совместную задачу и реальный интерес человека. Смысл части не в отказе обсуждать вред или ошибку, а в выборе формы, которая оставляет возможность ответить и исправить ситуацию."
+          },
+          {
+            "part": 2,
+            "title": "Знакомство и поддержание разговора",
+            "chapters": "6 глав: интерес к человеку, первое впечатление, имя, слушание, темы интереса и признание значимости",
+            "summary": "Во второй части Карнеги переключается с «как получить внимание» на «как уделить внимание». Оглавление последовательно ведёт от первого контакта и обращения по имени к слушанию, вопросам и разговору на темы, важные собеседнику. Его истории показывают, что человеку часто важно быть услышанным больше, чем получить длинную речь о достижениях говорящего. Практический смысл — не имитировать улыбку или запоминать имя как приём продаж, а проверять, что за ними стоит интерес к конкретному человеку. Отдельные формы приветствия зависят от культуры и ситуации; глава не должна читаться как обязательный сценарий для всех."
+          },
+          {
+            "part": 3,
+            "title": "Обсуждение расхождений и убеждение",
+            "chapters": "12 глав: спор, уважение к мнению, признание ошибки, дружелюбный разговор, вопросы и сотрудничество",
+            "summary": "Третья часть исследует ситуацию, где стороны видят вопрос по-разному. Вместо немедленной словесной победы Карнеги предлагает не загонять оппонента в угол, признать собственную неточность, если она есть, и выяснить его точку зрения. В главах о начале разговора, жалобах и сотрудничестве идея развивается от тона диалога к совместному решению. Некоторые приёмы книги направлены на убеждение, поэтому их важно читать критически: согласие другого не следует добывать скрытым давлением. Практическая версия — сформулировать предмет разногласия, пересказать чужой довод честно, представить свои основания и оставить место для отказа."
+          },
+          {
+            "part": 4,
+            "title": "Руководство и обратная связь",
+            "chapters": "9 глав: признательность, собственные ошибки, вопросы вместо приказов, сохранение достоинства, поддержка прогресса",
+            "summary": "Последняя основная часть обращена к человеку, который просит другого изменить поведение. Карнеги рекомендует начинать разговор без унижения, признавать собственную ответственность, задавать вопросы и отмечать реальные улучшения. Главы о сохранении лица и исправимой ошибке показывают, как оставить собеседнику возможность действовать после замечания. Однако мягкость подачи не заменяет точного описания проблемы и договорённости о результате. Если руководитель скрывает требования за лестью, центральная идея искренности рушится; уместнее честно назвать факт, влияние ошибки и следующий шаг."
+          }
+        ],
+        "people_and_conflicts": "Постоянных персонажей нет. Карнеги использует отдельные исторические и бытовые анекдоты как примеры; их участники не образуют художественный сюжет. Главные конфликты концептуальные: критика против достоинства, желание убедить против автономии другого, дружелюбная форма против необходимости прямо сказать о проблеме.",
+        "ideas_and_analysis": "Сильная сторона книги — внимание к позиции и самоуважению собеседника, а также тренируемые практики слушания и признания ошибки. Её слабость как универсальной инструкции — анекдотический способ аргументации и риск превращения уважения в технику влияния. Это аналитическая оценка, а не эмпирическая проверка эффективности. Советы полезнее как вопросы для самопроверки, чем как обещание «завоевать» любого человека.",
+        "practical_steps": [
+          "Перед разговором обозначить общую цель и свой конкретный запрос.",
+          "Спросить о точке зрения другого и пересказать её так, чтобы он мог поправить.",
+          "Назвать проверяемый факт и последствия, избегая ярлыка личности.",
+          "Признать собственную ошибку, если она есть, и отметить реальный вклад другого без лести.",
+          "Предложить следующий шаг, проверить согласие и оставить человеку право отказаться."
+        ],
+        "common_misreadings": [
+          "«Не критикуй» не означает скрывать нарушение или терпеть опасное поведение.",
+          "Внимание к человеку не равно набору фраз для получения нужного ответа.",
+          "Признательность должна быть конкретной и искренней; механическая похвала вызывает недоверие.",
+          "Отсутствие спора не доказывает, что проблема решена."
+        ],
+        "author_created_example": "На встрече коллега отвергает предложение. Вместо попытки немедленно его переубедить спросите, какой риск он видит. Перескажите ответ, затем предложите небольшой проверяемый эксперимент. Это новый пример для обучения, не эпизод из книги.",
+        "quotes": [],
+        "quote_policy": "Дословные цитаты не добавлены: стабильная страница конкретного русскоязычного издания не установлена. Анализ и пересказ написаны заново; длинные фрагменты книги не воспроизводятся.",
+        "discussion_questions": [
+          "Где заканчивается искреннее внимание и начинается инструментальное влияние?",
+          "Как сказать о серьёзной ошибке без унижения и без замалчивания ответственности?",
+          "Когда отказ от спора помогает, а когда мешает защитить принципиальную позицию?",
+          "Как изменение состава глав в другой редакции меняет читательское впечатление?"
+        ],
+        "self_check": [
+          "Назовите четыре основные части выбранного переиздания.",
+          "Чем конкретная признательность отличается от лести?",
+          "Почему обещать гарантированное согласие собеседника неверно?",
+          "Какие сведения об издании нужны для точной ссылки на страницу?"
+        ],
+        "further_topics": [
+          "Другие книги Дейла Карнеги",
+          "Активное слушание и обратная связь",
+          "Этика убеждения",
+          "История жанра self-help"
+        ],
+        "sources_and_locators": [
+          {
+            "url": "https://www.simonandschuster.com/books/How-to-Win-Friends-and-Influence-People/Dale-Carnegie/Dale-Carnegie-Books/9780671027032",
+            "locator": "About the Book / About the Author / Product Details",
+            "supports": "автор, 1936, ISBN 9780671027032, издательский контекст"
+          },
+          {
+            "url": "https://books.google.com/books?id=1rW-QpIAs8UC&lr=&rview=1",
+            "locator": "Contents and Bibliographic information, Simon and Schuster reprint 2010",
+            "supports": "четырёхчастная структура, названия глав, ISBN 9781451621716"
+          },
+          {
+            "url": "https://wwws.loc.gov/exhibits/books-that-shaped-america/1900-to-1950.html",
+            "locator": "Books That Shaped America, entry 1936",
+            "supports": "историческое место книги"
+          },
+          {
+            "url": "https://www.wiley-vch.de/en/areas-interest/finance-economics-law/business-management-13ba/general-introductory-business-management-13ba0/business-self-help-13ba01/how-to-win-friends-and-influence-people-978-1-907326-15-8",
+            "locator": "Content, Capstone Classics 2026, pp. 1–363",
+            "supports": "шестичастная структура альтернативной редакции и темы глав"
+          }
+        ],
+        "research_text_note": "Для смысловой проверки прочитан доступный текст книги по разделам и итогам частей; файл размещён на стороннем образовательном сайте, его правовой статус и точная редакция не подтверждены. Не распространять файл и не привязывать к нему номера страниц."
+      },
+      "response_variations": [
+        {
+          "variant_id": "carnegie-friends-v1",
+          "variant_kind": "overview",
+          "parent_id": "carnegie-friends",
+          "query_patterns": [
+            "О чём книга Как завоёвывать друзей и оказывать влияние на людей?",
+            "Краткий пересказ книги Карнеги о друзьях"
+          ],
+          "text": "Книга Дейла Карнеги, впервые изданная в 1936 году, — практическое руководство по общению, а не роман с единым сюжетом. В четырёхчастной редакции она движется от отношения к человеку через знакомство и слушание к спору, убеждению и обратной связи. Сквозная идея: признать интересы и достоинство собеседника, прежде чем пытаться изменить его мнение или поведение. Карнеги иллюстрирует принципы историями, но не доказывает, что они сработают всегда; их стоит применять честно и с уважением к согласию другого.",
+          "source_ids": [
+            "https://www.simonandschuster.com/books/How-to-Win-Friends-and-Influence-People/Dale-Carnegie/Dale-Carnegie-Books/9780671027032",
+            "https://books.google.com/books?id=1rW-QpIAs8UC&lr=&rview=1",
+            "https://wwws.loc.gov/exhibits/books-that-shaped-america/1900-to-1950.html"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "carnegie-friends-v2",
+          "variant_kind": "part_one",
+          "parent_id": "carnegie-friends",
+          "query_patterns": [
+            "Что в первой части книги Карнеги?",
+            "Разбор части о критике и признательности у Карнеги"
+          ],
+          "text": "Первая часть четырёхчастного издания посвящена исходной позиции в разговоре. Карнеги показывает, что обвинение часто вызывает защиту, а конкретная искренняя признательность помогает заметить усилие другого человека. Затем он предлагает говорить о том, что важно самому собеседнику, вместо того чтобы сразу продвигать собственную просьбу. Это не запрет на конструктивную критику: факты и последствия ошибки можно назвать прямо, не унижая человека. В этой части три главы, посвящённые критике, признанию и мотивам другого.",
+          "source_ids": [
+            "https://books.google.com/books?id=1rW-QpIAs8UC&lr=&rview=1",
+            "https://www.wiley-vch.de/en/areas-interest/finance-economics-law/business-management-13ba/general-introductory-business-management-13ba0/business-self-help-13ba01/how-to-win-friends-and-influence-people-978-1-907326-15-8"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "carnegie-friends-v3",
+          "variant_kind": "part_two",
+          "parent_id": "carnegie-friends",
+          "query_patterns": [
+            "Что во второй части книги Карнеги?",
+            "Как Карнеги объясняет интерес к собеседнику и слушание?"
+          ],
+          "text": "Вторая часть собирает шесть приёмов знакомства и разговора. Основу составляет реальный интерес к человеку: спросить о его опыте, внимательно выслушать ответ и выбрать тему, которая ему небезразлична. Улыбка, обращение по имени и первое впечатление присутствуют в оглавлении как способы установить контакт, но без искреннего участия превращаются в пустой ритуал. Практический вывод: во встрече сначала понять человека и проверить, правильно ли вы его услышали, а затем говорить о себе или предлагать решение.",
+          "source_ids": [
+            "https://books.google.com/books?id=1rW-QpIAs8UC&lr=&rview=1",
+            "https://www.wiley-vch.de/en/areas-interest/finance-economics-law/business-management-13ba/general-introductory-business-management-13ba0/business-self-help-13ba01/how-to-win-friends-and-influence-people-978-1-907326-15-8"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "carnegie-friends-v4",
+          "variant_kind": "part_three",
+          "parent_id": "carnegie-friends",
+          "query_patterns": [
+            "Что в третьей части книги Карнеги?",
+            "Как Карнеги предлагает вести спор?"
+          ],
+          "text": "Третья часть посвящена убеждению без унижения оппонента. Главы о споре, признании собственной ошибки, дружелюбном начале и сотрудничестве ведут к мысли: победа в словесной перепалке редко равна взаимному пониманию. Вместо немедленного «вы неправы» полезно выяснить доводы человека, назвать общую задачу и предложить проверяемый шаг. Это пересказ авторской позиции, а не правило избегать любой принципиальной дискуссии: при серьёзном расхождении можно спокойно и ясно отстаивать свою границу.",
+          "source_ids": [
+            "https://books.google.com/books?id=1rW-QpIAs8UC&lr=&rview=1",
+            "https://www.wiley-vch.de/en/areas-interest/finance-economics-law/business-management-13ba/general-introductory-business-management-13ba0/business-self-help-13ba01/how-to-win-friends-and-influence-people-978-1-907326-15-8"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "carnegie-friends-v5",
+          "variant_kind": "part_four",
+          "parent_id": "carnegie-friends",
+          "query_patterns": [
+            "Что в четвёртой части книги Карнеги?",
+            "Как Карнеги советует давать обратную связь?"
+          ],
+          "text": "Четвёртая часть рассматривает лидерство и изменение поведения без унижения. Названия глав ведут от признания хорошей работы и разговора о собственных ошибках к вопросам вместо приказов, сохранению достоинства собеседника и поддержке конкретного прогресса. В практическом разговоре это означает назвать выполненное точно, описать проблему без ярлыка и согласовать следующий шаг. Похвала не должна быть скрытой приманкой к критике, а уважительная форма не отменяет ответственности за результат.",
+          "source_ids": [
+            "https://books.google.com/books?id=1rW-QpIAs8UC&lr=&rview=1",
+            "https://www.wiley-vch.de/en/areas-interest/finance-economics-law/business-management-13ba/general-introductory-business-management-13ba0/business-self-help-13ba01/how-to-win-friends-and-influence-people-978-1-907326-15-8"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "carnegie-friends-v6",
+          "variant_kind": "critical_analysis",
+          "parent_id": "carnegie-friends",
+          "query_patterns": [
+            "В чём ограничения советов Карнеги?",
+            "Карнеги учит манипулировать людьми?"
+          ],
+          "text": "Советы Карнеги можно читать как приглашение слушать и не унижать, но их легко превратить в инструмент получения согласия любой ценой. Содержательная критика книги состоит в напряжении между искренним интересом и инструментальным влиянием. Истории автора не являются контролируемым доказательством результата для каждого человека и культуры. Поэтому применять приёмы стоит только там, где они помогают взаимопониманию: другой вправе не соглашаться, а в опасных или принудительных отношениях вежливость не заменяет границ и безопасности. Это аналитический вывод, не обещание книги.",
+          "source_ids": [
+            "https://www.simonandschuster.com/books/How-to-Win-Friends-and-Influence-People/Dale-Carnegie/Dale-Carnegie-Books/9780671027032",
+            "https://books.google.com/books?id=1rW-QpIAs8UC&lr=&rview=1",
+            "https://wwws.loc.gov/exhibits/books-that-shaped-america/1900-to-1950.html"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "carnegie-friends-v7",
+          "variant_kind": "practical_application",
+          "parent_id": "carnegie-friends",
+          "query_patterns": [
+            "Как применить идеи Карнеги на работе?",
+            "Пример применения книги Карнеги в разговоре"
+          ],
+          "text": "Авторская иллюстрация, а не эпизод книги: коллега задержал общий документ. Вместо публичного обвинения можно сначала уточнить причину и назвать конкретный эффект задержки: «Отчёт нужен к пятнице; что мешает завершить твою часть?» Затем предложить помощь или согласовать срок. Если проблема повторяется, она всё равно требует ясной договорённости и ответственности. Такой пример соединяет интерес к позиции другого, отсутствие унижения и практический следующий шаг; он не гарантирует согласия.",
+          "source_ids": [
+            "https://books.google.com/books?id=1rW-QpIAs8UC&lr=&rview=1",
+            "https://www.wiley-vch.de/en/areas-interest/finance-economics-law/business-management-13ba/general-introductory-business-management-13ba0/business-self-help-13ba01/how-to-win-friends-and-influence-people-978-1-907326-15-8"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "carnegie-friends-v8",
+          "variant_kind": "edition_guide",
+          "parent_id": "carnegie-friends",
+          "query_patterns": [
+            "Сколько частей в книге Как завоёвывать друзей?",
+            "Почему в разных изданиях Карнеги разное оглавление?"
+          ],
+          "text": "Число частей зависит от издания. Для четырёхчастного переиздания Simon & Schuster, отражённого в оглавлении Google Books, основные блоки — обращение с людьми, знакомство, убеждение и лидерство. Страница Wiley для издания Capstone Classics 2026 года перечисляет шесть частей, добавляя письма и семейную жизнь. Поэтому пересказ главы и номер страницы нужно привязывать к ISBN и редакции; нельзя считать, что любое русское название или страница совпадёт с английским переизданием.",
+          "source_ids": [
+            "https://books.google.com/books?id=1rW-QpIAs8UC&lr=&rview=1",
+            "https://www.wiley-vch.de/en/areas-interest/finance-economics-law/business-management-13ba/general-introductory-business-management-13ba0/business-self-help-13ba01/how-to-win-friends-and-influence-people-978-1-907326-15-8",
+            "https://www.simonandschuster.com/books/How-to-Win-Friends-and-Influence-People/Dale-Carnegie/Dale-Carnegie-Books/9780671027032"
+          ],
+          "status": "VERIFIED",
+          "generated_by": "Codex after Ollama draft",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ],
+      "research_metadata": {
+        "ollama_model": "qwen3:8b",
+        "ollama_task": "data/Bible/.internal/sources/knowledge3/literature/research/carnegie-friends_task.json",
+        "ollama_draft": "data/Bible/.internal/sources/knowledge3/literature/research/carnegie-friends_ollama_draft.json",
+        "ollama_result": "DRAFT_ONLY: six questions instead of answers, generic sections, four-part generalization; rewritten after edition review",
+        "codex_review": "Simon & Schuster 1998 page; 2010 TOC; LOC 1936; Wiley 2026 six-part TOC; accessible research copy read by part, checked 2026-11-15",
+        "research_copy_url": "https://www.sport-education.eu/pluginfile.php/6541/mod_resource/content/1/HOW%20WIN%20FRIENDS%20INFLUENCE%20PEOPLE.pdf",
+        "research_copy_distribution": "DO_NOT_DISTRIBUTE; edition and rights unconfirmed"
+      },
+      "quality_review": {
+        "status": "VERIFIED",
+        "scope": "new four-part overview, analyses and eight response_variations for the cited edition only; legacy summary/WAV not reverified",
+        "reviewed_by": "Codex",
+        "reviewed_at": "2026-11-15T16:17:50+03:00",
+        "recorded_legacy_status": "SOURCE_LINKED",
+        "source_count": 4,
+        "research_copy_consulted": true,
+        "variant_count": 8,
+        "copyright_check": "original paraphrases; zero quotations; no book text copied",
+        "audio_assessment": "existing 12.437 s parent WAV retained; content correspondence to new children unverified"
+      }
+    },
+    {
+      "id": "carnegie-worry",
+      "author": "Дейл Карнеги",
+      "title": "Как перестать беспокоиться и начать жить",
+      "type": "nonfiction",
+      "access": "summary_only",
+      "summary": "Подходы к разбору тревожащей ситуации, фокус на ближайшем действии и принятии неопределённости; не замена профессиональной помощи.",
+      "topics": [
+        "тревога",
+        "практика",
+        "саморегуляция"
+      ],
+      "sources": [
+        "https://www.simonandschuster.com/books/How-to-Stop-Worrying-and-Start-Living/Dale-Carnegie/9780671733355"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/carnegie-worry.wav",
+      "audio_metadata": {
+        "duration": 11.508,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "nonfiction",
+      "subcategory": "nonfiction",
+      "topic": "Как перестать беспокоиться и начать жить",
+      "questions": [
+        "Как перестать беспокоиться и начать жить",
+        "Подходы к разбору тревожащей ситуации, фокус на ближайшем действии и принятии неопределённости; не замена профессиональной помощи."
+      ],
+      "answer": "Подходы к разбору тревожащей ситуации, фокус на ближайшем действии и принятии неопределённости; не замена профессиональной помощи.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "carnegie-speaking",
+      "author": "Дейл Карнеги",
+      "title": "Как вырабатывать уверенность в себе и влиять на людей, выступая публично",
+      "type": "nonfiction",
+      "access": "summary_only",
+      "summary": "Подготовка выступления, ясная структура, практика и работа с вниманием аудитории.",
+      "topics": [
+        "публичная речь",
+        "уверенность",
+        "обучение"
+      ],
+      "sources": [
+        "https://www.simonandschuster.com/authors/Dale-Carnegie/153"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/carnegie-speaking.wav",
+      "audio_metadata": {
+        "duration": 10.967,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "nonfiction",
+      "subcategory": "nonfiction",
+      "topic": "Как вырабатывать уверенность в себе и влиять на людей, выступая публично",
+      "questions": [
+        "Как вырабатывать уверенность в себе и влиять на людей, выступая публично",
+        "Подготовка выступления, ясная структура, практика и работа с вниманием аудитории."
+      ],
+      "answer": "Подготовка выступления, ясная структура, практика и работа с вниманием аудитории.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "werber-ants",
+      "author": "Бернар Вербер",
+      "title": "Трилогия «Муравьи»",
+      "type": "fiction",
+      "access": "summary_only",
+      "summary": "Фантастический цикл о взаимодействии человеческого общества и цивилизации муравьёв, с темами масштаба, знания и устройства общества.",
+      "topics": [
+        "фантастика",
+        "общество",
+        "эволюция"
+      ],
+      "sources": [
+        "https://www.glenat.com/auteur/bernard-werber/"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/werber-ants.wav",
+      "audio_metadata": {
+        "duration": 11.248,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "fiction",
+      "subcategory": "fiction",
+      "topic": "Трилогия «Муравьи»",
+      "questions": [
+        "Трилогия «Муравьи»",
+        "Фантастический цикл о взаимодействии человеческого общества и цивилизации муравьёв, с темами масштаба, знания и устройства общества."
+      ],
+      "answer": "Фантастический цикл о взаимодействии человеческого общества и цивилизации муравьёв, с темами масштаба, знания и устройства общества.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "werber-thanatonauts",
+      "author": "Бернар Вербер",
+      "title": "Цикл «Танатонавты»",
+      "type": "fiction",
+      "access": "summary_only",
+      "summary": "Философско-фантастический цикл о границах опыта, смерти и человеческом стремлении исследовать неизвестное.",
+      "topics": [
+        "философия",
+        "фантастика",
+        "сознание"
+      ],
+      "sources": [
+        "https://www.albin-michel.fr/auteurs/bernard-werber-17883"
+      ],
+      "status": "SOURCE_LINKED",
+      "audio_status": "AUDIO_READY",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/werber-thanatonauts.wav",
+      "audio_metadata": {
+        "duration": 9.752,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "fiction",
+      "subcategory": "fiction",
+      "topic": "Цикл «Танатонавты»",
+      "questions": [
+        "Цикл «Танатонавты»",
+        "Философско-фантастический цикл о границах опыта, смерти и человеческом стремлении исследовать неизвестное."
+      ],
+      "answer": "Философско-фантастический цикл о границах опыта, смерти и человеческом стремлении исследовать неизвестное.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "high",
+      "related_materials": [],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "defoe-robinson-crusoe",
+      "author": "Даниэль Дефо",
+      "title": "Робинзон Крузо",
+      "type": "public_domain_candidate",
+      "access": "legal_text_source",
+      "summary": "Роман 1719 года о выживании, организации быта, труде и изменении взгляда героя на собственную жизнь.",
+      "topics": [
+        "выживание",
+        "практические навыки",
+        "приключения"
+      ],
+      "sources": [
+        "https://www.gutenberg.org/ebooks/70841/"
+      ],
+      "status": "SOURCE_REVIEW",
+      "audio_status": "AUDIO_PENDING",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/defoe-robinson-crusoe.wav",
+      "audio_metadata": {
+        "duration": 10.82,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "public_domain_candidate",
+      "subcategory": "public_domain_candidate",
+      "topic": "Робинзон Крузо",
+      "questions": [
+        "Робинзон Крузо",
+        "Роман 1719 года о выживании, организации быта, труде и изменении взгляда героя на собственную жизнь."
+      ],
+      "answer": "Роман 1719 года о выживании, организации быта, труде и изменении взгляда героя на собственную жизнь.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "detailed_material": {
+        "context": "Даниэль Дефо опубликовал роман в 1719 году. Это не только приключенческая история, но и ранний роман о труде, собственности, религиозной рефлексии и самоорганизации. Для пересказа используется public-domain текст Project Gutenberg 70841; формулировки ниже являются собственным конспектом.",
+        "plot_by_parts": [
+          "До кораблекрушения: Робинзон нарушает ожидания семьи, выбирает море, переживает плен и несколько морских путешествий. Его стремление к самостоятельности одновременно выражает любопытство и рискованное пренебрежение предупреждениями.",
+          "Остров и организация быта: после крушения Робинзон спасает инструменты и припасы с корабля, строит защищённое жилище, ведёт календарь, осваивает земледелие, выпечку, керамику и разведение животных. Его успех объясняется не одним героическим рывком, а повторяемыми процедурами, учётом запасов и адаптацией к неудачам.",
+          "Страх другого человека: след на песке и следы каннибалов ломают ощущение полной изоляции. Робинзон готовится к угрозе, а встреча с Пятницей превращает сюжет выживания в историю отношений, языка, власти и взаимного обучения.",
+          "Возвращение: спасение связано с конфликтом на английском корабле. Робинзон использует знание острова и накопленные навыки, после чего возвращается в общество уже с иным взглядом на достаток, одиночество и ответственность."
+        ],
+        "characters": [
+          {
+            "name": "Робинзон Крузо",
+            "role": "рассказчик и практик выживания",
+            "motivation": "самостоятельность, безопасность, смысл труда; меняется от самоуверенного искателя приключений к наблюдательному организатору"
+          },
+          {
+            "name": "Пятница",
+            "role": "спасённый союзник и собеседник",
+            "motivation": "безопасность, доверие и участие в общей жизни; образ не следует трактовать только как функцию помощника"
+          },
+          {
+            "name": "капитан корабля",
+            "role": "связь с возвращением",
+            "motivation": "вернуть контроль над судном и экипажем"
+          }
+        ],
+        "analysis": "Центральный конфликт — между желанием автономии и зависимостью от людей, инструментов, природы и социальных норм. Остров позволяет увидеть экономику повседневности: запас становится планом, план — привычкой, а привычка — устойчивостью. Одновременно роман несёт колониальные и религиозные представления своего времени; их нужно обсуждать исторически, а не выдавать за нейтральные современные нормы.",
+        "practical_lens": [
+          "разделять срочные действия и долгосрочные запасы",
+          "фиксировать ресурсы и причины неудач",
+          "строить безопасное жилище до расширения производства",
+          "не путать художественную импровизацию с современной инструкцией по выживанию"
+        ],
+        "discussion_questions": [
+          "Как меняется отношение Робинзона к труду?",
+          "Что в его успехе зависит от спасённых технологий, а не только от личной изобретательности?",
+          "Как интерпретировать отношения Робинзона и Пятницы с учётом исторического контекста?",
+          "Какие решения на острове были бы нерациональны при других климате и ресурсах?"
+        ],
+        "citation_policy": "Не воспроизводить длинные фрагменты перевода; для цитат указывать конкретное издание и главу."
+      },
+      "response_variations": [
+        {
+          "variant_id": "defoe-robinson-crusoe-v1",
+          "variant_kind": "short_overview",
+          "parent_id": "defoe-robinson-crusoe",
+          "text": "Это роман о том, как вынужденное одиночество превращается в долгий проект самоорганизации: Робинзон спасает инструменты, строит быт, ведёт учёт ресурсов, учится трудиться и переосмысливает независимость.",
+          "source_ids": [
+            "https://www.gutenberg.org/ebooks/70841/"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "defoe-robinson-crusoe-v2",
+          "variant_kind": "plot_and_characters",
+          "parent_id": "defoe-robinson-crusoe",
+          "text": "Сюжет удобно разбирать через четыре узла: рискованный выбор моря, организация островного хозяйства, страх после обнаружения следов и встреча с Пятницей, затем возвращение. Пятница важен не только как помощник, но и как проверка взглядов рассказчика на власть и доверие.",
+          "source_ids": [
+            "https://www.gutenberg.org/ebooks/70841/"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "defoe-robinson-crusoe-v3",
+          "variant_kind": "practical_lens",
+          "parent_id": "defoe-robinson-crusoe",
+          "text": "Практический урок романа — сначала безопасность и инвентаризация, затем повторяемые процессы: жильё, вода, пища, инструменты и журнал наблюдений. Это литературная модель мышления, а не современная инструкция по выживанию.",
+          "source_ids": [
+            "https://www.gutenberg.org/ebooks/70841/"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "defoe-robinson-crusoe-v4",
+          "variant_kind": "discussion",
+          "parent_id": "defoe-robinson-crusoe",
+          "text": "Для обсуждения полезно спросить: что в успехе Робинзона создано его трудом, а что спасено с корабля; как меняется его отношение к достатку; и где заканчивается наблюдение за эпохой и начинается критика колониальных представлений.",
+          "source_ids": [
+            "https://www.gutenberg.org/ebooks/70841/"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    },
+    {
+      "id": "verne-mysterious-island",
+      "author": "Жюль Верн",
+      "title": "Таинственный остров",
+      "type": "public_domain_candidate",
+      "access": "legal_text_source",
+      "summary": "Приключенческий роман о группе людей, использующих инженерные знания, наблюдательность и коллективную работу для выживания на острове.",
+      "topics": [
+        "инженерия",
+        "выживание",
+        "научная фантастика"
+      ],
+      "sources": [
+        "https://onlinebooks.library.upenn.edu/webbin/gutbook/lookup?num=1268"
+      ],
+      "status": "SOURCE_REVIEW",
+      "audio_status": "AUDIO_PENDING",
+      "audio_path": "data/Bible/.internal/audio/library/knowledge3/literature/audio/verne-mysterious-island.wav",
+      "audio_metadata": {
+        "duration": 10.076,
+        "samplerate": 44100,
+        "channels": 1
+      },
+      "category": "public_domain_candidate",
+      "subcategory": "public_domain_candidate",
+      "topic": "Таинственный остров",
+      "questions": [
+        "Таинственный остров",
+        "Приключенческий роман о группе людей, использующих инженерные знания, наблюдательность и коллективную работу для выживания на острове."
+      ],
+      "answer": "Приключенческий роман о группе людей, использующих инженерные знания, наблюдательность и коллективную работу для выживания на острове.",
+      "verified_at": "2026-11-15",
+      "version": 1,
+      "confidence": "medium",
+      "related_materials": [],
+      "detailed_material": {
+        "context": "Роман Жюля Верна опубликован в 1874–1875 годах и построен как инженерно-приключенческая история. Для проверки структуры используется Project Gutenberg eBook 1268; пересказ написан самостоятельно и не заменяет конкретный перевод.",
+        "plot_by_parts": [
+          "Dropped from the Clouds: пятеро северян во время Гражданской войны в США бегут на воздушном шаре из Ричмонда и оказываются на необитаемом острове. Инженер Сайрус Смит, журналист Гедеон Спилет, моряк Пенкроф, Герберт и Наб превращают хаотическое спасение в организованную колонию; рядом с ними собака Топ.",
+          "The Abandoned: группа исследует остров, добывает огонь, инструменты, пищу и материалы, строит жильё, мост, лодку и хозяйство. Инженерные решения подаются как цепочка наблюдений, расчётов и коллективного труда, но романтические допущения следует отделять от современных технических инструкций.",
+          "The Secret of the Island: необъяснимые спасения и находки приводят к тайне острова. В финальной части выясняется связь с капитаном Немо и с романом «Двадцать тысяч лье под водой»; колония сталкивается с пиратами, извержением и необходимостью покинуть остров."
+        ],
+        "characters": [
+          {
+            "name": "Сайрус Смит",
+            "role": "инженер и координатор",
+            "function": "превращает знания в коллективные процедуры и принимает решения по ресурсам"
+          },
+          {
+            "name": "Гедеон Спилет",
+            "role": "журналист и наблюдатель",
+            "function": "фиксирует события и сохраняет критический взгляд"
+          },
+          {
+            "name": "Пенкроф",
+            "role": "моряк и практик",
+            "function": "обеспечивает морские и ремесленные навыки"
+          },
+          {
+            "name": "Герберт",
+            "role": "молодой натуралист",
+            "function": "связывает выживание с наблюдением за природой"
+          },
+          {
+            "name": "Наб",
+            "role": "верный участник команды",
+            "function": "поддерживает быт и взаимопомощь"
+          },
+          {
+            "name": "капитан Немо",
+            "role": "скрытый благодетель и связующее звено цикла",
+            "function": "вводит этическую тему тайной помощи и ответственности за технологию"
+          }
+        ],
+        "analysis": "Главная идея — знание становится силой только внутри кооперации, проверки наблюдений и распределения труда. Остров — лаборатория, где технология одновременно освобождает и создаёт зависимость от материалов, энергии и безопасности. Важно обсуждать границу между научным воображением Верна и достоверной инженерией.",
+        "comparison": "В отличие от «Робинзона Крузо», здесь выживает не один герой, а команда с разными компетенциями; поэтому основная единица анализа — не личная стойкость, а система ролей, обмена знаниями и коллективного риска.",
+        "discussion_questions": [
+          "Какие задачи Смит решает инженерно, а какие — организационно?",
+          "Почему автор вводит тайного помощника вместо полностью автономной колонии?",
+          "Какие технологии в романе требуют современных оговорок по безопасности?",
+          "Как меняется смысл слова «цивилизация» на острове?"
+        ],
+        "citation_policy": "Использовать короткие цитаты только с указанием eBook/перевода и части романа; основной ответ строить на пересказе и анализе."
+      },
+      "response_variations": [
+        {
+          "variant_id": "verne-mysterious-island-v1",
+          "variant_kind": "short_overview",
+          "parent_id": "verne-mysterious-island",
+          "text": "«Таинственный остров» — роман о пятерых беглецах, которые превращают необитаемый остров в коллективный проект выживания, а затем сталкиваются с тайной невидимого помощника, пиратами и извержением.",
+          "source_ids": [
+            "https://www.gutenberg.org/ebooks/1268"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "verne-mysterious-island-v2",
+          "variant_kind": "structure_and_characters",
+          "parent_id": "verne-mysterious-island",
+          "text": "Три части романа показывают падение с облаков, создание колонии и раскрытие тайны острова. Сайрус Смит координирует инженерные решения, Пенкроф отвечает за морскую практику, Герберт наблюдает природу, Спилет фиксирует события, Наб поддерживает общую жизнь.",
+          "source_ids": [
+            "https://www.gutenberg.org/ebooks/1268"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "verne-mysterious-island-v3",
+          "variant_kind": "engineering_lens",
+          "parent_id": "verne-mysterious-island",
+          "text": "Инженерный взгляд на роман: сначала наблюдение и поиск материалов, затем огонь, инструменты, жильё, транспорт и хозяйство. Такой порядок показывает зависимость технологий от ресурсов и кооперации, но не заменяет современные расчёты безопасности.",
+          "source_ids": [
+            "https://www.gutenberg.org/ebooks/1268"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        },
+        {
+          "variant_id": "verne-mysterious-island-v4",
+          "variant_kind": "cycle_connections",
+          "parent_id": "verne-mysterious-island",
+          "text": "Связь с циклом Жюля Верна раскрывается через капитана Немо: тайная помощь превращает приключение в размышление о личной ответственности за технологическую силу и о границах автономии колонии.",
+          "source_ids": [
+            "https://www.gutenberg.org/ebooks/1268"
+          ],
+          "status": "SOURCE_REVIEW",
+          "generated_by": "Codex",
+          "verified_by": "Codex",
+          "audio_status": "AUDIO_PENDING"
+        }
+      ],
+      "metadata_basis": "AUDIT_DERIVED; existing source/text/audio fields preserved"
+    }
+  ]
+}

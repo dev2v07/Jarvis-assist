@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "read_only_source": true,
+  "confirmed": true,
+  "project_path": "C:\\projects\\Jarvis\\data\\knowledge3\\guitar\\audio",
+  "snapshot_name": "smoke_daw_checkpoint_20261115",
+  "files": [
+    {
+      "path": "cort-evl-series.wav",
+      "size": 692268,
+      "mtime_ns": 1794709972436771900,
+      "sha256": "78ff8afabfab3b3cc9331a9370c5b18ba7fa5b1d121b8aade5b5c194d8de7fce"
+    },
+    {
+      "path": "cort-evl-z4.wav",
+      "size": 1181044,
+      "mtime_ns": 1794709968307567300,
+      "sha256": "0bb47d613f200a431692334418eacaef6fd0e7e22c9908af54b9773b348895d5"
+    },
+    {
+      "path": "cort-x-series.wav",
+      "size": 1077292,
+      "mtime_ns": 1794709978666763600,
+      "sha256": "0fd74db1770d9758cd67689824266c784b6527910295f042fd1d48b295cc95fb"
+    },
+    {
+      "path": "esp-ltd-ec.wav",
+      "size": 913452,
+      "mtime_ns": 1794710031102556800,
+      "sha256": "b8f5b1289acc85362474b849b79a782b22ff90bfee7147dda0cef8dcc622db74"
+    },
+    {
+      "path": "fender-stratocaster.wav",
+      "size": 921644,
+      "mtime_ns": 1794710015500188900,
+      "sha256": "61d37284244e197d5ebe9d281d89bb8e4e133bbb416370442c332bb7be793daa"
+    },
+    {
+      "path": "gibson-les-paul.wav",
+      "size": 839724,
+      "mtime_ns": 1794710020691048800,
+      "sha256": "3bc44590454b57b6de798aa31f858dffb7a87ccf90da96c74c608983e619ca85"
+    },
+    {
+      "path": "ibanez-grg121dx.wav",
+      "size": 1251928,
+      "mtime_ns": 1794709992208579100,
+      "sha256": "7d40087f7604777804eee24220762bc278b700cbad05ebb6d7e13fbfd08dbda4"
+    },
+    {
+      "path": "ibanez-grg170dx.wav",
+      "size": 1224748,
+      "mtime_ns": 1794709985607234900,
+      "sha256": "c2d3bb68a4dfc017d49205fc276e84f0fc93365eb9ec0628668a699525a033e1"
+    },
+    {
+      "path": "ibanez-rg.wav",
+      "size": 872492,
+      "mtime_ns": 1794709997752467300,
+      "sha256": "ab340e16958b1a938bffd19348742e7404ae9cb69ccfccc8308e8bd836b79bf8"
+    },
+    {
+      "path": "jackson-dinky.wav",
+      "size": 925740,
+      "mtime_ns": 1794710003041491100,
+      "sha256": "9307035bb8193e18707a32ca4d491876152a9167f053173a5e30bc911d4f0ebf"
+    },
+    {
+      "path": "jackson-soloist.wav",
+      "size": 933932,
+      "mtime_ns": 1794710008510161700,
+      "sha256": "c75d3b54041058b157ac8ed7245a88bf8323c41d683d1de01259871bfd6723cc"
+    },
+    {
+      "path": "schecter-hellraiser.wav",
+      "size": 815148,
+      "mtime_ns": 1794710025762152800,
+      "sha256": "50ba8ceb47f7d190c2bdac411c7754a8b7f35e1f64a76d512ce670975c1f9b58"
+    }
+  ],
+  "restore": {
+    "available": false,
+    "requires_confirmed_adapter": true,
+    "note": "Это контрольная точка manifest; исходные файлы не копируются и не изменяются."
+  }
+}

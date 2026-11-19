@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "status": "USER_FACING_SINGLE_BIBLE_VIEW",
+  "source_of_truth": "data/Bible/index/library_catalog.json",
+  "categories": {
+    "Audio": 58,
+    "CPU": 52,
+    "Computer": 384,
+    "Literature": 7,
+    "Music": 6495,
+    "Psychology": 8,
+    "Responses": 229
+  },
+  "internal_storage": "data/Bible/.internal"
+}
